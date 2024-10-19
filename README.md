@@ -6,10 +6,13 @@ Siete pregati di attingere ai link del README prima di chiederli sul gruppo, l'o
 - Link gitHub contenente free api: https://github.com/public-apis/public-apis
 - Tool utile per testare le Api: https://www.postman.com/
 - Link homepage sonarQube, tool per evidenziare code smell: https://www.sonarsource.com/products/sonarqube/
+- Link per Api google Alert: https://developers.google.com/admin-sdk/alertcenter/reference/rest?hl=it
 ### Database locale
 - Link homepage di greenDAO, tool per semplificare l'utilizzo di SQLite database: https://greenrobot.org/greendao/
 # Descrizione GameRise App
 GameRise ha l'obiettivo di raccogliere tutte le statistiche rilevanti di un gioco permettendo ai giocatori di monitorare le proprie prestazioni e i propri progressi in modo semplice ed efficace. I giocatori possono visualizzare grafici e analisi per individuare aree di miglioramento rendendo l'esperienza di gioco più completa.
+## Descrizione delle funzionalità
+L'utente, al primo accesso, scarica da internet le informazioni relative ad un videogioco immettendo un gameID. Tali informazioni dovranno essere salvate in locale per permettere, al secondo accesso, di accedervi offline. 
 ## Attori primari:
 - giocatore: utente finale che usufruisce dell'app
 ### Casi D'uso:
