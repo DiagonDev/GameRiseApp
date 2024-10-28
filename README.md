@@ -13,6 +13,7 @@ Siete pregati di attingere ai link del README prima di chiederli sul gruppo, l'o
 ### Grafica
 Usare i concetti di Material Design (penso spiegherà durante il corso)
 - Link a canva: https://www.canva.com/
+- Link a figma: https://www.figma.com/design/4O1OgOQTGaUA9YtNMErOlu/Untitled?node-id=0-1&t=UsUusf0PfnKCiogJ-1
 # Descrizione GameRise App
 GameRise ha l'obiettivo di raccogliere tutte le statistiche rilevanti di un gioco permettendo ai giocatori di monitorare le proprie prestazioni e i propri progressi in modo semplice ed efficace. I giocatori possono visualizzare grafici e analisi per individuare aree di miglioramento rendendo l'esperienza di gioco più completa.
 ## Descrizione delle funzionalità
