@@ -4,7 +4,7 @@ Siete pregati di attingere ai link del README prima di chiederli sul gruppo, l'o
 - Api di igdb: https://www.igdb.com/api 
 - Api ufficiale di brawl stars: https://developer.brawlstars.com/#/
 - Link gitHub contenente free api: https://github.com/public-apis/public-apis
-- Link gitHub per le icone di brawl https://github.com/LaptopCat/bs-fankit-rehosted/blob/main/logo/Brawl%20Stars%20Logo.png
+- Link gitHub per le icone di brawl https://github.com/LaptopCat/bs-fankit-rehosted/tree/main
 - Tool utile per testare le Api: https://www.postman.com/
 - Link homepage sonarQube, tool per evidenziare code smell: https://www.sonarsource.com/products/sonarqube/
 - Link per Api google Alert: https://developers.google.com/admin-sdk/alertcenter/reference/rest?hl=it
