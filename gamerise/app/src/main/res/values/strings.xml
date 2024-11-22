@@ -4,4 +4,5 @@
     <!-- activity_tag -->
     <string name="mantieni_player_salvato">Mantieni player salvato</string>
     <string name="salvati">Salvati:</string>
+    <string name="inserisci_tag">Inserisci Tag</string>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class TagActivity extends AppCompatActivity {
             return insets;
         });
         EditText insertTag = findViewById(R.id.insertTag);
-        Button search = findViewById(R.id.search);
+        ImageButton search = findViewById(R.id.searchButton);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
