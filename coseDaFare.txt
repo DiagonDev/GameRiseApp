@@ -12,3 +12,4 @@ es. nei personaggi vogliamo vedere le vittorie/sconfitte, skin, ecc
 dopo la grafica capiamo come gestire l'API
 
 test discorddddd
+test 222222
