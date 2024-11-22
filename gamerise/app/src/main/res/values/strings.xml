@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GameRise</string>
+
+    <!-- activity_tag -->
+    <string name="mantieni_player_salvato">Mantieni player salvato</string>
+    <string name="salvati">Salvati:</string>
 </resources>

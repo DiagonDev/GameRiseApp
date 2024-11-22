@@ -10,3 +10,5 @@ es. nei personaggi vogliamo vedere le vittorie/sconfitte, skin, ecc
 (scelta visualizzazione anteprima a3)
 
 dopo la grafica capiamo come gestire l'API
+
+test discorddddd

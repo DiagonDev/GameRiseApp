@@ -7,28 +7,123 @@
     android:layout_height="match_parent"
     tools:context=".ui.TagActivity">
 
-    <EditText
-        android:id="@+id/insertTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints="Inserisci Tag"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/logoApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/search"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="@+id/ho_gl_0.25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ho_gl_0.25" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/middle_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        app:layout_constraintEnd_toEndOf="@id/ve_gl_0.85"
+        app:layout_constraintBottom_toBottomOf="@id/ho_gl_0.45"
+        app:layout_constraintStart_toStartOf="@id/ve_gl_0.15"
+        app:layout_constraintTop_toTopOf="@id/ho_gl_0.45">
+
+        <EditText
+            android:id="@+id/insertTag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="Inserisci Tag"
+            android:text="InserisciTag"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/searchButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageButton
+        android:id="@+id/checkbox_button"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toStartOf="@+id/mantieni_player_salvato_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/insertTag" />
+
+    <TextView
+        android:id="@+id/mantieni_player_salvato_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mantieni_player_salvato"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/checkbox_button"
+        app:layout_constraintTop_toBottomOf="@+id/insertTag" />
+
+    <TextView
+        android:id="@+id/salvati_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/salvati"
+        app:layout_constraintBottom_toTopOf="@id/ho_gl_0.75"
+        app:layout_constraintEnd_toEndOf="@id/ve_gl_0.85"
+        app:layout_constraintStart_toStartOf="@id/ve_gl_0.15" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/salvati_textView" />
+
+    <!-- guideline -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ho_gl_0.45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ho_gl_0.25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ho_gl_0.75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ve_gl_0.15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ve_gl_0.85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ve_gl_0.75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
