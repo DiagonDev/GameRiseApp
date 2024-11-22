@@ -1,3 +1,7 @@
 .GameRise-App1.vp*
 GameRise-App1.vpp.*
-gamerise\caches\
+gamerise/android/
+gamerise/caches/
+gamerise/daemon/
+gamerise/native/
+gamerise/wrapper/
