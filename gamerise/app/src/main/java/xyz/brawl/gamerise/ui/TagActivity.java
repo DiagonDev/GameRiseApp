@@ -3,19 +3,30 @@ package xyz.brawl.gamerise.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.ui.recyclers.tag.Tag;
+import xyz.brawl.gamerise.ui.recyclers.tag.TagAdapter;
 
 public class TagActivity extends AppCompatActivity {
+
+    private boolean checked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +39,37 @@ public class TagActivity extends AppCompatActivity {
             return insets;
         });
         EditText insertTag = findViewById(R.id.insertTag);
-        ImageButton search = findViewById(R.id.searchButton);
-        search.setOnClickListener(new View.OnClickListener() {
+        ImageButton searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
+
+        //test animation checkbox
+        ImageButton checkboxButton = findViewById(R.id.checkbox_button);
+        checkboxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!checked) {
+                    checkboxButton.setImageResource(R.drawable.baseline_check_box_24);
+                    checked = true;
+                } else {
+                    checkboxButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
+                    checked = false;
+                }
+
+            }
+        });
+
+        //test recycler view
+        List<Tag> tags = new ArrayList<>();
+        tags.add(new Tag("Giocatore1", "Tag1"));
+        tags.add(new Tag("Giocatore2", "Tag2"));
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new TagAdapter(tags));
     }
 }
