@@ -5,4 +5,9 @@
     <string name="mantieni_player_salvato">Mantieni player salvato</string>
     <string name="salvati">Salvati:</string>
     <string name="inserisci_tag">Inserisci Tag</string>
+
+    <!-- layout_logo_app -->
+    <string name="nome_giocatore">Nome Giocatore</string>
+    <!-- activity_battle_log -->
+    <string name="ultime_partite">Ultime partite:</string>
 </resources>

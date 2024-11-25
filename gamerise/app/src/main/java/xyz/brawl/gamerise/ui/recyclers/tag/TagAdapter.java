@@ -1,6 +1,5 @@
 package xyz.brawl.gamerise.ui.recyclers.tag;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -21,7 +20,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
     @NonNull
     @Override
     public TagViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TagViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.tag_view, parent, false));
+        return new TagViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler_tag, parent, false));
     }
 
     @Override

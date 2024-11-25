@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/gold_gradient_shape"
+    android:orientation="vertical">
+
+    <TableRow
+        android:id="@+id/riga1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.20">
+
+        <ImageView
+            android:id="@+id/game_mode_imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_weight="0.25"
+            android:src="@drawable/change_icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_weight="0.45"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.75"
+                android:gravity="center|start"
+                android:text="Test_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.30"
+                android:text="Test_sub" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="+/-n"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/change_icon" />
+
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/riga2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.80">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_weight="1"
+            android:src="@drawable/change_icon" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_weight="1"
+            android:src="@drawable/change_icon" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_weight="1"
+            android:src="@drawable/change_icon" />
+    </TableRow>
+</TableLayout>
