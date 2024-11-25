@@ -48,6 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <!-- Possibilità di mettere un helper text -->
             <EditText
                 android:id="@+id/insertTag"
                 android:layout_width="0dp"
