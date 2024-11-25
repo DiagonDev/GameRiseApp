@@ -16,3 +16,4 @@ local.properties
 
 # aggiunte da noi
 .gradle/config.properties
+gamerise/.idea/deploymentTargetSelector.xml

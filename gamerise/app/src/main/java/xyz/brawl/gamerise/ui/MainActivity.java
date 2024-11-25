@@ -13,6 +13,9 @@ import xyz.brawl.gamerise.R;
 public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
+
+        System.out.println("STIAMO FACENDO COSE");
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 

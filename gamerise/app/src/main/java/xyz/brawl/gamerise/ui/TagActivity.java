@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.api.ApiController;
 import xyz.brawl.gamerise.ui.recyclers.tag.Tag;
 import xyz.brawl.gamerise.ui.recyclers.tag.TagAdapter;
 
@@ -44,6 +45,17 @@ public class TagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(TagActivity.this, MainActivity.class);
+
+                System.out.println("abbiamo premuto il pulsante");
+
+                ApiController apiController = new ApiController();
+                String userInputTag = String.valueOf(insertTag.getText());
+
+                if (apiController.tagIsPlayer(userInputTag))
+                    Toast.makeText(TagActivity.this, "TAG VALIDA", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(TagActivity.this, "TAG NON VALIDA", Toast.LENGTH_SHORT).show();
+
                 startActivity(i);
             }
         });
