@@ -8,7 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 35710
+EXPOSE 5555
 
 CMD [ "python3", "./proxy.py" ]
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:35710", "proxy:proxy"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5555", "proxy:proxy"]
+

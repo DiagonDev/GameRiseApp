@@ -4,24 +4,28 @@ from urllib.parse import quote
 
 proxy = Flask(__name__)
 
+# Base URL of the external API
 BASE_URL = 'https://api.brawlstars.com/v1'
 
 def forward_request(path):
-    api_key = request.headers.get('Authorization')
+    # Extract the API key from the request headers
+    # api_key = request.headers.get('Authorization')
     
-    if not api_key:
-        return jsonify({'message': 'Authorization header is missing'}), 400
+    # if not api_key:
+    #    return jsonify({'message': 'Authorization header is missing'}), 400
 
+    # Full URL of the external API endpoint
     external_api_url = f'{BASE_URL}{path}'
     
-    print(external_api_url)
-
+    # Set up the headers for the request to the external API
     headers = {
-        'Authorization': api_key
+            'Authorization': 'Bearer <token>'
     }
 
+    # Make a GET request to the external API
     response = requests.get(external_api_url, headers=headers)
     
+    # Return the JSON response from the external API
     if response.status_code == 200:
         return jsonify(response.json())
     else:
@@ -73,5 +77,3 @@ def get_event_rotation():
 
 if __name__ == '__main__':
     proxy.run(debug=True)
-
-
