@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import kotlin.jvm.internal.Ref;
+
 public class ApiController {
     ApiClient ac;
     public ApiController() {
@@ -30,12 +32,11 @@ public class ApiController {
     }
 
 
-    public String threadedNetworkRequest(String tag) {
+    public String threadedNetworkRequest(String endpoint) {
         String result = null;
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         Callable<String> task = () -> {
-            final String endpoint = "players/" + "%23" + tag;
             return ac.get(endpoint);
         };
 
@@ -51,4 +52,29 @@ public class ApiController {
 
         return result;
     }
+
+    public String battlelog (String tag){
+        return threadedNetworkRequest( "/player/%23" + tag + "/battlelog");
+    }
+
+    public String members (String clubTag){
+        return threadedNetworkRequest( "/clubs/%23" + clubTag + "/members");
+    }
+
+    public String clubs (String clubTag){
+        return threadedNetworkRequest( "/clubs/%23" + clubTag);
+    }
+
+    public String listBrawlers (){
+        return threadedNetworkRequest( "/brawlers");
+    }
+
+    public String brawlersID (int brawlerId){
+        return threadedNetworkRequest( "/brawlers/%23" + brawlerId );
+    }
+
+    public String events (){
+        return threadedNetworkRequest("/events/rotation");
+    }
+
 }
