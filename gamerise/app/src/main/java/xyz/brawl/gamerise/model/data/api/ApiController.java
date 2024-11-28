@@ -65,4 +65,29 @@ public class ApiController {
         return threadedNetworkRequest("/rankings/" + countryCode + "/players");
     }
 
+
+    public String battlelog (String tag){
+        return threadedNetworkRequest( "/player/%23" + tag + "/battlelog");
+    }
+
+    public String members (String clubTag){
+        return threadedNetworkRequest( "/clubs/%23" + clubTag + "/members");
+    }
+
+    public String clubs (String clubTag){
+        return threadedNetworkRequest( "/clubs/%23" + clubTag);
+    }
+
+    public String listBrawlers (){
+        return threadedNetworkRequest( "/brawlers");
+    }
+
+    public String brawlersID (int brawlerId){
+        return threadedNetworkRequest( "/brawlers/%23" + brawlerId );
+    }
+
+    public String events (){
+        return threadedNetworkRequest("/events/rotation");
+    }
+
 }
