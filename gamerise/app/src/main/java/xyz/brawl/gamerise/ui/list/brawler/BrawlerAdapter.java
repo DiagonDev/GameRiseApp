@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +35,8 @@ public class BrawlerAdapter extends ArrayAdapter<Brawler> {
 
         ImageView brawlerPinImageView = convertView.findViewById(R.id.brawler_pin_imageView);
         brawlerPinImageView.setImageResource(brawlers.get(position).brawlerPin);
-
+        TextView brawlerNameTextView = convertView.findViewById(R.id.brawler_name_textView);
+        brawlerNameTextView.setText(brawlers.get(position).brawlerName);
         convertView.setOnClickListener(view -> {
             Toast.makeText(getContext(), "Brawler " + position + " clicked", Toast.LENGTH_SHORT).show();
         });

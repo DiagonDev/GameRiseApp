@@ -3,6 +3,7 @@ package xyz.brawl.gamerise.util;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.data.brawler.Brawler;
 
 public class Constants {
     public enum GameMode{
@@ -37,8 +38,13 @@ public class Constants {
 
     //TODO: inserire le costanti come lez prof
 
-    //TODO: generare lista
+    //TODO: generare lista brawlers
     public static List<Battle> getBattleList() {
+        //TODO: inserire lista
+        return null;
+    }
+    //TODO: generare lista brawlers
+    public static List<Brawler> getBrawlerList() {
         //TODO: inserire lista
         return null;
     }
