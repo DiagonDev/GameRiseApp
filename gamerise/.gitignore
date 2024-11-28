@@ -1,5 +1,8 @@
+# IntelliJ IDEA
 *.iml
-.gradle
+*.iws
+
+# User-specific configurations
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -7,13 +10,19 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
-
-# aggiunte da noi
-.gradle/config.properties
 gamerise/.idea/deploymentTargetSelector.xml
+gamerise/.idea/misc.xml
+
+# Gradle files
+.gradle
+.gradle/
+build/
+.gradle/config.properties
+
+# macOS Desktop Services store
+.DS_Store
