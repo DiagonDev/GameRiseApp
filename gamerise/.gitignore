@@ -1,5 +1,8 @@
+# IntelliJ IDEA
 *.iml
-.gradle
+*.iws
+
+# Android Studio configurations
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -7,13 +10,30 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
+/.idea/deploymentTargetSelector.xml
+/.idea/misc.xml
+/.idea/studiobot.xml
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+app/build
+android
+caches
+daemon
+native
+wrapper
 
-# aggiunte da noi
+# Gradle files
+.gradle
+.gradle/
+build/
 .gradle/config.properties
-gamerise/.idea/deploymentTargetSelector.xml
+
+# macOS Desktop Services store
+.DS_Store
+
+# Visual Paradigm
+../GameRise-App1.vpp.*
+../.GameRise-App1.vp*

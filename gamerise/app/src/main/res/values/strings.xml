@@ -6,8 +6,22 @@
     <string name="salvati">Salvati:</string>
     <string name="inserisci_tag">Inserisci Tag</string>
 
-    <!-- layout_logo_app -->
+    <!-- activity_main -->
     <string name="nome_giocatore">Nome Giocatore</string>
+
+    <!-- bottom_navigation_menu -->
+    <string name="battleLog">BattleLog</string>
+    <string name="brawlers">Brawlers</string>
+    <string name="ranked">Ranked</string>
+
     <!-- activity_battle_log -->
     <string name="ultime_partite">Ultime partite:</string>
+
+    <!-- fragment_brawlers -->
+    <string name="ordina_per">Ordina per</string>
+
+    <!-- menu_dropdown -->
+    <string name="rarità">Rarità</string>
+    <string name="più_giocati">Più giocati</string>
+
 </resources>
