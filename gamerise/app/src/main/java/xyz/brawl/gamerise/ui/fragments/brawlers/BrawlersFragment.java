@@ -12,10 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.model.data.brawler.Brawler;
+import xyz.brawl.gamerise.ui.list.brawler.BrawlerAdapter;
 import xyz.brawl.gamerise.ui.viewmodel.brawlers.BrawlersViewModel;
 
 public class BrawlersFragment extends Fragment {
@@ -31,8 +37,7 @@ public class BrawlersFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
 
-
-        //provvisorio
+        /// provvisorio
         Button dropdownButton = view.findViewById(R.id.dropdown_button);
         dropdownButton.setOnClickListener(view2 -> {
             PopupMenu popupMenu = new PopupMenu(view.getContext(), dropdownButton);
@@ -49,6 +54,15 @@ public class BrawlersFragment extends Fragment {
             });
             popupMenu.show();
         });
+
+        List<Brawler> brawlers = new ArrayList<>();
+        brawlers.add(new Brawler(R.drawable._bit_pin));
+        GridView gridView = view.findViewById(R.id.brawlers_gridview);
+        gridView.setAdapter(new BrawlerAdapter(view.getContext(),
+                R.layout.layout_grid_brawlers,
+                brawlers));
+        /// fine provvisorio
+
         return view;
     }
 

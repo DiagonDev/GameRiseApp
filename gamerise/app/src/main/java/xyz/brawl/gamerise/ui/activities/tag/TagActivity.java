@@ -38,6 +38,7 @@ public class TagActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         EditText insertTag = findViewById(R.id.insertTag);
         ImageButton searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
