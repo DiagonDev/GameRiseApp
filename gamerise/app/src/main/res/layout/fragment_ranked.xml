@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.battlelog.BattleLogFragment"
-    android:layout_marginHorizontal="20dp">
+    tools:context=".ui.fragments.ranked.RankedFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/battle_log_recyclerview"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:text="Hello" />
+
 </FrameLayout>
