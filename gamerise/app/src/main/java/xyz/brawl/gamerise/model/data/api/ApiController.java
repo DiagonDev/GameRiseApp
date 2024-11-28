@@ -49,44 +49,40 @@ public class ApiController {
         return result;
     }
 
-    public String players(String tag) {
+    public String getPlayer(String tag) {
         return threadedNetworkRequest("/players/%23" + tag);
     }
-
-    public String rankingsClubs(String countryCode) {
+    public String getBattlelog (String playerTag){
+        return threadedNetworkRequest( "/player/%23" + playerTag + "/battlelog");
+    }
+    public String getClubsLeaderboard(String countryCode) {
         return threadedNetworkRequest("/rankings/" + countryCode + "/clubs");
     }
 
-    public String rankingsBrawlers(String countryCode, int brawlerId) {
+    public String getBrawlersLeaderboard(String countryCode, int brawlerId) { // "i giocatori con più coppe su quel brawler"
         return threadedNetworkRequest("/rankings/" + countryCode + "/clubs/" + brawlerId);
     }
 
-    public String rankingsPlayers(String countryCode) {
+    public String getPlayersLeaderboard(String countryCode) {
         return threadedNetworkRequest("/rankings/" + countryCode + "/players");
     }
-
-
-    public String battlelog (String tag){
-        return threadedNetworkRequest( "/player/%23" + tag + "/battlelog");
-    }
-
-    public String members (String clubTag){
+    public String getClubMembers (String clubTag) {
         return threadedNetworkRequest( "/clubs/%23" + clubTag + "/members");
     }
 
-    public String clubs (String clubTag){
+    public String getClub (String clubTag) {
         return threadedNetworkRequest( "/clubs/%23" + clubTag);
     }
 
-    public String listBrawlers (){
+    public String getBrawlerList () {
         return threadedNetworkRequest( "/brawlers");
     }
 
-    public String brawlersID (int brawlerId){
-        return threadedNetworkRequest( "/brawlers/%23" + brawlerId );
+    public String getBrawler (int brawlerId){
+        return threadedNetworkRequest( "/brawlers/" + brawlerId );
     }
 
-    public String events (){
+    public String getEvents (){
         return threadedNetworkRequest("/events/rotation");
     }
 
