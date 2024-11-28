@@ -37,7 +37,8 @@ public class Constants {
     }
 
     //TODO: inserire le costanti come lez prof
-
+    public static String knockout = "KNOCKOUT";
+    public static String StormyPlains = "Stormy Plains";
     //TODO: generare lista brawlers
     public static List<Battle> getBattleList() {
         //TODO: inserire lista

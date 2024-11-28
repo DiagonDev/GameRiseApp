@@ -1,22 +1,27 @@
 package xyz.brawl.gamerise.ui.recyclers.battle;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.util.Constants;
 
 public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {
     List<Battle> battles;
+    Context context;
 
-    public BattleAdapter(List<Battle> battles) {
+    public BattleAdapter(List<Battle> battles, Context context) {
         this.battles = battles;
+        this.context = context;
     }
 
     @NonNull
@@ -29,7 +34,18 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BattleViewHolder holder, int position) {
-        holder.title.setText("TEST");
+
+        ///Provvisorio: Se gamemode == KNOCKOUT e mappa Stormy Plains in non ranked
+        holder.gameMode.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.knock_out_icon));
+        holder.title.setText(Constants.knockout);
+        holder.subTitle.setText(Constants.StormyPlains);
+        holder.iconBackgroundTop.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
+        holder.trophies.setText("+8");
+        holder.iconRanked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bronze_belt));
+        holder.iconBackGroundBot.setBackground(ContextCompat.getDrawable(context, R.drawable.stormy_plains_background));
+        holder.player1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable._bit_pin));
+        holder.player2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable._bit_pin));
+        holder.player3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable._bit_pin));
         //TODO: inserire altri elementi
     }
 

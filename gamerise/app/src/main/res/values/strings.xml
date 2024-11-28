@@ -24,4 +24,8 @@
     <string name="rarità">Rarità</string>
     <string name="più_giocati">Più giocati</string>
 
+    <!-- fragment_ranked -->
+    <string name="avanzamento">Avanzamento</string>
+    <string name="brawlers_giocabili">Brawlers Giocabili</string>
+
 </resources>

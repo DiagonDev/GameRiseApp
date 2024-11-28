@@ -10,19 +10,100 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         app:cardElevation="8dp"
-        app:strokeWidth="2dp"
+        app:shapeAppearanceOverlay="@style/CustomCardShape"
         app:strokeColor="@color/black"
-        app:shapeAppearanceOverlay="@style/CustomCardShape">
+        app:strokeWidth="2dp">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/banner_ranked_3_brawl_stars"
-            android:scaleType="centerCrop" />
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_ranked_3_brawl_stars" />
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+        style="@style/CustomTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/avanzamento"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        app:cardElevation="8dp"
+        app:shapeAppearanceOverlay="@style/CustomCardShape"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!-- TODO: settare visibility programmaticamente -->
+                <TextView
+                    android:id="@+id/checkpoint1_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#A1000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/checkpoint2_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/checkpoint2_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#A1000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/checkpoint3_textview"
+                    app:layout_constraintStart_toEndOf="@id/checkpoint1_textview"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/checkpoint3_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#A1000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/checkpoint2_textview"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- TODO: creare un imageView per il background -->
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gold_start"
+                android:text="N coppe che mancano"
+                android:textSize="25sp" />
+
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        style="@style/CustomTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/brawlers_giocabili"
+        android:textSize="30sp" />
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/fragment_container_view"
+        android:name="xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

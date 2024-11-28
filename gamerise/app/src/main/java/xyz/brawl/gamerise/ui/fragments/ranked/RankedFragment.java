@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
 import xyz.brawl.gamerise.ui.viewmodel.ranked.RankedViewModel;
 
 public class RankedFragment extends Fragment {
@@ -27,6 +28,11 @@ public class RankedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ranked, container, false);
+
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_view, new BrawlersFragment())
+                .commit();
         return view;
     }
 

@@ -22,7 +22,7 @@ import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
-import xyz.brawl.gamerise.ui.list.battle.BattleAdapterDepracated;
+
 import xyz.brawl.gamerise.ui.recyclers.battle.BattleAdapter;
 import xyz.brawl.gamerise.ui.recyclers.tag.TagAdapter;
 import xyz.brawl.gamerise.ui.viewmodel.battlelog.BattleLogViewModel;
@@ -45,7 +45,7 @@ public class BattleLogFragment extends Fragment {
         battles.add(new Battle());
         RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new BattleAdapter(battles));
+        recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
         return view;
     }
 

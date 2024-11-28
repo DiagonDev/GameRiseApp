@@ -4,7 +4,6 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,7 +21,8 @@ public class BattleViewHolder extends RecyclerView.ViewHolder {
     TextView title;
     TextView subTitle;
     TextView trophies;
-    TableRow iconBackGround;
+    TableRow iconBackGroundBot;
+    TableRow iconBackgroundTop;
     ImageView iconRanked;
     ImageView player1;
     ImageView player2;
@@ -34,12 +34,12 @@ public class BattleViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.title_textView);
         subTitle = itemView.findViewById(R.id.subTitle_textView);
         trophies = itemView.findViewById(R.id.trophies_textView);
-        iconBackGround = itemView.findViewById(R.id.riga2);
+        iconBackgroundTop = itemView.findViewById(R.id.riga1);
+        iconBackGroundBot = itemView.findViewById(R.id.riga2);
         iconRanked = itemView.findViewById(R.id.icon_ranked);
         player1 = itemView.findViewById(R.id.player1_image);
         player2 = itemView.findViewById(R.id.player2_image);
         player3 = itemView.findViewById(R.id.player3_image);
-
         //Provvisorio
         itemView.setOnClickListener(view -> {
             Toast.makeText(itemView.getContext(), "SI PUO' FARE", Toast.LENGTH_SHORT).show();
