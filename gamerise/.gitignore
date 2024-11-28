@@ -12,6 +12,7 @@
 /.idea/assetWizardSettings.xml
 /.idea/deploymentTargetSelector.xml
 /.idea/misc.xml
+/.idea/studiobot.xml
 /build
 /captures
 .externalNativeBuild

@@ -51,12 +51,13 @@ public class TagActivity extends AppCompatActivity {
                 ApiController apiController = new ApiController();
                 String userInputTag = String.valueOf(insertTag.getText());
 
-                if (apiController.tagIsPlayer(userInputTag))
+                if (apiController.tagIsPlayer(userInputTag)) {
                     Toast.makeText(TagActivity.this, "TAG VALIDA", Toast.LENGTH_SHORT).show();
+                    startActivity(i);
+                }
                 else
                     Toast.makeText(TagActivity.this, "TAG NON VALIDA", Toast.LENGTH_SHORT).show();
 
-                startActivity(i);
             }
         });
 

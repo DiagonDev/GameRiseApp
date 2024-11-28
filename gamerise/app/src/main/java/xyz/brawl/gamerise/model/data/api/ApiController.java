@@ -1,14 +1,19 @@
 package xyz.brawl.gamerise.model.data.api;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class ApiController {
     ApiClient ac;
     public ApiController() {
-        ac = new ApiClient("sk8.fun:35710");
+        ac = new ApiClient("sk8.fun:5223");
     }
     public boolean tagIsPlayer(String tag){
         if (isTag(tag)) {
             System.out.println("mo facciamo la query" + isTag(tag));
-            return endpointPlayers(tag) != null;
+            return threadedNetworkRequest(tag) != null;
         }
         System.out.println("non è una tag");
         return false;
@@ -24,15 +29,26 @@ public class ApiController {
         return input.matches(regex);
     }
 
-    public String endpointPlayers(String tag) {
+
+    public String threadedNetworkRequest(String tag) {
+        String result = null;
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        Callable<String> task = () -> {
+            final String endpoint = "players/" + "%23" + tag;
+            return ac.get(endpoint);
+        };
+
+        Future<String> future = executorService.submit(task);
+
         try {
-            String endpoint = "players/" + "%23" + tag;
-                    String response = ac.get(endpoint);
-            System.out.println("endpoint: " + endpoint + "\nresponse: " + response);
-            return response;
+            result = future.get();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            executorService.shutdown();
         }
-        return null;
+
+        return result;
     }
 }

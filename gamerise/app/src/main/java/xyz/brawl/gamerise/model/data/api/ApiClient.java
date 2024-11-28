@@ -6,8 +6,8 @@ import java.net.URL;
 
 public class ApiClient {
     private String baseUrl = "";
-    private int connectTimeout = 5000;
-    private int readTimeout = 5000;
+    private int connectTimeout = 10000;
+    private int readTimeout = 10000;
 
     ApiClient(String baseUrl, int connectionTimeout, int readTimeout) {
         if (!baseUrl.startsWith("https://")) this.baseUrl = "https://" + baseUrl;
