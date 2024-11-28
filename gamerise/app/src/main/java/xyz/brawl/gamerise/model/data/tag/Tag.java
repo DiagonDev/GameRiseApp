@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.recyclers.tag;
+package xyz.brawl.gamerise.model.data.tag;
 
 public class Tag {
     String nomeGiocatore;

@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.api;
+package xyz.brawl.gamerise.model.data.api;
 
 public class ApiController {
     ApiClient ac;

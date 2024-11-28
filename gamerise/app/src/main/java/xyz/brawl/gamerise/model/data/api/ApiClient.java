@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.api;
+package xyz.brawl.gamerise.model.data.api;
 
 import java.io.*;
 import java.net.HttpURLConnection;

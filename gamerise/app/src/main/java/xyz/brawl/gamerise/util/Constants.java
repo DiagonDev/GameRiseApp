@@ -1,4 +1,8 @@
-package util;
+package xyz.brawl.gamerise.util;
+
+import java.util.List;
+
+import xyz.brawl.gamerise.model.data.battle.Battle;
 
 public class Constants {
     public enum GameMode{
@@ -29,5 +33,13 @@ public class Constants {
         RANKEDDUELS,
         RANKEDTRIOSHOWDOWN,
         RANKEDSOULCOLLOCTOR,
+    }
+
+    //TODO: inserire le costanti come lez prof
+
+    //TODO: generare lista
+    public static List<Battle> getBattleList() {
+        //TODO: inserire lista
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui;
+package xyz.brawl.gamerise.ui.activities.tag;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,8 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.api.ApiController;
-import xyz.brawl.gamerise.ui.recyclers.tag.Tag;
+import xyz.brawl.gamerise.model.data.api.ApiController;
+import xyz.brawl.gamerise.ui.activities.main.MainActivity;
+import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.recyclers.tag.TagAdapter;
 
 public class TagActivity extends AppCompatActivity {
@@ -48,6 +47,7 @@ public class TagActivity extends AppCompatActivity {
 
                 System.out.println("abbiamo premuto il pulsante");
 
+                //TO-DO controllo dentro editText per permettere di cercare solo a requisiti soddisfatti
                 ApiController apiController = new ApiController();
                 String userInputTag = String.valueOf(insertTag.getText());
 
@@ -76,6 +76,7 @@ public class TagActivity extends AppCompatActivity {
             }
         });
 
+        //il recycler view verrà gestito nel ViewModel tramite un Pattern Observer
         //test recycler view
         List<Tag> tags = new ArrayList<>();
         tags.add(new Tag("Giocatore1", "Tag1"));

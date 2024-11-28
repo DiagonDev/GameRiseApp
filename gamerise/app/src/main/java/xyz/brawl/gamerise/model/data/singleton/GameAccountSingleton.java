@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.singleton;
+package xyz.brawl.gamerise.model.data.singleton;
 
 public class GameAccountSingleton {
     private static GameAccountSingleton instance;

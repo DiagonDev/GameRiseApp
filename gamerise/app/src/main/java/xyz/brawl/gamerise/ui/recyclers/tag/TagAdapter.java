@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.model.data.tag.Tag;
 
 public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
     List<Tag> tags;
