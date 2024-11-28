@@ -19,7 +19,7 @@ public class ApiClient {
     ApiClient(String baseUrl) {
         if (!baseUrl.startsWith("https://"))
             baseUrl = "https://" + baseUrl;
-        this.baseUrl = baseUrl + "/";
+        this.baseUrl = baseUrl;
     }
 
     // String response = apiClient.get("/endpoint"));

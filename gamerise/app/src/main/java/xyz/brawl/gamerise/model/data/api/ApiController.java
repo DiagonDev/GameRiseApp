@@ -30,14 +30,11 @@ public class ApiController {
     }
 
 
-    public String threadedNetworkRequest(String tag) {
+    public String threadedNetworkRequest(String endpoint) {
         String result = null;
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        Callable<String> task = () -> {
-            final String endpoint = "players/" + "%23" + tag;
-            return ac.get(endpoint);
-        };
+        Callable<String> task = () -> ac.get(endpoint);
 
         Future<String> future = executorService.submit(task);
 
@@ -51,4 +48,21 @@ public class ApiController {
 
         return result;
     }
+
+    public String players(String tag) {
+        return threadedNetworkRequest("/players/%23" + tag);
+    }
+
+    public String rankingsClubs(String countryCode) {
+        return threadedNetworkRequest("/rankings/" + countryCode + "/clubs");
+    }
+
+    public String rankingsBrawlers(String countryCode, int brawlerId) {
+        return threadedNetworkRequest("/rankings/" + countryCode + "/clubs/" + brawlerId);
+    }
+
+    public String rankingsPlayers(String countryCode) {
+        return threadedNetworkRequest("/rankings/" + countryCode + "/players");
+    }
+
 }
