@@ -1,89 +1,40 @@
 package xyz.brawl.gamerise.model.data.api;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiController {
-    ApiClient ac;
+    private ApiService apiService;
+
     public ApiController() {
-        ac = new ApiClient("sk8.fun:5223");
-    }
-    public boolean tagIsPlayer(String tag){
-        if (isTag(tag)) {
-            System.out.println("mo facciamo la query" + isTag(tag));
-            return threadedNetworkRequest(tag) != null;
-        }
-        System.out.println("non è una tag");
-        return false;
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://sk8.fun:5223/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+
+        apiService = retrofit.create(ApiService.class);
     }
 
-    public boolean isTag(String input) {
-        if (!input.startsWith("#")) {
-            input = "#" + input;
-        }
-
-        String regex = "#[A-Z0-9]+";
-
-        return input.matches(regex);
+    // Metodo generico per gestire le chiamate Retrofit
+    private void makeRequest(Call<String> call, Callback<String> callback) {
+        call.enqueue(callback); // Asincrono, Retrofit gestisce i thread
     }
 
-
-    public String threadedNetworkRequest(String endpoint) {
-        String result = null;
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        Callable<String> task = () -> ac.get(endpoint);
-
-        Future<String> future = executorService.submit(task);
-
-        try {
-            result = future.get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            executorService.shutdown();
-        }
-
-        return result;
+    // Esempi di chiamate:
+    public void getPlayer(String tag, Callback<String> callback) {
+        makeRequest(apiService.getPlayer(tag.replace("#", "%23")), callback);
     }
 
-    public String getPlayer(String tag) {
-        return threadedNetworkRequest("/players/%23" + tag);
-    }
-    public String getBattlelog (String playerTag){
-        return threadedNetworkRequest( "/player/%23" + playerTag + "/battlelog");
-    }
-    public String getClubsLeaderboard(String countryCode) {
-        return threadedNetworkRequest("/rankings/" + countryCode + "/clubs");
+    public void getBattlelog(String tag, Callback<String> callback) {
+        makeRequest(apiService.getBattlelog(tag.replace("#", "%23")), callback);
     }
 
-    public String getBrawlersLeaderboard(String countryCode, int brawlerId) { // "i giocatori con più coppe su quel brawler"
-        return threadedNetworkRequest("/rankings/" + countryCode + "/clubs/" + brawlerId);
-    }
-
-    public String getPlayersLeaderboard(String countryCode) {
-        return threadedNetworkRequest("/rankings/" + countryCode + "/players");
-    }
-    public String getClubMembers (String clubTag) {
-        return threadedNetworkRequest( "/clubs/%23" + clubTag + "/members");
-    }
-
-    public String getClub (String clubTag) {
-        return threadedNetworkRequest( "/clubs/%23" + clubTag);
-    }
-
-    public String getBrawlerList () {
-        return threadedNetworkRequest( "/brawlers");
-    }
-
-    public String getBrawler (int brawlerId){
-        return threadedNetworkRequest( "/brawlers/" + brawlerId );
-    }
-
-    public String getEvents (){
-        return threadedNetworkRequest("/events/rotation");
+    public void getClubsLeaderboard(String countryCode, Callback<String> callback) {
+        makeRequest(apiService.getClubsLeaderboard(countryCode), callback);
     }
 
 }
+
