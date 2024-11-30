@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.brawlers.BrawlerDetailsFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.93" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.27" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/_bit_pin"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toTopOf="@+id/guideline05" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/CustomTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="8-Bit"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <GridLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:rowCount="2"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toTopOf="@+id/guideline25">
+
+        <!-- Prima riga: Trofei -->
+        <TextView
+
+            style="@style/CustomTextViewStyle"
+            android:id="@+id/trofei_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:padding="8dp"
+            android:text="Trofei"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:id="@+id/trofei_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="30/100"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/trofei_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:max="100"
+                android:progress="30"
+                android:progressTint="@color/black" />
+
+        </LinearLayout>
+
+
+        <!-- Seconda riga: Livello -->
+
+        <TextView
+            android:layout_marginTop="15dp"
+            style="@style/CustomTextViewStyle"
+            android:id="@+id/livello_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:padding="8dp"
+            android:text="Livello"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_gravity="fill"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:id="@+id/livello_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="10/11"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/livello_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_row="1"
+                android:max="11"
+                android:progress="10"
+                android:progressTint="@color/black" />
+
+
+        </LinearLayout>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/CustomTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Migliora Liveelo:"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toTopOf="@+id/guideline40" />
+
+    <LinearLayout
+        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV50"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coin" />
+
+        <TextView
+            style="@style/CustomTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="8dp"
+            android:text="1875"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV50"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/starpoints" />
+
+        <TextView
+            style="@style/CustomTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="8dp"
+            android:text="890"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    </LinearLayout>
+
+
+
+    
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+</androidx.constraintlayout.widget.ConstraintLayout>
