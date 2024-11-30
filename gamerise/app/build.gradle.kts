@@ -47,8 +47,9 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.fragment)
-    implementation (libs.retrofit)
-    implementation (libs.retrofit2.converter.scalars) 
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.scalars)
 
 
 }
