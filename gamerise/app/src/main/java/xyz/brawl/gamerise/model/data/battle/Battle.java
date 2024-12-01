@@ -2,7 +2,6 @@ package xyz.brawl.gamerise.model.data.battle;
 
 import android.graphics.drawable.Drawable;
 
-import xyz.brawl.gamerise.R;
 
 public class Battle {
     public String title;

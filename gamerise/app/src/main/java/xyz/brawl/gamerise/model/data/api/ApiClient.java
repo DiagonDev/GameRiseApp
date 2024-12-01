@@ -8,17 +8,18 @@ public class ApiClient {
     private String baseUrl = "";
     private int connectTimeout = 10000;
     private int readTimeout = 10000;
+    private static final String HTTPS = "https://";
 
     ApiClient(String baseUrl, int connectionTimeout, int readTimeout) {
-        if (!baseUrl.startsWith("https://")) this.baseUrl = "https://" + baseUrl;
+        if (!baseUrl.startsWith(HTTPS)) this.baseUrl = "HTTPS" + baseUrl;
         else this.baseUrl = baseUrl;
         this.connectTimeout = connectionTimeout;
         this.readTimeout = readTimeout;
     }
 
     ApiClient(String baseUrl) {
-        if (!baseUrl.startsWith("https://"))
-            baseUrl = "https://" + baseUrl;
+        if (!baseUrl.startsWith(HTTPS))
+            baseUrl = HTTPS + baseUrl;
         this.baseUrl = baseUrl;
     }
 
