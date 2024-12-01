@@ -42,7 +42,7 @@ public class BattleLogFragment extends Fragment {
 
         //Provvisorio
         List<Battle> battles = new ArrayList<>();
-        battles.add(new Battle());
+        battles.add(new Battle(new Battle.BattleBuilder().title("Prova")));
         RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
