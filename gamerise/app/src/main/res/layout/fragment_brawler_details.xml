@@ -12,14 +12,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.07" />
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV95"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.93" />
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV50"
@@ -170,7 +184,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Migliora Liveelo:"
+        android:text="Migliora Livello:"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/guidelineV05"
@@ -233,7 +247,186 @@
 
 
 
-    
+    <LinearLayout
+        android:id="@+id/linearLayoutGadget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/gold_gradient_shape"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV90"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV10"
+        app:layout_constraintTop_toTopOf="@+id/guideline50"
+        >
+
+        <TextView
+
+            style="@style/CustomTextViewStyle"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+
+            android:padding="8dp"
+            android:text="Gadget:"
+            android:textColor="@color/white"
+            android:textSize="23dp" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:columnCount="2"
+
+
+            app:layout_constraintEnd_toStartOf="@+id/guidelineV90"
+            app:layout_constraintStart_toStartOf="@+id/guidelineV10"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout">
+
+            <!-- Prima riga -->
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:src="@drawable/_bit_gadget_01" />
+
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="30dp"
+                android:padding="8dp"
+                android:text="Cheat Cartridge"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <!-- Seconda riga -->
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:src="@drawable/_bit_gadget_02" />
+
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="30dp"
+                android:padding="8dp"
+                android:text="Extra Credits"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+
+        </GridLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/gold_gradient_shape"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline95"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV90"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV10"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGadget">
+
+        <TextView
+
+            style="@style/CustomTextViewStyle"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+
+            android:padding="8dp"
+            android:text="Star power:"
+            android:textColor="@color/white"
+            android:textSize="23dp" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:columnCount="2"
+
+
+            app:layout_constraintEnd_toStartOf="@+id/guidelineV90"
+            app:layout_constraintStart_toStartOf="@+id/guidelineV10"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout">
+
+            <!-- Prima riga -->
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:src="@drawable/_bit_starpower_01" />
+
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="30dp"
+                android:padding="8dp"
+                android:text="Boosted Booster"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <!-- Seconda riga -->
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:src="@drawable/_bit_starpower_02" />
+
+            <TextView
+                style="@style/CustomTextViewStyle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="30dp"
+                android:padding="8dp"
+                android:text="Plugged In"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+
+        </GridLayout>
+
+    </LinearLayout>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline05"
@@ -247,7 +440,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
+        app:layout_constraintGuide_percent="0.39" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
@@ -261,7 +454,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.49" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline95"
@@ -269,4 +462,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
