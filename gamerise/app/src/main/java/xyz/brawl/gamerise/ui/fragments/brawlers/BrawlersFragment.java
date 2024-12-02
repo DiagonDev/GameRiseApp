@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +23,12 @@ import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.brawler.Brawler;
-import xyz.brawl.gamerise.ui.list.brawler.BrawlerAdapter;
-import xyz.brawl.gamerise.ui.viewmodel.brawlers.BrawlersViewModel;
+import xyz.brawl.gamerise.ui.fragments.brawlers.adapter.BrawlerAdapter;
+import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 
 public class BrawlersFragment extends Fragment {
 
-    private BrawlersViewModel mViewModel;
+    private BrawlersViewModel brawlersViewModel;
 
     public static BrawlersFragment newInstance() {
         return new BrawlersFragment();
@@ -35,6 +37,7 @@ public class BrawlersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        brawlersViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
 
         /// provvisorio
@@ -62,11 +65,15 @@ public class BrawlersFragment extends Fragment {
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
+
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
+
+
         gridView.setAdapter(new BrawlerAdapter(view.getContext(),
                 R.layout.layout_grid_brawlers,
                 brawlers));
         /// fine provvisorio
+
 
         return view;
     }
@@ -74,7 +81,7 @@ public class BrawlersFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
+        brawlersViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
         // TODO: Use the ViewModel
     }
 

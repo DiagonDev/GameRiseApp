@@ -23,7 +23,7 @@ import xyz.brawl.gamerise.model.data.api.ApiClient;
 import xyz.brawl.gamerise.model.data.api.ApiController;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.ui.recyclers.tag.TagAdapter;
+import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
 
 public class TagActivity extends AppCompatActivity {
 

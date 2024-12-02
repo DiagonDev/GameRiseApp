@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.viewmodel.main;
+package xyz.brawl.gamerise.ui.viewmodels.main;
 
 import androidx.lifecycle.ViewModel;
 

@@ -46,7 +46,7 @@
             app:iconGravity="textEnd"
             app:iconTint="@color/white" />
 
-        <!-- android name è impostato su brawlersFragment di default -->
+        <!-- android name è impostato su BrawlersFragment di default -->
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
             android:name="xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment"

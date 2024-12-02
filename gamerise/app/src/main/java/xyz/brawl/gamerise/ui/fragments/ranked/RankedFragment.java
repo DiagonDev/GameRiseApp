@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
-import xyz.brawl.gamerise.ui.viewmodel.ranked.RankedViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.ranked.RankedViewModel;
 
 public class RankedFragment extends Fragment {
 

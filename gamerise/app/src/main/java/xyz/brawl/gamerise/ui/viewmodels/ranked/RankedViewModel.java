@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.viewmodel.ranked;
+package xyz.brawl.gamerise.ui.viewmodels.ranked;
 
 import androidx.lifecycle.ViewModel;
 

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("org.sonarqube") version "5.1.0.4882"
 }
 
 android {
@@ -25,6 +26,15 @@ android {
             )
         }
     }
+    sonar {
+        properties {
+            property("sonar.projectKey", "GameRise")
+            property("sonar.host.url", "http://localhost:9000")
+            //expires in 30 days from 30/11
+            property("sonar.login", "sqp_9eed3e383bccccc71e6376e1a155356e50e069c0")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
