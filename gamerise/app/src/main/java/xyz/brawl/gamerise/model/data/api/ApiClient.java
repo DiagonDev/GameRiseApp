@@ -1,54 +1,45 @@
 package xyz.brawl.gamerise.model.data.api;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.concurrent.CompletableFuture;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiClient {
-    private String baseUrl = "";
-    private int connectTimeout = 10000;
-    private int readTimeout = 10000;
-    private static final String HTTPS = "https://";
+    private final ApiService apiService;
+    public ApiClient(String baseUrl) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
 
-    ApiClient(String baseUrl, int connectionTimeout, int readTimeout) {
-        if (!baseUrl.startsWith(HTTPS)) this.baseUrl = "HTTPS" + baseUrl;
-        else this.baseUrl = baseUrl;
-        this.connectTimeout = connectionTimeout;
-        this.readTimeout = readTimeout;
+        this.apiService = retrofit.create(ApiService.class);
     }
 
-    ApiClient(String baseUrl) {
-        if (!baseUrl.startsWith(HTTPS))
-            baseUrl = HTTPS + baseUrl;
-        this.baseUrl = baseUrl;
+    // Metodo generico per gestire le chiamate Retrofit
+    // call = apiService.getBrawlersLeaderboard(countryCode, brawlerId);
+    private CompletableFuture<String> GETRequest(Call<String> call) {
+        CompletableFuture<String> future = new CompletableFuture<>();
+
+        call.enqueue(new Callback<String>() { // async call
+            @Override
+            public void onResponse(Call<String> c, Response<String> response) {
+                if (response.isSuccessful() && response.body() != null)
+                    future.complete(response.body());
+                else future.completeExceptionally(new Exception("Error: " + response.code()));
+            }
+
+            @Override
+            public void onFailure(Call<String> c, Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+        return future;
     }
 
-    // String response = apiClient.get("/endpoint"));
-    // https://developer.brawlstars.com/#/documentation
-    public String get(String endpoint) throws Exception {
-        System.out.println(baseUrl + endpoint);
-        URL url = new URL(baseUrl + endpoint);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
 
-        connection.setConnectTimeout(connectTimeout);
-        connection.setReadTimeout(readTimeout);
-
-        int responseCode = connection.getResponseCode();
-        return handleResponse(connection, responseCode);
-    }
-
-    private String handleResponse(HttpURLConnection connection, int responseCode) throws Exception {
-        BufferedReader in;
-        if (responseCode >= 200 && responseCode < 300)
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        else
-            in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null)
-            response.append(inputLine);
-        in.close();
-        return response.toString();
-    }
 }
+
