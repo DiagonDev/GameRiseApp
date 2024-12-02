@@ -1,7 +1,5 @@
 package xyz.brawl.gamerise.ui.fragments.battlelog;
 
-import static xyz.brawl.gamerise.util.Constants.getBattleList;
-
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +20,8 @@ import java.util.List;
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 
-import xyz.brawl.gamerise.ui.recyclers.battle.BattleAdapter;
-import xyz.brawl.gamerise.ui.recyclers.tag.TagAdapter;
-import xyz.brawl.gamerise.ui.viewmodel.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
+import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 
 public class BattleLogFragment extends Fragment {
 

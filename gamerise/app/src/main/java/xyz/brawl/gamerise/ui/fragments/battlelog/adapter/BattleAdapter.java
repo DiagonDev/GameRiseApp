@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.recyclers.battle;
+package xyz.brawl.gamerise.ui.fragments.battlelog.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

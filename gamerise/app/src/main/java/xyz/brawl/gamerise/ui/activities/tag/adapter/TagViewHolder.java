@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.recyclers.tag;
+package xyz.brawl.gamerise.ui.activities.tag.adapter;
 
 import android.view.View;
 import android.widget.Button;
