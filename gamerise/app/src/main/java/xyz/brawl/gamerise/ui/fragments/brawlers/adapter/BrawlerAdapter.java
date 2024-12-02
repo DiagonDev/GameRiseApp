@@ -1,6 +1,8 @@
 package xyz.brawl.gamerise.ui.fragments.brawlers.adapter;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.brawler.Brawler;
-import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
+import xyz.brawl.gamerise.ui.activities.brawlerdetails.BrawlerDetailsActivity;
 
 
 public class BrawlerAdapter extends ArrayAdapter<Brawler> {
@@ -43,6 +42,10 @@ public class BrawlerAdapter extends ArrayAdapter<Brawler> {
 
         convertView.setOnClickListener(view -> {
             // Quando il brawler viene cliccato, naviga
+            Bundle bundle = new Bundle();
+            bundle.putInt("brawlerId", brawlers.get(position).brawlerId);
+            Intent i = new Intent(getContext(), BrawlerDetailsActivity.class);
+            getContext().startActivity(i);
         });
 
         return convertView;

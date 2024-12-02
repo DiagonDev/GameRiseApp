@@ -68,7 +68,6 @@ public class BrawlersFragment extends Fragment {
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
 
-
         gridView.setAdapter(new BrawlerAdapter(view.getContext(),
                 R.layout.layout_grid_brawlers,
                 brawlers));
