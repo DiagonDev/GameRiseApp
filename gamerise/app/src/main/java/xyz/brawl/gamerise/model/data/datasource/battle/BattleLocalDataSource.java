@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.model.data.battle.datasource;
+package xyz.brawl.gamerise.model.data.datasource.battle;
 
 /**
  * This class represents the local data source for the Battle entity.

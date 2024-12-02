@@ -10,6 +10,9 @@ public class ApiController {
     public ApiController() {
         ac = new ApiClient("sk8.fun:5223");
     }
+
+    //TODO: i controlli andranno nei repository
+
     public boolean tagIsPlayer(String tag){
         if (isTag(tag)) {
             System.out.println("mo facciamo la query" + isTag(tag));
@@ -19,6 +22,7 @@ public class ApiController {
         return false;
     }
 
+    //TODO: isTag può finire in util
     public boolean isTag(String input) {
         if (!input.startsWith("#")) {
             input = "#" + input;
