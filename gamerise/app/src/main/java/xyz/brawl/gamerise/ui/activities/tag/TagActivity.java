@@ -20,7 +20,6 @@ import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.api.ApiClient;
-import xyz.brawl.gamerise.model.data.api.ApiController;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
@@ -50,6 +49,7 @@ public class TagActivity extends AppCompatActivity {
                 System.out.println("abbiamo premuto il pulsante");
 
                 //TO-DO controllo dentro editText per permettere di cercare solo a requisiti soddisfatti
+                /*
                 ApiClient apiController = new ApiClient();
                 String userInputTag = String.valueOf(insertTag.getText());
 
@@ -59,7 +59,7 @@ public class TagActivity extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(TagActivity.this, "TAG NON VALIDA", Toast.LENGTH_SHORT).show();
-
+*/
             }
         });
 

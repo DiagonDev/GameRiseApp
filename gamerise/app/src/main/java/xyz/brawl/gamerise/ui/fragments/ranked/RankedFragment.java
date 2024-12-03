@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
@@ -28,7 +29,8 @@ public class RankedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ranked, container, false);
-
+        TextView coppeProgressText = view.findViewById(R.id.coppe_progress_text);
+        coppeProgressText.setText("30/100");
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_view, new BrawlersFragment())

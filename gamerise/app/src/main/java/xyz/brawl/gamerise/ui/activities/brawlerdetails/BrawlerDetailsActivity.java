@@ -14,6 +14,9 @@ import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import xyz.brawl.gamerise.R;
 
@@ -31,6 +34,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        int brawlerId = getIntent().getIntExtra("brawlerId", -1);
+        Toast.makeText(this, "BrawlerId: " + brawlerId, Toast.LENGTH_SHORT).show();
     }
 }

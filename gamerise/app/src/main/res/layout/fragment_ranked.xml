@@ -40,55 +40,28 @@
         app:shapeAppearanceOverlay="@style/CustomCardShape"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp">
-
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/coppe_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <!-- TODO: settare visibility programmaticamente -->
-                <TextView
-                    android:id="@+id/checkpoint1_textview"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#A1000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/checkpoint2_textview"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/checkpoint2_textview"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#A1000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/checkpoint3_textview"
-                    app:layout_constraintStart_toEndOf="@id/checkpoint1_textview"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/checkpoint3_textview"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="#A1000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/checkpoint2_textview"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <!-- TODO: creare un imageView per il background -->
+                android:layout_height="30dp"
+                android:max="100"
+                android:progress="30"
+                android:layout_gravity="center"
+                android:progressTint="@color/orange" />
             <TextView
-                style="@style/CustomTextViewStyle"
+                android:id="@+id/coppe_progress_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gold_start"
-                android:text="N coppe che mancano"
-                android:textSize="25sp" />
-
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textAppearance="@style/CustomTextViewStyle"
+                />
         </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -98,12 +71,13 @@
         android:layout_marginTop="10dp"
         android:text="@string/brawlers_giocabili"
         android:textSize="30sp" />
+
     <androidx.fragment.app.FragmentContainerView
-        android:layout_marginTop="10dp"
         android:id="@+id/fragment_container_view"
         android:name="xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1" />
 
 </LinearLayout>

@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV05"
         android:layout_width="wrap_content"
@@ -56,7 +57,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.27" />
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <LinearLayout
+        android:id="@+id/previous_brawler_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV25"
+        app:layout_constraintStart_toEndOf="@+id/guidelineV25"
+        app:layout_constraintTop_toTopOf="@+id/imageView">
+
+        <ImageView
+            android:id="@+id/previous_brawler_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/_bit_pin" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:src="@drawable/baseline_keyboard_double_arrow_left_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV75"
+        app:layout_constraintStart_toEndOf="@+id/guidelineV75"
+        app:layout_constraintTop_toTopOf="@+id/imageView">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:src="@drawable/baseline_keyboard_double_arrow_right_24" />
+
+        <ImageView
+            android:id="@+id/next_brawler_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/_bit_pin" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView"
@@ -97,8 +149,8 @@
         <!-- Prima riga: Trofei -->
         <TextView
 
-            style="@style/CustomTextViewStyle"
             android:id="@+id/trofei_label"
+            style="@style/CustomTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -117,8 +169,8 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/CustomTextViewStyle"
                 android:id="@+id/trofei_score"
+                style="@style/CustomTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -141,30 +193,30 @@
         <!-- Seconda riga: Livello -->
 
         <TextView
-            android:layout_marginTop="15dp"
-            style="@style/CustomTextViewStyle"
             android:id="@+id/livello_label"
+            style="@style/CustomTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="0"
+            android:layout_marginTop="15dp"
             android:padding="8dp"
             android:text="Livello"
             android:textColor="@color/white"
             android:textSize="18dp" />
 
         <LinearLayout
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="1"
             android:layout_gravity="fill"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
 
             <TextView
-                style="@style/CustomTextViewStyle"
                 android:id="@+id/livello_score"
+                style="@style/CustomTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -200,17 +252,17 @@
         app:layout_constraintTop_toTopOf="@+id/guideline40" />
 
     <LinearLayout
-        android:layout_marginStart="8dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineV50"
         app:layout_constraintStart_toStartOf="@+id/guidelineV05"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <ImageView
-            android:layout_gravity="center"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/coin" />
 
@@ -226,6 +278,7 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineV05"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -235,9 +288,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <ImageView
-            android:layout_gravity="center"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/starpoints" />
 
@@ -255,7 +308,6 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/linearLayoutGadget"
         android:layout_width="0dp"
@@ -267,8 +319,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineV90"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineV10"
-        app:layout_constraintTop_toTopOf="@+id/guideline50"
-        >
+        app:layout_constraintTop_toTopOf="@+id/guideline50">
 
         <TextView
 

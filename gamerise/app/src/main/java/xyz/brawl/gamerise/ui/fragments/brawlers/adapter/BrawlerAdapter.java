@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
@@ -31,6 +33,7 @@ public class BrawlerAdapter extends ArrayAdapter<Brawler> {
         this.brawlers = brawlers;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
@@ -42,9 +45,8 @@ public class BrawlerAdapter extends ArrayAdapter<Brawler> {
 
         convertView.setOnClickListener(view -> {
             // Quando il brawler viene cliccato, naviga
-            Bundle bundle = new Bundle();
-            bundle.putInt("brawlerId", brawlers.get(position).brawlerId);
             Intent i = new Intent(getContext(), BrawlerDetailsActivity.class);
+            i.putExtra("brawlerId", brawlers.get(position).brawlerId);
             getContext().startActivity(i);
         });
 

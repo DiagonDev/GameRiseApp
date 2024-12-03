@@ -24,20 +24,6 @@ public abstract class AbstractRemoteDataSource {
      */
     public String threadedNetworkRequest(String endpoint) {
         String result = null;
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        Callable<String> task = () -> apiClient.get(endpoint);
-
-        Future<String> future = executorService.submit(task);
-
-        try {
-            result = future.get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            executorService.shutdown();
-        }
-
         return result;
     }
 
