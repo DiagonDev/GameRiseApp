@@ -46,10 +46,10 @@
             app:iconGravity="textEnd"
             app:iconTint="@color/white" />
 
-        <!-- android name è impostato su BrawlersFragment di default -->
+        <!-- android name è impostato su BattleLogFragment di default -->
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
-            android:name="xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment"
+            android:name="xyz.brawl.gamerise.ui.fragments.battlelog.BattleLogFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import xyz.brawl.gamerise.R;
@@ -36,5 +37,13 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         });
         int brawlerId = getIntent().getIntExtra("brawlerId", -1);
         Toast.makeText(this, "BrawlerId: " + brawlerId, Toast.LENGTH_SHORT).show();
+        LinearLayout previousBrawlerLayout = findViewById(R.id.previous_brawler_layout);
+        LinearLayout nextBrawlerLayout = findViewById(R.id.next_brawler_layout);
+        previousBrawlerLayout.setOnClickListener(v -> {
+            Toast.makeText(this, "Previous Brawler Clicked", Toast.LENGTH_SHORT).show();
+        });
+        nextBrawlerLayout.setOnClickListener(v -> {
+            Toast.makeText(this, "Next Brawler Clicked", Toast.LENGTH_SHORT).show();
+        });
     }
 }

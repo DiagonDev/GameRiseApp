@@ -14,6 +14,7 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.ui.fragments.battlelog.BattleLogFragment;
 import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
 import xyz.brawl.gamerise.ui.fragments.ranked.RankedFragment;
+import xyz.brawl.gamerise.ui.fragments.stats.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container_view, new RankedFragment())
+                        .commit();
+                return true;
+            } else if (item.getItemId() == R.id.item_4) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_view, new StatsFragment())
                         .commit();
                 return true;
             }
