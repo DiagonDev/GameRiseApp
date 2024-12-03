@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.stats.StatsFragment">
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gold_gradient_shape"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toTopOf="@+id/guideline03">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Statistiche Generali"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <GridLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:rowCount="3"
+        android:columnCount="2"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV45"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV05"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trofei"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="0"
+            android:layout_row="0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1700"
+            android:layout_gravity="center|end"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="1"
+            android:layout_row="0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Livello"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="0"
+            android:layout_row="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="20"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_gravity="center|end"
+            android:layout_column="1"
+            android:layout_row="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Club"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="0"
+            android:layout_row="2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Fig(m)a"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+
+            android:layout_gravity="center|end"
+            android:layout_column="1"
+            android:layout_row="2"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:rowCount="3"
+        android:columnCount="2"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV52"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trofei"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="0"
+            android:layout_row="0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1700"
+            android:layout_gravity="center|end"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="1"
+            android:layout_row="0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Livello"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="0"
+            android:layout_row="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="20"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_gravity="center|end"
+            android:layout_column="1"
+            android:layout_row="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Club"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_column="0"
+            android:layout_row="2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Fig(m)a"
+            android:textAppearance="@style/CustomTextViewStyle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+
+            android:layout_gravity="center|end"
+            android:layout_column="1"
+            android:layout_row="2"/>
+
+    </GridLayout>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline97"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@
     <!-- fragment_ranked -->
     <string name="avanzamento">Avanzamento</string>
     <string name="brawlers_giocabili">Brawlers Giocabili</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
