@@ -1,0 +1,93 @@
+{
+  "items": [
+    {
+      "battle": {
+        "duration": 63,
+        "mode": "knockout",
+        "result": "victory",
+        "starPlayer": {
+          "brawler": {
+            "id": 16000061,
+            "name": "GUS",
+            "power": 6,
+            "trophies": 341
+          },
+          "name": "teo",
+          "tag": "#989VGUU0"
+        },
+        "teams": [
+          [
+            {
+              "brawler": {
+                "id": 16000067,
+                "name": "WILLOW",
+                "power": 7,
+                "trophies": 356
+              },
+              "name": "el pro🏆",
+              "tag": "#YYPVGLJUV"
+            },
+            {
+              "brawler": {
+                "id": 16000030,
+                "name": "EMZ",
+                "power": 8,
+                "trophies": 362
+              },
+              "name": "King mo3tsm 👑",
+              "tag": "#2YPYGLC2VJ"
+            },
+            {
+              "brawler": {
+                "id": 16000001,
+                "name": "COLT",
+                "power": 6,
+                "trophies": 353
+              },
+              "name": "гарделіус",
+              "tag": "#2LU0RYY8V9"
+            }
+          ],
+          [
+            {
+              "brawler": {
+                "id": 16000061,
+                "name": "GUS",
+                "power": 6,
+                "trophies": 341
+              },
+              "name": "teo",
+              "tag": "#989VGUU0"
+            },
+            {
+              "brawler": {
+                "id": 16000008,
+                "name": "NITA",
+                "power": 11,
+                "trophies": 338
+              },
+              "name": "bernacho",
+              "tag": "#2LPGQL09YG"
+            },
+            {
+              "brawler": {
+                "id": 16000035,
+                "name": "GALE",
+                "power": 2,
+                "trophies": 366
+              },
+              "name": "ZƏNGİN. HESAP",
+              "tag": "#2QG9PQJG0U"
+            }
+          ]
+        ],
+        "trophyChange": 11,
+        "type": "ranked"
+      },
+      "battleTime": "20241202T134735.000Z",
+      "event": {
+        "id": 15000703,
+        "map": "New Horizons",
+        "mode": "knockout"
+      }
+    },

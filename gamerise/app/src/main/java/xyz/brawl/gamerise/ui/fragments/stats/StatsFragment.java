@@ -71,7 +71,6 @@ public class StatsFragment extends Fragment {
 
         // Personalizzazioni
         //TODO: implementare la description (es. stats ultime n partite)
-        scatterChart.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
         scatterChart.setMinimumHeight(500);
         scatterChart.getDescription().setEnabled(false); // Rimuove la descrizione del grafico
         scatterChart.getLegend().setEnabled(false); // Nasconde la legenda

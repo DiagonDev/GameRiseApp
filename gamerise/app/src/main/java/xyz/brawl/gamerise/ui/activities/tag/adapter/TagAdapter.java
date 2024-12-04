@@ -4,12 +4,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 
 public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
     List<Tag> tags;
@@ -30,6 +32,15 @@ public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
         holder.nomeGiocatoreTextView.setText(tags.get(position).getNomeGiocatore());
     }
 
+    public void addTag(Tag newTag) {
+        this.tags.add(newTag);
+        notifyItemInserted(tags.size() - 1);
+    }
+    public void updateTags(List<Tag> newTags) {
+        this.tags.clear();
+        this.tags.addAll(newTags);
+        notifyDataSetChanged(); // Aggiorna il RecyclerView
+    }
     @Override
     public int getItemCount() {
         return tags.size();
