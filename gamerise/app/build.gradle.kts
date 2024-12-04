@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -52,14 +51,14 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.room.common)
     testImplementation(libs.junit)
     implementation(libs.material.vversion)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.fragment)
     implementation(libs.mpandroidchart)
+    implementation(libs.room.runtime)
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.scalars)
-
-
 }
