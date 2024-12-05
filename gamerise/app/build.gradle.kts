@@ -61,4 +61,6 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.scalars)
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
 }

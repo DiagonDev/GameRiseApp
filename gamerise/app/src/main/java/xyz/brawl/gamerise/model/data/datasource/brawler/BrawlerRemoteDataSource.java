@@ -1,5 +1,7 @@
 package xyz.brawl.gamerise.model.data.datasource.brawler;
 
+import com.google.gson.Gson;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -7,10 +9,8 @@ import xyz.brawl.gamerise.model.data.datasource.AbstractRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
 
 public class BrawlerRemoteDataSource extends AbstractRemoteDataSource {
-    private final ApiService apiService;
     protected BrawlerRemoteDataSource(ApiService apiService) {
-        super();
-        this.apiService = apiService;
+        super(apiService);
     }
 
     /**
@@ -19,7 +19,7 @@ public class BrawlerRemoteDataSource extends AbstractRemoteDataSource {
      * @return Lista di brawlers.
      */
     public String getBrawlerList() {
-        CompletableFuture<String> future = super.makeGETRequest(apiService.getBrawlerList());
+        CompletableFuture<Gson> future = super.makeGETRequest(apiService.getBrawlerList());
         try {
             return future.get();
         } catch (ExecutionException | InterruptedException e) {

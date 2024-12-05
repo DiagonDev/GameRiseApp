@@ -1,29 +1,47 @@
 package xyz.brawl.gamerise.model.data.datasource.brawler;
 
+import retrofit2.Retrofit;
+import xyz.brawl.gamerise.model.data.brawler.Brawler;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
 
 import androidx.lifecycle.LiveData;       // Per gestire i dati reattivi
 import androidx.room.*;             // Per la cancellazione dei dati
 
+import com.google.gson.*;
+
+import java.util.List;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 public class BrawlerRepository {
+    private String baseAPIUrl = "https://sk8.fun:5223/";
+
     private final ApiService apiService;
     // private final MyDao myDao;
 
     public BrawlerRepository(ApiService apiService /* , MyDao myDao */ ) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://sk8.fun:5223/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        apiService = retrofit.create(ApiService.class);
         this.apiService = apiService;
         // this.myDao = myDao;
     }
 
-    // Recupera dati, preferendo la fonte locale, se disponibile
-    public LiveData<List<Data>> getData() {
-        // Primo: prova a ottenere i dati dal database locale
-        LiveData<List<Data>> localData = myDao.getAllData();
+    public LiveData<List<Brawler>> getBrawlers() {
+        Gson json;
+        if (/* i dati sono sul db locale*/ false) {
+            // returnali dal db
+        } else {
+            BrawlerRemoteDataSource remote = new BrawlerRemoteDataSource(apiService);
+            json = remote.getBrawlerList();
 
-        // Secondo: sincronizza i dati da remoto (API)
-        // Questo potrebbe essere fatto in background, magari con un Worker
-        syncDataFromRemote();
-
-        return localData;
+        }
+        return brawlersLiveData;
     }
 
     // Salva dati nel database locale e/o su API remota

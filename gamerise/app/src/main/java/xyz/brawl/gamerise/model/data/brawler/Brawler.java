@@ -24,37 +24,31 @@ public class Brawler {
         private StarPower[] starPowers;
         private Gadget[] gadgets;
 
-        // Metodo per impostare brawlerPin
         public BrawlerBuilder brawlerPin(int brawlerPin) {
             this.brawlerPin = brawlerPin;
             return this;
         }
 
-        // Metodo per impostare id
         public BrawlerBuilder id(int id) {
             this.id = id;
             return this;
         }
 
-        // Metodo per impostare name
         public BrawlerBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        // Metodo per impostare starPowers
         public BrawlerBuilder starPowers(StarPower[] starPowers) {
             this.starPowers = starPowers;
             return this;
         }
 
-        // Metodo per impostare gadgets
         public BrawlerBuilder gadgets(Gadget[] gadgets) {
             this.gadgets = gadgets;
             return this;
         }
 
-        // Metodo per costruire l'oggetto Brawler
         public Brawler build() {
             return new Brawler(brawlerPin, id, name, starPowers, gadgets);
         }

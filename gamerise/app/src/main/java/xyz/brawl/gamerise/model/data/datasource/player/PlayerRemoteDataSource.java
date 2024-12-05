@@ -4,11 +4,9 @@ import xyz.brawl.gamerise.model.data.datasource.AbstractRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
 
 public class PlayerRemoteDataSource extends AbstractRemoteDataSource {
-    private final ApiService apiService;
 
     protected PlayerRemoteDataSource(ApiService apiService) {
-        super();
-        this.apiService = apiService;
+        super(apiService);
     }
 
     public String getPlayerStats(String tag) {

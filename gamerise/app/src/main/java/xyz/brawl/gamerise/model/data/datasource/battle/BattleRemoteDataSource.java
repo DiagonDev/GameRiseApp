@@ -11,11 +11,8 @@ import xyz.brawl.gamerise.model.data.datasource.ApiService;
  * remote because uses the data from the API REST
  */
 public class BattleRemoteDataSource extends AbstractRemoteDataSource {
-    private final ApiService apiService;
-
     public BattleRemoteDataSource(ApiService apiService) {
-        super();
-        this.apiService = apiService;
+        super(apiService);
     }
 
     /**

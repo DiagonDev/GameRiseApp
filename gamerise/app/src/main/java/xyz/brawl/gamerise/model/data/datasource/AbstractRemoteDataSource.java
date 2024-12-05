@@ -1,5 +1,7 @@
 package xyz.brawl.gamerise.model.data.datasource;
 
+import com.google.gson.Gson;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -9,9 +11,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public abstract class AbstractRemoteDataSource {
+    protected final ApiService apiService;
 
-    protected AbstractRemoteDataSource() {
-
+    protected AbstractRemoteDataSource(ApiService apiService) {
+        this.apiService = apiService;
     }
 
     /**
@@ -22,7 +25,7 @@ public abstract class AbstractRemoteDataSource {
 
     // Metodo generico per gestire le chiamate Retrofit
     // call = apiService.getBrawlersLeaderboard(countryCode, brawlerId);
-    protected CompletableFuture<String> makeGETRequest(Call<String> call) {
+    protected CompletableFuture<Gson> makeGETRequest(Call<String> call) {
         CompletableFuture<String> future = new CompletableFuture<>();
 
         call.enqueue(new Callback<String>() { // async call
