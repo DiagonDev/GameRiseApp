@@ -58,7 +58,7 @@ public class Battle {
             return this;
         }
 
-        public BattleBuilder iconMod(Drawable iconMod) {
+        public BattleBuilder iconMode(Drawable iconMod) {
             this.iconMod = iconMod;
             return this;
         }

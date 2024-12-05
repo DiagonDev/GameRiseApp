@@ -41,12 +41,12 @@ public class BrawlerAdapter extends ArrayAdapter<Brawler> {
         ImageView brawlerPinImageView = convertView.findViewById(R.id.brawler_pin_imageView);
         brawlerPinImageView.setImageResource(brawlers.get(position).brawlerPin);
         TextView brawlerNameTextView = convertView.findViewById(R.id.brawler_name_textView);
-        brawlerNameTextView.setText(brawlers.get(position).brawlerName);
+        brawlerNameTextView.setText(brawlers.get(position).name);
 
         convertView.setOnClickListener(view -> {
             // Quando il brawler viene cliccato, naviga
             Intent i = new Intent(getContext(), BrawlerDetailsActivity.class);
-            i.putExtra("brawlerId", brawlers.get(position).brawlerId);
+            i.putExtra("brawlerId", brawlers.get(position).id);
             getContext().startActivity(i);
         });
 

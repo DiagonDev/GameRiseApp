@@ -3,42 +3,13 @@ package xyz.brawl.gamerise.model.data.datasource.brawler;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
 
 import androidx.lifecycle.LiveData;       // Per gestire i dati reattivi
-import androidx.room.Dao;                // Per definire le interazioni con il database
-import androidx.room.Insert;             // Per l'inserimento di dati nel database
-import androidx.room.Query;              // Per le query del database
-import androidx.room.Room;               // Per configurare e ottenere un'istanza del database
-import androidx.room.RoomDatabase;       // Per definire la classe del database
-import androidx.room.Delete;             // Per la cancellazione dei dati
+import androidx.room.*;             // Per la cancellazione dei dati
 
-/**
- *
- *
- *
- *
- *
- *
- *
- * NON COMPILA STA ROBA è FATTA DA GPT
- * volevo vedere un po' come sarebbe fatto un repository siccome non ci sono esempi
- * sull'elearning (?)
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- */
 public class BrawlerRepository {
-
-
     private final ApiService apiService;
     // private final MyDao myDao;
 
-    public BrawlerRepository(ApiService apiService, /* MyDao myDao */ ) {
+    public BrawlerRepository(ApiService apiService /* , MyDao myDao */ ) {
         this.apiService = apiService;
         // this.myDao = myDao;
     }
@@ -106,4 +77,4 @@ public class BrawlerRepository {
     }
 
 }
-}
+
