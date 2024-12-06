@@ -6,6 +6,9 @@ import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.brawler.Brawler;
 
 public class Constants {
+
+    public static final String API_ENDPOINT_URL = "https://sk8.fun:5223/";
+
     public enum GameMode{
         GEMGRAB,
         HEIST,

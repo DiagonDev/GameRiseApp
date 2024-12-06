@@ -59,12 +59,12 @@ public class BrawlersFragment extends Fragment {
         });
 
         List<Brawler> brawlers = new ArrayList<>();
+        /*brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
+        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));*/
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
 

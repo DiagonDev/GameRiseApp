@@ -2,8 +2,10 @@ package xyz.brawl.gamerise.ui.activities.tag;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -13,15 +15,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
 import xyz.brawl.gamerise.R;
 
+import xyz.brawl.gamerise.model.data.brawler.Brawler;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerV2;
+import xyz.brawl.gamerise.model.data.brawler.Gadget;
+import xyz.brawl.gamerise.model.data.brawler.StarPower;
+import xyz.brawl.gamerise.model.data.datasource.ApiService;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRepository;
+import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
@@ -57,11 +71,21 @@ public class TagActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
         ImageButton searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (handlerInvioTag()) {
+                BrawlerRepository brawlerRepository = new BrawlerRepository();
+
+                ItemsResponse lista_finale = brawlerRepository.getBrawlers();
+
+                for(BrawlerV2 item : lista_finale.getItems()) {
+                    Toast.makeText(TagActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
+                }
+
+                if (/*handlerInvioTag()*/false) {
                     Intent intent = new Intent(TagActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -124,4 +148,6 @@ public class TagActivity extends AppCompatActivity {
             return false;
         }
     }
+
+
 }

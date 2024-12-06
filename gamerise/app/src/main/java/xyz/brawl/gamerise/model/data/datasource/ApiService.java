@@ -1,8 +1,12 @@
 package xyz.brawl.gamerise.model.data.datasource;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import xyz.brawl.gamerise.model.data.brawler.Brawler;
+import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 
 public interface ApiService {
 
@@ -28,10 +32,10 @@ public interface ApiService {
     Call<String> getClub(@Path("clubTag") String clubTag);
 
     @GET("brawlers")
-    Call<String> getBrawlerList();
+    Call<ItemsResponse> getBrawlerList();
 
     @GET("brawlers/{brawlerId}")
-    Call<String> getBrawler(@Path("brawlerId") int brawlerId);
+    Call<List<Brawler>> getBrawler(@Path("brawlerId") int brawlerId);
 
     @GET("events/rotation")
     Call<String> getEvents();

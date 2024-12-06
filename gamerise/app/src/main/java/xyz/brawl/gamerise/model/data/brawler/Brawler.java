@@ -1,14 +1,16 @@
 package xyz.brawl.gamerise.model.data.brawler;
 
+import java.util.List;
+
 public class Brawler {
     public int brawlerPin;
     public int id;
     public String name;
-    public StarPower[] starPowers;
-    public Gadget[] gadgets;
+    public List<StarPower> starPowers;
+    public List<Gadget> gadgets;
 
     // Costruttore principale
-    public Brawler(int brawlerPin, int id, String name, StarPower[] starPowers, Gadget[] gadgets) {
+    public Brawler(int brawlerPin, int id, String name, List<StarPower> starPowers, List<Gadget> gadgets) {
         this.brawlerPin = brawlerPin;
         this.id = id;
         this.name = name;
@@ -21,8 +23,8 @@ public class Brawler {
         private int brawlerPin;
         private int id;
         private String name;
-        private StarPower[] starPowers;
-        private Gadget[] gadgets;
+        private List<StarPower> starPowers;
+        private List<Gadget> gadgets;
 
         public BrawlerBuilder brawlerPin(int brawlerPin) {
             this.brawlerPin = brawlerPin;
@@ -39,12 +41,12 @@ public class Brawler {
             return this;
         }
 
-        public BrawlerBuilder starPowers(StarPower[] starPowers) {
+        public BrawlerBuilder starPowers(List<StarPower> starPowers) {
             this.starPowers = starPowers;
             return this;
         }
 
-        public BrawlerBuilder gadgets(Gadget[] gadgets) {
+        public BrawlerBuilder gadgets(List<Gadget> gadgets) {
             this.gadgets = gadgets;
             return this;
         }

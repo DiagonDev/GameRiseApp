@@ -42,7 +42,7 @@ public class TagViewModel extends ViewModel {
             return false;
         }
 
-        return threadedNetworkRequest(input) != null;
+        return true;
     }
 
     public boolean isTag(String input) {
@@ -53,9 +53,5 @@ public class TagViewModel extends ViewModel {
         String regex = "#[A-Z0-9]+";
 
         return input.matches(regex);
-    }
-    private String threadedNetworkRequest(String input) {
-        /// codice provvisorio
-        return "IO DEVO ESSERE SPOSTATO";
     }
 }
