@@ -32,6 +32,7 @@
 
         <!-- TO-DO ingrandire icona -->
         <Button
+            android:id="@+id/nome_giocatore_button"
             style="@style/Widget.Material3.Button.TextButton.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

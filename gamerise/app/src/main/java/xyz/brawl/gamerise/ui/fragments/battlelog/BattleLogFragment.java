@@ -25,7 +25,7 @@ import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 
 public class BattleLogFragment extends Fragment {
 
-    private BattleLogViewModel mViewModel;
+    private BattleLogViewModel battleLogViewModel;
 
     public static BattleLogFragment newInstance() {
         return new BattleLogFragment();
@@ -48,7 +48,7 @@ public class BattleLogFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(BattleLogViewModel.class);
+        battleLogViewModel = new ViewModelProvider(this).get(BattleLogViewModel.class);
         // TODO: Use the ViewModel
     }
 

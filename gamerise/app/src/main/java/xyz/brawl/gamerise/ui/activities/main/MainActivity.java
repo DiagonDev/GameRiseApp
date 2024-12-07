@@ -1,6 +1,8 @@
 package xyz.brawl.gamerise.ui.activities.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.navigation.NavigationBarView;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.ui.activities.tag.TagActivity;
 import xyz.brawl.gamerise.ui.fragments.battlelog.BattleLogFragment;
 import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
 import xyz.brawl.gamerise.ui.fragments.ranked.RankedFragment;
@@ -29,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Button nomeGiocatoreButton = findViewById(R.id.nome_giocatore_button);
+        nomeGiocatoreButton.setOnClickListener(v -> {
+            Intent i = new Intent(this, TagActivity.class);
+            startActivity(i);
+        });
         NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
 
         navigationBarView.setOnItemSelectedListener(item -> {

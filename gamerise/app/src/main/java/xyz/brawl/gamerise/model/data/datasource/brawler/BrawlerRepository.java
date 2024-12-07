@@ -22,8 +22,13 @@ public class BrawlerRepository {
     }
 
 
+
     public ItemsResponse getBrawlers() {
         BrawlerRemoteDataSource brds = new BrawlerRemoteDataSource(apiService);
+
+        // Secondo: sincronizza i dati da remoto (API)
+        // Questo potre bbe essere fatto in background, magari con un Worker
+        syncDataFromRemote();
 
         return brds.getBrawlerList();
     }
