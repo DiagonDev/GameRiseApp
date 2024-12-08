@@ -36,7 +36,7 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {
     public void onBindViewHolder(@NonNull BattleViewHolder holder, int position) {
 
         ///Provvisorio: Se gamemode == KNOCKOUT e mappa Stormy Plains in non ranked
-        holder.gameMode.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.knock_out_icon));
+        holder.gameMode.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.game_mode_knockout));
         holder.title.setText(Constants.knockout);
         holder.subTitle.setText(Constants.StormyPlains);
         holder.iconBackgroundTop.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));

@@ -6,13 +6,13 @@ public class Battle {
     public String title;
     public String subTitle;
     public String trophies;
-    public Drawable iconMod;
-    public Drawable iconRanked;
-    public Drawable iconBackGroundBot;
-    public Drawable iconPlayer1;
-    public Drawable iconPlayer2;
-    public Drawable iconPlayer3;
-    public Drawable iconBackgroundTop;
+    public int iconMod;
+    public int iconRanked;
+    public int iconBackGroundBot;
+    public int iconPlayer1;
+    public int iconPlayer2;
+    public int iconPlayer3;
+    public int iconBackgroundTop;
 
     public Battle(BattleBuilder battleBuilder) {
         this.title = battleBuilder.title;
@@ -34,13 +34,13 @@ public class Battle {
         private String title;
         private String subTitle;
         private String trophies;
-        private Drawable iconMod;
-        private Drawable iconRanked;
-        private Drawable iconBackGroundBot;
-        private Drawable iconPlayer1;
-        private Drawable iconPlayer2;
-        private Drawable iconPlayer3;
-        private Drawable iconBackgroundTop;
+        private int iconMod;
+        private int iconRanked;
+        private int iconBackGroundBot;
+        private int iconPlayer1;
+        private int iconPlayer2;
+        private int iconPlayer3;
+        private int iconBackgroundTop;
 
 
         public BattleBuilder title(String title) {
@@ -58,37 +58,37 @@ public class Battle {
             return this;
         }
 
-        public BattleBuilder iconMode(Drawable iconMod) {
+        public BattleBuilder iconMode(int iconMod) {
             this.iconMod = iconMod;
             return this;
         }
 
-        public BattleBuilder iconRanked(Drawable iconRanked) {
+        public BattleBuilder iconRanked(int iconRanked) {
             this.iconRanked = iconRanked;
             return this;
         }
 
-        public BattleBuilder iconBackGroundBot(Drawable iconBackGroundBot) {
+        public BattleBuilder iconBackGroundBot(int iconBackGroundBot) {
             this.iconBackGroundBot = iconBackGroundBot;
             return this;
         }
 
-        public BattleBuilder iconPlayer1(Drawable iconPlayer1) {
+        public BattleBuilder iconPlayer1(int iconPlayer1) {
             this.iconPlayer1 = iconPlayer1;
             return this;
         }
 
-        public BattleBuilder iconPlayer2(Drawable iconPlayer2) {
+        public BattleBuilder iconPlayer2(int iconPlayer2) {
             this.iconPlayer2 = iconPlayer2;
             return this;
         }
 
-        public BattleBuilder iconPlayer3(Drawable iconPlayer3) {
+        public BattleBuilder iconPlayer3(int iconPlayer3) {
             this.iconPlayer3 = iconPlayer3;
             return this;
         }
 
-        public BattleBuilder iconBackgroundTop(Drawable iconBackgroundTop) {
+        public BattleBuilder iconBackgroundTop(int iconBackgroundTop) {
             this.iconBackgroundTop = iconBackgroundTop;
             return this;
         }
