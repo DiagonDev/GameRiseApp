@@ -47,10 +47,10 @@ public class BrawlersFragment extends Fragment {
             popupMenu.getMenuInflater().inflate(R.menu.menu_dropdown, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.item1) {
-                    Toast.makeText(getContext(), "Item 1 selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "BattleLogEntry 1 selected", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (item.getItemId() == R.id.item2) {
-                    Toast.makeText(getContext(), "Item 2 selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "BattleLogEntry 2 selected", Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;

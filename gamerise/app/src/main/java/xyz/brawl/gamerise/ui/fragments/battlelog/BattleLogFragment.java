@@ -14,14 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 
+import xyz.brawl.gamerise.model.data.battle.BattleMapper;
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.util.JSONParserUtils;
 
 public class BattleLogFragment extends Fragment {
 
@@ -37,6 +41,16 @@ public class BattleLogFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_battle_log, container, false);
 
         //Provvisorio
+
+        JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
+        try {
+            BattleLogApiResponse battleLogApiResponse = jsonParserUtils.parseJSONWithGson("battlelog.json");
+            // List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         List<Battle> battles = new ArrayList<>();
         battles.add(new Battle(new Battle.BattleBuilder().title("Prova")));
         RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);

@@ -3,7 +3,7 @@ package xyz.brawl.gamerise.model.data.brawler;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-// Model class for Item
+// Model class for BattleLogEntry
 public class BrawlerV2 {
     @SerializedName("id")
     private long id;

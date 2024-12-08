@@ -1,7 +1,12 @@
 package xyz.brawl.gamerise.util;
 
+import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
+
+import android.graphics.drawable.Drawable;
+
 import java.util.List;
 
+import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.brawler.Brawler;
 
@@ -42,14 +47,6 @@ public class Constants {
     //TODO: inserire le costanti come lez prof
     public static String knockout = "KNOCKOUT";
     public static String StormyPlains = "Stormy Plains";
-    //TODO: generare lista brawlers
-    public static List<Battle> getBattleList() {
-        //TODO: inserire lista
-        return null;
-    }
-    //TODO: generare lista brawlers
-    public static List<Brawler> getBrawlerList() {
-        //TODO: inserire lista
-        return null;
-    }
+    public static int knockoutIconMod = R.drawable.knock_out_icon;
+
 }
