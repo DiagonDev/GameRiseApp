@@ -1,8 +1,10 @@
-package xyz.brawl.gamerise.model.data.datasource.brawler;
+package xyz.brawl.gamerise.model.repository;
 
 import retrofit2.Retrofit;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
 import retrofit2.converter.gson.GsonConverterFactory;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 import xyz.brawl.gamerise.util.Constants;
 
 
