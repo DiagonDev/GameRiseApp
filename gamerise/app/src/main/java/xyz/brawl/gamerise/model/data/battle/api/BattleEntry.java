@@ -6,15 +6,6 @@ public class BattleEntry {
     private List<TeamEntry> teams;
     private int trophyChange;
     private String type;
-    private EventEntry event;
-
-    public EventEntry getEvent() {
-        return event;
-    }
-
-    public void setEvent(EventEntry event) {
-        this.event = event;
-    }
 
     public String getType() {
         return type;

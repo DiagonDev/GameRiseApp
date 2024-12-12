@@ -44,7 +44,7 @@ public class BattleLogFragment extends Fragment {
 
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
         try {
-            BattleLogApiResponse battleLogApiResponse = jsonParserUtils.parseJSONWithGson("battlelog.json");
+            BattleLogApiResponse battleLogApiResponse = jsonParserUtils.battleLogParseJSONWithGson("battlelog.json");
             // List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
 
         } catch (IOException e) {
