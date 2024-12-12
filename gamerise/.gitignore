@@ -4,7 +4,7 @@
 
 # Android Studio configurations
 /local.properties
-.idea/*
+.idea/
 /build
 /captures
 .externalNativeBuild
