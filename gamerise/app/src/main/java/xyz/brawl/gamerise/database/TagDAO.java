@@ -16,7 +16,7 @@ public interface TagDAO {
 
     @Insert
     void insertAll(Tag... tags); // Inserisci nuovi tag
-
+//insert or ignore?
     @Delete
     void delete(Tag tag); // Elimina un tag
 }

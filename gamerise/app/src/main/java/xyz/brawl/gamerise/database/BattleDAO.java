@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.database;
+/*package xyz.brawl.gamerise.database;
 
 import xyz.brawl.gamerise.model.data.battle.api.BattleEntry;
 import androidx.room.Dao;
@@ -18,4 +18,4 @@ public interface BattleDAO {
 
     @Delete
     void delete(BattleEntry user);
-}
+}*/

@@ -4,9 +4,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.util.List;
 
-@Entity
+//@Entity
 public class BattleEntry {
-    @PrimaryKey
+    //@PrimaryKey
     public int uid;
 
     private List<TeamEntry> teams;

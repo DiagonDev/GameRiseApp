@@ -21,7 +21,7 @@ public abstract class TagRoomDatabase extends RoomDatabase {
 
     public static TagRoomDatabase getDatabase(final Context context){
         if(INSTANCE == null){
-            synchronized (BattleRoomDatabase.class){
+            synchronized (TagRoomDatabase.class){
                 if(INSTANCE == null){
                     //da cambiare da fare attraverso la view
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TagRoomDatabase.class,  "TagDatabse").allowMainThreadQueries().build();

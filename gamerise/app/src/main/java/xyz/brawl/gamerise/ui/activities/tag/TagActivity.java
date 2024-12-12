@@ -110,19 +110,7 @@ public class TagActivity extends AppCompatActivity {
         recyclerView.setAdapter(tagAdapter);
 
         // Osserva i cambiamenti nei tag
-        /*tagViewModel.getTags().observe(this, updatedTags -> {
-            TagAdapter adapter = (TagAdapter) recyclerView.getAdapter();
-            if (adapter != null) {
-                if (updatedTags.size() > adapter.getItemCount()) {
-                    // Aggiunto un nuovo tag
-                    Tag newTag = updatedTags.get(updatedTags.size() - 1);
-                    adapter.addTag(newTag);
-                } else {
-                    // Aggiornamento globale della lista
-                    adapter.updateTags(updatedTags);
-                }
-            }
-        }); */
+
         tagViewModel.getTags().observe(this, updatedTags -> {
             if (updatedTags != null && tagAdapter != null) {
                 tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
@@ -131,8 +119,6 @@ public class TagActivity extends AppCompatActivity {
 
         // Carica i primi 3 tag dal database
         tagViewModel.loadRecentTags();
-
-
     }
 
     /**
@@ -144,8 +130,12 @@ public class TagActivity extends AppCompatActivity {
     public boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
         if (tagViewModel.isTagValid(inputTag)) {
-            if (checked)
+            /*if (checked)
                 tagViewModel.addTag(new Tag("Nuovo Giocatore", inputTag)); // Aggiungi il tag tramite il ViewModel se l'utente vuole salvarlo
+            */
+            Tag newTag = new Tag("Nuovo Giocatore", inputTag);
+            tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
+
             insertTag.setText(""); // Resetta il campo di testo
             Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
             return true;
@@ -154,6 +144,12 @@ public class TagActivity extends AppCompatActivity {
             return false;
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tagViewModel != null) {
+            tagViewModel.saveRecentTagsToDatabase();
+        }
+    }
 
 }

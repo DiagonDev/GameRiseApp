@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.database;
+/*package xyz.brawl.gamerise.database;
 
 import android.content.Context;
 
@@ -30,4 +30,4 @@ public abstract class BattleRoomDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-}
+}*/
