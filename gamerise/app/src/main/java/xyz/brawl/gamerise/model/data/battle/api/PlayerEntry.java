@@ -1,16 +1,16 @@
 package xyz.brawl.gamerise.model.data.battle.api;
 
-import xyz.brawl.gamerise.model.data.brawler.BrawlerV2;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 
 public class PlayerEntry {
-    private BrawlerV2 brawler;
+    private BrawlerEntry brawler;
     private String tag;
 
-    public BrawlerV2 getBrawler() {
+    public BrawlerEntry getBrawler() {
         return brawler;
     }
 
-    public void setBrawler(BrawlerV2 brawler) {
+    public void setBrawler(BrawlerEntry brawler) {
         this.brawler = brawler;
     }
 

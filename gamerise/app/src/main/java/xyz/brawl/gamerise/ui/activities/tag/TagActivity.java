@@ -2,10 +2,8 @@ package xyz.brawl.gamerise.ui.activities.tag;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -15,43 +13,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import retrofit2.Call;
 import xyz.brawl.gamerise.R;
 
-import xyz.brawl.gamerise.model.data.brawler.Brawler;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerV2;
-import xyz.brawl.gamerise.model.data.brawler.Gadget;
-import xyz.brawl.gamerise.model.data.brawler.StarPower;
-import xyz.brawl.gamerise.model.data.datasource.ApiService;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRepository;
 import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
+import xyz.brawl.gamerise.database.TagRoomDatabase;
 
 public class TagActivity extends AppCompatActivity {
 
     private boolean checked = false;
     private TagViewModel tagViewModel;
     private EditText insertTag;
+    private ImageButton checkboxButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_tag);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,6 +52,9 @@ public class TagActivity extends AppCompatActivity {
         });
 
         tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
+        tagViewModel.initDatabase(this);
+
+
         insertTag = findViewById(R.id.insertTag);
         insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -81,7 +77,7 @@ public class TagActivity extends AppCompatActivity {
 
                 ItemsResponse lista_finale = brawlerRepository.getBrawlers();
 
-                for(BrawlerV2 item : lista_finale.getItems()) {
+                for(BrawlerEntry item : lista_finale.getItems()) {
                     Toast.makeText(TagActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -93,7 +89,7 @@ public class TagActivity extends AppCompatActivity {
         });
 
         //test animation checkbox
-        ImageButton checkboxButton = findViewById(R.id.checkbox_button);
+        checkboxButton = findViewById(R.id.checkbox_button);
         checkboxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,17 +100,17 @@ public class TagActivity extends AppCompatActivity {
                     checkboxButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
                     checked = false;
                 }
-
             }
         });
 
         /// La visualizzazione della lista dei tag potrebbe dare problemi
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TagAdapter(new ArrayList<>()));
+        TagAdapter tagAdapter = new TagAdapter(new ArrayList<>());
+        recyclerView.setAdapter(tagAdapter);
 
         // Osserva i cambiamenti nei tag
-        tagViewModel.getTags().observe(this, updatedTags -> {
+        /*tagViewModel.getTags().observe(this, updatedTags -> {
             TagAdapter adapter = (TagAdapter) recyclerView.getAdapter();
             if (adapter != null) {
                 if (updatedTags.size() > adapter.getItemCount()) {
@@ -126,7 +122,17 @@ public class TagActivity extends AppCompatActivity {
                     adapter.updateTags(updatedTags);
                 }
             }
+        }); */
+        tagViewModel.getTags().observe(this, updatedTags -> {
+            if (updatedTags != null && tagAdapter != null) {
+                tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
+            }
         });
+
+        // Carica i primi 3 tag dal database
+        tagViewModel.loadRecentTags();
+
+
     }
 
     /**

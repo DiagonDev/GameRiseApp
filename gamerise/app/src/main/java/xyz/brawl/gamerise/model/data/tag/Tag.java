@@ -1,8 +1,14 @@
 package xyz.brawl.gamerise.model.data.tag;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity (tableName = "Tag")
 public class Tag {
-    String nomeGiocatore;
+    @PrimaryKey
     String tag;
+
+    String nomeGiocatore;
 
     public Tag(String nomeGiocatore, String tag) {
         this.nomeGiocatore = nomeGiocatore;
