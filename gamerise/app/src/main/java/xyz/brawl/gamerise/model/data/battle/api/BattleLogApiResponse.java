@@ -3,13 +3,13 @@ package xyz.brawl.gamerise.model.data.battle.api;
 import java.util.List;
 
 public class BattleLogApiResponse {
-    private List<BattleLogEntry> item;
+    private List<BattleLogEntry> items;
 
     public List<BattleLogEntry> getBattleResponseList() {
-        return item;
+        return items;
     }
 
-    public void setBattleResponseList(List<BattleLogEntry> item) {
-        this.item = item;
+    public void setBattleResponseList(List<BattleLogEntry> items) {
+        this.items = items;
     }
 }
