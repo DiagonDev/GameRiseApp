@@ -5,7 +5,7 @@ import java.util.List;
 public class BattleEntry {
     private List<TeamEntry> teams;
     private int trophyChange;
-    private String ranked;
+    private String type;
     private EventEntry event;
 
     public EventEntry getEvent() {
@@ -16,12 +16,12 @@ public class BattleEntry {
         this.event = event;
     }
 
-    public String getRanked() {
-        return ranked;
+    public String getType() {
+        return type;
     }
 
-    public void setRanked(String ranked) {
-        this.ranked = ranked;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getTrophyChange() {

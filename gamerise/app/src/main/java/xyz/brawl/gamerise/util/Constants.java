@@ -49,5 +49,8 @@ public class Constants {
     public static String knockout = "KNOCKOUT";
     public static String StormyPlains = "Stormy Plains";
 
+    public static int iconRanked = R.drawable.ranked_icon;
+    public static int iconStandard = R.drawable.standard_icon;
+
 
 }
