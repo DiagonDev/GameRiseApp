@@ -4,17 +4,7 @@
 
 # Android Studio configurations
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/deploymentTargetSelector.xml
-/.idea/misc.xml
-/.idea/studiobot.xml
-/.idea/shelf
-/.idea/compiler.xml
+.idea/*
 /build
 /captures
 .externalNativeBuild
