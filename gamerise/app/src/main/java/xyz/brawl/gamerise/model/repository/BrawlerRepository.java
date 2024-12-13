@@ -24,7 +24,7 @@ public class BrawlerRepository {
     }
 
 
-
+/*
     public ItemsResponse getBrawlers() {
         BrawlerRemoteDataSource brds = new BrawlerRemoteDataSource(apiService);
 
@@ -35,7 +35,7 @@ public class BrawlerRepository {
         return brds.getBrawlerList();
     }
 
-
+*/
 
     // Salva dati nel database locale e/o su API remota
     public void updateData() {

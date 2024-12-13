@@ -68,13 +68,13 @@ public class TagActivity extends AppCompatActivity {
             public void onClick(View view) {
                 BrawlerRepository brawlerRepository = new BrawlerRepository();
 
-                ItemsResponse lista_finale = brawlerRepository.getBrawlers();
+                /*ItemsResponse lista_finale = brawlerRepository.getBrawlers();
 
                 for(BrawlerV2 item : lista_finale.getItems()) {
                     Toast.makeText(TagActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
-                if (/*handlerInvioTag()*/false) {
+                if (handlerInvioTag()) {
                     Intent intent = new Intent(TagActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
