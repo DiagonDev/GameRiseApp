@@ -5,7 +5,6 @@ import java.util.List;
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.data.battle.api.PlayerEntry;
-import xyz.brawl.gamerise.model.data.battle.api.TeamEntry;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 
 public class Constants {
@@ -151,7 +150,7 @@ public class Constants {
         }
     }
     //Questo metodo ritorna la lista di players del team del giocatore (tag)
-    public static List<PlayerEntry> getTeamMembers(BattleLogEntry battleLogEntry) {
+    /*public static List<PlayerEntry> getTeamMembers(BattleLogEntry battleLogEntry) {
         List<TeamEntry> teams = battleLogEntry.getBattle().getTeams();
         for (TeamEntry team : teams) {
             for (PlayerEntry playerEntry : team.getPlayers()) {
@@ -162,6 +161,7 @@ public class Constants {
         }
         return null;
     }
+
    //Dichiara se la lista di players è vuota o meno
     public static String[] getPlayersBrawler(BattleLogEntry battleLogEntry){
         List<PlayerEntry> playerEntryList = getTeamMembers(battleLogEntry);
@@ -170,7 +170,7 @@ public class Constants {
             playersBrawler[i] = playerEntryList.get(i).getBrawler().getName();
         }
         return playersBrawler;
-    }
+    }*/
 
     public static int iconRanked = R.drawable.ranked_icon;
     public static int iconStandard = R.drawable.standard_icon;

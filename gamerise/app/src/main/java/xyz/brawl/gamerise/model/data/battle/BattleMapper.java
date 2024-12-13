@@ -18,12 +18,12 @@ public class BattleMapper {
                     .trophies(String.valueOf(battleLogEntry.getBattle().getTrophyChange()))
                     .iconMode(Constants.GameMode.valueOf(battleLogEntry.getEvent().getMode()).getIconModeid())
                     .iconRanked(battleLogEntry.getBattle().getType().equals("ranked") ? Constants.iconStandard : Constants.iconRanked)
-                    .iconPlayer1(Constants.getPlayersBrawler(battleLogEntry)[0] == null ? Constants.iconStandard :
+                    /*.iconPlayer1(Constants.getPlayersBrawler(battleLogEntry)[0] == null ? Constants.iconStandard :
                             Constants.BrawlerPin.valueOf(Constants.getPlayersBrawler(battleLogEntry)[0]).getIconPlayerId())
                     .iconPlayer2(Constants.getPlayersBrawler(battleLogEntry)[1] == null ? Constants.iconStandard :
                             Constants.BrawlerPin.valueOf(Constants.getPlayersBrawler(battleLogEntry)[1]).getIconPlayerId())
                     .iconPlayer3(Constants.getPlayersBrawler(battleLogEntry)[2] == null ? Constants.iconStandard :
-                            Constants.BrawlerPin.valueOf(Constants.getPlayersBrawler(battleLogEntry)[2]).getIconPlayerId())
+                            Constants.BrawlerPin.valueOf(Constants.getPlayersBrawler(battleLogEntry)[2]).getIconPlayerId())*/
                     .build();
 
         }

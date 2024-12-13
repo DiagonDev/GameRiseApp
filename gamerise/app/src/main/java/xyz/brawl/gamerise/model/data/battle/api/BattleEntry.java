@@ -3,7 +3,7 @@ package xyz.brawl.gamerise.model.data.battle.api;
 import java.util.List;
 
 public class BattleEntry {
-    private List<TeamEntry> teams;
+    private List<List<PlayerEntry>> teams;
     private int trophyChange;
     private String type;
 
@@ -23,11 +23,11 @@ public class BattleEntry {
         this.trophyChange = trophyChange;
     }
 
-    public List<TeamEntry> getTeams() {
+    public List<List<PlayerEntry>> getTeams() {
         return teams;
     }
 
-    public void setTeams(List<TeamEntry> teams) {
+    public void setTeams(List<List<PlayerEntry>> teams) {
         this.teams = teams;
     }
 }
