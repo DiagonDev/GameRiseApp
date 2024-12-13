@@ -53,14 +53,14 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
 
 
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
-        /*try {
+        try {
             BattleLogApiResponse battleLogApiResponse = jsonParserUtils.battleLogParseJSONWithGson("battlelog.json");
             // List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-*/
+
         List<Battle> battles = new ArrayList<>();
         battles.add(new Battle(new Battle.BattleBuilder().title("Prova")));
         RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);

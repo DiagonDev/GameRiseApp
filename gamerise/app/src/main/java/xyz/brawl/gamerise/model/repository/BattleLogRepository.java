@@ -38,19 +38,24 @@ public class BattleLogRepository implements IBattleLogRepository {
             @Override
             public void onResponse
                     (Call<BattleLogApiResponse> call, Response<BattleLogApiResponse> response) {
-                if (response.body() != null && response.isSuccessful() && !response.message().equals("error")) {
+                //TODO: cambiare messaggio di risposta
+                if (response.body() != null && response.isSuccessful() && response.message().equals("OK")) {
                     List<BattleLogEntry> battleLogEntries = response.body().getBattleResponseList();
-                    Toast.makeText(context, ""+ battleLogEntries.size(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, battleLogEntries.toString(), Toast.LENGTH_SHORT).show();
+                    Log.d("TAG", battleLogEntries.toString());
+
                     //TODO: implement data base
                 }
                 else {
                     responseCallback.onFailure(context.getString(R.string.error_message));
+                    Log.d("TAG", "NO RESPONSE");
                 }
             }
 
             @Override
             public void onFailure(Call<BattleLogApiResponse> call, Throwable throwable) {
                 responseCallback.onFailure(throwable.getMessage());
+                Log.d("TAG", "NO RESPONSE");
             }
         });
 
