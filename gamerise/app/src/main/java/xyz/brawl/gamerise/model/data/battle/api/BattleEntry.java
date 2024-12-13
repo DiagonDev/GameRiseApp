@@ -6,21 +6,11 @@ import java.util.List;
 
 //@Entity
 public class BattleEntry {
+    private List<List<PlayerEntry>> teams;
     //@PrimaryKey
     public int uid;
-
-    private List<TeamEntry> teams;
     private int trophyChange;
     private String type;
-    private EventEntry event;
-
-    public EventEntry getEvent() {
-        return event;
-    }
-
-    public void setEvent(EventEntry event) {
-        this.event = event;
-    }
 
     public String getType() {
         return type;
@@ -38,11 +28,11 @@ public class BattleEntry {
         this.trophyChange = trophyChange;
     }
 
-    public List<TeamEntry> getTeams() {
+    public List<List<PlayerEntry>> getTeams() {
         return teams;
     }
 
-    public void setTeams(List<TeamEntry> teams) {
+    public void setTeams(List<List<PlayerEntry>> teams) {
         this.teams = teams;
     }
 }

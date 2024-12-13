@@ -21,8 +21,9 @@ import java.util.ArrayList;
 
 import xyz.brawl.gamerise.R;
 
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRepository;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerV2;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
+import xyz.brawl.gamerise.model.repository.BrawlerRepository;
 import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
@@ -129,6 +130,7 @@ public class TagActivity extends AppCompatActivity {
      */
     public boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
+        GameAccountSingleton.getInstance().setUserTag(inputTag);
         if (tagViewModel.isTagValid(inputTag)) {
             /*if (checked)
                 tagViewModel.addTag(new Tag("Nuovo Giocatore", inputTag)); // Aggiungi il tag tramite il ViewModel se l'utente vuole salvarlo
