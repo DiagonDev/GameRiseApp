@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import xyz.brawl.gamerise.model.data.brawler.Brawler;
 import xyz.brawl.gamerise.model.data.datasource.AbstractRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
@@ -18,23 +21,46 @@ public class BrawlerRemoteDataSource extends AbstractRemoteDataSource {
      *
      * @return Lista di brawlers.
      */
-    public ItemsResponse getBrawlerList() {
-        CompletableFuture<ItemsResponse> future = super.makeGETRequest(apiService.getBrawlerList());
+    public CompletableFuture<ItemsResponse> getBrawlerListAsync() {
+        CompletableFuture<ItemsResponse> future = makeGETRequest(apiService.getBrawlerList());
 
-        return future.join();
+        // Handle the response asynchronously
+        return future.thenApply(response -> {
+            // Process the response and return the result
+            return response != null ? response : new ItemsResponse();  // Return fallback if needed
+        }).exceptionally(e -> {
+            // Handle exception and return a fallback response
+            e.printStackTrace();
+            return new ItemsResponse(); // Return fallback on error
+        });
     }
 
-    /**
-     * Recupera un brawler specifico dall'API REST.
-     *
-     * @return Brawler specifico.
-     */
-    public List<Brawler> getBrawler(int brawlerId) {
-        CompletableFuture<List<Brawler>> future = super.makeGETRequest(apiService.getBrawler(brawlerId));
-        try {
-            return future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    private CompletableFuture<ItemsResponse> makeGETRequest2(Call<ItemsResponse> call) {
+        // Create a CompletableFuture to be completed once the request finishes
+        CompletableFuture<ItemsResponse> future = new CompletableFuture<>();
+
+        // Asynchronous Retrofit call
+        call.enqueue(new Callback<ItemsResponse>() {
+            @Override
+            public void onResponse(Call<ItemsResponse> c, Response<ItemsResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Complete the future with the response body if the request was successful
+                    future.complete(response.body());
+                } else {
+                    // If the response was not successful, complete exceptionally
+                    future.completeExceptionally(new Exception("Error: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemsResponse> c, Throwable t) {
+                // If the request fails, complete the future exceptionally
+                future.completeExceptionally(t);
+            }
+        });
+
+        // Return the CompletableFuture
+        return future;
     }
+
 }

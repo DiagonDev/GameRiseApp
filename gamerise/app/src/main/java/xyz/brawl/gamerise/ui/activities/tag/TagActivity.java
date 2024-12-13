@@ -23,9 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import xyz.brawl.gamerise.R;
 
@@ -49,6 +51,7 @@ public class TagActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tag);
@@ -77,14 +80,27 @@ public class TagActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Instantiate the repository
                 BrawlerRepository brawlerRepository = new BrawlerRepository();
 
-                ItemsResponse lista_finale = brawlerRepository.getBrawlers();
+                try {
+                    System.out.println("1");
+                    CompletableFuture<ItemsResponse> futureResponse = brawlerRepository.getBrawlers();
+                    System.out.println("2");
+                    // Block and get the ItemResponse using join()
+                    ItemsResponse lista_finale = futureResponse.join();
+                    System.out.println("3");
 
-                for(BrawlerV2 item : lista_finale.getItems()) {
-                    Toast.makeText(TagActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
+                    // Print the items (assuming ItemResponse has this structure)
+                    for (BrawlerV2 item : lista_finale.getItems()) {
+                        System.out.println(item.getName());
+                    }
+
+                    System.out.println("finito");
+                } finally {
+                    // Shutdown the OkHttpClient after use
+                    brawlerRepository.shutdownClient();
                 }
-
                 if (/*handlerInvioTag()*/false) {
                     Intent intent = new Intent(TagActivity.this, MainActivity.class);
                     startActivity(intent);
