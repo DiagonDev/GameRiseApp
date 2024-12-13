@@ -49,6 +49,17 @@ public class Constants {
         public int getIconModeid() {
             return iconModeid;
         }
+
+        public static GameMode fromModeString(String mode) {
+            try {
+                // Convert camelCase a SNAKE_CASE
+                String enumKey = mode.toUpperCase().replaceAll("([a-z])([A-Z])", "$1_$2");
+                return GameMode.valueOf(enumKey);
+            } catch (IllegalArgumentException e) {
+                // Restituisci un valore predefinito in caso di errore
+                return GameMode.GEMGRAB; // Sostituisci con un valore di fallback appropriato
+            }
+        }
     }
 
     public enum BrawlerPin {
@@ -148,14 +159,26 @@ public class Constants {
         public int getIconPlayerId() {
             return iconPlayerId;
         }
+        public static BrawlerPin fromBrawlerPinString(String mode) {
+            try {
+                // Sostituisci i caratteri non validi
+                String enumKey = mode.toUpperCase()
+                        .replace(" & ", "_AND_");
+                return BrawlerPin.valueOf(enumKey);
+            } catch (IllegalArgumentException e) {
+                // Fallback in caso di errore
+                return BrawlerPin.LOU; // Valore predefinito
+            }
+        }
     }
     //Questo metodo ritorna la lista di players del team del giocatore (tag)
-    /*public static List<PlayerEntry> getTeamMembers(BattleLogEntry battleLogEntry) {
-        List<TeamEntry> teams = battleLogEntry.getBattle().getTeams();
-        for (TeamEntry team : teams) {
-            for (PlayerEntry playerEntry : team.getPlayers()) {
-                if(playerEntry.getTag().equals(GameAccountSingleton.getInstance().getUserTag())){
-                    return team.getPlayers();
+    public static List<PlayerEntry> getTeamMembers(BattleLogEntry battleLogEntry) {
+        List<List<PlayerEntry>> teams = battleLogEntry.getBattle().getTeams();
+        for (List<PlayerEntry> playerEntryList : teams) {
+            for (PlayerEntry playerEntry : playerEntryList) {
+                if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
+                        tagTeo)){
+                    return playerEntryList;
                 }
             }
         }
@@ -170,7 +193,7 @@ public class Constants {
             playersBrawler[i] = playerEntryList.get(i).getBrawler().getName();
         }
         return playersBrawler;
-    }*/
+    }
 
     public static int iconRanked = R.drawable.ranked_icon;
     public static int iconStandard = R.drawable.standard_icon;

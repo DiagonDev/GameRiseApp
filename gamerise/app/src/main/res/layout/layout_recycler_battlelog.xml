@@ -97,7 +97,7 @@
                 android:layout_height="match_parent"
                 android:layout_column="1"
                 android:layout_weight="1"
-                android:src="@drawable/change_icon" />
+                 />
 
             <ImageView
                 android:id="@+id/player2_image"
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_column="2"
                 android:layout_weight="1"
-                android:src="@drawable/change_icon" />
+                />
 
             <ImageView
                 android:id="@+id/player3_image"
@@ -113,7 +113,7 @@
                 android:layout_height="match_parent"
                 android:layout_column="3"
                 android:layout_weight="1"
-                android:src="@drawable/change_icon" />
+               />
         </TableRow>
     </TableLayout>
 </com.google.android.material.card.MaterialCardView>

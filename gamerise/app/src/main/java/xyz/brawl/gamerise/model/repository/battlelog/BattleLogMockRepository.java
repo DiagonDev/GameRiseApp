@@ -1,6 +1,5 @@
-package xyz.brawl.gamerise.model.repository;
+package xyz.brawl.gamerise.model.repository.battlelog;
 
-import android.app.Application;
 import android.content.Context;
 
 import java.io.IOException;
