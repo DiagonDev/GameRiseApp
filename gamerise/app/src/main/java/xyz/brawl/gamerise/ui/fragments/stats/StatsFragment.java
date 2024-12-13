@@ -19,10 +19,14 @@ import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
+import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
+import xyz.brawl.gamerise.util.JSONParserUtils;
 
 public class StatsFragment extends Fragment {
 
@@ -32,6 +36,15 @@ public class StatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
+
+        JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
+        try {
+            StatsApiResponse statsApiResponse = jsonParserUtils.statsParseJSONWithGson("players.json");
+            // List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         //TODO: spostare codice nel viewModel
         chartContainer = view.findViewById(R.id.chart_container);

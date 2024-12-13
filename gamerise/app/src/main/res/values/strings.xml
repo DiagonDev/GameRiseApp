@@ -29,4 +29,7 @@
     <string name="avanzamento">Avanzamento</string>
     <string name="brawlers_giocabili">Brawlers Giocabili</string>
 
+    <!-- Errori -->
+    <string name="error_message">Errore nella chiamata API</string>
+
 </resources>

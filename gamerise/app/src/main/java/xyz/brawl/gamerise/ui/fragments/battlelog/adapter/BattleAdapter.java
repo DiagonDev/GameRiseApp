@@ -13,6 +13,7 @@ import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.repository.BattleLogRepository;
 import xyz.brawl.gamerise.util.Constants;
 
 public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {

@@ -1,8 +1,10 @@
-package xyz.brawl.gamerise.model.data.datasource.brawler;
+package xyz.brawl.gamerise.model.repository;
 
 import retrofit2.Retrofit;
 import xyz.brawl.gamerise.model.data.datasource.ApiService;
 import retrofit2.converter.gson.GsonConverterFactory;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 import xyz.brawl.gamerise.util.Constants;
 
 
@@ -22,7 +24,7 @@ public class BrawlerRepository {
     }
 
 
-
+/*
     public ItemsResponse getBrawlers() {
         BrawlerRemoteDataSource brds = new BrawlerRemoteDataSource(apiService);
 
@@ -33,7 +35,7 @@ public class BrawlerRepository {
         return brds.getBrawlerList();
     }
 
-
+*/
 
     // Salva dati nel database locale e/o su API remota
     public void updateData() {
