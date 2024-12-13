@@ -25,6 +25,12 @@ public class ServiceLocator {
         return retrofit.create(BattleLogApiService.class);
     }
 
+    public StatsApiService getStatsApiService(){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.API_ENDPOINT_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        return retrofit.create(StatsApiService.class);
+    }
+
     /* TODO: implementare data base
     public BattleLogRoomDatabase getBattleLogRoomDatabase(){
         return BattleLogRoomDatabase.getDatabase(context);

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import xyz.brawl.gamerise.R;
 
-import xyz.brawl.gamerise.model.data.brawler.BrawlerV2;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.repository.BrawlerRepository;
 import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;

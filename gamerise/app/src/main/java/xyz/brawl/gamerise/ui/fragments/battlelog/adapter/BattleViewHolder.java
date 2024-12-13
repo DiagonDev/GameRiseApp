@@ -13,9 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.model.repository.BattleLogRepository;
 import xyz.brawl.gamerise.ui.activities.tag.TagActivity;
-import xyz.brawl.gamerise.util.Constants;
 
 
 public class BattleViewHolder extends RecyclerView.ViewHolder {

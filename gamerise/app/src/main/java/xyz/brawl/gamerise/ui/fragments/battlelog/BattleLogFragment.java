@@ -24,9 +24,8 @@ import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
-import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.repository.BattleLogRepository;
-import xyz.brawl.gamerise.model.repository.IBattleLogRepository;
+import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
+import xyz.brawl.gamerise.model.repository.battlelog.IBattleLogRepository;
 import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.util.Constants;
@@ -55,7 +54,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
         try {
             BattleLogApiResponse battleLogApiResponse = jsonParserUtils.battleLogParseJSONWithGson("battlelog.json");
-            // List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
+            List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

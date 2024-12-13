@@ -1,14 +1,11 @@
-package xyz.brawl.gamerise.model.repository;
+package xyz.brawl.gamerise.model.repository.battlelog;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -16,7 +16,7 @@ public class BattleMapper {
                     .title(battleLogEntry.getEvent().getMode())
                     .subTitle(battleLogEntry.getEvent().getMap())
                     .trophies(String.valueOf(battleLogEntry.getBattle().getTrophyChange()))
-                    .iconMode(Constants.GameMode.valueOf(battleLogEntry.getEvent().getMode()).getIconModeid())
+                    .iconMode(Constants.GameMode.fromModeString(battleLogEntry.getEvent().getMode()).getIconModeid())
                     .iconRanked(battleLogEntry.getBattle().getType().equals("ranked") ? Constants.iconStandard : Constants.iconRanked)
                     /*.iconPlayer1(Constants.getPlayersBrawler(battleLogEntry)[0] == null ? Constants.iconStandard :
                             Constants.BrawlerPin.valueOf(Constants.getPlayersBrawler(battleLogEntry)[0]).getIconPlayerId())

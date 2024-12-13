@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.model.repository;
+package xyz.brawl.gamerise.model.repository.battlelog;
 
 public interface IBattleLogRepository {
 
