@@ -126,25 +126,18 @@ public class TagActivity extends AppCompatActivity {
         String inputTag = insertTag.getText().toString().trim();
         GameAccountSingleton.getInstance().setUserTag(inputTag);
         if (tagViewModel.isTagValid(inputTag)) {
-            /*if (checked)
-                tagViewModel.addTag(new Tag("Nuovo Giocatore", inputTag)); // Aggiungi il tag tramite il ViewModel se l'utente vuole salvarlo
-            */
-            Tag newTag = new Tag("Nuovo Giocatore", inputTag);
-            tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
+            if (checked) {
+                //tagViewModel.addTag(new Tag("Nuovo Giocatore", inputTag)); // Aggiungi il tag tramite il ViewModel se l'utente vuole salvarlo
 
+                Tag newTag = new Tag("Nuovo Giocatore", inputTag);
+                tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
+            }
             insertTag.setText(""); // Resetta il campo di testo
             Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
             return true;
         } else {
             Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
             return false;
-        }
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (tagViewModel != null) {
-            tagViewModel.saveRecentTagsToDatabase();
         }
     }
 

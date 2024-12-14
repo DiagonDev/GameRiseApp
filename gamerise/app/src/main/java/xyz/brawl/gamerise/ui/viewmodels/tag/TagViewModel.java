@@ -43,21 +43,18 @@ public class TagViewModel extends ViewModel {
     }
 
     public void addTag(Tag tag) {
-        /*// Aggiungi il tag alla lista in memoria (tagsLiveData)
-        List<Tag> currentTags = tagsLiveData.getValue();
-        if (currentTags != null && currentTags.contains(tag)) {
-            // Il tag è già presente, quindi non fare nulla
-            return;
-        } else if (currentTags != null) {
-            // Aggiungi il tag alla lista in memoria (tagsLiveData)
-            List<Tag> updatedTags = new ArrayList<>(currentTags);
-            updatedTags.add(tag); // Aggiungi il nuovo tag
-            tagsLiveData.setValue(updatedTags);
-        }*/
 
         // Salva il tag nel database ed elimina i meno recenti se necessario
         if (database != null) {
             TagRoomDatabase.databaseWriteExecutor.execute(() -> {
+                // Controlla se il tag esiste già nel database
+                Tag existingTag = database.tagDAO().findTagByName(tag.getTag());
+                if (existingTag != null) {
+                    // Rimuovi il tag esistente dalla vecchia posizione
+                    database.tagDAO().delete(existingTag);
+                }
+
+
                 database.tagDAO().insertAll(tag); // Inserisci il nuovo tag nel database
 
                 // Controlla se ci sono più di 3 tag nel database
@@ -66,6 +63,7 @@ public class TagViewModel extends ViewModel {
                     // Rimuovi il tag più vecchio
                     Tag oldestTag = allTags.get(allTags.size() - 1); // Ultimo nella lista
                     database.tagDAO().delete(oldestTag);
+                    allTags.remove(oldestTag);
                 }
 
                 loadRecentTags(); // Ricarica i tag recenti
@@ -78,32 +76,22 @@ public class TagViewModel extends ViewModel {
                 currentTags = new ArrayList<>();
             }
 
-            // Evita duplicati
-            if (!currentTags.contains(tag)) {
-                currentTags.add(tag);
-                tagsLiveData.postValue(currentTags);
+            // Se il tag esiste già nella lista runtime, lo spostiamo in cima
+            if (currentTags.contains(tag)) {
+                currentTags.remove(tag); // Rimuovi la vecchia occorrenza
             }
+            currentTags.add(0, tag); // Aggiungi il tag più recente in cima
+            tagsLiveData.postValue(currentTags);
         });
 
     }
 
-
-    //PER ORA NON LO USIAMO
-    public void removeTag(Tag tag) {
-        List<Tag> currentTags = tagsLiveData.getValue();
-        if (currentTags != null) {
-            List<Tag> updatedTags = new ArrayList<>(currentTags);
-            updatedTags.remove(tag);
-            tagsLiveData.setValue(updatedTags);
-        }
-    }
-
-
     private void unifyTags(List<Tag> recentTags) {
-        List<Tag> unifiedTags = new ArrayList<>();
+        // Usa un Set per evitare duplicati
         Set<String> seenTags = new HashSet<>();
+        List<Tag> unifiedTags = new ArrayList<>();
 
-        // Aggiungi i tag dal database
+        // Aggiungi i tag dal database (recenti)
         if (recentTags != null) {
             for (Tag tag : recentTags) {
                 if (seenTags.add(tag.getTag())) {
@@ -112,7 +100,7 @@ public class TagViewModel extends ViewModel {
             }
         }
 
-        // Aggiungi i tag runtime (tagsLiveData)
+        // Aggiungi i tag runtime (da tagsLiveData)
         List<Tag> runtimeTags = tagsLiveData.getValue();
         if (runtimeTags != null) {
             for (Tag tag : runtimeTags) {
@@ -122,9 +110,13 @@ public class TagViewModel extends ViewModel {
             }
         }
 
-        // Aggiorna la lista unificata
+        // Ordina i tag unificati per timestamp in ordine decrescente
+        unifiedTags.sort((tag1, tag2) -> Long.compare(tag2.getTimestamp(), tag1.getTimestamp()));
+
+        // Aggiorna i tag unificati
         tagsLiveData.postValue(unifiedTags);
     }
+
 
     public boolean isTagValid(String input) {
         // Controlla sintassi
@@ -140,23 +132,4 @@ public class TagViewModel extends ViewModel {
 
         return input.matches(regex);
     }
-
-    public void saveRecentTagsToDatabase() {
-        if (database != null) {
-            TagRoomDatabase.databaseWriteExecutor.execute(() -> {
-                List<Tag> tagsToSave = tagsLiveData.getValue();
-                if (tagsToSave != null) {
-                    // Elimina tutti i tag esistenti
-                    for (Tag tag : database.tagDAO().getRecentTags()) {
-                        database.tagDAO().delete(tag);
-                    }
-                    // Salva solo i primi 3 tag
-                    for (int i = 0; i < Math.min(tagsToSave.size(), 3); i++) {
-                        database.tagDAO().insertAll(tagsToSave.get(i));
-                    }
-                }
-            });
-        }
-    }
-
 }

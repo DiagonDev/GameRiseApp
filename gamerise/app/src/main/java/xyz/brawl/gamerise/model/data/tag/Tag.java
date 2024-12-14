@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.model.data.tag;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -11,9 +12,17 @@ public class Tag {
 
     String nomeGiocatore;
 
+    @ColumnInfo(name = "timestamp")
+    private long timestamp;
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
     public Tag(String nomeGiocatore, String tag) {
         this.nomeGiocatore = nomeGiocatore;
         this.tag = tag;
+        this.timestamp = System.currentTimeMillis();
     }
 
     public String getNomeGiocatore() {
@@ -22,5 +31,9 @@ public class Tag {
 
     public String getTag() {
         return tag;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
