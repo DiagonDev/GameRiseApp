@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import xyz.brawl.gamerise.database.TagRoomDatabase;
 import xyz.brawl.gamerise.model.data.tag.Tag;
@@ -35,12 +37,13 @@ public class TagViewModel extends ViewModel {
             TagRoomDatabase.databaseWriteExecutor.execute(() -> {
                 List<Tag> recentTags = database.tagDAO().getRecentTags();   // Ottieni i primi 3 tag
                 recentTagsLiveData.postValue(recentTags);   // Passa i tag recenti alla UI
+                unifyTags(recentTags);  // Unifica i tag del database con quelli runtime
             });
         }
     }
 
     public void addTag(Tag tag) {
-        // Aggiungi il tag alla lista in memoria (tagsLiveData)
+        /*// Aggiungi il tag alla lista in memoria (tagsLiveData)
         List<Tag> currentTags = tagsLiveData.getValue();
         if (currentTags != null && currentTags.contains(tag)) {
             // Il tag è già presente, quindi non fare nulla
@@ -50,7 +53,7 @@ public class TagViewModel extends ViewModel {
             List<Tag> updatedTags = new ArrayList<>(currentTags);
             updatedTags.add(tag); // Aggiungi il nuovo tag
             tagsLiveData.setValue(updatedTags);
-        }
+        }*/
 
         // Salva il tag nel database ed elimina i meno recenti se necessario
         if (database != null) {
@@ -68,6 +71,19 @@ public class TagViewModel extends ViewModel {
                 loadRecentTags(); // Ricarica i tag recenti
             });
         }
+        // Aggiorna la lista runtime (tagsLiveData)
+        TagRoomDatabase.databaseWriteExecutor.execute(() -> {
+            List<Tag> currentTags = tagsLiveData.getValue();
+            if (currentTags == null) {
+                currentTags = new ArrayList<>();
+            }
+
+            // Evita duplicati
+            if (!currentTags.contains(tag)) {
+                currentTags.add(tag);
+                tagsLiveData.postValue(currentTags);
+            }
+        });
 
     }
 
@@ -80,6 +96,34 @@ public class TagViewModel extends ViewModel {
             updatedTags.remove(tag);
             tagsLiveData.setValue(updatedTags);
         }
+    }
+
+
+    private void unifyTags(List<Tag> recentTags) {
+        List<Tag> unifiedTags = new ArrayList<>();
+        Set<String> seenTags = new HashSet<>();
+
+        // Aggiungi i tag dal database
+        if (recentTags != null) {
+            for (Tag tag : recentTags) {
+                if (seenTags.add(tag.getTag())) {
+                    unifiedTags.add(tag);
+                }
+            }
+        }
+
+        // Aggiungi i tag runtime (tagsLiveData)
+        List<Tag> runtimeTags = tagsLiveData.getValue();
+        if (runtimeTags != null) {
+            for (Tag tag : runtimeTags) {
+                if (seenTags.add(tag.getTag())) {
+                    unifiedTags.add(tag);
+                }
+            }
+        }
+
+        // Aggiorna la lista unificata
+        tagsLiveData.postValue(unifiedTags);
     }
 
     public boolean isTagValid(String input) {

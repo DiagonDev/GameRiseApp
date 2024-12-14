@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
-@Database(entities = {Tag.class}, version = 1)
+@Database(entities = {Tag.class}, version = 1, exportSchema = false)
 public abstract class TagRoomDatabase extends RoomDatabase {
     public abstract TagDAO tagDAO();
 
