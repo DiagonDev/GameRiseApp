@@ -10,17 +10,26 @@ import xyz.brawl.gamerise.util.Constants;
 public class BattleMapper {
     public static List<Battle> mapToBattles(BattleLogApiResponse apiResponse) {
         List<Battle> battles = new ArrayList<>();
-
+        //TODO: prima porzione di codice da controllare se ci sono problemi :)
         for (BattleLogEntry battleLogEntry : apiResponse.getBattleResponseList()) {
             Battle battle = new Battle.BattleBuilder()
                     .title(battleLogEntry.getEvent().getMode())
                     .subTitle(battleLogEntry.getEvent().getMap())
                     .trophies(String.valueOf(battleLogEntry.getBattle().getTrophyChange()))
-                    .iconMode(Constants.GameMode.valueOf(battleLogEntry.getEvent().getMode()).getIconModeid())
-                    .iconRanked(battleLogEntry.getBattle().getType().equals("ranked")? Constants.iconStandard : Constants.iconRanked)
-//                    .iconPlayer1()
+                    .iconMode(Constants.GameMode.fromModeString(battleLogEntry.getEvent().getMode()).getIconModeid())
+                    .iconRanked(battleLogEntry.getBattle().getType().equals("ranked") ? Constants.iconStandard : Constants.iconRanked)
+                    .iconPlayer1(Constants.getPlayersBrawler(battleLogEntry)[0] == null ? Constants.iconStandard :
+                            Constants.BrawlerPin.fromBrawlerPinString(Constants.getPlayersBrawler(battleLogEntry)[0]).getIconPlayerId())
+                    .iconPlayer2(Constants.getPlayersBrawler(battleLogEntry)[1] == null ? Constants.iconStandard :
+                            Constants.BrawlerPin.fromBrawlerPinString(Constants.getPlayersBrawler(battleLogEntry)[1]).getIconPlayerId())
+                    .iconPlayer3(Constants.getPlayersBrawler(battleLogEntry)[2] == null ? Constants.iconStandard :
+                            Constants.BrawlerPin.fromBrawlerPinString(Constants.getPlayersBrawler(battleLogEntry)[2]).getIconPlayerId())
                     .build();
+            battles.add(battle);
         }
         return battles;
+    }
+    public void handleException(){
+
     }
 }

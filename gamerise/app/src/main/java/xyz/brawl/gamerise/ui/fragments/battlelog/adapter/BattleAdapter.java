@@ -35,18 +35,6 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull BattleViewHolder holder, int position) {
 
-        ///Provvisorio: Se gamemode == KNOCKOUT e mappa Stormy Plains in non ranked
-        holder.gameMode.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.game_mode_knockout));
-        holder.title.setText(Constants.knockout);
-        holder.subTitle.setText(Constants.StormyPlains);
-        holder.iconBackgroundTop.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
-        holder.trophies.setText("+8");
-        holder.iconRanked.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bronze_belt));
-        holder.iconBackGroundBot.setBackground(ContextCompat.getDrawable(context, R.drawable.stormy_plains_background));
-        holder.player1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable._bit_pin));
-        holder.player2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable._bit_pin));
-        holder.player3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable._bit_pin));
-        //TODO: inserire altri elementi
     }
 
     @Override

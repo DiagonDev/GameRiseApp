@@ -21,9 +21,13 @@ navigationUi = "2.8.4"
 retrofit = "2.11.0"
 retrofitVersion = "(insert latest version)"
 roomCommon = "2.6.1"
+roomCompiler = "2.6.1"
+roomRuntime = "2.6.1"
 
 
 [libraries]
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version = "2.11.0" }
 fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
 gson = { module = "com.google.code.gson:gson" }

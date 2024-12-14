@@ -1,0 +1,221 @@
+{
+  "items": [
+    {
+      "battle": {
+        "duration": 79,
+        "mode": "gemGrab",
+        "result": "victory",
+        "starPlayer": {
+          "brawler": {
+            "id": 16000088,
+            "name": "BUZZ LIGHTYEAR",
+            "power": 11,
+            "trophies": 9
+          },
+          "name": "teo",
+          "tag": "#989VGUU0"
+        },
+        "teams": [
+          [
+            {
+              "brawler": {
+                "id": 16000007,
+                "name": "JESSIE",
+                "power": 1,
+                "trophies": 17
+              },
+              "name": "ejejkd",
+              "tag": "#2GQYQ0GQ2P"
+            },
+            {
+              "brawler": {
+                "id": 16000088,
+                "name": "BUZZ LIGHTYEAR",
+                "power": 11,
+                "trophies": 9
+              },
+              "name": "teo",
+              "tag": "#989VGUU0"
+            },
+            {
+              "brawler": {
+                "id": 16000077,
+                "name": "LARRY & LAWRIE",
+                "power": 1,
+                "trophies": 19
+              },
+              "name": "lil_cino._",
+              "tag": "#2LJGQPPCQ2"
+            }
+          ],
+          [
+            {
+              "brawler": {
+                "id": 16000003,
+                "name": "BROCK",
+                "power": 3,
+                "trophies": 8
+              },
+              "name": "Mowgli",
+              "tag": "#88GGPYG2G"
+            },
+            {
+              "brawler": {
+                "id": 16000008,
+                "name": "NITA",
+                "power": 4,
+                "trophies": 16
+              },
+              "name": "⛩|Wdym64 ☪️",
+              "tag": "#88GRCVG0L"
+            },
+            {
+              "brawler": {
+                "id": 16000006,
+                "name": "BARLEY",
+                "power": 5,
+                "trophies": 8
+              },
+              "name": "Miguel pro",
+              "tag": "#88RVQJ20J"
+            }
+          ]
+        ],
+        "trophyChange": 9,
+        "type": "ranked"
+      },
+      "battleTime": "20241213T123133.000Z",
+      "event": {
+        "id": 15000499,
+        "map": "Open Space",
+        "mode": "gemGrab"
+      }
+    },
+    {
+      "battle": {
+        "mode": "duoShowdown",
+        "rank": 1,
+        "teams": [
+          [
+            {
+              "brawler": {
+                "id": 16000088,
+                "name": "BUZZ LIGHTYEAR",
+                "power": 11,
+                "trophies": 0
+              },
+              "name": "teo",
+              "tag": "#989VGUU0"
+            },
+            {
+              "brawler": {
+                "id": 16000069,
+                "name": "HANK",
+                "power": 1,
+                "trophies": 112
+              },
+              "name": "pascolo",
+              "tag": "#VQCV92Q9"
+            }
+          ],
+          [
+            {
+              "brawler": {
+                "id": 16000070,
+                "name": "CORDELIUS",
+                "power": 6,
+                "trophies": 47
+              },
+              "name": "Bananenkrieger",
+              "tag": "#LLL0Q9CRL"
+            },
+            {
+              "brawler": {
+                "id": 16000005,
+                "name": "SPIKE",
+                "power": 5,
+                "trophies": 56
+              },
+              "name": "⛩️m̶̜̍̄k҉z҉x҉🎋",
+              "tag": "#LL8RGYYVL"
+            }
+          ],
+          [
+            {
+              "brawler": {
+                "id": 16000072,
+                "name": "PEARL",
+                "power": 5,
+                "trophies": 52
+              },
+              "name": "愛 NiceTryShøt",
+              "tag": "#LLPLQ2UG0"
+            },
+            {
+              "brawler": {
+                "id": 16000041,
+                "name": "LOU",
+                "power": 6,
+                "trophies": 63
+              },
+              "name": "холява от super",
+              "tag": "#LL8U9VPG0"
+            }
+          ],
+          [
+            {
+              "brawler": {
+                "id": 16000003,
+                "name": "BROCK",
+                "power": 6,
+                "trophies": 52
+              },
+              "name": "adaminfire🇵🇸",
+              "tag": "#LLPUY9QUU"
+            },
+            {
+              "brawler": {
+                "id": 16000069,
+                "name": "HANK",
+                "power": 7,
+                "trophies": 61
+              },
+              "name": "paoloneymar",
+              "tag": "#LL8VVCGYJ"
+            }
+          ],
+          [
+            {
+              "brawler": {
+                "id": 16000086,
+                "name": "SHADE",
+                "power": 5,
+                "trophies": 56
+              },
+              "name": "Atlas",
+              "tag": "#LL8GY2Q8G"
+            },
+            {
+              "brawler": {
+                "id": 16000008,
+                "name": "NITA",
+                "power": 7,
+                "trophies": 48
+              },
+              "name": "ロリを20倍で薄めたコーラ",
+              "tag": "#LLY8RR8GG"
+            }
+          ]
+        ],
+        "trophyChange": 9,
+        "type": "ranked"
+      },
+      "battleTime": "20241212T152904.000Z",
+      "event": {
+        "id": 15000046,
+        "map": "Island Invasion",
+        "mode": "duoShowdown"
+      }
+    }
+  ]
+}
