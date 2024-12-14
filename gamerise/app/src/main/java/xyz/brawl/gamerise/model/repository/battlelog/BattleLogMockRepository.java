@@ -15,9 +15,9 @@ public class BattleLogMockRepository implements IBattleLogRepository{
     }
 
     @Override
-    public BattleLogApiResponse fetchBattleLog(String playerTag, long lastUpdate) {
+    public void fetchBattleLog(String playerTag, long lastUpdate) {
         JSONParserUtils jsonParserUtils = new JSONParserUtils(context);
-
+        /*
         try {
             // Usa il file JSON corretto
             return jsonParserUtils.battleLogParseJSONWithGson("battlelogsimpled.json");
@@ -27,7 +27,7 @@ public class BattleLogMockRepository implements IBattleLogRepository{
 
             // Restituisci un valore predefinito o `null` in caso di errore
             return null;
-        }
+        }*/
     }
 
 }

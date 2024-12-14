@@ -59,7 +59,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
 
         List<Battle> battles = new ArrayList<>();
         //battles sembra non avere assegnati i valori dal mapper
-        battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
+       //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
 
 
         RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);

@@ -36,7 +36,7 @@ public class BattleLogRepository implements IBattleLogRepository {
      * @return null provvisorio
      */
     @Override
-    public BattleLogApiResponse fetchBattleLog(String playerTag, long lastUpdate) {
+    public void fetchBattleLog(String playerTag, long lastUpdate) {
         Call<BattleLogApiResponse> call = battleLogApiService.getBattlelog(playerTag);
         call.enqueue(new Callback<BattleLogApiResponse>() {
             @Override
@@ -66,8 +66,6 @@ public class BattleLogRepository implements IBattleLogRepository {
                 Log.d("TAG", "NO RESPONSE");
             }
         });
-
-        return null;
     }
 
 }

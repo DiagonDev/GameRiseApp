@@ -4,5 +4,5 @@ import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 
 public interface IBattleLogRepository {
 
-    BattleLogApiResponse fetchBattleLog(String playerTag, long lastUpdate);
+    void fetchBattleLog(String playerTag, long lastUpdate);
 }
