@@ -30,6 +30,9 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 
+/// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
+/// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
+/// il colore da applicare. Non è un problema bloccante e si risolve appena popoliamo il recycler
 public class TagActivity extends AppCompatActivity {
 
     private boolean checked = false;
@@ -66,14 +69,6 @@ public class TagActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BrawlerRepository brawlerRepository = new BrawlerRepository();
-
-                /*ItemsResponse lista_finale = brawlerRepository.getBrawlers();
-
-                for(BrawlerV2 item : lista_finale.getItems()) {
-                    Toast.makeText(TagActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
-                }*/
-
                 if (handlerInvioTag()) {
                     Intent intent = new Intent(TagActivity.this, MainActivity.class);
                     startActivity(intent);

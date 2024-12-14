@@ -7,21 +7,26 @@ import java.io.IOException;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.util.JSONParserUtils;
 
-public class BattleLogMockRepository {
+public class BattleLogMockRepository implements IBattleLogRepository{
     private Context context;
 
     public BattleLogMockRepository(Context context) {
         this.context = context;
     }
 
-    void fetchBattleLog() {
-        BattleLogApiResponse battleLogApiResponse = new BattleLogApiResponse();
-        battleLogApiResponse = null;
-        JSONParserUtils JSONParserUtils = new JSONParserUtils(context);
+    @Override
+    public BattleLogApiResponse fetchBattleLog(String playerTag, long lastUpdate) {
+        JSONParserUtils jsonParserUtils = new JSONParserUtils(context);
+
         try {
-            battleLogApiResponse = JSONParserUtils.battleLogParseJSONWithGson("battlelog.json");
+            // Usa il file JSON corretto
+            return jsonParserUtils.battleLogParseJSONWithGson("battlelogsimpled.json");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Log dell'errore (puoi usare il tuo logger preferito)
+            e.printStackTrace();
+
+            // Restituisci un valore predefinito o `null` in caso di errore
+            return null;
         }
     }
 

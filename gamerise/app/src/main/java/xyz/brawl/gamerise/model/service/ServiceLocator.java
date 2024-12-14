@@ -10,7 +10,9 @@ public class ServiceLocator {
     public static ServiceLocator getInstance() {
         if (INSTANCE == null) {
             synchronized (ServiceLocator.class) {
-                INSTANCE = new ServiceLocator();
+                if (INSTANCE == null) {
+                    INSTANCE = new ServiceLocator();
+                }
             }
         }
         return INSTANCE;
@@ -24,8 +26,6 @@ public class ServiceLocator {
     }
 
     /* TODO: implementare data base
-    public BattleLogRoomDatabase getBattleLogRoomDatabase(){
-        return BattleLogRoomDatabase.getDatabase(context);
-    }
+    public RoomDatabase getDAO(){}
     */
 }

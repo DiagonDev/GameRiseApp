@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +22,13 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
+
+import xyz.brawl.gamerise.model.repository.battlelog.BattleLogMockRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.IBattleLogRepository;
 import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.util.Constants;
-import xyz.brawl.gamerise.util.JSONParserUtils;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class BattleLogFragment extends Fragment implements ResponseCallback {
@@ -48,26 +46,21 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         View view = inflater.inflate(R.layout.fragment_battle_log, container, false);
 
         //Provvisorio
-        battleLogRepository = new BattleLogRepository(this.getContext(), this);
-        battleLogRepository.fetchBattleLog(Constants.tagTeo, 10);
-
-
-        JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
-        List<Battle> battles = new ArrayList<>();
-        try {
-           // BattleLogApiResponse battleLogApiResponse = jsonParserUtils.battleLogParseJSONWithGson("battlelog.json");
-            BattleLogApiResponse battleLogApiResponse = jsonParserUtils.battleLogParseJSONWithGson("battlelogsimpled.json");
-
-            //battles sembra non avere assegnati i valori dal mapper
-            battles = BattleMapper.mapToBattles(battleLogApiResponse);
-            int k = 0;
-            for (int i = 0; i < battles.size(); i++) {
-                k++;
-            }
-            Log.d("Counter", ""+k);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        /*
+        * Debug mode è una variabile che sta nella local.properties
+        * guardare build.gradle:
+        * resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
+        * se sto in debug mode prendo sempre dal file .json locale
+         */
+        if(requireActivity().getResources().getBoolean(R.bool.debug_mode)){
+            battleLogRepository = new BattleLogMockRepository(this.getContext());
         }
+        else battleLogRepository = new BattleLogRepository(this.getContext(), this);
+
+        List<Battle> battles = new ArrayList<>();
+        //battles sembra non avere assegnati i valori dal mapper
+        battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
+
 
         RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -29,8 +29,14 @@ public class BattleLogRepository implements IBattleLogRepository {
         this.responseCallback = responseCallback;
     }
 
+    /**
+     *
+     * @param playerTag tag del giocatore, per ora impostato su teo
+     * @param lastUpdate
+     * @return null provvisorio
+     */
     @Override
-    public void fetchBattleLog(String playerTag, long lastUpdate) {
+    public BattleLogApiResponse fetchBattleLog(String playerTag, long lastUpdate) {
         Call<BattleLogApiResponse> call = battleLogApiService.getBattlelog(playerTag);
         call.enqueue(new Callback<BattleLogApiResponse>() {
             @Override
@@ -41,14 +47,14 @@ public class BattleLogRepository implements IBattleLogRepository {
                     //leo - responseCallback.onSuccess(response.body().getBattleResponseList(), response.raw().receivedResponseAtMillis());
                     List<BattleLogEntry> battleLogEntries = response.body().getBattleResponseList();
 
-                    Log.d("TAG", battleLogEntries.toString());
+                    Log.d("SUCCESS", battleLogEntries.toString());
                     //leo - più output tanto per esser sicuri
+                    /*ale - tolto perchè allunga il debug
                     for (BattleLogEntry battleLogEntry : battleLogEntries)
                         Log.d("MAP", battleLogEntry.getEvent().getMap());
-
+                      */
                     //TODO: implement data base
-                }
-                else {
+                } else {
                     responseCallback.onFailure(context.getString(R.string.error_message));
                     Log.d("TAG", "NO RESPONSE");
                 }
@@ -61,6 +67,7 @@ public class BattleLogRepository implements IBattleLogRepository {
             }
         });
 
+        return null;
     }
 
 }
