@@ -65,7 +65,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         battleLogRepository.fetchBattleLog(Constants.tagTeo, 10);
 
         //battles sembra non avere assegnati i valori dal mapper
-       //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
+        //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
 
 
 
@@ -80,7 +80,8 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
     }
 
     @Override
-    public <T> void onSuccess(List<T> list, long lastUpdate) {
+    public <T> void onSuccess(Object o, long lastUpdate) {
+        List<T> list = (List<T>) o;
         if(list != null){
             this.battles.clear();
             this.battles.addAll(BattleMapper.mapToBattles((List<BattleLogEntry>)list));

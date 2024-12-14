@@ -18,19 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import xyz.brawl.gamerise.R;
 
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
+import xyz.brawl.gamerise.model.repository.brawler.BrawlerRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
+import xyz.brawl.gamerise.util.ResponseCallback;
 
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
 /// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
 /// il colore da applicare. Non è un problema bloccante e si risolve appena popoliamo il recycler
-public class TagActivity extends AppCompatActivity {
+public class TagActivity extends AppCompatActivity implements ResponseCallback {
 
     private boolean checked = false;
     private TagViewModel tagViewModel;
@@ -111,6 +114,12 @@ public class TagActivity extends AppCompatActivity {
 
         // Carica i primi 3 tag dal database
         tagViewModel.loadRecentTags();
+
+
+        /////////////////////////////////////
+        BrawlerRepository br = new BrawlerRepository(this.getBaseContext() , this);
+        br.fetchBrawlerList();
+        br.fetchBrawler(16000000);
     }
 
     /**
@@ -145,4 +154,17 @@ public class TagActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+    ////////////////////////
+    @Override
+    public <T> void onSuccess(Object o, long lastUpdate) {
+
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+
+    }
 }

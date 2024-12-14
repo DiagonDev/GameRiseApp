@@ -1,11 +1,11 @@
-package xyz.brawl.gamerise.model.data.datasource.brawler;
+package xyz.brawl.gamerise.model.data.brawler;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-
 // Response class containing only the 'items' array
+//leo - il json ritornato da /brawlers contiene un mega-array di BrawlerEntry, contenuti in un oggetto "items"
+//      questo oggetto intermedio ci permette di usare GsonConverterFactory
 public class ItemsResponse {
     @SerializedName("items")
     private List<BrawlerEntry> items;
