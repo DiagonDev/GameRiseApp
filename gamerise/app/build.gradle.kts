@@ -66,4 +66,6 @@ dependencies {
     implementation(libs.retrofit2.converter.scalars)
     implementation(libs.converter.gson)
     implementation(libs.gson)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
 }

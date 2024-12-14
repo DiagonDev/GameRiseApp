@@ -3,14 +3,14 @@ package xyz.brawl.gamerise.model.data.datasource.brawler;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.brawler.BrawlerV2;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 
 // Response class containing only the 'items' array
 public class ItemsResponse {
     @SerializedName("items")
-    private List<BrawlerV2> items;
+    private List<BrawlerEntry> items;
 
-    public List<BrawlerV2> getItems() {
+    public List<BrawlerEntry> getItems() {
         return items;
     }
 }

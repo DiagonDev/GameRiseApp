@@ -25,22 +25,29 @@ import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
+import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
+import xyz.brawl.gamerise.util.Constants;
 import xyz.brawl.gamerise.util.JSONParserUtils;
+import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class StatsFragment extends Fragment {
+public class StatsFragment extends Fragment implements ResponseCallback {
 
     public LinearLayout chartContainer;
+    private StatsRepository statsRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
+       statsRepository = new StatsRepository(this.getContext(), this);
+       statsRepository.fetchStats(Constants.tagTeo, 10);
+
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
         try {
             StatsApiResponse statsApiResponse = jsonParserUtils.statsParseJSONWithGson("players.json");
-            // List<Battle> battles = BattleMapper.mapToBattles(battleLogApiResponse);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -104,5 +111,15 @@ public class StatsFragment extends Fragment {
         // Aggiorna il grafico
         scatterChart.invalidate();
         chartContainer.addView(chartView);
+    }
+
+    @Override
+    public void onSuccess(List<BattleLogEntry> battleLogEntries, long lastUpdate) {
+
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+
     }
 }

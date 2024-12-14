@@ -4,20 +4,22 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 
 public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
-    List<Tag> tags;
+    private final List<Tag> recentTags = new ArrayList<>();  // Tag dal database
+    private final List<Tag> runtimeTags = new ArrayList<>(); // Tag aggiunti durante l'esecuzione
 
-    public TagAdapter(List<Tag> tags) {
-        this.tags = tags;
+    public TagAdapter(List<Tag> initialTags) {
+        if (initialTags != null) {
+            this.recentTags.addAll(initialTags);
+        }
     }
 
     @NonNull
@@ -28,21 +30,35 @@ public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TagViewHolder holder, int position) {
-        holder.tagTextView.setText(tags.get(position).getTag());
-        holder.nomeGiocatoreTextView.setText(tags.get(position).getNomeGiocatore());
+        //combina le due liste per ottenere la lista finale di dtag da visualzzare
+        Tag tag = getAllTags().get(position);
+        holder.tagTextView.setText(tag.getTag());
+        holder.nomeGiocatoreTextView.setText(tag.getNomeGiocatore());
+    }
+
+    @Override
+    public int getItemCount() {
+        // Combina recentTags e runtimeTags
+        return getAllTags().size();
+    }
+
+    public void updateTags(List<Tag> updatedTags) {
+        this.recentTags.clear();
+        this.runtimeTags.clear();
+        this.recentTags.addAll(updatedTags);
+        notifyDataSetChanged();
     }
 
     public void addTag(Tag newTag) {
-        this.tags.add(newTag);
-        notifyItemInserted(tags.size() - 1);
+        this.recentTags.add(0, newTag); // Aggiungi in cima ai tag recenti
+        notifyItemInserted(0); // Notifica il cambiamento
     }
-    public void updateTags(List<Tag> newTags) {
-        this.tags.clear();
-        this.tags.addAll(newTags);
-        notifyDataSetChanged(); // Aggiorna il RecyclerView
-    }
-    @Override
-    public int getItemCount() {
-        return tags.size();
+
+    // Metodo per ottenere la lista unificata di tag
+    private List<Tag> getAllTags() {
+        List<Tag> allTags = new ArrayList<>();
+        allTags.addAll(recentTags);  // Aggiungi i tag dal database
+        allTags.addAll(runtimeTags); // Aggiungi i tag runtime
+        return allTags;
     }
 }

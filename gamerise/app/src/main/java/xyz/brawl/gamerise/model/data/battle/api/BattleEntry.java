@@ -1,9 +1,14 @@
 package xyz.brawl.gamerise.model.data.battle.api;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import java.util.List;
 
+//@Entity
 public class BattleEntry {
     private List<List<PlayerEntry>> teams;
+    //@PrimaryKey
+    public int uid;
     private int trophyChange;
     private String type;
 

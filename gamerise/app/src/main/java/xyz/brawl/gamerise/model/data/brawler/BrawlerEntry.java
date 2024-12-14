@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // Model class for BattleLogEntry
-public class BrawlerV2 {
+public class BrawlerEntry {
     @SerializedName("id")
     private long id;
 
