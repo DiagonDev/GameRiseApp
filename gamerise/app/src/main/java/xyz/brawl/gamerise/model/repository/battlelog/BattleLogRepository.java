@@ -43,7 +43,7 @@ public class BattleLogRepository implements IBattleLogRepository {
             public void onResponse(@NonNull Call<BattleLogApiResponse> call,
                                    @NonNull Response<BattleLogApiResponse> response) {
                 //TODO: cambiare messaggio di risposta
-                if (response.body() != null && response.isSuccessful() && response.message().equals("OK")) {
+                if (response.body() != null && response.isSuccessful()) {
                     //leo - responseCallback.onSuccess(response.body().getBattleResponseList(), response.raw().receivedResponseAtMillis());
                     List<BattleLogEntry> battleLogEntries = response.body().getBattleResponseList();
 
@@ -53,6 +53,7 @@ public class BattleLogRepository implements IBattleLogRepository {
                     for (BattleLogEntry battleLogEntry : battleLogEntries)
                         Log.d("MAP", battleLogEntry.getEvent().getMap());
                       */
+                    responseCallback.onSuccess(battleLogEntries, response.raw().receivedResponseAtMillis());
                     //TODO: implement data base
                 } else {
                     responseCallback.onFailure(context.getString(R.string.error_message));

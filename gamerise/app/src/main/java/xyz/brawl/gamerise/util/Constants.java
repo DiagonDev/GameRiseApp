@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
@@ -172,8 +173,7 @@ public class Constants {
         }
     }
     //Questo metodo ritorna la lista di players del team del giocatore (tag)
-    public static List<PlayerEntry> getTeamMembers(BattleLogEntry battleLogEntry) {
-        List<List<PlayerEntry>> teams = battleLogEntry.getBattle().getTeams();
+    public static List<PlayerEntry> getTeamMembers(List<List<PlayerEntry>> teams) {
         for (List<PlayerEntry> playerEntryList : teams) {
             for (PlayerEntry playerEntry : playerEntryList) {
                 if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
@@ -187,8 +187,21 @@ public class Constants {
 
    //Dichiara se la lista di players è vuota o meno
     public static String[] getPlayersBrawler(BattleLogEntry battleLogEntry){
-        List<PlayerEntry> playerEntryList = getTeamMembers(battleLogEntry);
+        List<List<PlayerEntry>> teams = battleLogEntry.getBattle().getTeams();
+        List<PlayerEntry> playerEntryList = new ArrayList<>();
         String[] playersBrawler = {null, null, null};
+        if(teams == null) {
+            playerEntryList = battleLogEntry.getBattle().getPlayers();
+            for (PlayerEntry playerEntry: playerEntryList) {
+                if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
+                        tagTeo)){
+                    playersBrawler[0] = playerEntry.getBrawler().getName();
+                    return playersBrawler;
+                }
+            }
+        }
+        playerEntryList = getTeamMembers(teams);
+
         for (int i = 0; i < playerEntryList.size(); i++) {
             playersBrawler[i] = playerEntryList.get(i).getBrawler().getName();
         }

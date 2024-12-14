@@ -1,14 +1,12 @@
 package xyz.brawl.gamerise.model.data.battle.api;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 import java.util.List;
 
-//@Entity
 public class BattleEntry {
     private List<List<PlayerEntry>> teams;
-    //@PrimaryKey
-    public int uid;
+    //json battleLog non è sempre uguale, a volte ho teams a volte ho players
+    private List<PlayerEntry> players;
+
     private int trophyChange;
     private String type;
 
@@ -30,6 +28,14 @@ public class BattleEntry {
 
     public List<List<PlayerEntry>> getTeams() {
         return teams;
+    }
+
+    public List<PlayerEntry> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayerEntry> players) {
+        this.players = players;
     }
 
     public void setTeams(List<List<PlayerEntry>> teams) {
