@@ -5,6 +5,6 @@ import java.util.List;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 
 public interface ResponseCallback {
-    void onSuccess(List<BattleLogEntry> battleLogEntries, long lastUpdate);
+    <T> void onSuccess(List<T> list, long lastUpdate);
     void onFailure(String errorMessage);
 }

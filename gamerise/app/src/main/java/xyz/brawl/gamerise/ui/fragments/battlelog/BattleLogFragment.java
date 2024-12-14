@@ -83,7 +83,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
     }
 
     @Override
-    public void onSuccess(List<BattleLogEntry> battleLogEntries, long lastUpdate) {
+    public <T> void onSuccess(List<T> list, long lastUpdate) {
 
     }
 

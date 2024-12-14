@@ -5,10 +5,12 @@ import java.util.concurrent.CompletableFuture;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import xyz.brawl.gamerise.model.service.ApiService;
 
 public abstract class AbstractRemoteDataSource {
     protected final ApiService apiService;
 
+    @Deprecated
     protected AbstractRemoteDataSource(ApiService apiService) {
         this.apiService = apiService;
     }

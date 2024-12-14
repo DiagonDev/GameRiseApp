@@ -1,10 +1,11 @@
-package xyz.brawl.gamerise.model.data.datasource;
+package xyz.brawl.gamerise.model.service;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.brawler.Brawler;
 import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 
@@ -14,7 +15,7 @@ public interface ApiService {
     Call<String> getPlayer(@Path("tag") String tag);
 
     @GET("players/{tag}/battlelog")
-    Call<String> getBattlelog(@Path("tag") String playerTag);
+    Call<BattleLogApiResponse> getBattlelog(@Path("tag") String playerTag);
 
     @GET("rankings/{countryCode}/clubs")
     Call<String> getClubsLeaderboard(@Path("countryCode") String countryCode);
