@@ -22,13 +22,10 @@ import java.util.ArrayList;
 import xyz.brawl.gamerise.R;
 
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.repository.BrawlerRepository;
-import xyz.brawl.gamerise.model.data.datasource.brawler.ItemsResponse;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
-import xyz.brawl.gamerise.database.TagRoomDatabase;
 
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
 /// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare

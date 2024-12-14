@@ -55,10 +55,12 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.room.common)
-    testImplementation(libs.junit)
     implementation(libs.material.vversion)
+
+    testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
     implementation(libs.fragment)
     implementation(libs.mpandroidchart)
     implementation(libs.room.runtime)
@@ -68,4 +70,5 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.logging.interceptor)
 }

@@ -16,10 +16,9 @@ import xyz.brawl.gamerise.model.service.ServiceLocator;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class AbstractRepository {
-
-    private ApiService apiService;
-    private Context context;
-    private ResponseCallback responseCallback;
+    protected ApiService apiService;
+    protected Context context;
+    protected ResponseCallback responseCallback;
 
     public AbstractRepository(Context context, ResponseCallback responseCallback) {
         this.apiService = ServiceLocator.getInstance().getApiService();
@@ -29,7 +28,7 @@ public class AbstractRepository {
 
     // se riuscissimo ad astrarre questo metodo sarebbe top così non fa reimplementata la logica di base in ogni classe
     // + il codice generico<T> è un flex if you ask me
-    protected <T> void get(Call<T> call) {
+    public <T> void get(Call<T> call) {
         call.enqueue(new Callback<T>() { // async call
             @Override
             public void onResponse(@NonNull Call<T> c, @NonNull Response<T> response) {
