@@ -10,6 +10,7 @@ public class ServiceLocator {
     public static ServiceLocator getInstance() {
         if (INSTANCE == null) {
             synchronized (ServiceLocator.class) {
+                /// Secondo if se ho più thread
                 if (INSTANCE == null) {
                     INSTANCE = new ServiceLocator();
                 }
