@@ -113,8 +113,9 @@ public class StatsFragment extends Fragment implements ResponseCallback {
         chartContainer.addView(chartView);
     }
 
+
     @Override
-    public void onSuccess(List<BattleLogEntry> battleLogEntries, long lastUpdate) {
+    public <T> void onSuccess(List<T> list, long lastUpdate) {
 
     }
 
