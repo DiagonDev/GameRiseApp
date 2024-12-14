@@ -119,7 +119,7 @@ public class Constants {
         DRACO(R.drawable.draco_pin),
         OLLIE(R.drawable.ollie_pin),
         MEEPLE(R.drawable.meeple_pin),
-        BUZZ_LIGHTYEAR(iconStandard), //ignoreremo
+        BUZZ_LIGHTYEAR(R.drawable.sandy_pin), //ignoreremo
         JUJU(R.drawable.juju_pin),
         SHADE(R.drawable.shade_pin),
         KENJI(R.drawable.kenji_pin),
@@ -164,7 +164,8 @@ public class Constants {
             try {
                 // Sostituisci i caratteri non validi
                 String enumKey = mode.toUpperCase()
-                        .replace(" & ", "_AND_");
+                        .replace(" & ", "_AND_")
+                        .replace(" ", "_");
                 return BrawlerPin.valueOf(enumKey);
             } catch (IllegalArgumentException e) {
                 // Fallback in caso di errore
