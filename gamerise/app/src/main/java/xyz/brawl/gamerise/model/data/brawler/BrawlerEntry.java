@@ -17,6 +17,8 @@ public class BrawlerEntry {
     @SerializedName("starPowers")
     private List<StarPower> starPowers;
 
+    private int brawlerPin;
+
     // Getters and setters
     public long getId() {
         return id;
@@ -48,6 +50,14 @@ public class BrawlerEntry {
 
     public void setStarPowers(List<StarPower> starPowers) {
         this.starPowers = starPowers;
+    }
+
+    public int getBrawlerPin() {
+        return brawlerPin;
+    }
+
+    public void setBrawlerPin(int brawlerPin) {
+        this.brawlerPin = brawlerPin;
     }
 
     // Gadget class

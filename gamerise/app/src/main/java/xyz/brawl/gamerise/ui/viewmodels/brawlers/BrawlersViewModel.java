@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import xyz.brawl.gamerise.model.data.brawler.Brawler;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 
 public class BrawlersViewModel extends ViewModel {
-    private final MutableLiveData<Brawler> selectedBrawler = new MutableLiveData<>();
+    private final MutableLiveData<BrawlerEntry> selectedBrawler = new MutableLiveData<>();
 
-    public void selectBrawler(Brawler brawler) {
+    public void selectBrawler(BrawlerEntry brawler) {
         selectedBrawler.setValue(brawler);
     }
 
-    public LiveData<Brawler> getSelectedBrawler() {
+    public LiveData<BrawlerEntry> getSelectedBrawler() {
         return selectedBrawler;
     }
 }

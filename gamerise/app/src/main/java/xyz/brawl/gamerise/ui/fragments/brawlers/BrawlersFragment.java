@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.model.data.brawler.Brawler;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.ui.fragments.brawlers.adapter.BrawlerAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 
@@ -58,13 +58,13 @@ public class BrawlersFragment extends Fragment {
             popupMenu.show();
         });
 
-        List<Brawler> brawlers = new ArrayList<>();
-        /*brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));
-        brawlers.add(new Brawler(R.drawable._bit_pin, 16000027, "8BIT"));*/
+        List<BrawlerEntry> brawlers = new ArrayList<>();
+        /*brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+        brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+        brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+        brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+        brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+        brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));*/
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
 
