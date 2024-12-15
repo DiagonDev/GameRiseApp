@@ -23,6 +23,7 @@ import xyz.brawl.gamerise.model.data.battle.Battle;
 
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogMockRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.IBattleLogRepository;
@@ -35,7 +36,8 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
 
     private BattleLogViewModel battleLogViewModel;
     private IBattleLogRepository battleLogRepository;
-
+    private List<Battle> battles = new ArrayList<>();
+    private RecyclerView recyclerView;
     public static BattleLogFragment newInstance() {
         return new BattleLogFragment();
     }
@@ -44,8 +46,11 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_battle_log, container, false);
-
         //Provvisorio
+        recyclerView = view.findViewById(R.id.battle_log_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
+
         /*
         * Debug mode è una variabile che sta nella local.properties
         * guardare build.gradle:
@@ -57,14 +62,13 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         }
         else battleLogRepository = new BattleLogRepository(this.getContext(), this);
 
-        List<Battle> battles = new ArrayList<>();
+        battleLogRepository.fetchBattleLog(Constants.tagTeo, 10);
+
         //battles sembra non avere assegnati i valori dal mapper
-       //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
+        //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.battle_log_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
+
         return view;
     }
 
@@ -76,8 +80,18 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
     }
 
     @Override
-    public <T> void onSuccess(List<T> list, long lastUpdate) {
-
+    public <T> void onSuccess(Object o, long lastUpdate) {
+        List<T> list = (List<T>) o;
+        if(list != null){
+            this.battles.clear();
+            this.battles.addAll(BattleMapper.mapToBattles((List<BattleLogEntry>)list));
+        }
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

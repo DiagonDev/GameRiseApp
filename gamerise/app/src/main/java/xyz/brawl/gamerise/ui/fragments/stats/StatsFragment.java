@@ -115,7 +115,7 @@ public class StatsFragment extends Fragment implements ResponseCallback {
 
 
     @Override
-    public <T> void onSuccess(List<T> list, long lastUpdate) {
+    public <T> void onSuccess(Object o, long lastUpdate) {
 
     }
 

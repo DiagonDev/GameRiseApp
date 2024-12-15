@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
@@ -118,7 +119,7 @@ public class Constants {
         DRACO(R.drawable.draco_pin),
         OLLIE(R.drawable.ollie_pin),
         MEEPLE(R.drawable.meeple_pin),
-        BUZZ_LIGHTYEAR(iconStandard), //ignoreremo
+        BUZZ_LIGHTYEAR(R.drawable.sandy_pin), //ignoreremo
         JUJU(R.drawable.juju_pin),
         SHADE(R.drawable.shade_pin),
         KENJI(R.drawable.kenji_pin),
@@ -163,7 +164,8 @@ public class Constants {
             try {
                 // Sostituisci i caratteri non validi
                 String enumKey = mode.toUpperCase()
-                        .replace(" & ", "_AND_");
+                        .replace(" & ", "_AND_")
+                        .replace(" ", "_");
                 return BrawlerPin.valueOf(enumKey);
             } catch (IllegalArgumentException e) {
                 // Fallback in caso di errore
@@ -172,8 +174,7 @@ public class Constants {
         }
     }
     //Questo metodo ritorna la lista di players del team del giocatore (tag)
-    public static List<PlayerEntry> getTeamMembers(BattleLogEntry battleLogEntry) {
-        List<List<PlayerEntry>> teams = battleLogEntry.getBattle().getTeams();
+    public static List<PlayerEntry> getTeamMembers(List<List<PlayerEntry>> teams) {
         for (List<PlayerEntry> playerEntryList : teams) {
             for (PlayerEntry playerEntry : playerEntryList) {
                 if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
@@ -187,8 +188,21 @@ public class Constants {
 
    //Dichiara se la lista di players è vuota o meno
     public static String[] getPlayersBrawler(BattleLogEntry battleLogEntry){
-        List<PlayerEntry> playerEntryList = getTeamMembers(battleLogEntry);
+        List<List<PlayerEntry>> teams = battleLogEntry.getBattle().getTeams();
+        List<PlayerEntry> playerEntryList = new ArrayList<>();
         String[] playersBrawler = {null, null, null};
+        if(teams == null) {
+            playerEntryList = battleLogEntry.getBattle().getPlayers();
+            for (PlayerEntry playerEntry: playerEntryList) {
+                if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
+                        tagTeo)){
+                    playersBrawler[0] = playerEntry.getBrawler().getName();
+                    return playersBrawler;
+                }
+            }
+        }
+        playerEntryList = getTeamMembers(teams);
+
         for (int i = 0; i < playerEntryList.size(); i++) {
             playersBrawler[i] = playerEntryList.get(i).getBrawler().getName();
         }
