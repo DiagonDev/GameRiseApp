@@ -37,12 +37,6 @@ public class ServiceLocator {
         return retrofit.create(ApiService.class);
     }
 
-    public StatsApiService getStatsApiService(){
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.API_ENDPOINT_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        return retrofit.create(StatsApiService.class);
-    }
-
     /* TODO: implement data base
     public RoomDatabase getDAO(){}
     */

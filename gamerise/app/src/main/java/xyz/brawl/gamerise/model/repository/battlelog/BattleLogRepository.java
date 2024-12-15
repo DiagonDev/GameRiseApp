@@ -3,70 +3,49 @@ package xyz.brawl.gamerise.model.repository.battlelog;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
-import xyz.brawl.gamerise.model.service.ApiService;
-import xyz.brawl.gamerise.model.service.ServiceLocator;
+import xyz.brawl.gamerise.model.repository.AbstractRepository;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class BattleLogRepository implements IBattleLogRepository {
-
-    private ApiService battleLogApiService;
-    private Context context;
-    private ResponseCallback responseCallback;
-
+public class BattleLogRepository extends AbstractRepository implements IBattleLogRepository {
     public BattleLogRepository(Context context, ResponseCallback responseCallback) {
-        this.battleLogApiService = ServiceLocator.getInstance().getApiService();
-        this.context = context;
-        this.responseCallback = responseCallback;
+        super(context, responseCallback);
     }
 
     /**
      *
      * @param playerTag tag del giocatore, per ora impostato su teo
-     * @param lastUpdate
      * @return null provvisorio
      */
     @Override
-    public void fetchBattleLog(String playerTag, long lastUpdate) {
-        Call<BattleLogApiResponse> call = battleLogApiService.getBattlelog(playerTag);
-        call.enqueue(new Callback<BattleLogApiResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<BattleLogApiResponse> call,
-                                   @NonNull Response<BattleLogApiResponse> response) {
-                //TODO: cambiare messaggio di risposta
-                if (response.body() != null && response.isSuccessful()) {
-                    //leo - responseCallback.onSuccess(response.body().getBattleResponseList(), response.raw().receivedResponseAtMillis());
-                    List<BattleLogEntry> battleLogEntries = response.body().getBattleResponseList();
+    public void fetchBattleLog(String playerTag) {
+        get(apiService.getBattlelog(playerTag));
+    }
 
-                    Log.d("SUCCESS", battleLogEntries.toString());
-                    //leo - più output tanto per esser sicuri
+    @Override
+    protected <T> void handleApiResponse(Response<T> response) {
+        if (response.body() instanceof BattleLogApiResponse) {
+            BattleLogApiResponse blar = (BattleLogApiResponse) response.body();
+            //leo - responseCallback.onSuccess(response.body().getBattleResponseList(), response.raw().receivedResponseAtMillis());
+            List<BattleLogEntry> battleLogEntries = blar.getBattleResponseList();
+
+            Log.d("SUCCESS", battleLogEntries.toString());
+            //leo - più output tanto per esser sicuri
                     /*ale - tolto perchè allunga il debug
                     for (BattleLogEntry battleLogEntry : battleLogEntries)
                         Log.d("MAP", battleLogEntry.getEvent().getMap());
-                      */
-                    responseCallback.onSuccess(battleLogEntries, response.raw().receivedResponseAtMillis());
-                    //TODO: implement data base
-                } else {
-                    responseCallback.onFailure(context.getString(R.string.error_message));
-                    Log.d("TAG", "NO RESPONSE");
-                }
-            }
+                      //*/
+            responseCallback.onSuccess(battleLogEntries, response.raw().receivedResponseAtMillis());
+        }
+    }
 
-            @Override
-            public void onFailure(Call<BattleLogApiResponse> call, Throwable throwable) {
-                responseCallback.onFailure(throwable.getMessage());
-                Log.d("TAG", "NO RESPONSE");
-            }
-        });
+    @Override
+    protected void handleApiFailure(Throwable t) {
+
     }
 
 }

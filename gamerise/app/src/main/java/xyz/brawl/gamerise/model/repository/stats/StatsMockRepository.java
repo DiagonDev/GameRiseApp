@@ -7,6 +7,7 @@ import java.io.IOException;
 import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
 import xyz.brawl.gamerise.util.JSONParserUtils;
 
+@Deprecated // non usa AbstractRepository, se è da tenere e non è una classe "temporanea" al fine della lezione la farei astratta
 public class StatsMockRepository {
     private Context context;
 

@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.model.data.brawler;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 // Model class for BattleLogEntry

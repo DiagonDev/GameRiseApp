@@ -5,12 +5,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.data.brawler.ItemsResponse;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
+import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
 
 public interface ApiService {
 
     @GET("players/{tag}")
-    Call<String> getPlayer(@Path("tag") String tag);
+    Call<StatsApiResponse> getPlayer(@Path("tag") String tag);
 
     @GET("players/{tag}/battlelog")
     Call<BattleLogApiResponse> getBattlelog(@Path("tag") String playerTag);
@@ -31,7 +32,7 @@ public interface ApiService {
     Call<String> getClub(@Path("clubTag") String clubTag);
 
     @GET("brawlers")
-    Call<ItemsResponse> getBrawlerList();
+    Call<BrawlerListResponse> getBrawlerList();
 
     @GET("brawlers/{brawlerId}")
     Call<BrawlerEntry> getBrawler(@Path("brawlerId") int brawlerId);

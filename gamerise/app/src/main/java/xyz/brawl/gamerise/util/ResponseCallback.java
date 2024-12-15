@@ -1,7 +1,5 @@
 package xyz.brawl.gamerise.util;
 
-import java.util.List;
-
 public interface ResponseCallback {
     //leo - primo parametro è Object perché se usiamo questo metodo per OGNI TIPO di Callback di ApiService
     //      abbiamo 275 tipi diversi di oggetti: List<>, ...Entry, ecc

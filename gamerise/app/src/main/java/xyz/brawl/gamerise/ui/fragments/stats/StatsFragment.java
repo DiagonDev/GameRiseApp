@@ -1,16 +1,13 @@
 package xyz.brawl.gamerise.ui.fragments.stats;
 
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -24,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
 import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
 import xyz.brawl.gamerise.util.Constants;
@@ -43,7 +38,7 @@ public class StatsFragment extends Fragment implements ResponseCallback {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
        statsRepository = new StatsRepository(this.getContext(), this);
-       statsRepository.fetchStats(Constants.tagTeo, 10);
+       statsRepository.fetchStats(Constants.tagTeo);
 
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
         try {

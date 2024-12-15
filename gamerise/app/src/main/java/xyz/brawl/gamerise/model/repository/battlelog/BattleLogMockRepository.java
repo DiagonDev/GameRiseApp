@@ -2,11 +2,9 @@ package xyz.brawl.gamerise.model.repository.battlelog;
 
 import android.content.Context;
 
-import java.io.IOException;
-
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.util.JSONParserUtils;
 
+@Deprecated // non usa AbstractRepository, se è da tenere e non è una classe "temporanea" al fine della lezione la farei astratta
 public class BattleLogMockRepository implements IBattleLogRepository{
     private Context context;
 
@@ -15,7 +13,7 @@ public class BattleLogMockRepository implements IBattleLogRepository{
     }
 
     @Override
-    public void fetchBattleLog(String playerTag, long lastUpdate) {
+    public void fetchBattleLog(String playerTag) {
         JSONParserUtils jsonParserUtils = new JSONParserUtils(context);
         /*
         try {

@@ -9,6 +9,7 @@ public class BattleLogApiResponse {
         return items;
     }
 
+    @Deprecated
     public void setBattleResponseList(List<BattleLogEntry> items) {
         this.items = items;
     }

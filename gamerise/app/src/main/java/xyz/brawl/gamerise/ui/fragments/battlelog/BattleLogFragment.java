@@ -1,28 +1,23 @@
 package xyz.brawl.gamerise.ui.fragments.battlelog;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
-
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
-
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogMockRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
@@ -62,7 +57,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         }
         else battleLogRepository = new BattleLogRepository(this.getContext(), this);
 
-        battleLogRepository.fetchBattleLog(Constants.tagTeo, 10);
+        battleLogRepository.fetchBattleLog(Constants.tagTeo);
 
         //battles sembra non avere assegnati i valori dal mapper
         //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));

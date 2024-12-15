@@ -3,8 +3,7 @@ package xyz.brawl.gamerise.model.data.battle;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.battle.api.*;
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.util.Constants;
 
 public class BattleMapper {
