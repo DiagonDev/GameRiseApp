@@ -6,19 +6,18 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 
-public interface BattleDAO {
-    @Query("SELECT * FROM Battle")
+public interface BrawlerDAO {
+    @Query("SELECT * FROM BrawlerEntry")
     List<Stat> getAll();
 
     @Insert
-    void insertAll(Battle... battles);
+    void insertAll(BrawlerEntry... brawlerEntries);
 
     @Delete
-    void delete(Battle battle);
+    void delete(BrawlerEntry brawlerEntry);
 
     //TODO: altre queries
-
 }

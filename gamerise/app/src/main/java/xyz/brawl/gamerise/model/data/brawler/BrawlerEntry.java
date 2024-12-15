@@ -1,10 +1,17 @@
 package xyz.brawl.gamerise.model.data.brawler;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // Model class for BattleLogEntry
+//TODO: gestire Database per gadgets e starPowers
+@Entity
 public class BrawlerEntry {
+
+    @PrimaryKey
     @SerializedName("id")
     private long id;
 

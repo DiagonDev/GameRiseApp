@@ -1,0 +1,46 @@
+package xyz.brawl.gamerise.database;
+
+import android.content.Context;
+
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import xyz.brawl.gamerise.databaseDeprecated.TagDAO;
+import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.data.tag.Tag;
+
+@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class}, version = 1, exportSchema = false)
+public abstract class GameRiseDatabase extends RoomDatabase {
+
+    public abstract StatDAO statDao();
+    public abstract BattleDAO battleDAO();
+    public abstract BrawlerDAO brawlerDAO();
+    //TODO: fare refactor del package di TagDAO
+    public abstract TagDAO tagDao();
+
+    private static volatile GameRiseDatabase INSTANCE;
+    private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    public static GameRiseDatabase getDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (GameRiseDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    GameRiseDatabase.class, "TagDatabase")
+                            //se si cambia versione togliere commento
+                            //.fallbackToDestructiveMigrationFrom(1, 2) // Specifica le versioni per il fallback
+                            .allowMainThreadQueries() // Questo è utile solo per test, meglio evitare in produzione
+                            .build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+}

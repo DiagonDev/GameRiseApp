@@ -1,9 +1,22 @@
 package xyz.brawl.gamerise.model.data.battle;
 
-import android.graphics.drawable.Drawable;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
+import xyz.brawl.gamerise.model.data.tag.Tag;
+
+@Entity
 public class Battle {
+
+    //autoGenerate true perchè non voglio doverlo specificare
+    @PrimaryKey(autoGenerate = true)
+    public int battleId;
+    /*TODO:  mi serve la foreignKey di Tag.class
+    @ForeignKey(Tag.class)
+    public String tag;*/
+
     public String title;
     public String subTitle;
     public String trophies;
@@ -14,6 +27,9 @@ public class Battle {
     public int iconPlayer2;
     public int iconPlayer3;
     public int iconBackgroundTop;
+
+    //Costruttore vuoto per Room
+    public Battle(){}
 
     public Battle(BattleBuilder battleBuilder) {
         this.title = battleBuilder.title;

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import xyz.brawl.gamerise.database.TagRoomDatabase;
+import xyz.brawl.gamerise.databaseDeprecated.TagRoomDatabase;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
 public class TagViewModel extends ViewModel {
