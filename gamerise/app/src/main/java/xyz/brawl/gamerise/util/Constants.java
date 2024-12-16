@@ -200,13 +200,13 @@ public class Constants {
                     return playersBrawler;
                 }
             }
-        }
-        playerEntryList = getTeamMembers(teams);
+        }else playerEntryList = getTeamMembers(teams);
 
         for (int i = 0; i < playerEntryList.size(); i++) {
             playersBrawler[i] = playerEntryList.get(i).getBrawler().getName();
         }
         return playersBrawler;
+
     }
 
     public static int iconRanked = R.drawable.ranked_icon;
@@ -214,9 +214,8 @@ public class Constants {
 
     public static String tagLeo = "#VQCV92Q9";
     public static String tagTeo = "#989VGUU0";
-    //TODO: inserire le costanti come lez prof
     public static String knockout = "KNOCKOUT";
     public static String StormyPlains = "Stormy Plains";
 
-
+    public static final int DATABASE_VERSION = 4;
 }

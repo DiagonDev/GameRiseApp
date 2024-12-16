@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogMockRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.IBattleLogRepository;
@@ -37,6 +39,8 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
     public static BattleLogFragment newInstance() {
         return new BattleLogFragment();
     }
+
+    private GameRiseDatabase database;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -58,8 +62,8 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         }
         else battleLogRepository = new BattleLogRepository(this.getContext(), this);
 
-        battleLogRepository.fetchBattleLog(Constants.tagTeo);
-
+        battleLogRepository.fetchBattleLog(Constants.tagTeo, 10);
+        database = GameRiseDatabase.getDatabase(this.getContext());
         //battles sembra non avere assegnati i valori dal mapper
         //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
 
@@ -75,13 +79,19 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         // TODO: Use the ViewModel
     }
 
+    //TODO: Spostare logica database e fetchApi in TagActivity
     @Override
-    public void onSuccess(Object o, long lastUpdate) {
-        @SuppressWarnings("unchecked")
+    public <T> void onSuccess(Object o, long lastUpdate) {
         List<BattleLogEntry> list = (List<BattleLogEntry>) o;
         if(list != null){
             this.battles.clear();
             this.battles.addAll(BattleMapper.mapToBattles(list));
+            if (database != null && database.tagDao().findTagByName(GameAccountSingleton.getInstance().getUserTag()) != null) {
+                // Eseguiamo l'operazione di scrittura in background
+                GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+                    database.battleDAO().insertAll(BattleMapper.mapToBattles(list));
+                });
+            }
         }
         requireActivity().runOnUiThread(new Runnable() {
             @Override

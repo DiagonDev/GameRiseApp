@@ -1,16 +1,40 @@
 package xyz.brawl.gamerise.model.data.stat;
 
-import xyz.brawl.gamerise.model.data.stat.api.ClubEntry;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
+import xyz.brawl.gamerise.model.data.stat.api.ClubEntry;
+import xyz.brawl.gamerise.model.data.tag.Tag;
+
+/**
+ * Questa classe rappresenta sia un'entità del database che un oggetto di dominio.
+ */
+@Entity
 public class Stat {
+
+    @PrimaryKey(autoGenerate = true)
+    public int statId;
+
+    /*TODO:  mi serve la foreignKey di Tag.class
+    @ForeignKey(Tag.class)
+    public String tag;*/
+
     public int _3vs3Victories;
     public int trophies;
     public int expLevel;
+    //Room non riesce a "usare" gli oggetti, quindi dobbiamo usare Embedded per wrappare
+    //diventa un tipo primitivo (String) club_clubName
+    @Embedded(prefix = "club_")
     public ClubEntry club;
     public int highestTrophies;
     public int rank;
     public int soloVictories;
     public int duoVictories;
+
+    // Costruttore vuoto necessario per Room
+    public Stat(){}
 
     public Stat(StatBuilder statBuilder) {
         this._3vs3Victories = statBuilder._3vs3Victories;

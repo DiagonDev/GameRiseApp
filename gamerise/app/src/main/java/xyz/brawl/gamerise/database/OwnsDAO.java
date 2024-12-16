@@ -6,19 +6,16 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
-
-import xyz.brawl.gamerise.model.data.battle.Battle;
 @Dao
-public interface BattleDAO {
-    @Query("SELECT * FROM Battle")
-    List<Battle> getAll();
+public interface OwnsDAO {
+    @Query("SELECT * FROM OwnsEntity")
+    List<OwnsEntity> getAll();
 
     @Insert
-    void insertAll(List<Battle> battles);
+    void insertAll(OwnsEntity... ownsEntities);
 
     @Delete
-    void delete(Battle battle);
+    void delete(OwnsEntity ownsEntity);
 
     //TODO: altre queries
-
 }

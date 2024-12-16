@@ -49,11 +49,6 @@ public class TagAdapter extends RecyclerView.Adapter<TagViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void addTag(Tag newTag) {
-        this.recentTags.add(0, newTag); // Aggiungi in cima ai tag recenti
-        notifyItemInserted(0); // Notifica il cambiamento
-    }
-
     // Metodo per ottenere la lista unificata di tag
     private List<Tag> getAllTags() {
         List<Tag> allTags = new ArrayList<>();
