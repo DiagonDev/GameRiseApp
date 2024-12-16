@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // Model class for BattleLogEntry
-//TODO: gestire Database per gadgets e starPowers
+//TODO: gestire Database per gadgetEntries e starPowersEntries
 @Entity
 public class BrawlerEntry {
 
@@ -18,11 +18,11 @@ public class BrawlerEntry {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("gadgets")
-    private List<Gadget> gadgets;
+    @SerializedName("gadgetEntries")
+    private List<GadgetEntry> gadgetEntries;
 
-    @SerializedName("starPowers")
-    private List<StarPower> starPowers;
+    @SerializedName("starPowersEntries")
+    private List<StarPowerEntry> starPowersEntries;
 
     private int brawlerPin;
 
@@ -43,20 +43,20 @@ public class BrawlerEntry {
         this.name = name;
     }
 
-    public List<Gadget> getGadgets() {
-        return gadgets;
+    public List<GadgetEntry> getGadgetEntries() {
+        return gadgetEntries;
     }
 
-    public void setGadgets(List<Gadget> gadgets) {
-        this.gadgets = gadgets;
+    public void setGadgetEntries(List<GadgetEntry> gadgetEntries) {
+        this.gadgetEntries = gadgetEntries;
     }
 
-    public List<StarPower> getStarPowers() {
-        return starPowers;
+    public List<StarPowerEntry> getStarPowersEntries() {
+        return starPowersEntries;
     }
 
-    public void setStarPowers(List<StarPower> starPowers) {
-        this.starPowers = starPowers;
+    public void setStarPowersEntries(List<StarPowerEntry> starPowersEntries) {
+        this.starPowersEntries = starPowersEntries;
     }
 
     public int getBrawlerPin() {
@@ -67,53 +67,4 @@ public class BrawlerEntry {
         this.brawlerPin = brawlerPin;
     }
 
-    // Gadget class
-    public static class Gadget {
-        @SerializedName("id")
-        private long id;
-
-        @SerializedName("name")
-        private String name;
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    // StarPower class
-    public static class StarPower {
-        @SerializedName("id")
-        private long id;
-
-        @SerializedName("name")
-        private String name;
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 }

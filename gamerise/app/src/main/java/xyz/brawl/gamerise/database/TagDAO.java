@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.databaseDeprecated;
+package xyz.brawl.gamerise.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

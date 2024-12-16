@@ -11,17 +11,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import xyz.brawl.gamerise.databaseDeprecated.TagRoomDatabase;
+import xyz.brawl.gamerise.database.GameRiseDatabase;
+
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
 public class TagViewModel extends ViewModel {
     private final MutableLiveData<List<Tag>> tagsLiveData = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<List<Tag>> recentTagsLiveData = new MutableLiveData<>(new ArrayList<>());
 
-    private TagRoomDatabase database;
+    private GameRiseDatabase database;
 
     public void initDatabase(Context context) {
-        database = TagRoomDatabase.getDatabase(context);
+        database = GameRiseDatabase.getDatabase(context);
     }
 
     public LiveData<List<Tag>> getTags() {
@@ -34,8 +35,8 @@ public class TagViewModel extends ViewModel {
 
     public void loadRecentTags() {
         if (database != null) {
-            TagRoomDatabase.databaseWriteExecutor.execute(() -> {
-                List<Tag> recentTags = database.tagDAO().getRecentTags();   // Ottieni i primi 3 tag
+            GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+                List<Tag> recentTags = database.tagDao().getRecentTags();   // Ottieni i primi 3 tag
                 recentTagsLiveData.postValue(recentTags);   // Passa i tag recenti alla UI
                 unifyTags(recentTags);  // Unifica i tag del database con quelli runtime
             });
@@ -46,23 +47,23 @@ public class TagViewModel extends ViewModel {
 
         // Salva il tag nel database ed elimina i meno recenti se necessario
         if (database != null) {
-            TagRoomDatabase.databaseWriteExecutor.execute(() -> {
+            GameRiseDatabase.databaseWriteExecutor.execute(() -> {
                 // Controlla se il tag esiste già nel database
-                Tag existingTag = database.tagDAO().findTagByName(tag.getTag());
+                Tag existingTag = database.tagDao().findTagByName(tag.getTag());
                 if (existingTag != null) {
                     // Rimuovi il tag esistente dalla vecchia posizione
-                    database.tagDAO().delete(existingTag);
+                    database.tagDao().delete(existingTag);
                 }
 
 
-                database.tagDAO().insertAll(tag); // Inserisci il nuovo tag nel database
+                database.tagDao().insertAll(tag); // Inserisci il nuovo tag nel database
 
                 // Controlla se ci sono più di 3 tag nel database
-                List<Tag> allTags = database.tagDAO().getRecentTags();
+                List<Tag> allTags = database.tagDao().getRecentTags();
                 if (allTags.size() > 3) {
                     // Rimuovi il tag più vecchio
                     Tag oldestTag = allTags.get(allTags.size() - 1); // Ultimo nella lista
-                    database.tagDAO().delete(oldestTag);
+                    database.tagDao().delete(oldestTag);
                     allTags.remove(oldestTag);
                 }
 
@@ -70,7 +71,7 @@ public class TagViewModel extends ViewModel {
             });
         }
         // Aggiorna la lista runtime (tagsLiveData)
-        TagRoomDatabase.databaseWriteExecutor.execute(() -> {
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             List<Tag> currentTags = tagsLiveData.getValue();
             if (currentTags == null) {
                 currentTags = new ArrayList<>();

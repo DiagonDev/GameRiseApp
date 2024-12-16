@@ -9,13 +9,14 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import xyz.brawl.gamerise.databaseDeprecated.TagDAO;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
+import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
-@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class}, version = 1, exportSchema = false)
+@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class}, version = 1, exportSchema = false)
 public abstract class GameRiseDatabase extends RoomDatabase {
 
     public abstract StatDAO statDao();
