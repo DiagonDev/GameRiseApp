@@ -18,6 +18,7 @@ import java.util.List;
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
+import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogMockRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
@@ -75,11 +76,12 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
     }
 
     @Override
-    public <T> void onSuccess(Object o, long lastUpdate) {
-        List<T> list = (List<T>) o;
+    public void onSuccess(Object o, long lastUpdate) {
+        @SuppressWarnings("unchecked")
+        List<BattleLogEntry> list = (List<BattleLogEntry>) o;
         if(list != null){
             this.battles.clear();
-            this.battles.addAll(BattleMapper.mapToBattles((List<BattleLogEntry>)list));
+            this.battles.addAll(BattleMapper.mapToBattles(list));
         }
         requireActivity().runOnUiThread(new Runnable() {
             @Override

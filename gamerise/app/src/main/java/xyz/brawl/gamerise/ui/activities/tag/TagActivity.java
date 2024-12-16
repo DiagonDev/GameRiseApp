@@ -159,7 +159,7 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
 
     ////////////////////////
     @Override
-    public <T> void onSuccess(Object o, long lastUpdate) {
+    public void onSuccess(Object o, long lastUpdate) {
 
     }
 

@@ -37,5 +37,4 @@ public class PlayerRepository extends AbstractRepository implements IPlayerRepos
     protected void handleApiFailure(Throwable t) {
 
     }
-
 }
