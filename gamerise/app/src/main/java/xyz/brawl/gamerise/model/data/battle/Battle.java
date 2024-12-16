@@ -13,9 +13,6 @@ public class Battle {
     //autoGenerate true perchè non voglio doverlo specificare
     @PrimaryKey(autoGenerate = true)
     public int battleId;
-    /*TODO:  mi serve la foreignKey di Tag.class
-    @ForeignKey(Tag.class)
-    public String tag;*/
 
     public String title;
     public String subTitle;
