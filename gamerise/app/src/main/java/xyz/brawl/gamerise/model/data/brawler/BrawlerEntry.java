@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.tag.Tag;
+
 
 /**
  *
@@ -16,13 +16,13 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 @Entity(
         foreignKeys = {
                 @ForeignKey(
-                        entity = Tag.class,
+                        entity = GadgetEntry.class,
                         parentColumns = "id",
                         childColumns = "gadgetId",
                         onDelete = ForeignKey.CASCADE
                 ),
                 @ForeignKey(
-                        entity = BrawlerEntry.class,
+                        entity = StarPowerEntry.class,
                         parentColumns = "id",
                         childColumns = "starPowerId",
                         onDelete = ForeignKey.CASCADE

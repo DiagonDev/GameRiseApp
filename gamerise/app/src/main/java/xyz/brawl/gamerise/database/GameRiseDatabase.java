@@ -15,9 +15,10 @@ import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.util.Constants;
 
 @Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class, OwnsEntity.class}
-        ,version = 1, exportSchema = false)
+        ,version = Constants.DATABASE_VERSION, exportSchema = false)
 public abstract class GameRiseDatabase extends RoomDatabase {
 
     public abstract StatDAO statDao();
@@ -37,9 +38,8 @@ public abstract class GameRiseDatabase extends RoomDatabase {
             synchronized (GameRiseDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    GameRiseDatabase.class, "TagDatabase")
-                            //se si cambia versione togliere commento
-                            //.fallbackToDestructiveMigrationFrom(1, 2) // Specifica le versioni per il fallback
+                                    GameRiseDatabase.class, "GameRiseDatabase")
+                            .fallbackToDestructiveMigration() // Specifica le versioni per il fallback
                             .allowMainThreadQueries() // Questo è utile solo per test, meglio evitare in produzione
                             .build();
                 }

@@ -217,5 +217,5 @@ public class Constants {
     public static String knockout = "KNOCKOUT";
     public static String StormyPlains = "Stormy Plains";
 
-
+    public static final int DATABASE_VERSION = 3;
 }
