@@ -14,15 +14,22 @@ import java.util.Set;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.util.DownloadDataFacade;
+import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class TagViewModel extends ViewModel {
+public class TagViewModel extends ViewModel implements ResponseCallback {
     private final MutableLiveData<List<Tag>> tagsLiveData = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<List<Tag>> recentTagsLiveData = new MutableLiveData<>(new ArrayList<>());
 
     private GameRiseDatabase database;
 
+    //Test per Facade
+    private DownloadDataFacade downloadDataFacade;
+
     public void initDatabase(Context context) {
         database = GameRiseDatabase.getDatabase(context);
+        // Crea una nuova istanza di DownloadDataFacade
+        // downloadDataFacade = new DownloadDataFacade(context);
     }
 
     public LiveData<List<Tag>> getTags() {
@@ -54,8 +61,8 @@ public class TagViewModel extends ViewModel {
                     // Rimuovi il tag esistente dalla vecchia posizione
                     database.tagDao().delete(existingTag);
                 }
-
-
+                //Chiamo il metodo per scaricare e salvare i dati, se va togliere metodo sotto
+                //downloadDataFacade.downloadAndSaveData(tag);
                 database.tagDao().insertAll(tag); // Inserisci il nuovo tag nel database
 
                 // Controlla se ci sono più di 3 tag nel database
@@ -66,9 +73,8 @@ public class TagViewModel extends ViewModel {
                     database.tagDao().delete(oldestTag);
                     allTags.remove(oldestTag);
                 }
-
-                loadRecentTags(); // Ricarica i tag recenti
             });
+            loadRecentTags(); // Ricarica i tag recenti
         }
         // Aggiorna la lista runtime (tagsLiveData)
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
@@ -132,5 +138,15 @@ public class TagViewModel extends ViewModel {
         String regex = "#[A-Z0-9]+";
 
         return input.matches(regex);
+    }
+
+    @Override
+    public void onSuccess(Object o, long lastUpdate) {
+
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+
     }
 }

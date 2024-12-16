@@ -62,7 +62,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         }
         else battleLogRepository = new BattleLogRepository(this.getContext(), this);
 
-        battleLogRepository.fetchBattleLog(Constants.tagTeo, 10);
+        battleLogRepository.fetchBattleLog(Constants.tagTeo);
         database = GameRiseDatabase.getDatabase(this.getContext());
         //battles sembra non avere assegnati i valori dal mapper
         //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
@@ -81,7 +81,7 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
 
     //TODO: Spostare logica database e fetchApi in TagActivity
     @Override
-    public <T> void onSuccess(Object o, long lastUpdate) {
+    public  void onSuccess(Object o, long lastUpdate) {
         List<BattleLogEntry> list = (List<BattleLogEntry>) o;
         if(list != null){
             this.battles.clear();

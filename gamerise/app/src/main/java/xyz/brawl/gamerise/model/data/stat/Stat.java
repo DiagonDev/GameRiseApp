@@ -17,9 +17,6 @@ public class Stat {
     @PrimaryKey(autoGenerate = true)
     public int statId;
 
-    /*TODO:  mi serve la foreignKey di Tag.class
-    @ForeignKey(Tag.class)
-    public String tag;*/
 
     public int _3vs3Victories;
     public int trophies;
