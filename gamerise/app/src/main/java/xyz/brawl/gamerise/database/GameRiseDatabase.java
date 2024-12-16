@@ -16,14 +16,17 @@ import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
-@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class}, version = 1, exportSchema = false)
+@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class, OwnsEntity.class}
+        ,version = 1, exportSchema = false)
 public abstract class GameRiseDatabase extends RoomDatabase {
 
     public abstract StatDAO statDao();
     public abstract BattleDAO battleDAO();
     public abstract BrawlerDAO brawlerDAO();
-    //TODO: fare refactor del package di TagDAO
     public abstract TagDAO tagDao();
+    public abstract StarPowerDAO starPowerDAO();
+    public abstract GadgetDAO gadgetDAO();
+    public abstract OwnsDAO ownsDAO();
 
     private static volatile GameRiseDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();

@@ -5,8 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-//TODO: cambiare tableName into Player
-@Entity (tableName = "Tag")
+
+@Entity (tableName = "Player")
 public class Tag {
     @PrimaryKey @NonNull
     String tag;

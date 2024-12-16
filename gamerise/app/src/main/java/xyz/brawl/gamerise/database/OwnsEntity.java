@@ -2,36 +2,56 @@ package xyz.brawl.gamerise.database;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
-@Entity
+//aggiunta delle chiavi esterne alla tabella OwnsEntityper Tag e brawlerEnity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Tag.class,
+                        parentColumns = "tag", // Colonna primaria della tabella Tag
+                        childColumns = "tagId", // Colonna in OwnsEntity che rappresenta il riferimento a Tag
+                        onDelete = ForeignKey.CASCADE // Comportamento in caso di eliminazione del Tag
+                ),
+                @ForeignKey(
+                        entity = BrawlerEntry.class,
+                        parentColumns = "id", // Colonna primaria della tabella BrawlerEntry
+                        childColumns = "brawlerId", // Colonna in OwnsEntity che rappresenta il riferimento a BrawlerEntry
+                        onDelete = ForeignKey.CASCADE // Comportamento in caso di eliminazione del BrawlerEntry
+                )
+        }
+)
 public class OwnsEntity {
     @PrimaryKey(autoGenerate = true)
     public int ownsId;
+    public int tagId;
+    public int brawlerId;
 
-    @Embedded(prefix = "tag_")
-    public Tag tag;
-
-    @Embedded(prefix = "brawler_")
-    public BrawlerEntry brawlerEntry;
-
-
-    public BrawlerEntry getBrawlerEntry() {
-        return brawlerEntry;
+    public OwnsEntity(int tagId, int brawlerId) {
+        this.tagId = tagId;
+        this.brawlerId = brawlerId;
     }
 
-    public void setBrawlerEntry(BrawlerEntry brawlerEntry) {
-        this.brawlerEntry = brawlerEntry;
+    // Costruttore vuoto necessario per Room
+    public OwnsEntity(){}
+
+    public int getTagId() {
+        return tagId;
     }
 
-    public Tag getTag() {
-        return tag;
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public int getBrawlerId() {
+        return brawlerId;
+    }
+
+    public void setBrawlerId(int brawlerId) {
+        this.brawlerId = brawlerId;
     }
 }

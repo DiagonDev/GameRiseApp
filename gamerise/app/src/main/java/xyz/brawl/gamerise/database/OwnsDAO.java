@@ -6,8 +6,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-
-
 public interface OwnsDAO {
     @Query("SELECT * FROM OwnsEntity")
     List<OwnsEntity> getAll();
