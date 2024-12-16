@@ -14,7 +14,7 @@ public interface BattleDAO {
     List<Battle> getAll();
 
     @Insert
-    void insertAll(Battle... battles);
+    void insertAll(List<Battle> battles);
 
     @Delete
     void delete(Battle battle);

@@ -11,7 +11,7 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 
 @Dao
 public interface TagDAO {
-    @Query("SELECT * FROM Player ORDER BY rowid DESC LIMIT 3")
+    @Query("SELECT * FROM Player ORDER BY rowid DESC")
     List<Tag> getRecentTags(); // Seleziona i 3 tag più recenti
 
     @Query("SELECT * FROM Player WHERE tag = :tagName LIMIT 1")
