@@ -1,23 +1,20 @@
-package xyz.brawl.gamerise.model.repository.stats;
+package xyz.brawl.gamerise.model.data.datasource.player;
 
 import android.content.Context;
 
 import retrofit2.Response;
+import xyz.brawl.gamerise.model.data.datasource.AbstractApiDataSource;
 import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
-import xyz.brawl.gamerise.model.repository.AbstractRepository;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class StatsRepository extends AbstractRepository implements IStatsRepository {
-
-    public StatsRepository(Context context, ResponseCallback responseCallback) {
+public class PlayerApiDataSource extends AbstractApiDataSource {
+    public PlayerApiDataSource(Context context, ResponseCallback responseCallback) {
         super(context, responseCallback);
     }
 
-    @Override
-    public void fetchStats(String playerTag) {
+    public void fetchPlayer(String playerTag) {
         get(apiService.getPlayer(playerTag));
     }
-
     @Override
     protected <T> void handleApiResponse(Response<T> response) {
         if (response.body() instanceof StatsApiResponse) {

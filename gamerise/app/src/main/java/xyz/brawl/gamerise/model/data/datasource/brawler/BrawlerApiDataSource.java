@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.model.repository.brawler;
+package xyz.brawl.gamerise.model.data.datasource.brawler;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,27 +6,25 @@ import android.util.Log;
 import retrofit2.Response;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
-import xyz.brawl.gamerise.model.repository.AbstractRepository;
+import xyz.brawl.gamerise.model.data.datasource.AbstractApiDataSource;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class BrawlerRepository extends AbstractRepository implements IBrawlerRepository {
-    public BrawlerRepository(Context context, ResponseCallback responseCallback) {
+public class BrawlerApiDataSource extends AbstractApiDataSource {
+    public BrawlerApiDataSource(Context context, ResponseCallback responseCallback) {
         super(context, responseCallback);
     }
 
-    @Override
+    public void fetchBrawler(int brawlerId) {
+        get(apiService.getBrawler(brawlerId));
+    }
+
     public void fetchBrawlerList() {
         get(apiService.getBrawlerList());
     }
 
     @Override
-    public void fetchBrawler(int brawlerId) {
-        get(apiService.getBrawler(brawlerId));
-    }
-
-    @Override
     protected <T> void handleApiResponse(Response<T> response) {
-        //leo - handleApiResponse viene chiamato in mezzo a `get()`, vedere AbstractRepository.java
+        //leo - handleApiResponse viene chiamato in mezzo a `get()`, vedere AbstractApiDataSource.java
 
         //leo - questo metodo viene chiamato sia con `fetchBrawlerList` che con `fetchBrawler`
         // dobbiamo considerare entrambi i casi
@@ -50,6 +48,4 @@ public class BrawlerRepository extends AbstractRepository implements IBrawlerRep
     protected void handleApiFailure(Throwable t) {
 
     }
-
 }
-
