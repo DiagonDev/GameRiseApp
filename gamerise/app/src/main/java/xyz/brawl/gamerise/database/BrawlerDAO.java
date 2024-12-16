@@ -7,11 +7,10 @@ import androidx.room.Query;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public interface BrawlerDAO {
     @Query("SELECT * FROM BrawlerEntry")
-    List<Stat> getAll();
+    List<BrawlerEntry> getAll();
 
     @Insert
     void insertAll(BrawlerEntry... brawlerEntries);
