@@ -29,6 +29,16 @@
     <string name="avanzamento">Avanzamento</string>
     <string name="brawlers_giocabili">Brawlers Giocabili</string>
 
+    <!-- fragment_stats -->
+    <string name="statistiche_generali">Statistiche Generali</string>
+    <string name="trofei">Trofei</string>
+    <string name="livello">Livello</string>
+    <string name="club">Club</string>
+    <string name="vittorie_solo">Vittorie Solo</string>
+    <string name="vittorie_duo">Vittorie Duo</string>
+    <string name="vittorie_3vs3">Vittorie 3 vs 3</string>
+
+
     <!-- Errori -->
     <string name="error_message">Errore nella chiamata API</string>
 

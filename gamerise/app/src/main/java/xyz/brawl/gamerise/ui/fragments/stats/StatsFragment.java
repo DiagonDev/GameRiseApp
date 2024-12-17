@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.ui.fragments.stats;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,24 +22,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.model.data.stat.Stat;
+
+
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.util.Constants;
 import xyz.brawl.gamerise.util.JSONParserUtils;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class StatsFragment extends Fragment implements ResponseCallback {
-
+    public static final String TAG = "StatsFragment";
     public LinearLayout chartContainer;
-    private PlayerRepository statsRepository;
+    private IPlayerRepository playerRepository;
+    private TextView trofei;
+    private TextView livello;
+    private TextView club;
+    private TextView vittorieSolo;
+    private TextView vittorieDuo;
+    private TextView vittorie3vs3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
+        
+        playerRepository = new PlayerRepository(this.getContext(), this);
+        playerRepository.fetchStats(Constants.tagTeo);
 
-       statsRepository = new PlayerRepository(this.getContext(), this);
-       statsRepository.fetchStats(Constants.tagTeo);
+        trofei=view.findViewById(R.id.valoreTrofei);
+        livello=view.findViewById(R.id.valoreLivello);
+        club=view.findViewById(R.id.valoreClub);
+        vittorieSolo=view.findViewById(R.id.valoreVittorieSolo);
+        vittorieDuo=view.findViewById(R.id.valoreVittorieDuo);
+        vittorie3vs3=view.findViewById(R.id.valoreVittorie3vs3);
+
 
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
         try {
@@ -111,7 +127,21 @@ public class StatsFragment extends Fragment implements ResponseCallback {
 
     @Override
     public void onSuccess(Object o, long lastUpdate) {
+        Stat stat = (Stat) o;
 
+        trofei.setText(stat.trophies);
+        livello.setText(stat.expLevel);
+        club.setText(stat.club.getName());
+        vittorieSolo.setText(stat.soloVictories);
+        vittorieDuo.setText(stat.duoVictories);
+        vittorie3vs3.setText(stat._3vs3Victories);
+
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 
     @Override
