@@ -8,10 +8,14 @@ import androidx.room.Query;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
+
 @Dao
 public interface StarPowerDAO {
     @Query("SELECT * FROM StarPowerEntry")
     List<StarPowerEntry> getAll();
+
+    @Insert
+    void insert(StarPowerEntry starPowerEntry);
 
     @Insert
     void insertAll(StarPowerEntry... starPowerEntries);

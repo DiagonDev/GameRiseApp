@@ -8,10 +8,14 @@ import androidx.room.Query;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
+
 @Dao
 public interface GadgetDAO {
     @Query("SELECT * FROM GadgetEntry")
     List<GadgetEntry> getAll();
+
+    @Insert
+    void insert(GadgetEntry gadgetEntry);
 
     @Insert
     void insertAll(GadgetEntry... gadgetEntries);

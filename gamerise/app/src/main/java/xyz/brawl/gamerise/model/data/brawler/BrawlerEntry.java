@@ -27,16 +27,19 @@ public class BrawlerEntry {
     @SerializedName("name")
     private String name;
 
+    private int brawlerPin;
+    private int power;
+    private int rank;
+
 
     @Ignore     // Non viene inserito nel database, ma viene comunque gestito da Retrofit
-    @SerializedName("gadgetEntries")
+    @SerializedName("gadgets")
     private List<GadgetEntry> gadgetEntries;
 
     @Ignore     // Non viene inserito nel database, ma viene comunque gestito da Retrofit
-    @SerializedName("starPowersEntries")
+    @SerializedName("starPowers")
     private List<StarPowerEntry> starPowersEntries;
 
-    private int brawlerPin;
 
     public BrawlerEntry(){
         // Costruttore vuoto necessario per Room
@@ -84,4 +87,19 @@ public class BrawlerEntry {
         this.brawlerPin = brawlerPin;
     }
 
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 }

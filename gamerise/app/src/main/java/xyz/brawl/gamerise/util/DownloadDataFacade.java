@@ -6,9 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.database.GameRiseDatabase;
+import xyz.brawl.gamerise.database.OwnsEntity;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
+import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
+import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
+import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.data.tag.Tag;
@@ -38,8 +44,9 @@ public class DownloadDataFacade implements ResponseCallback {
      * Step 1: Salva il tag nel database se non presente, altrimenti lo sposta in cima
      * Step 2: Esegue fetch della battlelog per il tag corrente
      * Step 3: La fetch chiama il metodi del responseCallback per salvare i dati nel database
-     * Step 4: Eseguire fetch delle stats per il tag corrente
-     * Step 5: come Step 3 ma con le stats
+     * Step 4: Eseguire fetch del player per il tag corrente
+     * Step 5: come Step 3 ma con le stats, brawlers, gadget e starpowers
+     * Step 6: Carico la tabella Owns nel database
      **/
     public void downloadAndSaveData(Tag tag) {
         /// Step 1
@@ -68,7 +75,7 @@ public class DownloadDataFacade implements ResponseCallback {
 
             /// Step 4
             playerRepository = new PlayerRepository(context, this);
-            playerRepository.fetchStats(Constants.tagTeo);
+            playerRepository.fetchPlayer(Constants.tagTeo);
         }
 
     }
@@ -89,24 +96,64 @@ public class DownloadDataFacade implements ResponseCallback {
 
                     List<Battle> battleToAdd = new ArrayList<>();
                     for (Battle battle : battles) {
-                        battle.setTagId(GameAccountSingleton.getInstance().getUserTag());
-                        battleToAdd.add(battle);
+                        if (database.battleDAO().findBattleByBattleId(battle.battleId) == null) {
+                            battle.setTagId(GameAccountSingleton.getInstance().getUserTag());
+                            battleToAdd.add(battle);
+                        }
                     }
+
+
                     // Eseguiamo l'operazione di scrittura in background
                     GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-
                         database.battleDAO().insertAll(battleToAdd);
                     });
                 }
             }
             /// Step 5
-            if (o instanceof Stat) {
-                Stat stat = (Stat) o;
-                // Eseguiamo l'operazione di scrittura in background
-                GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+            if (o instanceof PlayerApiResponse) {
+                PlayerApiResponse playerApiResponse = (PlayerApiResponse) o;
+                Stat stat = PlayerMapper.mapToStat(playerApiResponse);
+                List<BrawlerEntry> brawlers = PlayerMapper.mapToBrawlers(playerApiResponse);
+                if (database.statDao().findStatByName(stat.getTag()) == null) {
+                    // Eseguiamo l'operazione di scrittura in background
+                    GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+                        /* SOLO PER DEBUG
+                         * Questo perchè la query la sto facendo di default su teo, nel PlayerMapper io associo a stat
+                         * la tag che ottengo dalla chiamata api (quindi teo)
+                         * solo che la tag che inserisco a mano è "disabilitata
+                         * togliere la riga sottostante finita la fase di sviluppo
+                         */
+                        stat.setTag(GameAccountSingleton.getInstance().getUserTag());
+                        database.statDao().insert(stat);
+                    });
+                }
+                for (BrawlerEntry brawler : brawlers) {
+                    if (database.brawlerDAO().findBrawlerById(brawler.getId()) == null) {
+                        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+                            /// Inserisco il brawler
+                            database.brawlerDAO().insert(brawler);
+                            if (brawler.getGadgetEntries() != null) {
+                                /// Inserisco i Gadget del brawler
+                                for (GadgetEntry gadget : brawler.getGadgetEntries()) {
+                                    gadget.setBrawlerId(brawler.getId());
+                                    database.gadgetDAO().insert(gadget);
+                                }
+                            }
+                            if (brawler.getStarPowersEntries() != null) {
+                                /// Inserisco gli StarPower del brawler
+                                for (StarPowerEntry starPowerEntry : brawler.getStarPowersEntries()) {
+                                    starPowerEntry.setBrawlerId(brawler.getId());
+                                    database.starPowerDAO().insert(starPowerEntry);
+                                }
+                            }
+                            database.ownsDAO().insert(new OwnsEntity(
+                                    GameAccountSingleton.getInstance().getUserTag(),
+                                    brawler.getId()
+                            ));
+                        });
+                    }
 
-                    database.statDao().insert(stat);
-                });
+                }
             }
         }
 

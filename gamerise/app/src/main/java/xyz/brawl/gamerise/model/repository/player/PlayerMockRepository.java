@@ -13,14 +13,15 @@ public class PlayerMockRepository {
 
     public PlayerMockRepository(Context context) { this.context = context; }
 
-    void fetchStats() {
+    /*
+    void fetchPlayer() {
         Stat stat = new Stat();
         stat = null;
         JSONParserUtils JSONParserUtils = new JSONParserUtils(context);
         try{
-            stat = JSONParserUtils.statsParseJSONWithGson("stats.json");
+            stat = JSONParserUtils.statsParseJSONWithGson("players.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }

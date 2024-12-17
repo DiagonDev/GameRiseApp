@@ -14,7 +14,8 @@ import com.google.gson.annotations.SerializedName;
                         childColumns = "brawlerId",
                         onDelete = ForeignKey.CASCADE
                 )
-        }
+        },
+        indices = {@androidx.room.Index(value = "brawlerId")}
 )
 public class StarPowerEntry {
     @PrimaryKey

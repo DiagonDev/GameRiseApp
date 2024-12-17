@@ -9,12 +9,13 @@ import com.google.gson.annotations.SerializedName;
 @Entity(
         foreignKeys = {
                 @ForeignKey(
-                        entity = StarPowerEntry.class,
+                        entity = BrawlerEntry.class,
                         parentColumns = "id",
                         childColumns = "brawlerId",
                         onDelete = ForeignKey.CASCADE
                 )
-        }
+        },
+        indices = {@androidx.room.Index(value = "brawlerId")}
 )
 public class GadgetEntry {
     @PrimaryKey

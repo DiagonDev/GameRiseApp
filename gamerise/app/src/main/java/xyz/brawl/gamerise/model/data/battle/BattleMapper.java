@@ -24,12 +24,10 @@ public class BattleMapper {
                             Constants.BrawlerPin.fromBrawlerPinString(playersBrawler[1]).getIconPlayerId())
                     .iconPlayer3(playersBrawler[2] == null ? Constants.iconStandard :
                             Constants.BrawlerPin.fromBrawlerPinString(playersBrawler[2]).getIconPlayerId())
+                    .battleId(battleLogEntry.getBattleTime())
                     .build();
             battles.add(battle);
         }
         return battles;
-    }
-    public void handleException(){
-
     }
 }

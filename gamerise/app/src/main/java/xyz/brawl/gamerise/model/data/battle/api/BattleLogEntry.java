@@ -3,10 +3,19 @@ package xyz.brawl.gamerise.model.data.battle.api;
 
 public class BattleLogEntry {
     private BattleEntry battle;
+    private String battleTime;
     private EventEntry event;
 
     public BattleEntry getBattle() {
         return battle;
+    }
+
+    public String getBattleTime() {
+        return battleTime;
+    }
+
+    public void setBattleTime(String battleTime) {
+        this.battleTime = battleTime;
     }
 
     public void setBattle(BattleEntry battle) {

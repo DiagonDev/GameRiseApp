@@ -1,14 +1,16 @@
 package xyz.brawl.gamerise.model.data.battle;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
 /**
- * Classe trivalente: Modello di dominio, Entity di Room e Entry di Retrofit
+ * Classe bivalente: Modello di dominio, Entity di Room
  * Modello di dominio: usata per popolare il recycler view in BattleLogFragment
  * Entity: nel Database Room, in relazione molti a uno con player
  * Entry: nel parsing Json con Retrofit per la chiamata API di battlelog
@@ -19,13 +21,14 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
                 parentColumns = "tag",
                 childColumns = "tagId",
                 onDelete = ForeignKey.CASCADE
-        )
-})
+        )},
+        indices = {@androidx.room.Index(value = "tagId")}
+)
 public class Battle {
 
-    // TODO: Questo deve diventare battleTime
-    @PrimaryKey(autoGenerate = true)
-    public int battleId;
+    // Rappresenta l'ISO 8601
+    @PrimaryKey @NonNull
+    public String battleId;
     //Foreign key per il tag
     public String tagId;
 
@@ -42,6 +45,7 @@ public class Battle {
 
     //Costruttore vuoto per Room
     public Battle() {
+        battleId = "";
     }
 
     public String getTagId() {
@@ -51,7 +55,7 @@ public class Battle {
     public void setTagId(String tagId) {
         this.tagId = tagId;
     }
-
+    @Ignore
     public Battle(BattleBuilder battleBuilder) {
         this.title = battleBuilder.title;
         this.subTitle = battleBuilder.subTitle;
@@ -64,6 +68,7 @@ public class Battle {
         this.iconPlayer3 = battleBuilder.iconPlayer3;
         this.iconBackgroundTop = battleBuilder.iconBackgroundTop;
         this.tagId = battleBuilder.tagId;
+        this.battleId = battleBuilder.battleId;
     }
 
     /**
@@ -81,6 +86,7 @@ public class Battle {
         private int iconPlayer3;
         private int iconBackgroundTop;
         private String tagId;
+        private String battleId;
 
 
         public BattleBuilder title(String title) {
@@ -134,6 +140,10 @@ public class Battle {
         }
         public BattleBuilder tagId(String tagId) {
             this.tagId = tagId;
+            return this;
+        }
+        public BattleBuilder battleId(String battleId) {
+            this.battleId = battleId;
             return this;
         }
 

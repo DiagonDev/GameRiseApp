@@ -24,6 +24,8 @@ import java.util.List;
 import xyz.brawl.gamerise.R;
 
 
+import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
+import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.repository.player.IPlayerRepository;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
@@ -48,7 +50,7 @@ public class StatsFragment extends Fragment implements ResponseCallback {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
         
         playerRepository = new PlayerRepository(this.getContext(), this);
-        playerRepository.fetchStats(Constants.tagTeo);
+        playerRepository.fetchPlayer(Constants.tagTeo);
 
         trofei=view.findViewById(R.id.valoreTrofei);
         livello=view.findViewById(R.id.valoreLivello);
@@ -59,12 +61,13 @@ public class StatsFragment extends Fragment implements ResponseCallback {
 
 
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
+        /*
         try {
             Stat stat = jsonParserUtils.statsParseJSONWithGson("players.json");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         //TODO: spostare codice nel viewModel
         chartContainer = view.findViewById(R.id.chart_container);
@@ -129,14 +132,16 @@ public class StatsFragment extends Fragment implements ResponseCallback {
 
     @Override
     public void onSuccess(Object o, long lastUpdate) {
-        Stat stat = (Stat) o;
-
-        trofei.setText(""+stat.trophies);
-        livello.setText(""+stat.expLevel);
-        club.setText(stat.club.getName());
-        vittorieSolo.setText(""+stat.soloVictories);
-        vittorieDuo.setText(""+stat.duoVictories);
-        vittorie3vs3.setText(""+stat._3vs3Victories);
+        if(o instanceof PlayerApiResponse) {
+            PlayerApiResponse playerApiResponse = (PlayerApiResponse) o;
+            Stat stat = PlayerMapper.mapToStat(playerApiResponse);
+            trofei.setText("" + stat.trophies);
+            livello.setText("" + stat.expLevel);
+            club.setText(stat.club.getName());
+            vittorieSolo.setText("" + stat.soloVictories);
+            vittorieDuo.setText("" + stat.duoVictories);
+            vittorie3vs3.setText("" + stat._3vs3Victories);
+        }
 
     }
 

@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.model.data.stat;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -7,19 +8,28 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-import xyz.brawl.gamerise.model.data.stat.api.ClubEntry;
+import xyz.brawl.gamerise.model.data.player.ClubEntry;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+
 /**
- * Classe trivalente: Modello di dominio, Entity di Room e Entry di Retrofit
+ * Classe bivalente: Modello di dominio, Entity di Room
  * Modello di dominio: usata per popolare le views in StatFragment e i grafici di dispersione
  * Entity: nel Database Room, in relazione uno a uno con player (non inglobata dentro Tag per separare le responsabilità)
- * Entry: nel parsing Json con Retrofit per la chiamata API di player/{tag}
  */
-@Entity
+@Entity(foreignKeys = {
+        @ForeignKey(
+                entity = Tag.class,
+                parentColumns = "tag",
+                childColumns = "tag",
+                onDelete = ForeignKey.CASCADE
+        )
+},
+        indices = {@androidx.room.Index(value = "tag")}
+)
 public class Stat {
 
-    @PrimaryKey(autoGenerate = true)
-    public int statId;
+    @PrimaryKey @NonNull
+    public String tag;
 
     @SerializedName("3vs3Victories") // annotation di Retrofit per il parsing gson
     public int _3vs3Victories;
@@ -36,9 +46,21 @@ public class Stat {
     public int duoVictories;
 
     // Costruttore vuoto necessario per Room
-    public Stat(){}
+    public Stat() {
+        this.tag = "";
+    }
+
+    @NonNull
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(@NonNull String tag) {
+        this.tag = tag;
+    }
 
     public Stat(StatBuilder statBuilder) {
+        this.tag = statBuilder.tag;
         this._3vs3Victories = statBuilder._3vs3Victories;
         this.trophies = statBuilder.trophies;
         this.expLevel = statBuilder.expLevel;
@@ -50,6 +72,7 @@ public class Stat {
     }
 
     public static class StatBuilder {
+        private String tag;
         private int _3vs3Victories;
         private int trophies;
         private int expLevel;
@@ -59,6 +82,10 @@ public class Stat {
         private int soloVictories;
         private int duoVictories;
 
+        public StatBuilder tag(String tag) {
+            this.tag = tag;
+            return this;
+        }
         public StatBuilder _3vs3Victories(int _3vs3Victories) {
             this._3vs3Victories = _3vs3Victories;
             return this;
@@ -69,7 +96,7 @@ public class Stat {
             return this;
         }
 
-        public StatBuilder expLevel(int expLevel){
+        public StatBuilder expLevel(int expLevel) {
             this.expLevel = expLevel;
             return this;
         }
@@ -99,6 +126,8 @@ public class Stat {
             return this;
         }
 
-        public Stat build() { return new Stat(this); }
+        public Stat build() {
+            return new Stat(this);
+        }
     }
 }

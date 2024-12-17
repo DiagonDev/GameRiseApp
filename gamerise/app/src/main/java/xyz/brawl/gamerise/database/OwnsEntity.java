@@ -3,6 +3,7 @@ package xyz.brawl.gamerise.database;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
@@ -23,15 +24,17 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
                         childColumns = "brawlerId", // Colonna in OwnsEntity che rappresenta il riferimento a BrawlerEntry
                         onDelete = ForeignKey.CASCADE // Comportamento in caso di eliminazione del BrawlerEntry
                 )
-        }
+        },
+        indices = {@androidx.room.Index(value = "brawlerId"),@androidx.room.Index(value = "tagId")}
 )
 public class OwnsEntity {
     @PrimaryKey(autoGenerate = true)
     public int ownsId;
-    public int tagId;
-    public int brawlerId;
+    public String tagId;
+    public long brawlerId;
 
-    public OwnsEntity(int tagId, int brawlerId) {
+    @Ignore
+    public OwnsEntity(String tagId, long brawlerId) {
         this.tagId = tagId;
         this.brawlerId = brawlerId;
     }
@@ -39,19 +42,19 @@ public class OwnsEntity {
     // Costruttore vuoto necessario per Room
     public OwnsEntity(){}
 
-    public int getTagId() {
+    public String getTagId() {
         return tagId;
     }
 
-    public void setTagId(int tagId) {
+    public void setTagId(String tagId) {
         this.tagId = tagId;
     }
 
-    public int getBrawlerId() {
+    public long getBrawlerId() {
         return brawlerId;
     }
 
-    public void setBrawlerId(int brawlerId) {
+    public void setBrawlerId(long brawlerId) {
         this.brawlerId = brawlerId;
     }
 }

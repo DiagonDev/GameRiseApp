@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.model.data.stat.api;
+package xyz.brawl.gamerise.model.data.player;
 
 public class ClubEntry {
     private String name;

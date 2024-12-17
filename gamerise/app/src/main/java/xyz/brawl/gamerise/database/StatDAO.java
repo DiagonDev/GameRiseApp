@@ -8,11 +8,15 @@ import androidx.room.Query;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.data.tag.Tag;
 
 @Dao
 public interface StatDAO {
     @Query("SELECT * FROM Stat")
     List<Stat> getAll();
+
+    @Query("SELECT * FROM Stat WHERE tag = :tagName LIMIT 1")
+    Stat findStatByName(String tagName); // Cerca una Stat per tag
 
     @Insert
     void insert(Stat stat);

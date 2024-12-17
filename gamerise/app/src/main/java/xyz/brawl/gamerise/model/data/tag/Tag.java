@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
+import xyz.brawl.gamerise.model.data.stat.Stat;
 
 /**
  * Classe bivalente: Modello di dominio, Entity di Room
@@ -27,11 +31,18 @@ public class Tag {
         return timestamp;
     }
 
-    public Tag(String nomeGiocatore, String tag) {
+    public Tag() {
+        this.tag = "";
+    }
+
+    @Ignore
+    public Tag(String nomeGiocatore, @NonNull String tag) {
         this.nomeGiocatore = nomeGiocatore;
         this.tag = tag;
         this.timestamp = System.currentTimeMillis();
     }
+
+
 
     public void setTag(@NonNull String tag) {
         this.tag = tag;
