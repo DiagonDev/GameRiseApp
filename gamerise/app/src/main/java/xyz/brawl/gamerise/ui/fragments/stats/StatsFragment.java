@@ -22,12 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.model.data.battle.BattleMapper;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
-import xyz.brawl.gamerise.model.data.stat.Stat;
-import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
-import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.model.repository.player.IPlayerRepository;
+
+
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.util.Constants;
 import xyz.brawl.gamerise.util.JSONParserUtils;
@@ -62,7 +58,7 @@ public class StatsFragment extends Fragment implements ResponseCallback {
 
         JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
         try {
-            StatsApiResponse statsApiResponse = jsonParserUtils.statsParseJSONWithGson("players.json");
+            Stat stat = jsonParserUtils.statsParseJSONWithGson("players.json");
 
         } catch (IOException e) {
             throw new RuntimeException(e);

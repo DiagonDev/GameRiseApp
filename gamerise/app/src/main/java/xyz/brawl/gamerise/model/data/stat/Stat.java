@@ -1,16 +1,42 @@
 package xyz.brawl.gamerise.model.data.stat;
 
-import xyz.brawl.gamerise.model.data.stat.api.ClubEntry;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
+import xyz.brawl.gamerise.model.data.stat.api.ClubEntry;
+import xyz.brawl.gamerise.model.data.tag.Tag;
+/**
+ * Classe trivalente: Modello di dominio, Entity di Room e Entry di Retrofit
+ * Modello di dominio: usata per popolare le views in StatFragment e i grafici di dispersione
+ * Entity: nel Database Room, in relazione uno a uno con player (non inglobata dentro Tag per separare le responsabilità)
+ * Entry: nel parsing Json con Retrofit per la chiamata API di player/{tag}
+ */
+@Entity
 public class Stat {
+
+    @PrimaryKey(autoGenerate = true)
+    public int statId;
+
+    @SerializedName("3vs3Victories") // annotation di Retrofit per il parsing gson
     public int _3vs3Victories;
     public int trophies;
     public int expLevel;
+
+    //Room non riesce a "usare" gli oggetti, quindi dobbiamo usare Embedded per wrappare
+    //diventa un tipo primitivo (String) club_clubName
+    @Embedded(prefix = "club_")
     public ClubEntry club;
     public int highestTrophies;
     public int rank;
     public int soloVictories;
     public int duoVictories;
+
+    // Costruttore vuoto necessario per Room
+    public Stat(){}
 
     public Stat(StatBuilder statBuilder) {
         this._3vs3Victories = statBuilder._3vs3Victories;

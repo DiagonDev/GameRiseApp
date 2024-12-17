@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogMockRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.IBattleLogRepository;
@@ -28,15 +30,18 @@ import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.util.Constants;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class BattleLogFragment extends Fragment implements ResponseCallback {
+public class BattleLogFragment extends Fragment {
 
     private BattleLogViewModel battleLogViewModel;
     private IBattleLogRepository battleLogRepository;
     private List<Battle> battles = new ArrayList<>();
     private RecyclerView recyclerView;
+
     public static BattleLogFragment newInstance() {
         return new BattleLogFragment();
     }
+
+    private GameRiseDatabase database;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -48,23 +53,16 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
 
         /*
-        * Debug mode è una variabile che sta nella local.properties
-        * guardare build.gradle:
-        * resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
-        * se sto in debug mode prendo sempre dal file .json locale
+         * Debug mode è una variabile che sta nella local.properties
+         * guardare build.gradle:
+         * resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
+         * se sto in debug mode prendo sempre dal file .json locale
          */
-        if(requireActivity().getResources().getBoolean(R.bool.debug_mode)){
+        /* Deprecated: Riutilizzare da altre parti
+        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
             battleLogRepository = new BattleLogMockRepository(this.getContext());
-        }
-        else battleLogRepository = new BattleLogRepository(this.getContext(), this);
-
-        battleLogRepository.fetchBattleLog(Constants.tagTeo);
-
-        //battles sembra non avere assegnati i valori dal mapper
-        //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
-
-
-
+        } else battleLogRepository = new BattleLogRepository(this.getContext());
+        */
         return view;
     }
 
@@ -75,24 +73,4 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         // TODO: Use the ViewModel
     }
 
-    @Override
-    public void onSuccess(Object o, long lastUpdate) {
-        @SuppressWarnings("unchecked")
-        List<BattleLogEntry> list = (List<BattleLogEntry>) o;
-        if(list != null){
-            this.battles.clear();
-            this.battles.addAll(BattleMapper.mapToBattles(list));
-        }
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.getAdapter().notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-
-    }
 }

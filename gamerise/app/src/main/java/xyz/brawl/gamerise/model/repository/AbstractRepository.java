@@ -34,6 +34,7 @@ public abstract class AbstractRepository {
                 //          if (response.code() != 200) errore di risposta
                 // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                 if (response.body() != null && response.isSuccessful() && response.code() == 200) {
+                    //TODO: serve responCallback.onSuccess(response.body())?
                     handleApiResponse(response);
                 } else {
                     // qui finiamo se la request è andata a buon fine, MA il codice di risposta non è 200

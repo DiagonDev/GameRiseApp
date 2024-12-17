@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import xyz.brawl.gamerise.R;
 
@@ -55,7 +54,7 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
         });
 
         tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
-        tagViewModel.initDatabase(this);
+        tagViewModel.initDatabaseAndFacade(this);
 
 
         insertTag = findViewById(R.id.insertTag);
@@ -117,7 +116,7 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
 
 
         /////////////////////////////////////
-        BrawlerRepository br = new BrawlerRepository(this.getBaseContext() , this);
+        BrawlerRepository br = new BrawlerRepository(this.getBaseContext(), this);
         br.fetchBrawlerList();
         br.fetchBrawler(16000000);
     }
@@ -125,6 +124,8 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
     /**
      * Gestisce l'invio del tag tramite il ViewModel.
      * Richiede al tagViewModel di aggiornare la lista di tag se il tag è valido.
+     * Richiede al tagViewModel di effettuare la Query all'API se il tag non è presente nel database.
+     * Richiede al tagViewModel
      *
      * @return true se il tag è valido, false altrimenti.
      */
@@ -132,12 +133,11 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
         String inputTag = insertTag.getText().toString().trim();
         GameAccountSingleton.getInstance().setUserTag(inputTag);
         if (tagViewModel.isTagValid(inputTag)) {
-            /*if (checked)
-                tagViewModel.addTag(new Tag("Nuovo Giocatore", inputTag)); // Aggiungi il tag tramite il ViewModel se l'utente vuole salvarlo
-            */
-            Tag newTag = new Tag("Nuovo Giocatore", inputTag);
-            tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
+            if (checked) {
+                Tag newTag = new Tag("Nuovo Giocatore", inputTag);
+                tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
 
+            }
             insertTag.setText(""); // Resetta il campo di testo
             Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
             return true;
@@ -146,15 +146,6 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
             return false;
         }
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (tagViewModel != null) {
-            tagViewModel.saveRecentTagsToDatabase();
-        }
-    }
-
-
 
 
     ////////////////////////

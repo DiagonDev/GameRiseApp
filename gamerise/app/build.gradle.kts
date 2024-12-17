@@ -35,6 +35,8 @@ android {
             property("sonar.host.url", "http://localhost:9000")
             //expires in 30 days from 30/11
             property("sonar.login", "sqp_9eed3e383bccccc71e6376e1a155356e50e069c0")
+
+            //in cmd usare ./gradlew sonarqube
         }
     }
 
@@ -60,7 +62,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
     implementation(libs.fragment)
     implementation(libs.mpandroidchart)
     implementation(libs.room.runtime)
@@ -68,7 +69,9 @@ dependencies {
     implementation(libs.retrofit2.converter.scalars)
     implementation(libs.converter.gson)
     implementation(libs.gson)
+
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+
     implementation(libs.logging.interceptor)
 }

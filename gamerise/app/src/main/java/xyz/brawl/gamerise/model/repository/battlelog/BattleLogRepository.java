@@ -26,20 +26,16 @@ public class BattleLogRepository extends AbstractRepository implements IBattleLo
         get(apiService.getBattlelog(playerTag));
     }
 
+
+    /// Questo metodo serve per permettere ai repository di gestire le risposte API in maniera differente
     @Override
     protected <T> void handleApiResponse(Response<T> response) {
         if (response.body() instanceof BattleLogApiResponse) {
             BattleLogApiResponse blar = (BattleLogApiResponse) response.body();
-            //leo - responseCallback.onSuccess(response.body().getBattleResponseList(), response.raw().receivedResponseAtMillis());
-            List<BattleLogEntry> battleLogEntries = blar.getBattleResponseList();
-
-            Log.d("SUCCESS", battleLogEntries.toString());
-            //leo - più output tanto per esser sicuri
-                    /*ale - tolto perchè allunga il debug
-                    for (BattleLogEntry battleLogEntry : battleLogEntries)
-                        Log.d("MAP", battleLogEntry.getEvent().getMap());
-                      //*/
-            responseCallback.onSuccess(battleLogEntries, response.raw().receivedResponseAtMillis());
+            responseCallback.onSuccess(blar.getBattleResponseList(), response.raw().receivedResponseAtMillis());
+            /* TODO: implementare la cosa
+            List<Battle> battles = BattleMapper.mapToBattles(blar.getBattleResponseList());
+            responseCallback.onSuccess(battles, response.raw().receivedResponseAtMillis());*/
         }
     }
 

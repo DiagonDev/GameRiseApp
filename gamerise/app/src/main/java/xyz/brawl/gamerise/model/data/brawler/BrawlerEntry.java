@@ -1,24 +1,47 @@
 package xyz.brawl.gamerise.model.data.brawler;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-// Model class for BattleLogEntry
+
+
+/**
+ * Classe trivalente: Modello di dominio, Entity di Room e Entry di Retrofit
+ * Modello di dominio: usata per popolare gridView BrawlerFragment e BrawlerDetailFragment
+ * Entity: nel Database Room, in relazione uno a molti con gadgetEntries e starPowersEntries
+ * Entry: nel parsing Json con Retrofit per la chiamata API di player/{tag}
+ */
+@Entity
 public class BrawlerEntry {
+
+    @PrimaryKey
     @SerializedName("id")
     private long id;
 
     @SerializedName("name")
     private String name;
 
-    @SerializedName("gadgets")
-    private List<GadgetEntry> gadgets;
 
-    @SerializedName("starPowers")
-    private List<StarPowerEntry> starPowers;
+    @Ignore     // Non viene inserito nel database, ma viene comunque gestito da Retrofit
+    @SerializedName("gadgetEntries")
+    private List<GadgetEntry> gadgetEntries;
+
+    @Ignore     // Non viene inserito nel database, ma viene comunque gestito da Retrofit
+    @SerializedName("starPowersEntries")
+    private List<StarPowerEntry> starPowersEntries;
 
     private int brawlerPin;
+
+    public BrawlerEntry(){
+        // Costruttore vuoto necessario per Room
+    }
+
 
     // Getters and setters
     public long getId() {
@@ -33,16 +56,32 @@ public class BrawlerEntry {
         return name;
     }
 
-    public List<GadgetEntry> getGadgets() {
-        return gadgets;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<StarPowerEntry> getStarPowers() {
-        return starPowers;
+    public List<GadgetEntry> getGadgetEntries() {
+        return gadgetEntries;
+    }
+
+    public void setGadgetEntries(List<GadgetEntry> gadgetEntries) {
+        this.gadgetEntries = gadgetEntries;
+    }
+
+    public List<StarPowerEntry> getStarPowersEntries() {
+        return starPowersEntries;
+    }
+
+    public void setStarPowersEntries(List<StarPowerEntry> starPowersEntries) {
+        this.starPowersEntries = starPowersEntries;
     }
 
     public int getBrawlerPin() {
         return brawlerPin;
+    }
+
+    public void setBrawlerPin(int brawlerPin) {
+        this.brawlerPin = brawlerPin;
     }
 
 }

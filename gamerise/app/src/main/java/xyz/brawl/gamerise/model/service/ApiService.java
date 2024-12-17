@@ -6,12 +6,12 @@ import retrofit2.http.Path;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
-import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
+import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public interface ApiService {
 
     @GET("players/{tag}")
-    Call<StatsApiResponse> getPlayer(@Path("tag") String tag);
+    Call<Stat> getPlayer(@Path("tag") String tag);
 
     @GET("players/{tag}/battlelog")
     Call<BattleLogApiResponse> getBattlelog(@Path("tag") String playerTag);

@@ -8,7 +8,8 @@
     app:cardElevation="8dp"
     app:shapeAppearanceOverlay="@style/CustomCardShape"
     app:strokeColor="@color/black"
-    app:strokeWidth="2dp">
+    app:strokeWidth="2dp"
+    android:layout_marginBottom="10dp">
 
     <TableLayout
         android:id="@+id/table_layout"
