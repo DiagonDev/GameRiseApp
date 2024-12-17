@@ -30,12 +30,13 @@ import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.util.Constants;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class BattleLogFragment extends Fragment implements ResponseCallback {
+public class BattleLogFragment extends Fragment {
 
     private BattleLogViewModel battleLogViewModel;
     private IBattleLogRepository battleLogRepository;
     private List<Battle> battles = new ArrayList<>();
     private RecyclerView recyclerView;
+
     public static BattleLogFragment newInstance() {
         return new BattleLogFragment();
     }
@@ -52,23 +53,16 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
 
         /*
-        * Debug mode è una variabile che sta nella local.properties
-        * guardare build.gradle:
-        * resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
-        * se sto in debug mode prendo sempre dal file .json locale
+         * Debug mode è una variabile che sta nella local.properties
+         * guardare build.gradle:
+         * resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
+         * se sto in debug mode prendo sempre dal file .json locale
          */
-        if(requireActivity().getResources().getBoolean(R.bool.debug_mode)){
+        /* Deprecated: Riutilizzare da altre parti
+        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
             battleLogRepository = new BattleLogMockRepository(this.getContext());
-        }
-        else battleLogRepository = new BattleLogRepository(this.getContext(), this);
-
-        battleLogRepository.fetchBattleLog(Constants.tagTeo);
-        database = GameRiseDatabase.getDatabase(this.getContext());
-        //battles sembra non avere assegnati i valori dal mapper
-        //battles = BattleMapper.mapToBattles(battleLogRepository.fetchBattleLog(Constants.tagTeo, 10));
-
-
-
+        } else battleLogRepository = new BattleLogRepository(this.getContext());
+        */
         return view;
     }
 
@@ -79,30 +73,4 @@ public class BattleLogFragment extends Fragment implements ResponseCallback {
         // TODO: Use the ViewModel
     }
 
-    //TODO: Spostare logica database e fetchApi in TagActivity
-    @Override
-    public  void onSuccess(Object o, long lastUpdate) {
-        List<BattleLogEntry> list = (List<BattleLogEntry>) o;
-        if(list != null){
-            this.battles.clear();
-            this.battles.addAll(BattleMapper.mapToBattles(list));
-            if (database != null && database.tagDao().findTagByName(GameAccountSingleton.getInstance().getUserTag()) != null) {
-                // Eseguiamo l'operazione di scrittura in background
-                GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-                    database.battleDAO().insertAll(BattleMapper.mapToBattles(list));
-                });
-            }
-        }
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.getAdapter().notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-
-    }
 }

@@ -7,12 +7,27 @@ import androidx.room.PrimaryKey;
 
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
-@Entity
+/**
+ * Classe trivalente: Modello di dominio, Entity di Room e Entry di Retrofit
+ * Modello di dominio: usata per popolare il recycler view in BattleLogFragment
+ * Entity: nel Database Room, in relazione molti a uno con player
+ * Entry: nel parsing Json con Retrofit per la chiamata API di battlelog
+ */
+@Entity(foreignKeys = {
+        @ForeignKey(
+                entity = Tag.class,
+                parentColumns = "tag",
+                childColumns = "tagId",
+                onDelete = ForeignKey.CASCADE
+        )
+})
 public class Battle {
 
-    //autoGenerate true perchè non voglio doverlo specificare
+    // TODO: Questo deve diventare battleTime
     @PrimaryKey(autoGenerate = true)
     public int battleId;
+    //Foreign key per il tag
+    public String tagId;
 
     public String title;
     public String subTitle;
@@ -26,7 +41,16 @@ public class Battle {
     public int iconBackgroundTop;
 
     //Costruttore vuoto per Room
-    public Battle(){}
+    public Battle() {
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
+    }
 
     public Battle(BattleBuilder battleBuilder) {
         this.title = battleBuilder.title;
@@ -39,6 +63,7 @@ public class Battle {
         this.iconPlayer2 = battleBuilder.iconPlayer2;
         this.iconPlayer3 = battleBuilder.iconPlayer3;
         this.iconBackgroundTop = battleBuilder.iconBackgroundTop;
+        this.tagId = battleBuilder.tagId;
     }
 
     /**
@@ -55,6 +80,7 @@ public class Battle {
         private int iconPlayer2;
         private int iconPlayer3;
         private int iconBackgroundTop;
+        private String tagId;
 
 
         public BattleBuilder title(String title) {
@@ -104,6 +130,10 @@ public class Battle {
 
         public BattleBuilder iconBackgroundTop(int iconBackgroundTop) {
             this.iconBackgroundTop = iconBackgroundTop;
+            return this;
+        }
+        public BattleBuilder tagId(String tagId) {
+            this.tagId = tagId;
             return this;
         }
 

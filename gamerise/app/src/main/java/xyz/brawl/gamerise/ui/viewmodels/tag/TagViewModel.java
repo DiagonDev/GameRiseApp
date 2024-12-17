@@ -26,10 +26,10 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
     //Test per Facade
     private DownloadDataFacade downloadDataFacade;
 
-    public void initDatabase(Context context) {
+    public void initDatabaseAndFacade(Context context) {
         database = GameRiseDatabase.getDatabase(context);
         // Crea una nuova istanza di DownloadDataFacade
-        // downloadDataFacade = new DownloadDataFacade(context);
+        downloadDataFacade = new DownloadDataFacade(context);
     }
 
     public LiveData<List<Tag>> getTags() {
@@ -53,6 +53,7 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
     public void addTag(Tag tag) {
 
         // Salva il tag nel database ed elimina i meno recenti se necessario
+        /* ridondate se uso facade
         if (database != null) {
             GameRiseDatabase.databaseWriteExecutor.execute(() -> {
                 // Controlla se il tag esiste già nel database
@@ -61,8 +62,7 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
                     // Rimuovi il tag esistente dalla vecchia posizione
                     database.tagDao().delete(existingTag);
                 }
-                //Chiamo il metodo per scaricare e salvare i dati, se va togliere metodo sotto
-                //downloadDataFacade.downloadAndSaveData(tag);
+
                 database.tagDao().insertAll(tag); // Inserisci il nuovo tag nel database
 
                 // Controlla se ci sono più di 3 tag nel database
@@ -74,8 +74,12 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
                     allTags.remove(oldestTag);
                 }
             });
-            loadRecentTags(); // Ricarica i tag recenti
-        }
+        }*/
+
+
+        downloadDataFacade.downloadAndSaveData(tag);
+        loadRecentTags(); // Ricarica i tag recenti
+
         // Aggiorna la lista runtime (tagsLiveData)
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             List<Tag> currentTags = tagsLiveData.getValue();

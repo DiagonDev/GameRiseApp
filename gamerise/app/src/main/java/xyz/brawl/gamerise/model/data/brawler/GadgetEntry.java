@@ -1,11 +1,21 @@
 package xyz.brawl.gamerise.model.data.brawler;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = StarPowerEntry.class,
+                        parentColumns = "id",
+                        childColumns = "brawlerId",
+                        onDelete = ForeignKey.CASCADE
+                )
+        }
+)
 public class GadgetEntry {
     @PrimaryKey
     @SerializedName("id")
@@ -13,6 +23,8 @@ public class GadgetEntry {
 
     @SerializedName("name")
     private String name;
+
+    private long brawlerId;
 
     public long getId() {
         return id;
@@ -28,5 +40,13 @@ public class GadgetEntry {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getBrawlerId() {
+        return brawlerId;
+    }
+
+    public void setBrawlerId(long brawlerId) {
+        this.brawlerId = brawlerId;
     }
 }

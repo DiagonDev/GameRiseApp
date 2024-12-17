@@ -8,10 +8,14 @@ import androidx.room.Query;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.stat.Stat;
+
 @Dao
 public interface StatDAO {
     @Query("SELECT * FROM Stat")
     List<Stat> getAll();
+
+    @Insert
+    void insert(Stat stat);
 
     @Insert
     void insertAll(Stat... stats);

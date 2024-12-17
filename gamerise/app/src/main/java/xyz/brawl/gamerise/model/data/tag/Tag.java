@@ -6,25 +6,19 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import xyz.brawl.gamerise.model.data.battle.Battle;
-
-@Entity(tableName = "Player",
-        foreignKeys = {
-                @ForeignKey(
-                        entity = Battle.class,
-                        parentColumns = "battleId",
-                        childColumns = "battleId",
-                        onDelete = ForeignKey.CASCADE
-                )
-        }
-)
+/**
+ * Classe bivalente: Modello di dominio, Entity di Room
+ * Modello di dominio: usata per popolare il recycler view in TagActivity
+ * Entity: nel Database Room (visualizzata come Player) è l'entità protagonista
+ */
+@Entity(tableName = "Player")
 public class Tag {
-    @PrimaryKey @NonNull
+
+    @PrimaryKey
+    @NonNull
     String tag;
 
     String nomeGiocatore;
-
-    int battleId;
 
     @ColumnInfo(name = "timestamp")
     private long timestamp;
@@ -45,14 +39,6 @@ public class Tag {
 
     public void setNomeGiocatore(String nomeGiocatore) {
         this.nomeGiocatore = nomeGiocatore;
-    }
-
-    public int getBattleId() {
-        return battleId;
-    }
-
-    public void setBattleId(int battleId) {
-        this.battleId = battleId;
     }
 
     public String getNomeGiocatore() {

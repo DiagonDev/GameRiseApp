@@ -12,24 +12,12 @@ import java.util.List;
 
 
 /**
- *
+ * Classe trivalente: Modello di dominio, Entity di Room e Entry di Retrofit
+ * Modello di dominio: usata per popolare gridView BrawlerFragment e BrawlerDetailFragment
+ * Entity: nel Database Room, in relazione uno a molti con gadgetEntries e starPowersEntries
+ * Entry: nel parsing Json con Retrofit per la chiamata API di player/{tag}
  */
-@Entity(
-        foreignKeys = {
-                @ForeignKey(
-                        entity = GadgetEntry.class,
-                        parentColumns = "id",
-                        childColumns = "gadgetId",
-                        onDelete = ForeignKey.CASCADE
-                ),
-                @ForeignKey(
-                        entity = StarPowerEntry.class,
-                        parentColumns = "id",
-                        childColumns = "starPowerId",
-                        onDelete = ForeignKey.CASCADE
-                )
-        }
-)
+@Entity
 public class BrawlerEntry {
 
     @PrimaryKey
@@ -38,9 +26,6 @@ public class BrawlerEntry {
 
     @SerializedName("name")
     private String name;
-
-    private int gadgetId;
-    private int starPowerId;
 
 
     @Ignore     // Non viene inserito nel database, ma viene comunque gestito da Retrofit
@@ -99,19 +84,4 @@ public class BrawlerEntry {
         this.brawlerPin = brawlerPin;
     }
 
-    public int getGadgetId() {
-        return gadgetId;
-    }
-
-    public void setGadgetId(int gadgetId) {
-        this.gadgetId = gadgetId;
-    }
-
-    public int getStarPowerId() {
-        return starPowerId;
-    }
-
-    public void setStarPowerId(int starPowerId) {
-        this.starPowerId = starPowerId;
-    }
 }

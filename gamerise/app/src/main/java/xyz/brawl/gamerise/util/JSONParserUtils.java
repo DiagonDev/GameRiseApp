@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.stat.api.StatsApiResponse;
+import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public class JSONParserUtils {
     public Context context;
@@ -25,9 +25,9 @@ public class JSONParserUtils {
         return new Gson().fromJson(reader, BattleLogApiResponse.class);
     }
 
-    public StatsApiResponse statsParseJSONWithGson(String json) throws IOException {
+    public Stat statsParseJSONWithGson(String json) throws IOException {
         InputStream inputStream = context.getAssets().open(json);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        return new Gson().fromJson(reader, StatsApiResponse.class);
+        return new Gson().fromJson(reader, Stat.class);
     }
 }
