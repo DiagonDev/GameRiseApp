@@ -24,6 +24,8 @@ import java.util.List;
 import xyz.brawl.gamerise.R;
 
 
+import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.repository.player.IPlayerRepository;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.util.Constants;
 import xyz.brawl.gamerise.util.JSONParserUtils;
@@ -129,19 +131,13 @@ public class StatsFragment extends Fragment implements ResponseCallback {
     public void onSuccess(Object o, long lastUpdate) {
         Stat stat = (Stat) o;
 
-        trofei.setText(stat.trophies);
-        livello.setText(stat.expLevel);
+        trofei.setText(""+stat.trophies);
+        livello.setText(""+stat.expLevel);
         club.setText(stat.club.getName());
-        vittorieSolo.setText(stat.soloVictories);
-        vittorieDuo.setText(stat.duoVictories);
-        vittorie3vs3.setText(stat._3vs3Victories);
+        vittorieSolo.setText(""+stat.soloVictories);
+        vittorieDuo.setText(""+stat.duoVictories);
+        vittorie3vs3.setText(""+stat._3vs3Victories);
 
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
     }
 
     @Override
