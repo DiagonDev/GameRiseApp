@@ -49,7 +49,7 @@ public class StatsFragment extends Fragment implements ResponseCallback {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
         
-        playerRepository = new PlayerRepository(this.getContext(), this);
+        playerRepository = new PlayerRepository(requireActivity().getApplication(), this);
         playerRepository.fetchPlayer(Constants.tagTeo);
 
         trofei=view.findViewById(R.id.valoreTrofei);
@@ -59,15 +59,6 @@ public class StatsFragment extends Fragment implements ResponseCallback {
         vittorieDuo=view.findViewById(R.id.valoreVittorieDuo);
         vittorie3vs3=view.findViewById(R.id.valoreVittorie3vs3);
 
-
-        JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
-        /*
-        try {
-            Stat stat = jsonParserUtils.statsParseJSONWithGson("players.json");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
 
         //TODO: spostare codice nel viewModel
         chartContainer = view.findViewById(R.id.chart_container);

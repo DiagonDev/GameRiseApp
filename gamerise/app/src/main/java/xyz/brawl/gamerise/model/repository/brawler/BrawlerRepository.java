@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.model.repository.brawler;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,8 +11,8 @@ import xyz.brawl.gamerise.model.repository.AbstractRepository;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class BrawlerRepository extends AbstractRepository implements IBrawlerRepository {
-    public BrawlerRepository(Context context, ResponseCallback responseCallback) {
-        super(context, responseCallback);
+    public BrawlerRepository(Application application, ResponseCallback responseCallback) {
+        super(application, responseCallback);
     }
 
     @Override

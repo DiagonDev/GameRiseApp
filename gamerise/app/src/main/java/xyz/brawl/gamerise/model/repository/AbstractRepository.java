@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.model.repository;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,12 +16,12 @@ import xyz.brawl.gamerise.util.ResponseCallback;
 
 public abstract class AbstractRepository {
     protected ApiService apiService;
-    protected Context context;
+    protected Application application;
     protected ResponseCallback responseCallback;
 
-    public AbstractRepository(Context context, ResponseCallback responseCallback) {
+    public AbstractRepository(Application application, ResponseCallback responseCallback) {
         this.apiService = ServiceLocator.getInstance().getApiService();
-        this.context = context;
+        this.application = application;
         this.responseCallback = responseCallback;
     }
 
@@ -39,7 +40,7 @@ public abstract class AbstractRepository {
                 } else {
                     // qui finiamo se la request è andata a buon fine, MA il codice di risposta non è 200
                     // esempio: la tag non è valida o non esiste
-                    responseCallback.onFailure(context.getString(R.string.error_message));
+                    responseCallback.onFailure(application.getString(R.string.error_message));
                 }
             }
 
@@ -54,5 +55,6 @@ public abstract class AbstractRepository {
 
     // metodi da implementare nei Repository, se si vuole fare qualcosa della `response` o del `throwable`
     protected abstract <T> void handleApiResponse(Response<T> response);
+
     protected abstract void handleApiFailure(Throwable t);
 }

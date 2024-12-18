@@ -54,7 +54,7 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
         });
 
         tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
-        tagViewModel.initDatabaseAndFacade(this);
+        tagViewModel.initDatabaseAndFacade(this.getApplication());
 
 
         insertTag = findViewById(R.id.insertTag);
@@ -104,7 +104,6 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
         recyclerView.setAdapter(tagAdapter);
 
         // Osserva i cambiamenti nei tag
-
         tagViewModel.getTags().observe(this, updatedTags -> {
             if (updatedTags != null && tagAdapter != null) {
                 tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
@@ -116,7 +115,7 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
 
 
         /////////////////////////////////////
-        BrawlerRepository br = new BrawlerRepository(this.getBaseContext(), this);
+        BrawlerRepository br = new BrawlerRepository(this.getApplication(), this);
         br.fetchBrawlerList();
         br.fetchBrawler(16000000);
     }

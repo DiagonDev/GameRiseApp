@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.util;
 
+import android.app.Application;
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.battlelog.IBattleLogRepository;
 import xyz.brawl.gamerise.model.repository.player.IPlayerRepository;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
+import xyz.brawl.gamerise.model.service.ServiceLocator;
 
 /**
  * Applicazione pattern Façade
@@ -30,14 +32,14 @@ import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
  * TODO: tutto il codice presente in questa classe verrà spostato ove corretto qui dentro avremo solo i metodi
  */
 public class DownloadDataFacade implements ResponseCallback {
-    private final Context context;
+    private final Application application;
     private final GameRiseDatabase database;
     private IBattleLogRepository battleLogRepository;
     private IPlayerRepository playerRepository;
 
-    public DownloadDataFacade(Context context) {
-        this.context = context;
-        database = GameRiseDatabase.getDatabase(context);
+    public DownloadDataFacade(Application application) {
+        this.application = application;
+        database = ServiceLocator.getInstance().getDatabase(application);
     }
 
     /**
@@ -70,11 +72,11 @@ public class DownloadDataFacade implements ResponseCallback {
                 }
             });
             /// Step 2
-            battleLogRepository = new BattleLogRepository(context, this);
+            battleLogRepository = new BattleLogRepository(application, this);
             battleLogRepository.fetchBattleLog(Constants.tagTeo);
 
             /// Step 4
-            playerRepository = new PlayerRepository(context, this);
+            playerRepository = new PlayerRepository(application, this);
             playerRepository.fetchPlayer(Constants.tagTeo);
         }
 

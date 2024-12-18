@@ -7,8 +7,8 @@ import xyz.brawl.gamerise.model.data.datasource.AbstractApiDataSource;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class PlayerApiDataSource extends AbstractApiDataSource {
-    public PlayerApiDataSource(Context context, ResponseCallback responseCallback) {
+public class PlayerRemoteDataSource extends AbstractApiDataSource {
+    public PlayerRemoteDataSource(Context context, ResponseCallback responseCallback) {
         super(context, responseCallback);
     }
 

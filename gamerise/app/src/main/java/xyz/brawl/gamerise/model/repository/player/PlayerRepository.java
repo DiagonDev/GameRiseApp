@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.model.repository.player;
 
+import android.app.Application;
 import android.content.Context;
 
 import retrofit2.Response;
@@ -9,8 +10,8 @@ import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class PlayerRepository extends AbstractRepository implements IPlayerRepository {
 
-    public PlayerRepository(Context context, ResponseCallback responseCallback) {
-        super(context, responseCallback);
+    public PlayerRepository(Application application, ResponseCallback responseCallback) {
+        super(application, responseCallback);
     }
 
     @Override
