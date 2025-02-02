@@ -27,6 +27,19 @@ public class BattleLogRepository extends AbstractRepository implements IBattleLo
         get(apiService.getBattlelog(playerTag));
     }
 
+    /*
+        IL PROF FA QUESTA COSA, PENSO DOBBIAMO FARLA ANCHE NOI 
+            public MutableLiveData<Result> fetchArticles(String country, int page, long lastUpdate) {
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastUpdate > FRESH_TIMEOUT) {
+                    articleRemoteDataSource.getArticles(country);
+                } else {
+                    articleLocalDataSource.getArticles();
+                }
+
+                return allArticlesMutableLiveData;
+            }
+     */
 
     /// Questo metodo serve per permettere ai repository di gestire le risposte API in maniera differente
     @Override
@@ -43,6 +56,14 @@ public class BattleLogRepository extends AbstractRepository implements IBattleLo
     @Override
     protected void handleApiFailure(Throwable t) {
 
+    }
+
+    public void insertBattle(Battle battle) {
+        battleLogDataSource.insertBattle(battle);
+    }
+
+    public void deleteBattle(Battle battle) {
+        battleLogDataSource.deleteBattle(battle);
     }
 
 }

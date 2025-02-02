@@ -28,12 +28,31 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
 
     @Override
     public void deleteBattles(Battle battle) {
-
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+            List<Battle> allBattles = battleDAO.getAll();
+            if(battles != null) {
+                for (Battle battle : battles) {
+                    if (battleList.contains(battle)) {
+                        battleDAO.delete(battle);
+                        battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
+                    } else battleLogCallback.onFailureFromLocal(null);
+                }
+            } else battleLogCallback.onFailureFromLocal(null);
+        });
     }
-
 
     @Override
     public void insertBattles(List<Battle> battleList) {
-
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
+            List<Battle> allBattles = battleDAO.getAll();
+            if(battles != null){
+                for(Battle battle : battles){
+                    if(battleList.contains(battle))
+                        battleList.set(battleList.indexOf(battle), battle);
+                }
+            }
+            battleDAO.insertAll(battleList);
+            battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
+        });
     }
 }
