@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.model.data.datasource.battle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.database.BattleDAO;
@@ -30,28 +31,32 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
     public void deleteBattles(Battle battle) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             List<Battle> allBattles = battleDAO.getAll();
-            if(battles != null) {
-                for (Battle battle : battles) {
-                    if (battleList.contains(battle)) {
-                        battleDAO.delete(battle);
-                        battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
-                    } else battleLogCallback.onFailureFromLocal(null);
-                }
-            } else battleLogCallback.onFailureFromLocal(null);
+            if(battle != null) {
+                if(allBattles.contains(battle)){
+                    battleDAO.delete(battle);
+                    battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
+                    //allBattles.remove(battle);
+                }else battleLogCallback.onFailureFromLocal(new Exception("Battle not found"));
+            } else battleLogCallback.onFailureFromLocal(new Exception("Battle not found"));
+            // al posto della frase, si può creare una costante e mandargli quella
         });
     }
 
     @Override
+    //al posto della lista, potrebbe arrivarci una battaglia alla volta
     public void insertBattles(List<Battle> battleList) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             List<Battle> allBattles = battleDAO.getAll();
-            if(battles != null){
-                for(Battle battle : battles){
-                    if(battleList.contains(battle))
-                        battleList.set(battleList.indexOf(battle), battle);
+            List<Battle> toInsertOrUpdate = new ArrayList<>();
+            if(battleList != null){
+                for(Battle newBattle : battleList){
+                    if(!allBattles.contains(newBattle))
+                        toInsertOrUpdate.add(newBattle);
                 }
             }
-            battleDAO.insertAll(battleList);
+            if (!toInsertOrUpdate.isEmpty()) {
+                battleDAO.insertAll(toInsertOrUpdate);
+            }
             battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
         });
     }

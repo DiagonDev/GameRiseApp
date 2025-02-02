@@ -8,7 +8,7 @@ import xyz.brawl.gamerise.model.repository.battlelog.BattleLogCallback;
 public abstract class BaseBattleLocalDataSource {
     protected BattleLogCallback battleLogCallback;
 
-    public void setArticleCallback(BattleLogCallback battleLogCallback) {
+    public void setBattleLogCallback(BattleLogCallback battleLogCallback) {
         this.battleLogCallback = battleLogCallback;
     }
 
