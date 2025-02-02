@@ -172,6 +172,20 @@ public class Constants {
                 return BrawlerPin.LOU; // Valore predefinito
             }
         }
+
+        public static BrawlerPin fromIconPlayerId(int iconId) {
+            for (BrawlerPin brawlerPin : BrawlerPin.values()) {
+                if (brawlerPin.getIconPlayerId() == iconId) {
+                    return brawlerPin;
+                }
+            }
+            return BrawlerPin.LOU; // Valore predefinito in caso di errore
+        }
+
+        public String getBrawlerPinString() {
+            return this.name().toLowerCase().replace("_", " ");
+        }
+
     }
     //Questo metodo ritorna la lista di players del team del giocatore (tag)
     public static List<PlayerEntry> getTeamMembers(List<List<PlayerEntry>> teams) {

@@ -12,9 +12,7 @@ public abstract class BaseBattleLocalDataSource {
         this.battleLogCallback = battleLogCallback;
     }
 
-    public abstract void getBattles();
+    public abstract void getBattles(String tagId);
 
-    public abstract void deleteBattles(Battle battle);
-
-    public abstract void insertBattles(List<Battle> battleList);
+    public abstract void insertBattles(List<Battle> battleList, String tagId);
 }

@@ -6,7 +6,7 @@ import xyz.brawl.gamerise.model.data.battle.Battle;
 
 public interface BattleLogCallback {
 
-    //leo deve modificare qui
+    //TODO: leo deve modificare qui
     void onSuccessFromRemote(List<Battle> battles, long lastUpdate);
     void onFailureFromRemote(String errorMessage);
     //qui è giusto

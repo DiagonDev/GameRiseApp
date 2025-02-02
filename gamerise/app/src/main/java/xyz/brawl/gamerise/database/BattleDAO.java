@@ -11,8 +11,8 @@ import xyz.brawl.gamerise.model.data.battle.Battle;
 
 @Dao
 public interface BattleDAO {
-    @Query("SELECT * FROM Battle")
-    List<Battle> getAll();
+    @Query("SELECT * FROM Battle WHERE tagId = :tagId ORDER BY battleId DESC")
+    List<Battle> getAll(String tagId);
 
     @Query("SELECT * FROM Battle WHERE battleId = :battleId LIMIT 1")
     Battle findBattleByBattleId(String battleId); // Cerca un battle per battleId

@@ -15,49 +15,36 @@ import xyz.brawl.gamerise.model.repository.battlelog.BattleLogCallback;
 public class BattleLocalDataSource extends BaseBattleLocalDataSource{
     private final BattleDAO battleDAO;
 
-    public BattleLocalDataSource(BattleDAO battleDAO) {
-        this.battleDAO = battleDAO;
+    public BattleLocalDataSource(GameRiseDatabase gameRiseDatabase) {
+        this.battleDAO = gameRiseDatabase.battleDAO();
     }
 
     @Override
-    public void getBattles() {
+    public void getBattles(String tagId) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
-        });
-
-    }
-
-    @Override
-    public void deleteBattles(Battle battle) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            List<Battle> allBattles = battleDAO.getAll();
-            if(battle != null) {
-                if(allBattles.contains(battle)){
-                    battleDAO.delete(battle);
-                    battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
-                    //allBattles.remove(battle);
-                }else battleLogCallback.onFailureFromLocal(new Exception("Battle not found"));
-            } else battleLogCallback.onFailureFromLocal(new Exception("Battle not found"));
-            // al posto della frase, si può creare una costante e mandargli quella
+            battleLogCallback.onSuccessFromLocal(battleDAO.getAll(tagId));
         });
     }
 
     @Override
     //al posto della lista, potrebbe arrivarci una battaglia alla volta
-    public void insertBattles(List<Battle> battleList) {
+    public void insertBattles(List<Battle> battleList, String tagId) {
+        //TODO: potrebbe esserci qualche errore su "battleDAO.insertAll(toInsertOrUpdate);"
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            List<Battle> allBattles = battleDAO.getAll();
+            List<Battle> allBattles = battleDAO.getAll(tagId);
             List<Battle> toInsertOrUpdate = new ArrayList<>();
             if(battleList != null){
                 for(Battle newBattle : battleList){
                     if(!allBattles.contains(newBattle))
                         toInsertOrUpdate.add(newBattle);
                 }
-            }
-            if (!toInsertOrUpdate.isEmpty()) {
-                battleDAO.insertAll(toInsertOrUpdate);
-            }
-            battleLogCallback.onSuccessFromLocal(battleDAO.getAll());
+
+                if (!toInsertOrUpdate.isEmpty()) {
+                    battleDAO.insertAll(toInsertOrUpdate);
+                }
+                battleLogCallback.onSuccessFromLocal(battleDAO.getAll(tagId));
+            }else battleDAO.insertAll(battleList);
+
         });
     }
 }
