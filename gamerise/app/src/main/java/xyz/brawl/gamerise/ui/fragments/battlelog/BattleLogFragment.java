@@ -13,8 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
@@ -96,9 +99,21 @@ public class BattleLogFragment extends Fragment {
                                 Snackbar.LENGTH_SHORT).show();
                     }
                 });*/
-        /*battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+        //TODO: controllare se funziona
+        battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
             result -> {
-            }*/
+                if (result.isSuccess()) {
+                    List<Battle> newBattles = (List<Battle>) ((Result.Success) result).getData();
+                    int initialSize = battles.size();
+                    battles.clear();
+                    battles.addAll(newBattles);
+                    Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeInserted(initialSize, newBattles.size());
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    String errorMessage = ((Result.Error) result).getMessage();
+                    Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
+                }
+            });
         return view;
     }
 
