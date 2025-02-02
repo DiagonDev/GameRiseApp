@@ -10,7 +10,7 @@ import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
 import xyz.brawl.gamerise.model.repository.AbstractRepository;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class BrawlerRepository extends AbstractRepository implements IBrawlerRepository {
+public class BrawlerRepository extends AbstractRepository {
     public BrawlerRepository(Application application, ResponseCallback responseCallback) {
         super(application, responseCallback);
     }

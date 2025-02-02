@@ -1,7 +1,6 @@
 package xyz.brawl.gamerise.ui.fragments.stats;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +25,11 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.data.stat.Stat;
-import xyz.brawl.gamerise.model.repository.player.IPlayerRepository;
-import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
-import xyz.brawl.gamerise.util.Constants;
-import xyz.brawl.gamerise.util.JSONParserUtils;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class StatsFragment extends Fragment implements ResponseCallback {
     public static final String TAG = "StatsFragment";
     public LinearLayout chartContainer;
-    private IPlayerRepository playerRepository;
     private TextView trofei;
     private TextView livello;
     private TextView club;
@@ -48,9 +41,6 @@ public class StatsFragment extends Fragment implements ResponseCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
-        
-        playerRepository = new PlayerRepository(requireActivity().getApplication(), this);
-        playerRepository.fetchPlayer(Constants.tagTeo);
 
         trofei=view.findViewById(R.id.valoreTrofei);
         livello=view.findViewById(R.id.valoreLivello);

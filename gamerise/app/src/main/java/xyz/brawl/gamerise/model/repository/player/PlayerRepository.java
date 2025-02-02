@@ -8,7 +8,7 @@ import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
 import xyz.brawl.gamerise.model.repository.AbstractRepository;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class PlayerRepository extends AbstractRepository implements IPlayerRepository {
+public class PlayerRepository extends AbstractRepository {
 
     public PlayerRepository(Application application, ResponseCallback responseCallback) {
         super(application, responseCallback);
