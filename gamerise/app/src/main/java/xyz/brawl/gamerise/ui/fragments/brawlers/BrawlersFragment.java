@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +27,7 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.ui.fragments.brawlers.adapter.BrawlerAdapter;
@@ -62,10 +64,17 @@ public class BrawlersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         //Era già qua, ma non so se sia corretta o meno
-        brawlersViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
+        //brawlersViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
+
+        String tag = GameAccountSingleton.getInstance().getUserTag();
+        if (tag == null || tag.isEmpty()) {
+            Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
+            return view; // Se non c'è nessun tag, esci
+        }
+
         String lastUpdate = "0";
-        String tag = "989VGUU0";
+
         //COntrollare
         if(!NetworkUtil.isInternetAvailable(this.getContext())){
             noInternetView.setVisibility(View.VISIBLE);
@@ -73,26 +82,8 @@ public class BrawlersFragment extends Fragment {
             lastUpdate = System.currentTimeMillis() + "";
         }
 
-        /// provvisorio
-        Button dropdownButton = view.findViewById(R.id.dropdown_button);
-        dropdownButton.setOnClickListener(view2 -> {
-            PopupMenu popupMenu = new PopupMenu(view.getContext(), dropdownButton);
-            popupMenu.getMenuInflater().inflate(R.menu.menu_dropdown, popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.item1) {
-                    Toast.makeText(getContext(), "BattleLogEntry 1 selected", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (item.getItemId() == R.id.item2) {
-                    Toast.makeText(getContext(), "BattleLogEntry 2 selected", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                return false;
-            });
-            popupMenu.show();
-        });
-
-        List<BrawlerEntry> brawlers = new ArrayList<>();
-        /*brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+        /*List<BrawlerEntry> brawlers = new ArrayList<>();
+        *//*brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
@@ -101,9 +92,12 @@ public class BrawlersFragment extends Fragment {
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
 
-        gridView.setAdapter(new BrawlerAdapter(view.getContext(),
-                R.layout.layout_grid_brawlers,
-                brawlers));
+        // Inizializza l'adapter con una lista vuota
+        BrawlerAdapter adapter = new BrawlerAdapter(view.getContext(), R.layout.layout_grid_brawlers, new ArrayList<>());
+
+        // Collega l'adapter al GridView
+        gridView.setAdapter(adapter);
+
         /// fine provvisorio
 
         //TODO: controllare se funziona
@@ -111,11 +105,8 @@ public class BrawlersFragment extends Fragment {
                 result -> {
                     if (result.isSuccess()) {
                         List<BrawlerEntry> newBrawlers = (List<BrawlerEntry>) ((Result.Success) result).getData();
-                        int initialSize = brawlers.size();
-                        brawlers.clear();
-                        brawlers.addAll(newBrawlers);
-                        Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeInserted(initialSize, newBrawlers.size());
-                        recyclerView.setVisibility(View.VISIBLE);
+                        adapter.updateData(newBrawlers); // Usa il metodo personalizzato
+                        gridView.setVisibility(View.VISIBLE);
                     } else {
                         String errorMessage = ((Result.Error) result).getMessage();
                         Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
