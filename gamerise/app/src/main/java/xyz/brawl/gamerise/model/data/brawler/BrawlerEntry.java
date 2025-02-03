@@ -27,7 +27,7 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
                         onDelete = ForeignKey.CASCADE // Comportamento in caso di eliminazione del Tag
                 )
         },
-        indices = {@androidx.room.Index(value = "brawlerId")}
+        indices = {@androidx.room.Index(value = "tagId")}
 )
 public class BrawlerEntry {
 

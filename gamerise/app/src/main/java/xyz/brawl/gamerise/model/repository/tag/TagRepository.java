@@ -2,22 +2,11 @@ package xyz.brawl.gamerise.model.repository.tag;
 
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.model.repository.tag.TagCallback;
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-import java.util.List;
-import androidx.lifecycle.MutableLiveData;
-import retrofit2.Response;
-import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.repository.AbstractRepository;
-import xyz.brawl.gamerise.util.ResponseCallback;
 
+import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
 
 
 public class TagRepository implements TagCallback {
@@ -31,7 +20,7 @@ public class TagRepository implements TagCallback {
         this.tagLocalDataSource.setBattleLogCallback(this);
     }
 
-    public MutableLiveData<Result> getRecentTags(String tagId, long lastUpdate) {
+    public MutableLiveData<Result> fetchTag(long lastUpdate) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
             //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
@@ -40,6 +29,16 @@ public class TagRepository implements TagCallback {
         } else {
             tagLocalDataSource.getTag();
         }
+        return allTagLiveData;
+    }
+
+    public MutableLiveData<Result> insertTag(Tag tagToInsert){
+        tagLocalDataSource.insertTag(tagToInsert);
+        return allTagLiveData;
+    }
+
+    public MutableLiveData<Result> deleteTag(Tag tagToDelete){
+        tagLocalDataSource.deleteTag(tagToDelete);
         return allTagLiveData;
     }
 
