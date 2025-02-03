@@ -2,21 +2,21 @@ package xyz.brawl.gamerise.util;
 
 import android.app.Application;
 
-import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
-import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
 
 public class ServiceLocator {
@@ -111,5 +111,11 @@ public class ServiceLocator {
         return new BrawlersRepository(brawlersLocalDataSource);
     }
 
+    public StarPowerRepository getStarPowerRepository(Application application, boolean debugMode) {
+        BaseStarPowerLocalDataSource starPowerLocalDataSource;
+        //TODO: leo
+        starPowerLocalDataSource = new StarPowerLocalDataSource(getDatabase(application));
 
+        return new StarPowerRepository(starPowerLocalDataSource);
+    }
 }

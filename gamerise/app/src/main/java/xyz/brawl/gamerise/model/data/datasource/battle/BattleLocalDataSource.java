@@ -33,7 +33,7 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             List<Battle> allBattles = battleDAO.getAll(tagId);
             List<Battle> toInsertOrUpdate = new ArrayList<>();
-            if(battleList != null){
+            if(allBattles != null){
                 for(Battle newBattle : battleList){
                     if(!allBattles.contains(newBattle))
                         toInsertOrUpdate.add(newBattle);

@@ -11,17 +11,9 @@ import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 
 @Dao
 public interface StarPowerDAO {
-    @Query("SELECT * FROM StarPowerEntry")
-    List<StarPowerEntry> getAll();
+    @Query("SELECT * FROM StarPowerEntry WHERE brawlerId = :brawlerId")
+    List<StarPowerEntry> getAll(Long brawlerId);
 
     @Insert
-    void insert(StarPowerEntry starPowerEntry);
-
-    @Insert
-    void insertAll(StarPowerEntry... starPowerEntries);
-
-    @Delete
-    void delete(StarPowerEntry starPowerEntry);
-
-    //TODO: altre queries
+    void insertAll(List<StarPowerEntry> starPowerEntry);
 }
