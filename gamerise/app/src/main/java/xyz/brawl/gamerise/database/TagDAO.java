@@ -11,14 +11,11 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 
 @Dao
 public interface TagDAO {
-    @Query("SELECT * FROM Player ORDER BY rowid DESC")
-    List<Tag> getRecentTags(); // Seleziona i 3 tag più recenti
-
-    @Query("SELECT * FROM Player WHERE tag = :tagName LIMIT 1")
-    Tag findTagByName(String tagName); // Cerca un tag per nome
+    @Query("SELECT * FROM Player")
+    Tag getTag();
 
     @Insert
-    void insertAll(Tag... tags); // Inserisci nuovi tag
+    void insert(Tag tag); // Inserisci nuovi tag
 
     @Delete
     void delete(Tag tag); // Elimina un tag

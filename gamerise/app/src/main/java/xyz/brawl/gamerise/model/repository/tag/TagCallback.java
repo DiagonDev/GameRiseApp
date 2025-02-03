@@ -7,9 +7,9 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 
 public interface TagCallback {
     //TODO: leo deve modificare qui
-    void onSuccessFromRemote(List<Tag> tags, long lastUpdate);
+    void onSuccessFromRemote(Tag tag, long lastUpdate);
     void onFailureFromRemote(String errorMessage);
     //qui è giusto
-    void onSuccessFromLocal(List<Tag> tags);
+    void onSuccessFromLocal(Tag tag);
     void onFailureFromLocal(Exception exception);
 }

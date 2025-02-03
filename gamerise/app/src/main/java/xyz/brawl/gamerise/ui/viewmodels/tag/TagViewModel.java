@@ -1,7 +1,6 @@
 package xyz.brawl.gamerise.ui.viewmodels.tag;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,7 +15,6 @@ import xyz.brawl.gamerise.database.GameRiseDatabase;
 
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.model.service.ServiceLocator;
-import xyz.brawl.gamerise.util.DownloadDataFacade;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class TagViewModel extends ViewModel implements ResponseCallback {

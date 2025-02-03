@@ -24,7 +24,7 @@ public abstract class GameRiseDatabase extends RoomDatabase {
     public abstract StatDAO statDao();
     public abstract BattleDAO battleDAO();
     public abstract BrawlerDAO brawlerDAO();
-    public abstract TagDAO tagDao();
+    public abstract TagDAO tagDAO();
     public abstract StarPowerDAO starPowerDAO();
     public abstract GadgetDAO gadgetDAO();
 

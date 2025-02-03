@@ -1,12 +1,9 @@
 package xyz.brawl.gamerise.ui.viewmodels.brawlers;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 
 public class BrawlersViewModel extends ViewModel {

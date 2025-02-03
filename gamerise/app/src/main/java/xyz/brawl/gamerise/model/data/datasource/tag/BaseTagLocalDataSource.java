@@ -4,6 +4,7 @@ import java.util.List;
 
 import xyz.brawl.gamerise.model.data.battle.Battle;
 
+import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.model.repository.tag.TagCallback;
 
 public abstract class BaseTagLocalDataSource {
@@ -13,8 +14,9 @@ public abstract class BaseTagLocalDataSource {
         this.tagCallback = tagCallback;
     }
 
-    public abstract void getRecentTags();
+    public abstract void getTag();
 
-    public abstract void insertTags(String tagId);
-    public abstract void findTagByName(String tagName);
+    public abstract void insertTag(Tag tag);
+
+    public abstract void deleteTag(Tag tag);
 }

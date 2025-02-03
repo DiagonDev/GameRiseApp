@@ -2,6 +2,7 @@ package xyz.brawl.gamerise.model.repository.tag;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.Result;
@@ -20,13 +21,11 @@ import xyz.brawl.gamerise.util.ResponseCallback;
 
 
 public class TagRepository implements TagCallback {
-    //private static final String TAG = TagRepository.class.getSimpleName();
 
     private final MutableLiveData<Result> allTagLiveData;
     private final BaseTagLocalDataSource tagLocalDataSource;
 
     public TagRepository(BaseTagLocalDataSource tagLocalDataSource) {
-
         allTagLiveData = new MutableLiveData<>();
         this.tagLocalDataSource = tagLocalDataSource;
         this.tagLocalDataSource.setBattleLogCallback(this);
@@ -39,28 +38,28 @@ public class TagRepository implements TagCallback {
             //articleRemoteDataSource.getArticles(country);
             //get(apiService.getBattlelog(tagId));
         } else {
-            tagLocalDataSource.getRecentTags();
+            tagLocalDataSource.getTag();
         }
         return allTagLiveData;
     }
 
     @Override
-    public void onSuccessFromRemote(List<Tag> tags, long lastUpdate) {
-
+    public void onSuccessFromRemote(Tag tag, long lastUpdate) {
     }
 
     @Override
     public void onFailureFromRemote(String errorMessage) {
-
     }
 
     @Override
-    public void onSuccessFromLocal(List<Tag> tags) {
-
+    public void onSuccessFromLocal(Tag tag) {
+        Result result = new Result.Success(tag);
+        allTagLiveData.postValue(result);
     }
 
     @Override
     public void onFailureFromLocal(Exception exception) {
-
+        Result.Error resultError = new Result.Error(exception.getMessage());
+        allTagLiveData.postValue(resultError);
     }
 }
