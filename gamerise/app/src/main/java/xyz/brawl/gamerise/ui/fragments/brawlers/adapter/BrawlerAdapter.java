@@ -2,6 +2,7 @@ package xyz.brawl.gamerise.ui.fragments.brawlers.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,17 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
         this.brawlers = new ArrayList<>(brawlers); // Usa una copia per evitare problemi di riferimenti
     }
 
+    @Override
+    public int getCount() {
+        Log.d("BrawlerAdapter", "getCount() chiamato, numero elementi: " + brawlers.size());
+        return brawlers.size();
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        Log.d("BrawlerAdapter", "getView() chiamato per posizione: " + position);
+
         ViewHolder viewHolder;
 
         // Se convertView è null, creiamo una nuova view

@@ -21,6 +21,7 @@ public class BrawlersRepository implements BrawlersCallBack {
         this.brawlerLocalDataSource = brawlerLocalDataSource;
         this.brawlerRemoteDataSource = brawlerRemoteDataSource;
         this.brawlerLocalDataSource.setBrawlerCallBack(this);
+        this.brawlerRemoteDataSource.setBrawlerCallBack(this);
     }
 
     // qua va la logica
@@ -47,8 +48,8 @@ public class BrawlersRepository implements BrawlersCallBack {
     }
 
     @Override
-    public void onSuccessFromRemote(Object o, long lastUpdate) {
-        Result result = new Result.Success(o);
+    public void onSuccessFromRemote(Object brawler, long lastUpdate) {
+        Result result = new Result.Success(brawler);
         allBrawlerLiveData.postValue(result);
     }
 

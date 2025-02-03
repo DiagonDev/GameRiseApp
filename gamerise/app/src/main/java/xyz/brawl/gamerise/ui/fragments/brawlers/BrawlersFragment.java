@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.ui.fragments.brawlers;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,7 @@ public class BrawlersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        String lastUpdate = "0";
         //Era già qua, ma non so se sia corretta o meno
         //brawlersViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
@@ -73,8 +75,6 @@ public class BrawlersFragment extends Fragment {
             return view; // Se non c'è nessun tag, esci
         }
 
-        String lastUpdate = "0";
-
         //COntrollare
         if(!NetworkUtil.isInternetAvailable(this.getContext())){
             noInternetView.setVisibility(View.VISIBLE);
@@ -82,8 +82,8 @@ public class BrawlersFragment extends Fragment {
             lastUpdate = System.currentTimeMillis() + "";
         }
 
-        /*List<BrawlerEntry> brawlers = new ArrayList<>();
-        *//*brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
+       /* List<BrawlerEntry> brawlers = new ArrayList<>();
+        brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));
@@ -91,6 +91,7 @@ public class BrawlersFragment extends Fragment {
         brawlers.add(new BrawlerEntry(R.drawable._bit_pin, 16000027, "8BIT"));*/
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
+        Log.d("BrawlersFragment", "Stato GridView: " + gridView.getVisibility());
 
         // Inizializza l'adapter con una lista vuota
         BrawlerAdapter adapter = new BrawlerAdapter(view.getContext(), R.layout.layout_grid_brawlers, new ArrayList<>());
