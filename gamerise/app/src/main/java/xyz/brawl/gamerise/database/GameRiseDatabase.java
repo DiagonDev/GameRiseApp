@@ -17,7 +17,7 @@ import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.util.Constants;
 
-@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class, OwnsEntity.class}
+@Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class}
         ,version = Constants.DATABASE_VERSION, exportSchema = false)
 public abstract class GameRiseDatabase extends RoomDatabase {
 
@@ -27,7 +27,6 @@ public abstract class GameRiseDatabase extends RoomDatabase {
     public abstract TagDAO tagDao();
     public abstract StarPowerDAO starPowerDAO();
     public abstract GadgetDAO gadgetDAO();
-    public abstract OwnsDAO ownsDAO();
 
     private static volatile GameRiseDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();

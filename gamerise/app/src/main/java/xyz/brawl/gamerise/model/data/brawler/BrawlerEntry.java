@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import xyz.brawl.gamerise.model.data.tag.Tag;
 
 
 /**
@@ -17,7 +18,17 @@ import java.util.List;
  * Entity: nel Database Room, in relazione uno a molti con gadgetEntries e starPowersEntries
  * Entry: nel parsing Json con Retrofit per la chiamata API di player/{tag}
  */
-@Entity
+@Entity(
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Tag.class,
+                        parentColumns = "tag", // Colonna primaria della tabella Tag
+                        childColumns = "tagId", // Colonna in OwnsEntity che rappresenta il riferimento a Tag
+                        onDelete = ForeignKey.CASCADE // Comportamento in caso di eliminazione del Tag
+                )
+        },
+        indices = {@androidx.room.Index(value = "brawlerId")}
+)
 public class BrawlerEntry {
 
     @PrimaryKey
@@ -26,7 +37,7 @@ public class BrawlerEntry {
 
     @SerializedName("name")
     private String name;
-
+    public String tagId;
     private int brawlerPin;
     private int power;
     private int rank;
@@ -101,5 +112,13 @@ public class BrawlerEntry {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
     }
 }
