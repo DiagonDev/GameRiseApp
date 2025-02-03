@@ -15,17 +15,6 @@ public interface BrawlerDAO {
     @Query("SELECT * FROM BrawlerEntry b WHERE b.tagId = :tagId ORDER BY b.id DESC")
     List<BrawlerEntry> getAll(String tagId);
 
-    @Query("SELECT * FROM BrawlerEntry WHERE id = :id LIMIT 1")
-    BrawlerEntry findBrawlerById(long id); // Cerca un brawler per l'id
-
     @Insert
-    void insert(BrawlerEntry brawlerEntry);
-
-    @Insert
-    void insertAll(BrawlerEntry... brawlerEntries);
-
-    @Delete
-    void delete(BrawlerEntry brawlerEntry);
-
-    //TODO: altre queries
+    void insertAll(List<BrawlerEntry> brawlerEntries);
 }

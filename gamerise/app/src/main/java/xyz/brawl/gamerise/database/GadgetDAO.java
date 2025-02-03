@@ -11,17 +11,9 @@ import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 
 @Dao
 public interface GadgetDAO {
-    @Query("SELECT * FROM GadgetEntry")
-    List<GadgetEntry> getAll();
+    @Query("SELECT * FROM GadgetEntry WHERE brawlerId = :brawlerId")
+    List<GadgetEntry> getAll(Long brawlerId);
 
     @Insert
-    void insert(GadgetEntry gadgetEntry);
-
-    @Insert
-    void insertAll(GadgetEntry... gadgetEntries);
-
-    @Delete
-    void delete(GadgetEntry gadgetEntry);
-
-    //TODO: altre queries
+    void insertAll(List<GadgetEntry> gadgetEntries);
 }

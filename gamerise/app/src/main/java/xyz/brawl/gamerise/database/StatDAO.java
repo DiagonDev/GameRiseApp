@@ -12,21 +12,9 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 
 @Dao
 public interface StatDAO {
-    @Query("SELECT * FROM Stat")
-    List<Stat> getAll();
-
-    @Query("SELECT * FROM Stat WHERE tag = :tagName LIMIT 1")
-    Stat findStatByName(String tagName); // Cerca una Stat per tag
+    @Query("SELECT * FROM Stat WHERE tag = :tagName")
+    List<Stat> getAll(String tagName);
 
     @Insert
-    void insert(Stat stat);
-
-    @Insert
-    void insertAll(Stat... stats);
-
-    @Delete
-    void delete(Stat stat);
-
-    //TODO: altre queries
-
+    void insertAll(List<Stat> stats);
 }
