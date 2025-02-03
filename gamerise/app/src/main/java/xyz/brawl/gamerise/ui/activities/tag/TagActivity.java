@@ -22,16 +22,22 @@ import java.util.ArrayList;
 import xyz.brawl.gamerise.R;
 
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
+import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
+import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;
 import xyz.brawl.gamerise.util.ResponseCallback;
+import xyz.brawl.gamerise.util.ServiceLocator;
 
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
 /// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
 /// il colore da applicare. Non è un problema bloccante e si risolve appena popoliamo il recycler
-public class TagActivity extends AppCompatActivity implements ResponseCallback {
+public class TagActivity extends AppCompatActivity{
 
     private boolean checked = false;
     private TagViewModel tagViewModel;
@@ -51,10 +57,13 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        TagRepository tagRepository =
+                ServiceLocator.getInstance().getTagRepository(getApplication(),
+                        getApplication().getResources().getBoolean(R.bool.debug_mode));
 
-        tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
-        tagViewModel.initDatabaseAndFacade(this.getApplication());
-
+        tagViewModel = new ViewModelProvider(
+                this,
+                new TagViewModelFactory(tagRepository)).get(TagViewModel.class);
 
         insertTag = findViewById(R.id.insertTag);
         insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
@@ -97,20 +106,20 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
         });
 
         /// La visualizzazione della lista dei tag potrebbe dare problemi
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        /*RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TagAdapter tagAdapter = new TagAdapter(new ArrayList<>());
-        recyclerView.setAdapter(tagAdapter);
+        recyclerView.setAdapter(tagAdapter);*/
 
         // Osserva i cambiamenti nei tag
-        tagViewModel.getTags().observe(this, updatedTags -> {
+        /*tagViewModel.getTags().observe(this, updatedTags -> {
             if (updatedTags != null && tagAdapter != null) {
                 tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
             }
-        });
+        });*/
 
         // Carica i primi 3 tag dal database
-        tagViewModel.loadRecentTags();
+        /*tagViewModel.loadRecentTags();*/
 
 
         /////////////////////////////////////
@@ -128,6 +137,7 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
      *
      * @return true se il tag è valido, false altrimenti.
      */
+
     public boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
         GameAccountSingleton.getInstance().setUserTag(inputTag);
@@ -135,7 +145,6 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
             if (checked) {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
                 tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
-
             }
             insertTag.setText(""); // Resetta il campo di testo
             Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
@@ -144,17 +153,5 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
             Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }
-
-
-    ////////////////////////
-    @Override
-    public void onSuccess(Object o, long lastUpdate) {
-
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-
     }
 }

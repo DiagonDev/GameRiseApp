@@ -14,7 +14,7 @@ public class PlayerRepository extends AbstractRepository {
         super(application, responseCallback);
     }
 
-    @Override
+    //@Override
     public void fetchPlayer(String playerTag) {
         get(apiService.getPlayer(playerTag));
     }

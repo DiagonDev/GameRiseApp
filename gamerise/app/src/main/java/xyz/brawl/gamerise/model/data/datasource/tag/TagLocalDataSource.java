@@ -22,10 +22,11 @@ public class TagLocalDataSource extends BaseTagLocalDataSource{
     public void insertTag(Tag tagToInsert) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             Tag tag = tagDAO.getTag();
-            if (tag == null) {
-                tagDAO.insert(tagToInsert);
-                tagCallback.onSuccessFromLocal(tagDAO.getTag());
-            } else tagCallback.onFailureFromLocal(new Exception("Database pieno"));
+            if (tag != null) {
+                deleteTag(tag);
+            }
+            tagDAO.insert(tagToInsert);
+            tagCallback.onSuccessFromLocal(tagDAO.getTag());
         });
     }
 

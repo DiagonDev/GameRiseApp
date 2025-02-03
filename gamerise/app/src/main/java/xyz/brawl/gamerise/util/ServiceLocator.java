@@ -7,6 +7,7 @@ import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BattleLocalDataSource;
@@ -16,9 +17,12 @@ import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
+import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
 
 public class ServiceLocator {
@@ -110,9 +114,17 @@ public class ServiceLocator {
     public BrawlersRepository getBrawlersRepository(Application application, boolean debugMode) {
         BaseBrawlersLocalDataSource brawlersLocalDataSource;
         BaseBrawlersRemoteDataSource brawlerRemoteDataSource;
-        brawlerRemoteDataSource = new BrawlerRemoteDataSource(getApiService(), application.callbac);
+        brawlerRemoteDataSource = new BrawlerRemoteDataSource(getApiService());
         brawlersLocalDataSource = new BrawlersLocalDataSource(getDatabase(application));
         return new BrawlersRepository(brawlersLocalDataSource, brawlerRemoteDataSource);
+    }
+
+    public TagRepository getTagRepository(Application application, boolean debugMode) {
+        BaseTagLocalDataSource tagLocalDataSource;
+        //TODO: leo
+        tagLocalDataSource = new TagLocalDataSource(getDatabase(application));
+
+        return new TagRepository(tagLocalDataSource);
     }
 
     public StarPowerRepository getStarPowerRepository(Application application, boolean debugMode) {

@@ -13,44 +13,25 @@ import java.util.Set;
 
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 
+import xyz.brawl.gamerise.database.TagDAO;
+import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.service.ServiceLocator;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
-public class TagViewModel extends ViewModel implements ResponseCallback {
-    private final MutableLiveData<List<Tag>> tagsLiveData = new MutableLiveData<>(new ArrayList<>());
-    private final MutableLiveData<List<Tag>> recentTagsLiveData = new MutableLiveData<>(new ArrayList<>());
+public class TagViewModel extends ViewModel{
+    //private MutableLiveData<Result> tagLiveData;
+    private final TagRepository tagRepository;
 
-    private GameRiseDatabase database;
-
-    //Test per Facade
-    private DownloadDataFacade downloadDataFacade;
-
-    public void initDatabaseAndFacade(Application application) {
-        database = ServiceLocator.getInstance().getDatabase(application);
-        // Crea una nuova istanza di DownloadDataFacade
-        downloadDataFacade = new DownloadDataFacade(application);
+    public TagViewModel(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
     }
 
-    public LiveData<List<Tag>> getTags() {
-        return tagsLiveData;
-    }
-
-    public LiveData<List<Tag>> getRecentTags() {
-        return recentTagsLiveData;
-    }
-
-    public void loadRecentTags() {
-        if (database != null) {
-            GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-                List<Tag> recentTags = database.tagDao().getRecentTags();   // Ottieni i primi 3 tag
-                recentTagsLiveData.postValue(recentTags);   // Passa i tag recenti alla UI
-                unifyTags(recentTags);  // Unifica i tag del database con quelli runtime
-            });
-        }
-    }
 
     public void addTag(Tag tag) {
+        //tagLiveData = tagRepository.insertTag(tag);
+        tagRepository.insertTag(tag);
 
         // Salva il tag nel database ed elimina i meno recenti se necessario
         /* ridondate se uso facade
@@ -77,10 +58,7 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
         }*/
 
 
-        downloadDataFacade.downloadAndSaveData(tag);
-        loadRecentTags(); // Ricarica i tag recenti
-
-        // Aggiorna la lista runtime (tagsLiveData)
+        /*// Aggiorna la lista runtime (tagsLiveData)
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             List<Tag> currentTags = tagsLiveData.getValue();
             if (currentTags == null) {
@@ -93,41 +71,9 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
             }
             currentTags.add(0, tag); // Aggiungi il tag più recente in cima
             tagsLiveData.postValue(currentTags);
-        });
+        });*/
 
     }
-
-    private void unifyTags(List<Tag> recentTags) {
-        // Usa un Set per evitare duplicati
-        Set<String> seenTags = new HashSet<>();
-        List<Tag> unifiedTags = new ArrayList<>();
-
-        // Aggiungi i tag dal database (recenti)
-        if (recentTags != null) {
-            for (Tag tag : recentTags) {
-                if (seenTags.add(tag.getTag())) {
-                    unifiedTags.add(tag);
-                }
-            }
-        }
-
-        // Aggiungi i tag runtime (da tagsLiveData)
-        List<Tag> runtimeTags = tagsLiveData.getValue();
-        if (runtimeTags != null) {
-            for (Tag tag : runtimeTags) {
-                if (seenTags.add(tag.getTag())) {
-                    unifiedTags.add(tag);
-                }
-            }
-        }
-
-        // Ordina i tag unificati per timestamp in ordine decrescente
-        unifiedTags.sort((tag1, tag2) -> Long.compare(tag2.getTimestamp(), tag1.getTimestamp()));
-
-        // Aggiorna i tag unificati
-        tagsLiveData.postValue(unifiedTags);
-    }
-
 
     public boolean isTagValid(String input) {
         // Controlla sintassi
@@ -142,15 +88,5 @@ public class TagViewModel extends ViewModel implements ResponseCallback {
         String regex = "#[A-Z0-9]+";
 
         return input.matches(regex);
-    }
-
-    @Override
-    public void onSuccess(Object o, long lastUpdate) {
-
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-
     }
 }
