@@ -1,14 +1,9 @@
 package xyz.brawl.gamerise.ui.viewmodels.battlelog;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 
 public class BattleLogViewModel extends ViewModel {
@@ -31,7 +26,7 @@ public class BattleLogViewModel extends ViewModel {
     }
 
     private void fetchBattleLog(String tag, long lastUpdate) {
-        battlesLiveData = battleLogRepository.fetchArticles(tag, lastUpdate);
+        battlesLiveData = battleLogRepository.fetchBattleLog(tag, lastUpdate);
     }
 
     /*public void addBattle(Battle battle) {

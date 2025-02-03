@@ -84,21 +84,7 @@ public class BattleLogFragment extends Fragment {
             battleLogRepository = new BattleLogMockRepository(this.getContext());
         } else battleLogRepository = new BattleLogRepository(this.getContext());
         */
-        /*battleLogViewModel.get("us", Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
-                result -> {
-                    if (result.isSuccess()) {
-                        int initialSize = this.articleList.size();
-                        this.articleList.clear();
-                        this.articleList.addAll(((Result.ArticleSuccess) result).getData().getArticles());
-                        articleRecyclerAdapter.notifyItemRangeInserted(initialSize, this.articleList.size());
-                        recyclerView.setVisibility(View.VISIBLE);
-                        shimmerLinearLayout.setVisibility(View.GONE);
-                    } else {
-                        Snackbar.make(view,
-                                getString(R.string.error_retireving_articles),
-                                Snackbar.LENGTH_SHORT).show();
-                    }
-                });*/
+
         //TODO: controllare se funziona
         battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
             result -> {
@@ -116,12 +102,4 @@ public class BattleLogFragment extends Fragment {
             });
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        battleLogViewModel = new ViewModelProvider(this).get(BattleLogViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }

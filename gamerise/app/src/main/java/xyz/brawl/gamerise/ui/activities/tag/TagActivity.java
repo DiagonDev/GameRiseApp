@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import xyz.brawl.gamerise.R;
 
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.repository.brawler.BrawlerRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.ui.activities.tag.adapter.TagAdapter;
@@ -115,9 +114,10 @@ public class TagActivity extends AppCompatActivity implements ResponseCallback {
 
 
         /////////////////////////////////////
-        BrawlerRepository br = new BrawlerRepository(this.getApplication(), this);
+        //TODO: da controllare
+        /*BrawlerRepository br = new BrawlerRepository(this.getApplication(), this);
         br.fetchBrawlerList();
-        br.fetchBrawler(16000000);
+        br.fetchBrawler(16000000);*/
     }
 
     /**

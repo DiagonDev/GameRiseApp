@@ -4,15 +4,11 @@ import static xyz.brawl.gamerise.model.data.battle.BattleMapper.mapToBattleLogEn
 import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
 import java.util.List;
 import androidx.lifecycle.MutableLiveData;
-import retrofit2.Response;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.battle.Battle;
-import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
-import xyz.brawl.gamerise.model.repository.AbstractRepository;
-import xyz.brawl.gamerise.util.ResponseCallback;
 
 
 public class BattleLogRepository implements BattleLogCallback {
@@ -32,7 +28,7 @@ public class BattleLogRepository implements BattleLogCallback {
      * @return null provvisorio
      */
 
-    public MutableLiveData<Result> fetchArticles(String tagId, long lastUpdate) {
+    public MutableLiveData<Result> fetchBattleLog(String tagId, long lastUpdate) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
             //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API

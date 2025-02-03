@@ -13,7 +13,10 @@ import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BattleLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
+import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
 
 public class ServiceLocator {
@@ -101,4 +104,12 @@ public class ServiceLocator {
 
         return new BattleLogRepository(battleLocalDataSource);
     }
+
+    public BrawlersRepository getBrawlersRepository(Application application, boolean debugMode) {
+        BaseBrawlersLocalDataSource brawlersLocalDataSource;
+        brawlersLocalDataSource = new BrawlersLocalDataSource(getDatabase(application));
+        return new BrawlersRepository(brawlersLocalDataSource);
+    }
+
+
 }

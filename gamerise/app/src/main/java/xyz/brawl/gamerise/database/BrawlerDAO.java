@@ -12,8 +12,8 @@ import xyz.brawl.gamerise.model.data.stat.Stat;
 
 @Dao
 public interface BrawlerDAO {
-    @Query("SELECT * FROM BrawlerEntry")
-    List<BrawlerEntry> getAll();
+    @Query("SELECT * FROM BrawlerEntry b JOIN OwnsEntity o ON b.id = o.brawlerId WHERE o.tagId = :tagId ORDER BY b.id DESC")
+    List<BrawlerEntry> getAll(String tagId);
 
     @Query("SELECT * FROM BrawlerEntry WHERE id = :id LIMIT 1")
     BrawlerEntry findBrawlerById(long id); // Cerca un brawler per l'id
