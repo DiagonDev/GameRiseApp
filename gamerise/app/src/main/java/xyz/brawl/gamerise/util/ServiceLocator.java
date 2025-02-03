@@ -11,6 +11,8 @@ import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
@@ -107,8 +109,10 @@ public class ServiceLocator {
 
     public BrawlersRepository getBrawlersRepository(Application application, boolean debugMode) {
         BaseBrawlersLocalDataSource brawlersLocalDataSource;
+        BaseBrawlersRemoteDataSource brawlerRemoteDataSource;
+        brawlerRemoteDataSource = new BrawlerRemoteDataSource(getApiService(), application.callbac);
         brawlersLocalDataSource = new BrawlersLocalDataSource(getDatabase(application));
-        return new BrawlersRepository(brawlersLocalDataSource);
+        return new BrawlersRepository(brawlersLocalDataSource, brawlerRemoteDataSource);
     }
 
     public StarPowerRepository getStarPowerRepository(Application application, boolean debugMode) {

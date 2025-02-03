@@ -9,22 +9,25 @@ import java.util.List;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSource;
 
 public class BrawlersRepository implements BrawlersCallBack {
     private final MutableLiveData<Result> allBrawlerLiveData;
     private final BaseBrawlersLocalDataSource brawlerLocalDataSource;
-    public BrawlersRepository(BaseBrawlersLocalDataSource brawlerLocalDataSource) {
+    private final BaseBrawlersRemoteDataSource brawlerRemoteDataSource;
+
+    public BrawlersRepository(BaseBrawlersLocalDataSource brawlerLocalDataSource, BaseBrawlersRemoteDataSource brawlerRemoteDataSource) {
         allBrawlerLiveData = new MutableLiveData<>();
         this.brawlerLocalDataSource = brawlerLocalDataSource;
+        this.brawlerRemoteDataSource = brawlerRemoteDataSource;
         this.brawlerLocalDataSource.setBrawlerCallBack(this);
     }
 
+    // qua va la logica
     public MutableLiveData<Result> fetchBrawlers(String tagId, long lastUpdate) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
-            //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
-            //articleRemoteDataSource.getArticles(country);
-            //get(apiService.getBattlelog(tagId));
+            brawlerRemoteDataSource.getBrawlerList();
         } else {
             brawlerLocalDataSource.getBrawlers(tagId);
         }
@@ -39,6 +42,18 @@ public class BrawlersRepository implements BrawlersCallBack {
 
     @Override
     public void onFailureFromLocal(Exception exception) {
+        Result.Error resultError = new Result.Error(exception.getMessage());
+        allBrawlerLiveData.postValue(resultError);
+    }
+
+    @Override
+    public void onSuccessFromRemote(Object o, long lastUpdate) {
+        Result result = new Result.Success(o);
+        allBrawlerLiveData.postValue(result);
+    }
+
+    @Override
+    public void onFailureFromRemote(Exception exception) {
         Result.Error resultError = new Result.Error(exception.getMessage());
         allBrawlerLiveData.postValue(resultError);
     }

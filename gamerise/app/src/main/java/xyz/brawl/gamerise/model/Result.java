@@ -1,6 +1,5 @@
 package xyz.brawl.gamerise.model;
 
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 public abstract class Result {
     private Result() {}
 
