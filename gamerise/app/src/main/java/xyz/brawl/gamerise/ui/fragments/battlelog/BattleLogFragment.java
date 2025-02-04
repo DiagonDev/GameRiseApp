@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
@@ -29,8 +28,8 @@ import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
-import xyz.brawl.gamerise.util.ServiceLocator;
 import xyz.brawl.gamerise.util.NetworkUtil;
+import xyz.brawl.gamerise.util.ServiceLocator;
 
 public class BattleLogFragment extends Fragment {
 

@@ -1,7 +1,6 @@
 package xyz.brawl.gamerise.model.repository.player;
 
 import android.app.Application;
-import android.content.Context;
 
 import retrofit2.Response;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;

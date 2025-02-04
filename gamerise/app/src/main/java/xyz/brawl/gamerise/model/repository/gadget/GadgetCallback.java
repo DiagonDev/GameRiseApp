@@ -3,7 +3,6 @@ package xyz.brawl.gamerise.model.repository.gadget;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
-import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 
 public interface GadgetCallback {
     void onSuccessFromRemote(List<GadgetEntry> gadgetList, long lastUpdate);

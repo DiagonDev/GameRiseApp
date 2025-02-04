@@ -16,9 +16,7 @@ public class StarPowerLocalDataSource extends  BaseStarPowerLocalDataSource{
 
     @Override
     public void getStarPower(Long brawlerId) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            starPowerCallback.onSuccessFromLocal(starPowerDAO.getAll(brawlerId));
-        });
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> starPowerCallback.onSuccessFromLocal(starPowerDAO.getAll(brawlerId)));
     }
 
     @Override

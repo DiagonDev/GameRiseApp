@@ -1,8 +1,5 @@
 package xyz.brawl.gamerise.model.repository.stats;
 
-import java.util.List;
-
-import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public interface StatsCallBack {

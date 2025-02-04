@@ -7,7 +7,6 @@ import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
-import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public interface ApiService {
 

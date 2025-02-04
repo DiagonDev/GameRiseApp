@@ -1,24 +1,9 @@
 package xyz.brawl.gamerise.ui.viewmodels.tag;
 
-import android.app.Application;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import xyz.brawl.gamerise.database.GameRiseDatabase;
-
-import xyz.brawl.gamerise.database.TagDAO;
-import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
-import xyz.brawl.gamerise.model.service.ServiceLocator;
-import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class TagViewModel extends ViewModel{
     //private MutableLiveData<Result> tagLiveData;

@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
-import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 
 public class StatsViewModelFactory implements ViewModelProvider.Factory{
 

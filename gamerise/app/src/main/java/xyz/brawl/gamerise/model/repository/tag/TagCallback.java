@@ -1,7 +1,5 @@
 package xyz.brawl.gamerise.model.repository.tag;
 
-import java.util.List;
-
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
 

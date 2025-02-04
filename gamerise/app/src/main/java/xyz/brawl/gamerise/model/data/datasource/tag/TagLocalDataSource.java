@@ -13,9 +13,7 @@ public class TagLocalDataSource extends BaseTagLocalDataSource{
 
     @Override
     public void getTag() {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            tagCallback.onSuccessFromLocal(tagDAO.getTag());
-        });
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> tagCallback.onSuccessFromLocal(tagDAO.getTag()));
     }
 
     @Override

@@ -7,11 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
-import xyz.brawl.gamerise.model.data.datasource.player.PlayerRemoteDataSource;
-import xyz.brawl.gamerise.model.data.datasource.player.PlayerLocalDataSource;
-import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.util.Constants;
-import xyz.brawl.gamerise.util.JSONParserUtils;
 
 public class ServiceLocator {
     private static volatile ServiceLocator INSTANCE = null;

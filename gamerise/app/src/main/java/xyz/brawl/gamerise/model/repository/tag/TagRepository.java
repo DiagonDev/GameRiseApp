@@ -1,12 +1,12 @@
 package xyz.brawl.gamerise.model.repository.tag;
 
+import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
+
 import androidx.lifecycle.MutableLiveData;
 
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.tag.Tag;
-
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
 
 
 public class TagRepository implements TagCallback {

@@ -15,9 +15,7 @@ public class GadgetLocalDataSource  extends BaseGadgetLocalDataSource{
     }
     @Override
     public void getGadgets(Long brawlerId) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            gadgetCallback.onSuccessFromLocal(gadgetDAO.getAll(brawlerId));
-        });
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> gadgetCallback.onSuccessFromLocal(gadgetDAO.getAll(brawlerId)));
     }
 
     @Override

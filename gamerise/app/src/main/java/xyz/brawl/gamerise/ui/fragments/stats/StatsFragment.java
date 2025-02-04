@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -21,19 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-
-
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.data.stat.Stat;
-import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
-import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
-import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
-import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModel;
-import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModelFactory;
 import xyz.brawl.gamerise.util.ResponseCallback;
-import xyz.brawl.gamerise.util.ServiceLocator;
 
 public class StatsFragment extends Fragment implements ResponseCallback {
     public static final String TAG = "StatsFragment";

@@ -1,9 +1,5 @@
 package xyz.brawl.gamerise.model.data.datasource.tag;
 
-import java.util.List;
-
-import xyz.brawl.gamerise.model.data.battle.Battle;
-
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.model.repository.tag.TagCallback;
 

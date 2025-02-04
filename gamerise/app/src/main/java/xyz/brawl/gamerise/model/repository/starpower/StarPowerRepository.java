@@ -1,6 +1,5 @@
 package xyz.brawl.gamerise.model.repository.starpower;
 
-import static xyz.brawl.gamerise.model.data.battle.BattleMapper.mapToBattleLogEntries;
 import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
 
 import androidx.lifecycle.MutableLiveData;
@@ -8,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
+import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 
 public class StarPowerRepository implements StarPowerCallback {

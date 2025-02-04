@@ -6,7 +6,6 @@ import java.util.List;
 import xyz.brawl.gamerise.database.BattleDAO;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.battle.Battle;
-import xyz.brawl.gamerise.model.repository.battlelog.BattleLogCallback;
 
 /**
  * This class represents the local data source for the Battle entity.
@@ -21,9 +20,7 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
 
     @Override
     public void getBattles(String tagId) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            battleLogCallback.onSuccessFromLocal(battleDAO.getAll(tagId));
-        });
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> battleLogCallback.onSuccessFromLocal(battleDAO.getAll(tagId)));
     }
 
     @Override

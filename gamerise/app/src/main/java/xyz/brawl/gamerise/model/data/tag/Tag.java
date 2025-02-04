@@ -3,12 +3,8 @@ package xyz.brawl.gamerise.model.data.tag;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
-import xyz.brawl.gamerise.model.data.stat.Stat;
 
 /**
  * Classe bivalente: Modello di dominio, Entity di Room
@@ -56,6 +52,7 @@ public class Tag {
         return nomeGiocatore;
     }
 
+    @NonNull
     public String getTag() {
         return tag;
     }

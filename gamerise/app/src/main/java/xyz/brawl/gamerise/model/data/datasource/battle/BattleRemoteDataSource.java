@@ -1,8 +1,8 @@
 package xyz.brawl.gamerise.model.data.datasource.battle;
 
-import static xyz.brawl.gamerise.model.data.battle.BattleMapper.mapToBattleLogEntries;
-
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -12,13 +12,10 @@ import retrofit2.Response;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.BattleMapper;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
 import xyz.brawl.gamerise.model.service.ApiService;
 
 public class BattleRemoteDataSource extends BaseBattleRemoteDataSource {
     private final ApiService apiService;
-    private final BattleMapper battlemapper = new BattleMapper();
 
     public BattleRemoteDataSource(ApiService apiService) {
         this.apiService = apiService;
@@ -30,9 +27,9 @@ public class BattleRemoteDataSource extends BaseBattleRemoteDataSource {
         apiService.getBattlelog(tagId).enqueue(new Callback<BattleLogApiResponse>() {
 
             @Override
-            public void onResponse(Call<BattleLogApiResponse> call, Response<BattleLogApiResponse> response) {
+            public void onResponse(@NonNull Call<BattleLogApiResponse> call, @NonNull Response<BattleLogApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Battle> battleList = battlemapper.mapToBattles(response.body().getBattleResponseList());
+                    List<Battle> battleList = BattleMapper.mapToBattles(response.body().getBattleResponseList());
                     battleLogCallback.onSuccessFromRemote(battleList, response.raw().receivedResponseAtMillis());
                 }else{
                     String errorMessage = "Errore: Risposta non valida (Codice: " + response.code() + ")";
@@ -42,7 +39,7 @@ public class BattleRemoteDataSource extends BaseBattleRemoteDataSource {
             }
 
             @Override
-            public void onFailure(Call<BattleLogApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<BattleLogApiResponse> call, @NonNull Throwable t) {
                 String errorMessage = "Errore di rete: " + t.getMessage();
                 battleLogCallback.onFailureFromRemote(new Exception(errorMessage));
                 Log.e("BrawlerApiDataSource", errorMessage);

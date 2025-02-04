@@ -5,31 +5,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;

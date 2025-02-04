@@ -5,8 +5,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import java.util.List;
-
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
 @Dao

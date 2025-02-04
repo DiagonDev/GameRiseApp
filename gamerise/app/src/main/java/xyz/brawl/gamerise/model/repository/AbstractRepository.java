@@ -1,7 +1,6 @@
 package xyz.brawl.gamerise.model.repository;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;

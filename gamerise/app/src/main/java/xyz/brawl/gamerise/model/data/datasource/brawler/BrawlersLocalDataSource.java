@@ -14,9 +14,7 @@ public class BrawlersLocalDataSource extends BaseBrawlersLocalDataSource {
     }
     @Override
     public void getBrawlers(String tagId) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            brawlersCallBack.onSuccessFromLocal(brawlerDAO.getAll(tagId));
-        });
+        GameRiseDatabase.databaseWriteExecutor.execute(() -> brawlersCallBack.onSuccessFromLocal(brawlerDAO.getAll(tagId)));
     }
 
     @Override

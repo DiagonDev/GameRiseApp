@@ -7,7 +7,6 @@ import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleRemoteDataSource;

@@ -1,7 +1,6 @@
 package xyz.brawl.gamerise.util;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.google.gson.Gson;
 
@@ -12,7 +11,6 @@ import java.io.InputStreamReader;
 
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
-import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public class JSONParserUtils {
     private final Application application;
