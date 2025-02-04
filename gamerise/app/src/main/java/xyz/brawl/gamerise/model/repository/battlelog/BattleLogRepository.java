@@ -9,6 +9,7 @@ import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleRemoteDataSource;
 
 
 public class BattleLogRepository implements BattleLogCallback {
@@ -16,11 +17,14 @@ public class BattleLogRepository implements BattleLogCallback {
     //private static final String TAG = BattleLogRepository.class.getSimpleName();
     private final MutableLiveData<Result> allBattleLogLiveData;
     private final BaseBattleLocalDataSource battleLocalDataSource;
+    private final BaseBattleRemoteDataSource battleRemoteDataSource;
     //TODO: aggiongere il REMOTE
-    public BattleLogRepository(BaseBattleLocalDataSource battleLocalDataSource) {
+    public BattleLogRepository(BaseBattleLocalDataSource battleLocalDataSource, BaseBattleRemoteDataSource battleRemoteDataSource) {
         allBattleLogLiveData = new MutableLiveData<>();
         this.battleLocalDataSource = battleLocalDataSource;
+        this.battleRemoteDataSource = battleRemoteDataSource;
         this.battleLocalDataSource.setBattleLogCallback(this);
+        this.battleRemoteDataSource.setBattleLogCallback(this);
     }
 
     /**
@@ -32,8 +36,7 @@ public class BattleLogRepository implements BattleLogCallback {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
             //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
-            //articleRemoteDataSource.getArticles(country);
-            //get(apiService.getBattlelog(tagId));
+            battleRemoteDataSource.getBattleLog(tagId);
         } else {
             battleLocalDataSource.getBattles(tagId);
         }
@@ -60,12 +63,14 @@ public class BattleLogRepository implements BattleLogCallback {
 
     @Override
     public void onSuccessFromRemote(List<Battle> battles, long lastUpdate) {
-
+        Result result = new Result.Success(battles);
+        allBattleLogLiveData.postValue(result);
     }
 
     @Override
-    public void onFailureFromRemote(String errorMessage) {
-
+    public void onFailureFromRemote(Exception exception) {
+        Result.Error resultError = new Result.Error(exception.getMessage());
+        allBattleLogLiveData.postValue(resultError);
     }
 
     //TODO: da completare
@@ -80,16 +85,5 @@ public class BattleLogRepository implements BattleLogCallback {
         Result.Error resultError = new Result.Error(exception.getMessage());
         allBattleLogLiveData.postValue(resultError);
     }
-
-    /*public void onSuccessFromLocal(List<Article> articleList) {
-        Result.ArticleSuccess result = new Result.ArticleSuccess(new ArticleAPIResponse(articleList));
-        allArticlesMutableLiveData.postValue(result);
-    }
-
-    public void onFailureFromLocal(Exception exception) {
-        Result.Error resultError = new Result.Error(exception.getMessage());
-        allArticlesMutableLiveData.postValue(resultError);
-        favoriteNewsMutableLiveData.postValue(resultError);
-    }*/
 }
 

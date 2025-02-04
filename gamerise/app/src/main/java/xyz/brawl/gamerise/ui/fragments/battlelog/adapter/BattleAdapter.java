@@ -68,7 +68,8 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {
 
     }
     public void updateData(List<Battle> newBattles) {
-        this.battles = newBattles;
+        this.battles.clear();
+        this.battles.addAll(newBattles);
         notifyDataSetChanged();
     }
     @Override

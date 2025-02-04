@@ -7,16 +7,6 @@ import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 
 public class BrawlersViewModel extends ViewModel {
-    /*private final MutableLiveData<BrawlerEntry> selectedBrawler = new MutableLiveData<>();
-
-    public void selectBrawler(BrawlerEntry brawler) {
-        selectedBrawler.setValue(brawler);
-    }
-
-    public LiveData<BrawlerEntry> getSelectedBrawler() {
-        return selectedBrawler;
-    }*/
-
     private MutableLiveData<Result> brawlersLiveData;
     private final BrawlersRepository brawlersRepository;
 

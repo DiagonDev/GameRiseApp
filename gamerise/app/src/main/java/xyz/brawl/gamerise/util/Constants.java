@@ -191,8 +191,7 @@ public class Constants {
     public static List<PlayerEntry> getTeamMembers(List<List<PlayerEntry>> teams) {
         for (List<PlayerEntry> playerEntryList : teams) {
             for (PlayerEntry playerEntry : playerEntryList) {
-                if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
-                        tagTeo)){
+                if(playerEntry.getTag().equals("#" + GameAccountSingleton.getInstance().getUserTag())){
                     return playerEntryList;
                 }
             }
@@ -208,8 +207,7 @@ public class Constants {
         if(teams == null) {
             playerEntryList = battleLogEntry.getBattle().getPlayers();
             for (PlayerEntry playerEntry: playerEntryList) {
-                if(playerEntry.getTag().equals(//GameAccountSingleton.getInstance().getUserTag()
-                        tagTeo)){
+                if(playerEntry.getTag().equals("#" + GameAccountSingleton.getInstance().getUserTag())){
                     playersBrawler[0] = playerEntry.getBrawler().getName();
                     return playersBrawler;
                 }

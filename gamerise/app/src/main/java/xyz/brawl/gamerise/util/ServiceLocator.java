@@ -10,7 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BattleLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.battle.BattleRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
@@ -93,7 +95,7 @@ public class ServiceLocator {
      * @return An instance of INewsRepositoryWithLiveData.
      */
     public BattleLogRepository getBattleLogRepository(Application application, boolean debugMode) {
-        //BaseBattleLogRemoteDataSource newsRemoteDataSource;
+        BaseBattleRemoteDataSource battleRemoteDataSource;
         BaseBattleLocalDataSource battleLocalDataSource;
 
         //TODO: leo
@@ -107,8 +109,8 @@ public class ServiceLocator {
         }*/
 
         battleLocalDataSource = new BattleLocalDataSource(getDatabase(application));
-
-        return new BattleLogRepository(battleLocalDataSource);
+        battleRemoteDataSource = new BattleRemoteDataSource(getApiService());
+        return new BattleLogRepository(battleLocalDataSource, battleRemoteDataSource);
     }
 
     public BrawlersRepository getBrawlersRepository(Application application, boolean debugMode) {

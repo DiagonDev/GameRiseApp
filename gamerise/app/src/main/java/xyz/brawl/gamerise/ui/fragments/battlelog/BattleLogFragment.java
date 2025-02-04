@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
@@ -65,7 +67,11 @@ public class BattleLogFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
         String lastUpdate = "0";
-        String tag = "989VGUU0";
+        String tag = GameAccountSingleton.getInstance().getUserTag();
+        if (tag == null || tag.isEmpty()) {
+            Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
+            return view; // Se non c'è nessun tag, esci
+        }
 
         if(!NetworkUtil.isInternetAvailable(this.getContext())){
             noInternetView.setVisibility(View.VISIBLE);
@@ -90,11 +96,8 @@ public class BattleLogFragment extends Fragment {
             result -> {
                 if (result.isSuccess()) {
                     List<Battle> newBattles = (List<Battle>) ((Result.Success) result).getData();
-                    int initialSize = battles.size();
-                    battles.clear();
-                    battles.addAll(newBattles);
-                    Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeInserted(initialSize, newBattles.size());
                     recyclerView.setVisibility(View.VISIBLE);
+                    ((BattleAdapter) recyclerView.getAdapter()).updateData(newBattles);
                 } else {
                     String errorMessage = ((Result.Error) result).getMessage();
                     Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();

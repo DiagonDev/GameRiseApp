@@ -20,33 +20,6 @@ public class BrawlerRemoteDataSource extends BaseBrawlersRemoteDataSource {
     }
 
     @Override
-    public void getBrawler(int brawlerId) {
-        /*apiService.getBrawler(brawlerId).enqueue(new Callback<BrawlerEntry>() {
-            @Override
-            public void onResponse(Call<BrawlerEntry> call, Response<BrawlerEntry> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<BrawlerEntry> brawlersList = response.body();
-                    // Passa il risultato e il tempo di aggiornamento al callback
-                    brawlersCallBack.onSuccessFromRemote(response.body(), response.raw().receivedResponseAtMillis());
-                } else {
-                    // Errore nel codice HTTP o risposta vuota
-                    String errorMessage = "Errore: Risposta non valida (Codice: " + response.code() + ")";
-                    brawlersCallBack.onFailureFromRemote(new Exception(errorMessage));
-                    Log.e("BrawlerApiDataSource", errorMessage);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BrawlerEntry> call, Throwable t) {
-                // Errore di rete
-                String errorMessage = "Errore di rete: " + t.getMessage();
-                brawlersCallBack.onFailureFromRemote(new Exception(errorMessage));
-                Log.e("BrawlerApiDataSource", errorMessage);
-            }
-        });*/
-    }
-
-    @Override
     public void getBrawlerList() {
         apiService.getBrawlerList().enqueue(new Callback<BrawlerListResponse>() {
             @Override

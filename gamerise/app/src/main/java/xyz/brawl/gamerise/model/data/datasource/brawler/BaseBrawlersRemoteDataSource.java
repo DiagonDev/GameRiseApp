@@ -10,6 +10,5 @@ public abstract class BaseBrawlersRemoteDataSource {
     public void setBrawlerCallBack(BrawlersCallBack brawlersCallBack) {
         this.brawlersCallBack = brawlersCallBack;
     }
-    public abstract void getBrawler(int tagId);
     public abstract void getBrawlerList();
 }
