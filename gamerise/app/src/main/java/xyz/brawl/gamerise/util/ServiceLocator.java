@@ -17,12 +17,19 @@ import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSou
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
@@ -131,9 +138,17 @@ public class ServiceLocator {
 
     public StarPowerRepository getStarPowerRepository(Application application, boolean debugMode) {
         BaseStarPowerLocalDataSource starPowerLocalDataSource;
-        //TODO: leo
+        BaseStarPowerRemoteDataSource starPowerRemoteDataSource;
         starPowerLocalDataSource = new StarPowerLocalDataSource(getDatabase(application));
+        starPowerRemoteDataSource = new StarPowerRemoteDataSource(getApiService());
+        return new StarPowerRepository(starPowerLocalDataSource, starPowerRemoteDataSource);
+    }
 
-        return new StarPowerRepository(starPowerLocalDataSource);
+    public GadgetRepository getGadgetRepository(Application application, boolean debugMode) {
+        BaseGadgetLocalDataSource gadgetLocalDataSource;
+        BaseGadgetRemoteDataSource gadgetRemoteDataSource;
+        gadgetLocalDataSource = new GadgetLocalDataSource(getDatabase(application));
+        gadgetRemoteDataSource = new GadgetRemoteDataSource(getApiService());
+        return new GadgetRepository(gadgetLocalDataSource, gadgetRemoteDataSource);
     }
 }

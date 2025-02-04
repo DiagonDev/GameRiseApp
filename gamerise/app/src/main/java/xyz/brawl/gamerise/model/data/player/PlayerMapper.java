@@ -32,12 +32,34 @@ public class PlayerMapper {
         }
         return brawlersList;
     }
-    //TODO: creare appena serve
+    
     public static List<GadgetEntry> mapToGadgets(PlayerApiResponse playerApiResponse) {
-        return null;
+        List<GadgetEntry> gadgetList = new ArrayList<>();
+
+        for (BrawlerEntry brawler : playerApiResponse.brawlers) {
+            if (brawler.getGadgetEntries() != null) {
+                for (GadgetEntry gadget : brawler.getGadgetEntries()) {
+                    gadget.setBrawlerId(brawler.getId()); // Imposta l'ID del brawler di riferimento
+                    gadgetList.add(gadget);
+                }
+            }
+        }
+
+        return gadgetList;
     }
-    //TODO: creare appena serve
+
     public static List<StarPowerEntry> mapToStarPowers(PlayerApiResponse playerApiResponse) {
-        return null;
+        List<StarPowerEntry> starPowerList = new ArrayList<>();
+
+        for (BrawlerEntry brawler : playerApiResponse.brawlers) {
+            if (brawler.getStarPowersEntries() != null) {
+                for (StarPowerEntry starPower : brawler.getStarPowersEntries()) {
+                    starPower.setBrawlerId(brawler.getId()); // Imposta l'ID del brawler di riferimento
+                    starPowerList.add(starPower);
+                }
+            }
+        }
+
+        return starPowerList;
     }
 }

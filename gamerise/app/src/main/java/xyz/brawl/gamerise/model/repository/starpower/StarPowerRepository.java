@@ -8,25 +8,26 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
-import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
+import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 
 public class StarPowerRepository implements StarPowerCallback {
     private final BaseStarPowerLocalDataSource starPowerLocalDataSource;
+    private final BaseStarPowerRemoteDataSource starPowerRemoteDataSource;
     private final MutableLiveData<Result> allStarPowerLiveData;
 
-    public StarPowerRepository(BaseStarPowerLocalDataSource starPowerLocalDataSource) {
+    public StarPowerRepository(BaseStarPowerLocalDataSource starPowerLocalDataSource, BaseStarPowerRemoteDataSource starPowerRemoteDataSource) {
+        this.starPowerRemoteDataSource = starPowerRemoteDataSource;
         allStarPowerLiveData = new MutableLiveData<>();
         this.starPowerLocalDataSource = starPowerLocalDataSource;
         this.starPowerLocalDataSource.setStarPowerCallback(this);
     }
 
-    public MutableLiveData<Result> fetchStarPower(Long brawlerId, long lastUpdate) {
+    public MutableLiveData<Result> fetchStarPower(Long brawlerId, long lastUpdate, String tagId) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
-            //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
+           starPowerRemoteDataSource.getStarPowerList(tagId);
         } else {
             starPowerLocalDataSource.getStarPower(brawlerId);
         }
@@ -35,12 +36,14 @@ public class StarPowerRepository implements StarPowerCallback {
 
     @Override
     public void onSuccessFromRemote(List<StarPowerEntry> starPowerList, long lastUpdate) {
-
+        Result result = new Result.Success(starPowerList);
+        allStarPowerLiveData.postValue(result);
     }
 
     @Override
-    public void onFailureFromRemote(String errorMessage) {
-
+    public void onFailureFromRemote(Exception errorMessage) {
+        Result.Error resultError = new Result.Error(errorMessage.getMessage());
+        allStarPowerLiveData.postValue(resultError);
     }
 
     @Override
