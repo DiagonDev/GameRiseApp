@@ -31,6 +31,8 @@ import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
+import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.ui.fragments.brawlers.adapter.BrawlerAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
@@ -54,9 +56,17 @@ public class BrawlersFragment extends Fragment {
                 ServiceLocator.getInstance().getBrawlersRepository(requireActivity().getApplication(),
                         requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode));
 
+        StarPowerRepository starPowerRepository =
+                ServiceLocator.getInstance().getStarPowerRepository(requireActivity().getApplication(),
+                        requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode));
+
+        GadgetRepository gadgetRepository =
+                ServiceLocator.getInstance().getGadgetRepository(requireActivity().getApplication(),
+                        requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode));
+
         brawlersViewModel = new ViewModelProvider(
                 requireActivity(),
-                new BrawlersViewModelFactory(brawlersRepository)).get(BrawlersViewModel.class);
+                new BrawlersViewModelFactory(brawlersRepository, starPowerRepository, gadgetRepository)).get(BrawlersViewModel.class);
 
         brawlersList = new ArrayList<>();
     }

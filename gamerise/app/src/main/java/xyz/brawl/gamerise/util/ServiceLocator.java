@@ -17,12 +17,15 @@ import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSou
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
@@ -135,5 +138,13 @@ public class ServiceLocator {
         starPowerLocalDataSource = new StarPowerLocalDataSource(getDatabase(application));
 
         return new StarPowerRepository(starPowerLocalDataSource);
+    }
+
+    public GadgetRepository getGadgetRepository(Application application, boolean debugMode) {
+        BaseGadgetLocalDataSource gadgetLocalDataSource;
+        //TODO: leo
+        gadgetLocalDataSource = new GadgetLocalDataSource(getDatabase(application));
+
+        return new GadgetRepository(gadgetLocalDataSource);
     }
 }

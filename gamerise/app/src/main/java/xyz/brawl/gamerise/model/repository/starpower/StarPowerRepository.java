@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
-import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 
 public class StarPowerRepository implements StarPowerCallback {
