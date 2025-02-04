@@ -9,20 +9,48 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerListResponse;
+import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
+import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.service.ApiService;
 import xyz.brawl.gamerise.util.ResponseCallback;
 
 public class BrawlerRemoteDataSource extends BaseBrawlersRemoteDataSource {
     private final ApiService apiService;
-
+    private final PlayerMapper playerMapper = new PlayerMapper();
     public BrawlerRemoteDataSource(ApiService apiService) {
         this.apiService = apiService;
     }
 
     @Override
-    public void getBrawlerList() {
-        apiService.getBrawlerList().enqueue(new Callback<BrawlerListResponse>() {
+    public void getBrawlerList(String tagId) {
+        tagId = "#" + tagId;
+        apiService.getPlayer(tagId).enqueue(new Callback<PlayerApiResponse>() {
             @Override
+            public void onResponse(Call<PlayerApiResponse> call, Response<PlayerApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<BrawlerEntry> brawlersList = playerMapper.mapToBrawlers(response.body());
+                    // Passa il risultato e il tempo di aggiornamento al callback
+                    brawlersCallBack.onSuccessFromRemote(brawlersList, response.raw().receivedResponseAtMillis());
+                } else {
+                    // Errore nel codice HTTP o risposta vuota
+                    String errorMessage = "Errore: Risposta non valida (Codice: " + response.code() + ")";
+                    brawlersCallBack.onFailureFromRemote(new Exception(errorMessage));
+                    Log.e("BrawlerApiDataSource", errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlayerApiResponse> call, Throwable t) {
+                // Errore di rete
+                String errorMessage = "Errore di rete: " + t.getMessage();
+                brawlersCallBack.onFailureFromRemote(new Exception(errorMessage));
+                Log.e("BrawlerApiDataSource", errorMessage);
+            }
+        });
+    }
+}
+
+/*@Override
             public void onResponse(Call<BrawlerListResponse> call, Response<BrawlerListResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<BrawlerEntry> brawlersList = response.body().getItems();
@@ -43,6 +71,4 @@ public class BrawlerRemoteDataSource extends BaseBrawlersRemoteDataSource {
                 brawlersCallBack.onFailureFromRemote(new Exception(errorMessage));
                 Log.e("BrawlerApiDataSource", errorMessage);
             }
-        });
-    }
-}
+        });*/
