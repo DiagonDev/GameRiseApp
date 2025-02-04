@@ -31,15 +31,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
             return insets;
         });
 
-        //int brawlerId = getIntent().getIntExtra("brawlerId", -1);
-        int brawlerId=0;
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("brawlerId")) {
-            brawlerId = intent.getIntExtra("brawlerId", -1); // -1 è un valore di default nel caso il dato non sia presente
-
-            // Ora puoi usare brawlerId per caricare i dettagli del brawler
-            Log.d("BrawlerDetailsActivity", "Brawler ID ricevuto: " + brawlerId);
-        }
+        long brawlerId = getIntent().getLongExtra("brawlerId", -1);
 
         Toast.makeText(this, "BrawlerId: " + brawlerId, Toast.LENGTH_SHORT).show();
         LinearLayout previousBrawlerLayout = findViewById(R.id.previous_brawler_layout);
