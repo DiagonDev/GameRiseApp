@@ -1,5 +1,6 @@
 package xyz.brawl.gamerise.ui.activities.brawlerdetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -28,7 +30,17 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        int brawlerId = getIntent().getIntExtra("brawlerId", -1);
+
+        //int brawlerId = getIntent().getIntExtra("brawlerId", -1);
+        int brawlerId=0;
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("brawlerId")) {
+            brawlerId = intent.getIntExtra("brawlerId", -1); // -1 è un valore di default nel caso il dato non sia presente
+
+            // Ora puoi usare brawlerId per caricare i dettagli del brawler
+            Log.d("BrawlerDetailsActivity", "Brawler ID ricevuto: " + brawlerId);
+        }
+
         Toast.makeText(this, "BrawlerId: " + brawlerId, Toast.LENGTH_SHORT).show();
         LinearLayout previousBrawlerLayout = findViewById(R.id.previous_brawler_layout);
         LinearLayout nextBrawlerLayout = findViewById(R.id.next_brawler_layout);

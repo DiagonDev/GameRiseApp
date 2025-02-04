@@ -18,9 +18,13 @@ import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSo
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
@@ -134,17 +138,17 @@ public class ServiceLocator {
 
     public StarPowerRepository getStarPowerRepository(Application application, boolean debugMode) {
         BaseStarPowerLocalDataSource starPowerLocalDataSource;
-        //TODO: leo
+        BaseStarPowerRemoteDataSource starPowerRemoteDataSource;
         starPowerLocalDataSource = new StarPowerLocalDataSource(getDatabase(application));
-
-        return new StarPowerRepository(starPowerLocalDataSource);
+        starPowerRemoteDataSource = new StarPowerRemoteDataSource(getApiService());
+        return new StarPowerRepository(starPowerLocalDataSource, starPowerRemoteDataSource);
     }
 
     public GadgetRepository getGadgetRepository(Application application, boolean debugMode) {
         BaseGadgetLocalDataSource gadgetLocalDataSource;
-        //TODO: leo
+        BaseGadgetRemoteDataSource gadgetRemoteDataSource;
         gadgetLocalDataSource = new GadgetLocalDataSource(getDatabase(application));
-
-        return new GadgetRepository(gadgetLocalDataSource);
+        gadgetRemoteDataSource = new GadgetRemoteDataSource(getApiService());
+        return new GadgetRepository(gadgetLocalDataSource, gadgetRemoteDataSource);
     }
 }

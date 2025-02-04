@@ -4,9 +4,8 @@ import java.util.List;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 
 public interface StarPowerCallback {
-    //TODO: leo deve modificare qui
     void onSuccessFromRemote(List<StarPowerEntry> starPowerList, long lastUpdate);
-    void onFailureFromRemote(String errorMessage);
+    void onFailureFromRemote(Exception errorMessage);
 
     //qui è giusto
     void onSuccessFromLocal(List<StarPowerEntry> starPowerList);

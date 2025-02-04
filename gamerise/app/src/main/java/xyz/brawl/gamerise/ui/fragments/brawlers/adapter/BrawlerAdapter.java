@@ -66,6 +66,7 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
         // Click per aprire i dettagli del brawler
         convertView.setOnClickListener(view -> {
             Intent i = new Intent(getContext(), BrawlerDetailsActivity.class);
+            Log.d("BRAWLERID " , ""+ brawler.getId());
             i.putExtra("brawlerId", brawler.getId());
             getContext().startActivity(i);
         });

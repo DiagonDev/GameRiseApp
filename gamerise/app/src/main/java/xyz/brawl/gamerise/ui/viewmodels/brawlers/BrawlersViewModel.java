@@ -26,11 +26,11 @@ public class BrawlersViewModel extends ViewModel {
         }
         return brawlersLiveData;
     }
-    public MutableLiveData<Result> getStarPower(Long brawlerId, long lastUpdate) {
-        return starPowerRepository.fetchStarPower(brawlerId, lastUpdate);
+    public MutableLiveData<Result> getStarPower(Long brawlerId, long lastUpdate, String tagId) {
+        return starPowerRepository.fetchStarPower(brawlerId, lastUpdate, tagId);
     }
 
-    public MutableLiveData<Result> getGadgets(Long brawlerId, long lastUpdate) {
-        return gadgetRepository.fetchGadget(brawlerId, lastUpdate);
+    public MutableLiveData<Result> getGadgets(Long brawlerId, long lastUpdate, String tagId) {
+        return gadgetRepository.fetchGadget(brawlerId, lastUpdate, tagId);
     }
 }
