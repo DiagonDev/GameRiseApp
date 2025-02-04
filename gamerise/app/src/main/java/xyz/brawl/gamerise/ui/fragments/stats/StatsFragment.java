@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,10 +26,18 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
+import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
+import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
+import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModelFactory;
 import xyz.brawl.gamerise.util.ResponseCallback;
+import xyz.brawl.gamerise.util.ServiceLocator;
 
 public class StatsFragment extends Fragment implements ResponseCallback {
     public static final String TAG = "StatsFragment";
+    private StatsViewModel statsViewModel;
     public LinearLayout chartContainer;
     private TextView trofei;
     private TextView livello;
@@ -37,6 +46,11 @@ public class StatsFragment extends Fragment implements ResponseCallback {
     private TextView vittorieDuo;
     private TextView vittorie3vs3;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //Qui collegare il viewModel e il repository -------------------------------
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
