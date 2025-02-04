@@ -13,8 +13,11 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 @Dao
 public interface StatDAO {
     @Query("SELECT * FROM Stat WHERE tag = :tagName")
-    List<Stat> getAll(String tagName);
+    Stat getStat(String tagName);
 
     @Insert
-    void insertAll(List<Stat> stats);
+    void insertStat(Stat stat);
+
+    @Query("DELETE FROM Stat WHERE tag = :tagName")
+    Stat deleteStat(String tagName);
 }
