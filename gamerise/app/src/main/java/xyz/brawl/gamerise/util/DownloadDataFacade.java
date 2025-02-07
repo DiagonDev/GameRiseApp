@@ -27,7 +27,7 @@ import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.service.ServiceLocator;
 
 */
-/**
+/*
  * Applicazione pattern Façade
  * Questa classe incapsula tutti i metodi relativi alla logica di fetch da API e di salvataggio nel database
  * Verrà chiamata dai ViewModel e userà i metodi dei repository
@@ -46,23 +46,31 @@ public class DownloadDataFacade implements ResponseCallback {
     }
 
     */
-/**
+    /*
      * Step 1: Salva il tag nel database se non presente, altrimenti lo sposta in cima
      * Step 2: Esegue fetch della battlelog per il tag corrente
      * Step 3: La fetch chiama il metodi del responseCallback per salvare i dati nel database
      * Step 4: Eseguire fetch del player per il tag corrente
      * Step 5: come Step 3 ma con le stats, brawlers, gadget e starpowers
      * Step 6: Carico la tabella Owns nel database
-     **//*
+     *//*
 
-    public void downloadAndSaveData(Tag tag) {
+    public void saveData(String tag, boolean save) {
         /// Step 1
         if (database != null) {
             GameRiseDatabase.databaseWriteExecutor.execute(() -> {
                 // Controlla se il tag esiste già nel database
-                if (database.tagDao().findTagByName(tag.getTag()) != null) {
-                    // Rimuovi il tag esistente dalla vecchia posizione
+                if (!((database.tagDao().getTag()).equals(tag))) {
+                    // Rimuovi il tag precedente per mantenere quello che vuole salvare
                     database.tagDao().delete(tag);
+
+                    /*Recuperiamo tutti i dati del giocatore, per poi salvarli nel database
+                    * Mi serve la chiamata ai vari repository per recuperare i dati e salvarli
+                    */
+
+
+
+                /*
                 }
                 // Inserisci il nuovo tag nel database
                 database.tagDao().insertAll(tag);
