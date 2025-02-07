@@ -17,10 +17,11 @@ public class GadgetRepository implements GadgetCallback{
     private final MutableLiveData<Result> allGadgetLiveData;
 
     public GadgetRepository(BaseGadgetLocalDataSource gadgetLocalDataSource, BaseGadgetRemoteDataSource gadgetRemoteDataSource) {
-        this.gadgetRemoteDataSource = gadgetRemoteDataSource;
         allGadgetLiveData = new MutableLiveData<>();
         this.gadgetLocalDataSource = gadgetLocalDataSource;
+        this.gadgetRemoteDataSource = gadgetRemoteDataSource;
         this.gadgetLocalDataSource.setGadgetCallback(this);
+        this.gadgetRemoteDataSource.setGadgetCallback(this);
     }
 
     public MutableLiveData<Result> fetchGadget(Long brawlerId, long lastUpdate, String tagId) {
@@ -34,7 +35,7 @@ public class GadgetRepository implements GadgetCallback{
     }
 
     @Override
-    public void onSuccessFromRemote(List<GadgetEntry> gadgetList, long lastUpdate) {
+    public void onSuccessFromRemote(Object gadgetList, long lastUpdate) {
         Result result = new Result.Success(gadgetList);
         allGadgetLiveData.postValue(result);
     }

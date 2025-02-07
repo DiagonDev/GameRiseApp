@@ -26,7 +26,7 @@ public class StatsLocalDataSource extends BaseStatsLocalDataSource {
 
             if(allStat != null){
                 if(allStat.getTag().equals(tagId)){
-                    statDAO.deleteStat(tagId);
+                    //statDAO.deleteStat(tagId);
                     statDAO.insertStat(stats);
                 }
             } else statDAO.insertStat(stats);

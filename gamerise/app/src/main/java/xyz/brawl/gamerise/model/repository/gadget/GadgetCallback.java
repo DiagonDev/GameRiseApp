@@ -5,7 +5,7 @@ import java.util.List;
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 
 public interface GadgetCallback {
-    void onSuccessFromRemote(List<GadgetEntry> gadgetList, long lastUpdate);
+    void onSuccessFromRemote(Object gadget, long lastUpdate);
     void onFailureFromRemote(Exception errorMessage);
 
     void onSuccessFromLocal(List<GadgetEntry> gadgetList);

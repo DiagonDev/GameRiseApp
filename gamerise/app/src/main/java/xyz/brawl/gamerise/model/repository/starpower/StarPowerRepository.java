@@ -17,10 +17,11 @@ public class StarPowerRepository implements StarPowerCallback {
     private final MutableLiveData<Result> allStarPowerLiveData;
 
     public StarPowerRepository(BaseStarPowerLocalDataSource starPowerLocalDataSource, BaseStarPowerRemoteDataSource starPowerRemoteDataSource) {
-        this.starPowerRemoteDataSource = starPowerRemoteDataSource;
         allStarPowerLiveData = new MutableLiveData<>();
         this.starPowerLocalDataSource = starPowerLocalDataSource;
+        this.starPowerRemoteDataSource = starPowerRemoteDataSource;
         this.starPowerLocalDataSource.setStarPowerCallback(this);
+        this.starPowerRemoteDataSource.setStarPowerCallback(this);
     }
 
     public MutableLiveData<Result> fetchStarPower(Long brawlerId, long lastUpdate, String tagId) {
@@ -34,7 +35,7 @@ public class StarPowerRepository implements StarPowerCallback {
     }
 
     @Override
-    public void onSuccessFromRemote(List<StarPowerEntry> starPowerList, long lastUpdate) {
+    public void onSuccessFromRemote(Object starPowerList, long lastUpdate) {
         Result result = new Result.Success(starPowerList);
         allStarPowerLiveData.postValue(result);
     }
