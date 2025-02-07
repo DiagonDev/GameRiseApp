@@ -115,6 +115,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
     }
 
     private void updateUI(long brawlerId, String tag) {
+        // RESETTA TUTTO PRIMA DI CARICARE NUOVI DATI
         gadgetText1.setText("");
         gadgetText2.setText("");
         starPowerText1.setText("");
@@ -126,6 +127,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         countG = 0;
         countA = 0;
 
+        // RIMUOVE I VECCHI OBSERVER PRIMA DI AGGIUNGERE NUOVI
+        brawlersViewModel.getGadgets(brawlerId, 0, tag).removeObservers(this);
+        brawlersViewModel.getStarPower(brawlerId, 0, tag).removeObservers(this);
+
+        // CARICA NUOVO BRAWLER
         brawlersViewModel.getBrawlers(tag, 0)
                 .observe(this, result -> {
                     if (result.isSuccess()) {
@@ -134,7 +140,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                             if (brawler.getId() == brawlerId){
                                 nome.setText(brawler.getName());
                                 immagineBrawler.setImageResource(brawler.getBrawlerPin());
-                                //TODO: CAPIRE COME FARLO FUNZIONARE
+
                                 int currentIndex = brawlers.indexOf(brawler);
                                 BrawlerEntry brawlerPrec = (currentIndex == 0) ? brawlers.get(brawlers.size() - 1) : brawlers.get(currentIndex - 1);
                                 BrawlerEntry brawlerSucc = (currentIndex == brawlers.size() - 1) ? brawlers.get(0) : brawlers.get(currentIndex + 1);
@@ -147,45 +153,46 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                     }
                 });
 
+        // CARICA NUOVI GADGETS
         brawlersViewModel.getGadgets(brawlerId, 0, tag)
                 .observe(this, result -> {
                     if (result.isSuccess()) {
                         List<GadgetEntry> gadgets = (List<GadgetEntry>) ((Result.Success) result).getData();
+                        countG = 0; // RESETTA IL COUNT QUI
                         for(GadgetEntry gadget : gadgets){
                             if(gadget.getBrawlerId() == brawlerId){
                                 if (countG == 0) {
-                                    //gadgetImg1.setImageResource(gadget.getId());
                                     gadgetText1.setText(gadget.getName());
-                                    countG ++ ;
+                                    countG++;
                                 } else if (countG == 1){
-                                    //gadgetImg2.setImageResource(gadget.getId());
                                     gadgetText2.setText(gadget.getName());
-                                    countG=0;
+                                    countG = 0;
                                 }
                             }
                         }
                     }
                 });
 
+        // CARICA NUOVI STAR POWER
         brawlersViewModel.getStarPower(brawlerId, 0, tag)
                 .observe(this, result -> {
                     if (result.isSuccess()) {
                         List<StarPowerEntry> starPowers = (List<StarPowerEntry>) ((Result.Success) result).getData();
+                        countA = 0; // RESETTA IL COUNT QUI
                         for(StarPowerEntry starPower : starPowers){
                             if(starPower.getBrawlerId() == brawlerId){
                                 if (countA == 0) {
-                                    //gadgetImg1.setImageResource(gadget.getId());
                                     starPowerText1.setText(starPower.getName());
-                                    countA ++ ;
+                                    countA++;
                                 } else if (countA == 1){
-                                    //gadgetImg2.setImageResource(gadget.getId());
                                     starPowerText2.setText(starPower.getName());
-                                    countA=0;
+                                    countA = 0;
                                 }
                             }
                         }
                     }
                 });
+
         LinearLayout previousBrawlerLayout = findViewById(R.id.previous_brawler_layout);
         LinearLayout nextBrawlerLayout = findViewById(R.id.next_brawler_layout);
         previousBrawlerLayout.setOnClickListener(v -> navigateToPreviousBrawler(brawlerId, tag));
