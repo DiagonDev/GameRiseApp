@@ -5,7 +5,7 @@ import xyz.brawl.gamerise.model.data.stat.Stat;
 public interface StatsCallBack {
     //TODO: leo deve modificare qui
     void onSuccessFromRemote(Stat stats, long lastUpdate);
-    void onFailureFromRemote(String errorMessage);
+    void onFailureFromRemote(Exception exception);
 
     //qui è giusto
     void onSuccessFromLocal(Stat stats);
