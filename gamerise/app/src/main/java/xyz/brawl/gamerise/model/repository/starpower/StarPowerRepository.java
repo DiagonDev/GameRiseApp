@@ -24,6 +24,10 @@ public class StarPowerRepository implements StarPowerCallback {
         this.starPowerRemoteDataSource.setStarPowerCallback(this);
     }
 
+    public MutableLiveData<Result> insertStarPowers(List<StarPowerEntry> starPowerEntryList, Long brawlerId) {
+        starPowerLocalDataSource.insertStarPowers(starPowerEntryList, brawlerId);
+        return allStarPowerLiveData;
+    }
     public MutableLiveData<Result> fetchStarPower(Long brawlerId, long lastUpdate, String tagId) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
