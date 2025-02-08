@@ -5,7 +5,7 @@ import java.util.List;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 
 public interface StarPowerCallback {
-    void onSuccessFromRemote(List<StarPowerEntry> starPowerList, long lastUpdate);
+    void onSuccessFromRemote(Object starPower, long lastUpdate);
     void onFailureFromRemote(Exception errorMessage);
 
     //qui è giusto

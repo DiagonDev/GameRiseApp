@@ -24,12 +24,17 @@ import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalData
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.stats.StatsLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.stats.StatsRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
+import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
 
@@ -117,6 +122,25 @@ public class ServiceLocator {
         battleLocalDataSource = new BattleLocalDataSource(getDatabase(application));
         battleRemoteDataSource = new BattleRemoteDataSource(getApiService());
         return new BattleLogRepository(battleLocalDataSource, battleRemoteDataSource);
+    }
+
+    public StatsRepository getStatsRepository(Application application, boolean debugMode) {
+        BaseStatsRemoteDataSource statsRemoteDataSource;
+        BaseStatsLocalDataSource statsLocalDataSource;
+
+        //TODO: leo
+        /*if (debugMode) {
+            JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
+            newsRemoteDataSource =
+                    new ArticleMockDataSource(jsonParserUtil);
+        } else {
+            newsRemoteDataSource =
+                    new ArticleRemoteDataSource(application.getString(R.string.news_api_key));
+        }*/
+
+        statsLocalDataSource = new StatsLocalDataSource(getDatabase(application));
+        statsRemoteDataSource = new StatsRemoteDataSource(getApiService());
+        return new StatsRepository(statsLocalDataSource, statsRemoteDataSource);
     }
 
     public BrawlersRepository getBrawlersRepository(Application application, boolean debugMode) {

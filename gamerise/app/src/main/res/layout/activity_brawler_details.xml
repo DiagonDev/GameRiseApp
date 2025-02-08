@@ -78,8 +78,7 @@
         <ImageView
             android:id="@+id/previous_brawler_image"
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/_bit_pin" />
+            android:layout_height="50dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -106,8 +105,7 @@
         <ImageView
             android:id="@+id/next_brawler_image"
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/_bit_pin" />
+            android:layout_height="50dp" />
 
     </LinearLayout>
 
@@ -115,7 +113,6 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/_bit_pin"
         app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
         app:layout_constraintStart_toStartOf="@+id/guidelineV05"
         app:layout_constraintTop_toTopOf="@+id/guideline05" />
@@ -128,7 +125,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="8-Bit"
+
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textColor="@color/white"
         android:textSize="30sp"
@@ -175,7 +172,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="30/100"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -184,8 +180,7 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:max="100"
-                android:progress="30"
+                android:max="1000"
                 android:progressTint="@color/black" />
 
         </LinearLayout>
@@ -221,7 +216,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="10/11"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -232,7 +226,6 @@
                 android:layout_height="5dp"
                 android:layout_row="1"
                 android:max="11"
-                android:progress="10"
                 android:progressTint="@color/black" />
 
 
@@ -268,12 +261,12 @@
             android:src="@drawable/coin" />
 
         <TextView
+            android:id="@+id/moneyTextView"
             style="@style/CustomTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:padding="8dp"
-            android:text="1875"
             android:textColor="@color/white"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@+id/guidelineV05"
@@ -296,12 +289,12 @@
             android:src="@drawable/starpoints" />
 
         <TextView
+            android:id="@+id/starPointsTextView"
             style="@style/CustomTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:padding="8dp"
-            android:text="890"
             android:textColor="@color/white"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@+id/guidelineV05"
@@ -349,6 +342,7 @@
             <!-- Prima riga -->
 
             <ImageView
+                android:id="@+id/imageViewGadget1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_row="0"
@@ -357,6 +351,7 @@
                 android:src="@drawable/_bit_gadget_01" />
 
             <TextView
+                android:id="@+id/textViewGadget1"
                 style="@style/CustomTextViewStyle"
                 android:layout_width="wrap_content"
 
@@ -366,13 +361,13 @@
                 android:layout_gravity="center|start"
                 android:layout_marginStart="30dp"
                 android:padding="8dp"
-                android:text="Cheat Cartridge"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <!-- Seconda riga -->
 
             <ImageView
+                android:id="@+id/imageViewGadget2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_row="1"
@@ -381,6 +376,7 @@
                 android:src="@drawable/_bit_gadget_02" />
 
             <TextView
+                android:id="@+id/textViewGadget2"
                 style="@style/CustomTextViewStyle"
                 android:layout_width="wrap_content"
 
@@ -390,7 +386,6 @@
                 android:layout_gravity="center|start"
                 android:layout_marginStart="30dp"
                 android:padding="8dp"
-                android:text="Extra Credits"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -400,6 +395,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutStarPower"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
@@ -438,6 +434,7 @@
             <!-- Prima riga -->
 
             <ImageView
+                android:id="@+id/imageViewStarPower1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_row="0"
@@ -446,6 +443,7 @@
                 android:src="@drawable/_bit_starpower_01" />
 
             <TextView
+                android:id="@+id/textViewStarPower1"
                 style="@style/CustomTextViewStyle"
                 android:layout_width="wrap_content"
 
@@ -455,13 +453,13 @@
                 android:layout_gravity="center|start"
                 android:layout_marginStart="30dp"
                 android:padding="8dp"
-                android:text="Boosted Booster"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <!-- Seconda riga -->
 
             <ImageView
+                android:id="@+id/imageViewStarPower2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_row="1"
@@ -470,6 +468,7 @@
                 android:src="@drawable/_bit_starpower_02" />
 
             <TextView
+                android:id="@+id/textViewStarPower2"
                 style="@style/CustomTextViewStyle"
                 android:layout_width="wrap_content"
 
@@ -479,7 +478,6 @@
                 android:layout_gravity="center|start"
                 android:layout_marginStart="30dp"
                 android:padding="8dp"
-                android:text="Plugged In"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
