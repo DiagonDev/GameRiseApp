@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -15,16 +20,29 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.model.Result;
+import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.data.player.ClubEntry;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerMapper;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
+import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
+import xyz.brawl.gamerise.ui.fragments.battlelog.adapter.BattleAdapter;
+import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModel;
+import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModelFactory;
+import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ResponseCallback;
+import xyz.brawl.gamerise.util.ServiceLocator;
 
 public class StatsFragment extends Fragment implements ResponseCallback {
     public static final String TAG = "StatsFragment";
@@ -36,23 +54,63 @@ public class StatsFragment extends Fragment implements ResponseCallback {
     private TextView vittorieSolo;
     private TextView vittorieDuo;
     private TextView vittorie3vs3;
+    private ClubEntry c;
+    private FrameLayout noInternetView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StatsRepository statsRepository =
+                ServiceLocator.getInstance().getStatsRepository(requireActivity().getApplication(),
+                        requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode));
+
+        statsViewModel = new ViewModelProvider(
+                requireActivity(),
+                new StatsViewModelFactory(statsRepository)).get(StatsViewModel.class);
+
+        Stat stats=new Stat();
         //Qui collegare il viewModel e il repository -------------------------------
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
-
         trofei=view.findViewById(R.id.valoreTrofei);
         livello=view.findViewById(R.id.valoreLivello);
         club=view.findViewById(R.id.valoreClub);
         vittorieSolo=view.findViewById(R.id.valoreVittorieSolo);
         vittorieDuo=view.findViewById(R.id.valoreVittorieDuo);
         vittorie3vs3=view.findViewById(R.id.valoreVittorie3vs3);
+        String lastUpdate = "0";
+
+        String tag = GameAccountSingleton.getInstance().getUserTag();
+        if (tag == null || tag.isEmpty()) {
+            Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
+            return view; // Se non c'è nessun tag, esci
+        }
+
+        if(!NetworkUtil.isInternetAvailable(this.getContext())){
+            noInternetView.setVisibility(View.VISIBLE);
+            lastUpdate = System.currentTimeMillis() + "";
+        }
+        statsViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+                result -> {
+                    if (result.isSuccess()) {
+                        Stat stat= (Stat) ((Result.Success) result).getData();
+                        trofei.setText(stat.trophies);
+                        livello.setText(stat.expLevel);
+                        c=stat.club;
+                        club.setText(c.getName());
+                        vittorieSolo.setText(stat.soloVictories);
+                        vittorieDuo.setText(stat.duoVictories);
+                        vittorie3vs3.setText(stat._3vs3Victories);
+
+                    } else {
+                        String errorMessage = ((Result.Error) result).getMessage();
+                        Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
 
 
         //TODO: spostare codice nel viewModel

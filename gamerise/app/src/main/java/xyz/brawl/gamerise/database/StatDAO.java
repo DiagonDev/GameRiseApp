@@ -14,6 +14,6 @@ public interface StatDAO {
     @Insert
     void insertStat(Stat stat);
 
-   /* @Query("DELETE FROM Stat WHERE tag = :tagName")
-    Stat deleteStat(String tagName);*/
+   @Query("DELETE FROM Stat WHERE tag = :tagName")
+    void deleteStat(String tagName);
 }
