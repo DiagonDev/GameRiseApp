@@ -201,9 +201,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                             if(starPower.getBrawlerId() == brawlerId){
                                 if (countA == 0) {
                                     starPowerText1.setText(starPower.getName());
+                                    starPowerImg1.setImageResource(starPower.getStarPowerPin());
                                     countA++;
                                 } else if (countA == 1){
                                     starPowerText2.setText(starPower.getName());
+                                    starPowerImg2.setImageResource(starPower.getStarPowerPin());
                                     countA = 0;
                                 }
                             }

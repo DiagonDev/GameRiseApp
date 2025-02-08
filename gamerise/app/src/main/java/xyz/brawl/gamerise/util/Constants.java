@@ -91,7 +91,7 @@ public class Constants {
         ROSA(R.drawable.rosa_pin),
         CARL(R.drawable.carl_pin),
         BIBI(R.drawable.bibi_pin),
-        BIT_8(R.drawable.bit_8_pin),
+        OTTO_TRATTINO_BIT(R.drawable.bit_8_pin),
         SANDY(R.drawable.sandy_pin),
         BEA(R.drawable.bea_pin),
         EMZ(R.drawable.emz_pin),
@@ -166,6 +166,7 @@ public class Constants {
                 String enumKey = mode.toUpperCase()
                         .replace(" & ", "_AND_")
                         .replace(" ", "_")
+                        .replace("8", "OTTO")
                         .replace("-", "_TRATTINO_");
                 return BrawlerPin.valueOf(enumKey);
             } catch (IllegalArgumentException e) {
@@ -242,7 +243,7 @@ public class Constants {
         BEAR_PAWS(R.drawable.nita_gadget_01),
         FAUX_FUR(R.drawable.nita_gadget_02),
         FIDGET_SPINNER(R.drawable.dynamike_gadget_01),
-        SATCHEL_CHARGER(R.drawable.dynamike_gadget_02),
+        SATCHEL_CHARGE(R.drawable.dynamike_gadget_02),
         SUPLEX_SUPPLEMENT(R.drawable.elprimo_gadget_01),
         ASTEROID_BELT(R.drawable.elprimo_gadget_02),
         COMBO_SPINNER(R.drawable.mortis_gadget_01),
@@ -420,7 +421,203 @@ public class Constants {
             }
         }
     }
-    
+
+    public enum StarPowerPin {
+        WILD_FLAMES(R.drawable.starpower_base01),
+        SCORCHIN_APOSTROFE__SIPHON(R.drawable.starpower_base01),
+        SHELL_SHOCK(R.drawable.shelly_starpower_01),
+        BAND_TRATTINO_AID(R.drawable.shelly_starpower_02),
+        SLICK_BOOTS(R.drawable.colt_starpower_01),
+        MAGNUM_SPECIAL(R.drawable.colt_starpower_02),
+        BESERKER(R.drawable.bull_starpower_01),
+        TOUGH_GUY(R.drawable.bull_starpower_02),
+        MORE_ROCKETS_PESCLAMATIVO(R.drawable.brock_starpower_01),
+        ROCKET_NO_PUNTO_4(R.drawable.brock_starpower_02),
+        SUPER_BOUNCY(R.drawable.rico_starpower_01),
+        ROBO_RETREAT(R.drawable.starpower_base01),
+        MEDICAL_USE(R.drawable.barley_starpower_01),
+        EXTRA_NOXIOUS(R.drawable.barley_starpower_02),
+        ENERGIZE(R.drawable.jessie_starpower_01),
+        SHOCKY(R.drawable.jessie_starpower_02),
+        BEAR_WITH_ME(R.drawable.nita_starpower_01),
+        HYPER_BEAR(R.drawable.nita_starpower_02),
+        DYNA_TRATTINO_JUMP(R.drawable.dynamike_starpower_01),
+        DEMOLITION(R.drawable.dynamike_starpower_02),
+        EL_FUEGO(R.drawable.starpower_base01),
+        METEOR_RUSH(R.drawable.starpower_base01),
+        CREEPY_HARVEST(R.drawable.mortis_starpower_01),
+        COILED_SNAKE(R.drawable.mortis_starpower_02),
+        EXTRA_TOXIC(R.drawable.crow_starpower_01),
+        CARRION_CROW(R.drawable.crow_starpower_02),
+        DA_CAPO_PESCLAMATIVO(R.drawable.starpower_base01),
+        SCREECHING_SOLO(R.drawable.poco_starpower_02),
+        CIRCLING_EAGLE(R.drawable.bo_starpower_01),
+        SNARE_A_BEAR(R.drawable.bo_starpower_02),
+        AMBUSH(R.drawable.piper_starpower_01),
+        SNAPPY_SNIPING(R.drawable.piper_starpower_02),
+        MAMA_APOSTROFE_S_HUG(R.drawable.pam_starpower_01),
+        MAMA_APOSTROFE_S_SQUEEZE(R.drawable.pam_starpower_02),
+        BLACK_PORTAL(R.drawable.tara_starpower_01),
+        HEALING_SHADE(R.drawable.tara_starpower_02),
+        STEEL_HOOPS(R.drawable.darryl_starpower_01),
+        ROLLING_RELOAD(R.drawable.darryl_starpower_02),
+        HEAVY_COFFERS(R.drawable.penny_starpower_01),
+        MASTERBLASTER(R.drawable.penny_starpower_02),
+        POWER_GRAB(R.drawable.frank_starpower_01),
+        SPONGE(R.drawable.frank_starpower_02),
+        MAGIC_PUFFS(R.drawable.gene_starpower_01),
+        SPIRIT_SLAP(R.drawable.gene_starpower_02),
+        WELL_OILED(R.drawable.tick_starpower_01),
+        AUTOMA_TRATTINO_TICK_RELOAD(R.drawable.tick_starpower_02),
+        SMOKE_TRAILS(R.drawable.leon_starpower_01),
+        INVISIHEAL(R.drawable.leon_starpower_02),
+        PLANT_LIFE(R.drawable.rosa_starpower_01),
+        THORNY_GLOVES(R.drawable.rosa_starpower_02),
+        POWER_THROW(R.drawable.carl_starpower_01),
+        PROTECTIVE_PIROUETTE(R.drawable.carl_starpower_02),
+        HOME_RUN(R.drawable.bibi_starpower_01),
+        BATTING_STANCE(R.drawable.bibi_starpower_02),
+        BOOSTED_BOOSTER(R.drawable.starpower_base01),
+        PLUGGED_IN(R.drawable.starpower_base01),
+        RUDE_SANDS(R.drawable.sandy_starpower_01),
+        HEALING_WINDS(R.drawable.sandy_starpower_02),
+        INSTA_BELOAD(R.drawable.bea_starpower_01),
+        HONEYCOMB(R.drawable.bea_starpower_02),
+        BAD_KARMA(R.drawable.emz_starpower_01),
+        HYPE(R.drawable.emz_starpower_02),
+        SUPER_CHARGED(R.drawable.max_starpower_01),
+        RUN_N_GUN(R.drawable.max_starpower_02),
+        COUNTER_CRUSH(R.drawable.jacky_starpower_01),
+        HARDY_HARD_HAT(R.drawable.jacky_starpower_02),
+        AUTOFOCUS(R.drawable.nani_starpower_01),
+        TEMPERED_STEEL(R.drawable.nani_starpower_02),
+        OVERGROWTH(R.drawable.sprout_starpower_01),
+        PHOTOSYNTHESIS(R.drawable.sprout_starpower_02),
+        TO_THE_MAX_PESCLAMATIVO(R.drawable.surge_starpower_01),
+        SERVE_ICE_COLD(R.drawable.surge_starpower_02),
+        PUSH_IT(R.drawable.colette_starpower_01),
+        MASS_TAX(R.drawable.colette_starpower_02),
+        MALAISE(R.drawable.byron_starpower_01),
+        INJECTION(R.drawable.byron_starpower_02),
+        HARD_LANDING(R.drawable.edgar_starpower_01),
+        FISTICUFFS(R.drawable.edgar_starpower_02),
+        ZERO_DRAG(R.drawable.stu_starpower_01),
+        GASO_TRATTINO_HEAL(R.drawable.stu_starpower_02),
+        CHAIN_REACTION(R.drawable.squeak_starpower_01),
+        SUPER_STICKY(R.drawable.squeak_starpower_02),
+        FOOT_PATROL(R.drawable.starpower_base01),
+        X_TRATTINO_FACTOR(R.drawable.starpower_base01),
+        KEEP_THE_CHANGE(R.drawable.griff_starpower_01),
+        BUSINESS_RESILIENCE(R.drawable.griff_starpower_02),
+        FIRST_BASH(R.drawable.ash_starpower_01),
+        MAD_AS_HECK(R.drawable.ash_starpower_02),
+        IMPROVISE(R.drawable.lola_starpower_01),
+        SEALED_WITH_A_KISS(R.drawable.lola_starpower_02),
+        HEALTH_BONANZA(R.drawable.gus_starpower_01),
+        SPIRIT_ANIMAL(R.drawable.gus_starpower_02),
+        SINGLE_BELL_APOSTROFE_O_APOSTROFE_MANIA(R.drawable.chester_starpower_01),
+        SNEAK_PEEK(R.drawable.chester_starpower_02),
+        QUICK_MATHS(R.drawable.rt_starpower_01),
+        RECORDING(R.drawable.rt_starpower_02),
+        PINPOINT_PRECISION(R.drawable.maisie_starpower_01),
+        TREMORS(R.drawable.maisie_starpower_02),
+        COMBOSHROOMS(R.drawable.cordelius_starpower_01),
+        MUSHROOM_KINGDOM(R.drawable.cordelius_starpower_02),
+        HEAT_RETENTION(R.drawable.pearl_starpower_01),
+        HEAT_SHIELD(R.drawable.pearl_starpower_02),
+        EXPOSE(R.drawable.draco_starpower_01),
+        SHREDDING(R.drawable.draco_starpower_02),
+        KICK_VIRGOLA_PUSH(R.drawable.starpower_base01),
+        RENEGADE(R.drawable.starpower_base01),
+        DO_NOT_PASS_GO(R.drawable.starpower_base01),
+        RULE_BENDING(R.drawable.starpower_base01),
+        GUARDED_GRIS_TRATTINO_GRIS(R.drawable.starpower_base01),
+        SPOOKY_SPEEDSTER(R.drawable.starpower_base01),
+        HARDENED_HOODIE(R.drawable.starpower_base01),
+        STUDIED_THE_BLADE(R.drawable.starpower_base01),
+        NIGIRI_NEMESIS(R.drawable.starpower_base01),
+        SKIPPING_STONES(R.drawable.starpower_base01),
+        SPEEDING_TICKET(R.drawable.starpower_base01),
+        RECON(R.drawable.starpower_base01),
+        PUMPING_UP(R.drawable.starpower_base01),
+        FLOOR_IS_FINE(R.drawable.starpower_base01),
+        MAKING_A_MESS(R.drawable.starpower_base01),
+        SPIKY(R.drawable.lily_starpower_01),
+        VIGILANCE(R.drawable.lily_starpower_02),
+        EMPOWER(R.drawable.angelo_starpower_01),
+        FLOW(R.drawable.angelo_starpower_02),
+        FAST_BEATS(R.drawable.starpower_base01),
+        EXTENDED_MIX(R.drawable.starpower_base01),
+        PROTOCOL_DUEPUNTI_PROTECT(R.drawable.starpower_base01),
+        PROTOCOL_DUEPUNTI_ASSIST(R.drawable.starpower_base01),
+        POWER_HUNGRY(R.drawable.kit_starpower_01),
+        OVERLY_ATTACHED(R.drawable.kit_starpower_02),
+        MONKEY_BUSINESS(R.drawable.mico_starpower_01),
+        RECORD_SMASH(R.drawable.mico_starpower_02),
+        DIGESTIVE(R.drawable.charlie_starpower_01),
+        SLIMY(R.drawable.charlie_starpower_02),
+        PIT_STOP(R.drawable.starpower_base01),
+        TICKETS_PLEASE_PESCLAMATIVO(R.drawable.starpower_base01),
+        FAST_FOOD(R.drawable.doug_starpower_01),
+        SELF_SERVICE(R.drawable.doug_starpower_02),
+        IT_APOSTROFE_S_GONNA_BLOW(R.drawable.hank_starpower_01),
+        TAKE_COVER_PESCLAMATIVO(R.drawable.hank_starpower_02),
+        LOVE_IS_BLIND(R.drawable.willow_starpower_01),
+        OBSESSION(R.drawable.willow_starpower_02),
+        IN_MY_SIGHTS(R.drawable.mandy_starpower_01),
+        HARD_CANDY(R.drawable.mandy_starpower_02),
+        FAKE_INJURY(R.drawable.gray_starpower_01),
+        NEW_PERSPECTIVE(R.drawable.gray_starpower_02),
+        BLOCKBUSTER(R.drawable.buster_starpower_01),
+        KEVLAR_VEST(R.drawable.buster_starpower_02),
+        HEARTY_RECOVERY(R.drawable.sam_starpower_01),
+        REMOTE_RECHARGE(R.drawable.sam_starpower_02),
+        STENCIL_GLUE(R.drawable.otis_starpower_01),
+        INK_REFILLS(R.drawable.otis_starpower_02),
+        BLACK_POWDER(R.drawable.bonnie_starpower_01),
+        WISDOM_TOOTH(R.drawable.bonnie_starpower_02),
+        STAGE_VIEW(R.drawable.janet_starpower_01),
+        VOCAL_WARM_UP(R.drawable.janet_starpower_02),
+        UNNATURAL_ORDER(R.drawable.starpower_base01),
+        HAPPY_SURPRISE(R.drawable.starpower_base01),
+        FRESH_KICKS(R.drawable.starpower_base01),
+        DIVINE_SOLES(R.drawable.starpower_base01),
+        FERTILIZE(R.drawable.spike_starpower_01),
+        CURVEBALL(R.drawable.spike_starpower_02),
+        BLUSTERY_BLOW(R.drawable.gale_starpower_01),
+        FREEZING_SNOW(R.drawable.gale_starpower_02),
+        HANDLE_WITH_CARE(R.drawable.mrp_starpower_01),
+        REVOLVING_DOOR(R.drawable.mrp_starpower_02),
+        SUPERCOOL(R.drawable.starpower_base01),
+        HYPOTHERMIA(R.drawable.starpower_base01);
+
+        private final int iconStarPowerId;
+        StarPowerPin(int iconStarPowerId) {
+            this.iconStarPowerId = iconStarPowerId;}
+
+        public int getIconStarPowerId() {
+            return iconStarPowerId;
+        }
+        public static StarPowerPin fromStarPowerPinString(String mode) {
+            try {
+                // Sostituisci i caratteri non validi
+                String enumKey = mode.toUpperCase()
+                        .replace("-", "_TRATTINO_")
+                        .replace(" ", "_")
+                        .replace(",", "_VIRGOLA_")
+                        .replace("!", "_PESCLAMATIVO")
+                        .replace(":", "_DUEPUNTI_")
+                        .replace(".", "_PUNTO_")
+                        .replace("'", "_APOSTROFE_");
+
+                return StarPowerPin.valueOf(enumKey);
+            } catch (IllegalArgumentException e) {
+                // Fallback in caso di errore
+                return StarPowerPin.HYPOTHERMIA; // Valore predefinito
+            }
+        }
+    }
+
 
     public static int iconRanked = R.drawable.ranked_icon;
     public static int iconStandard = R.drawable.standard_icon;

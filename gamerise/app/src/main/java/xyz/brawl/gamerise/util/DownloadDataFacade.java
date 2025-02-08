@@ -1,6 +1,6 @@
 package xyz.brawl.gamerise.util;
 
-
+/*
 import android.app.Application;
 import android.content.Context;
 
@@ -27,12 +27,12 @@ import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.service.ServiceLocator;
 
 
-/*
+*//*
  * Applicazione pattern Façade
  * Questa classe incapsula tutti i metodi relativi alla logica di fetch da API e di salvataggio nel database
  * Verrà chiamata dai ViewModel e userà i metodi dei repository
  * TODO: tutto il codice presente in questa classe verrà spostato ove corretto qui dentro avremo solo i metodi
- */
+ *//*
 
 public class DownloadDataFacade implements ResponseCallback {
     private final Application application;
@@ -46,14 +46,14 @@ public class DownloadDataFacade implements ResponseCallback {
     }
 
 
-    /*
+    *//*
      * Step 1: Salva il tag nel database se non presente, altrimenti lo sposta in cima
      * Step 2: Esegue fetch della battlelog per il tag corrente
      * Step 3: La fetch chiama il metodi del responseCallback per salvare i dati nel database
      * Step 4: Eseguire fetch del player per il tag corrente
      * Step 5: come Step 3 ma con le stats, brawlers, gadget e starpowers
      * Step 6: Carico la tabella Owns nel database
-     */
+     *//*
 
     public void saveData(String tag, boolean save) {
         /// Step 1
@@ -64,9 +64,9 @@ public class DownloadDataFacade implements ResponseCallback {
                     // Rimuovi il tag precedente per mantenere quello che vuole salvare
                     database.tagDao().delete(tag);
 
-                    /*Recuperiamo tutti i dati del giocatore, per poi salvarli nel database
+                    *//*Recuperiamo tutti i dati del giocatore, per poi salvarli nel database
                      * Mi serve la chiamata ai vari repository per recuperare i dati e salvarli
-                     */
+                     *//*
 
 
                 }
@@ -101,10 +101,10 @@ public class DownloadDataFacade implements ResponseCallback {
             if (o instanceof List) {
                 if (((List<?>) o).get(0) instanceof BattleLogEntry) {
 
-                    /* Ho bisogno di creare una lista di Battle perchè il mapping di mapToBattles mi crea le battaglie a livello di dominio
+                    *//* Ho bisogno di creare una lista di Battle perchè il mapping di mapToBattles mi crea le battaglie a livello di dominio
                      * ma l'entity del database ha bisogno anche del tag nella lista, questa differenziazione è un effetto collaterale di
                      * tenere una classe unica polivalente
-                     */
+                     *//*
 
                     @SuppressWarnings("unchecked") // Se entra nell'if allora è List<BattleLogEntry>, serve al compilatore
                     List<Battle> battles = BattleMapper.mapToBattles((List<BattleLogEntry>) o);
@@ -133,12 +133,12 @@ public class DownloadDataFacade implements ResponseCallback {
                     // Eseguiamo l'operazione di scrittura in background
                     GameRiseDatabase.databaseWriteExecutor.execute(() -> {
 
-                        /* SOLO PER DEBUG
+                        *//* SOLO PER DEBUG
                          * Questo perchè la query la sto facendo di default su teo, nel PlayerMapper io associo a stat
                          * la tag che ottengo dalla chiamata api (quindi teo)
                          * solo che la tag che inserisco a mano è "disabilitata
                          * togliere la riga sottostante finita la fase di sviluppo
-                         */
+                         *//*
 
                         stat.setTag(GameAccountSingleton.getInstance().getUserTag());
                         database.statDao().insert(stat);
@@ -180,5 +180,5 @@ public class DownloadDataFacade implements ResponseCallback {
     public void onFailure(String errorMessage) {
 
     }
-}
+}*/
 
