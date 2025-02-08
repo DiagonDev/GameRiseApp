@@ -2,6 +2,7 @@ package xyz.brawl.gamerise.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -13,6 +14,6 @@ public interface GadgetDAO {
     @Query("SELECT * FROM GadgetEntry WHERE brawlerId = :brawlerId")
     List<GadgetEntry> getAll(Long brawlerId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(List<GadgetEntry> gadgetEntries);
 }
