@@ -149,7 +149,9 @@ public class Constants {
         SPIKE(R.drawable.spike_pin),
         GALE(R.drawable.gale_pin),
         MR_P(R.drawable.mrp_pin),
-        LOU(R.drawable.lou_pin);
+        LOU(R.drawable.lou_pin),
+        BELLE(R.drawable.belle_pin),
+        MEG(R.drawable.meg_pin);
 
         private final int iconPlayerId;
 
@@ -393,7 +395,11 @@ public class Constants {
         SERVICE_BELL(R.drawable.mrp_gadget_01),
         PORTER_REINFORCEMENTS(R.drawable.mrp_gadget_02),
         ICE_BLOCK(R.drawable.lou_gadget_01),
-        CRYO_SYRUP(R.drawable.lou_gadget_02);
+        CRYO_SYRUP(R.drawable.lou_gadget_02),
+        JOLTING_VOLTS(R.drawable.meg_gadget_01),
+        TOOLBOX(R.drawable.meg_gadget_02),
+        NEST_EGG(R.drawable.belle_gadget_01),
+        REVERSE_POLARITY(R.drawable.belle_gadget_02);
 
         private final int iconGadgetId;
 
@@ -589,7 +595,11 @@ public class Constants {
         HANDLE_WITH_CARE(R.drawable.mrp_starpower_01),
         REVOLVING_DOOR(R.drawable.mrp_starpower_02),
         SUPERCOOL(R.drawable.starpower_base01),
-        HYPOTHERMIA(R.drawable.starpower_base01);
+        HYPOTHERMIA(R.drawable.starpower_base01),
+        FORCE_FIELD(R.drawable.meg_starpower_01),
+        HEAVY_METAL(R.drawable.meg_starpower_02),
+        POSITIVE_FEEDBACK(R.drawable.belle_starpower_01),
+        GROUNDED(R.drawable.belle_starpower_02);
 
         private final int iconStarPowerId;
         StarPowerPin(int iconStarPowerId) {
