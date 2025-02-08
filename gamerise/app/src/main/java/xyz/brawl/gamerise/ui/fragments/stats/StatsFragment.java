@@ -44,7 +44,7 @@ import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ResponseCallback;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
-public class StatsFragment extends Fragment implements ResponseCallback {
+public class StatsFragment extends Fragment  {
     public static final String TAG = "StatsFragment";
     private StatsViewModel statsViewModel;
     public LinearLayout chartContainer;
@@ -98,13 +98,13 @@ public class StatsFragment extends Fragment implements ResponseCallback {
                 result -> {
                     if (result.isSuccess()) {
                         Stat stat= (Stat) ((Result.Success) result).getData();
-                        trofei.setText(stat.trophies);
-                        livello.setText(stat.expLevel);
+                        trofei.setText(""+stat.trophies);
+                        livello.setText(""+stat.expLevel);
                         c=stat.club;
-                        club.setText(c.getName());
-                        vittorieSolo.setText(stat.soloVictories);
-                        vittorieDuo.setText(stat.duoVictories);
-                        vittorie3vs3.setText(stat._3vs3Victories);
+                        club.setText(""+c.getName());
+                        vittorieSolo.setText(""+stat.soloVictories);
+                        vittorieDuo.setText(""+stat.duoVictories);
+                        vittorie3vs3.setText(""+stat._3vs3Victories);
 
                     } else {
                         String errorMessage = ((Result.Error) result).getMessage();
@@ -174,23 +174,4 @@ public class StatsFragment extends Fragment implements ResponseCallback {
     }
 
 
-    @Override
-    public void onSuccess(Object o, long lastUpdate) {
-        if(o instanceof PlayerApiResponse) {
-            PlayerApiResponse playerApiResponse = (PlayerApiResponse) o;
-            Stat stat = PlayerMapper.mapToStat(playerApiResponse);
-            trofei.setText("" + stat.trophies);
-            livello.setText("" + stat.expLevel);
-            club.setText(stat.club.getName());
-            vittorieSolo.setText("" + stat.soloVictories);
-            vittorieDuo.setText("" + stat.duoVictories);
-            vittorie3vs3.setText("" + stat._3vs3Victories);
-        }
-
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-
-    }
 }
