@@ -179,9 +179,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                             if(gadget.getBrawlerId() == brawlerId){
                                 if (countG == 0) {
                                     gadgetText1.setText(gadget.getName());
+                                    gadgetImg1.setImageResource(gadget.getGadgetPin());
                                     countG++;
                                 } else if (countG == 1){
                                     gadgetText2.setText(gadget.getName());
+                                    gadgetImg2.setImageResource(gadget.getGadgetPin());
                                     countG = 0;
                                 }
                             }

@@ -40,6 +40,7 @@ public class PlayerMapper {
             if (brawler.getGadgetEntries() != null) {
                 for (GadgetEntry gadget : brawler.getGadgetEntries()) {
                     gadget.setBrawlerId(brawler.getId()); // Imposta l'ID del brawler di riferimento
+                    gadget.setGadgetPin(Constants.GadgetPin.fromGadgetPinString(gadget.getName()).getIconGadgetId());
                     gadgetList.add(gadget);
                 }
             }

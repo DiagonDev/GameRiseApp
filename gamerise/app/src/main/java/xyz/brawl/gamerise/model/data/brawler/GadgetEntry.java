@@ -26,6 +26,15 @@ public class GadgetEntry {
     private String name;
 
     private long brawlerId;
+    private int gadgetPin;
+
+    public int getGadgetPin() {
+        return gadgetPin;
+    }
+
+    public void setGadgetPin(int gadgetPin) {
+        this.gadgetPin = gadgetPin;
+    }
 
     public long getId() {
         return id;

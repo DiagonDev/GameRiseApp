@@ -112,7 +112,7 @@ public class Constants {
         LOLA(R.drawable.lola_pin),
         GUS(R.drawable.gus_pin),
         CHESTER(R.drawable.chester_pin),
-        RT(R.drawable.rt_pin),
+        R_TRATTINO_T(R.drawable.rt_pin),
         MAISIE(R.drawable.maisie_pin),
         CORDELIUS(R.drawable.cordelius_pin),
         PEARL(R.drawable.pearl_pin),
@@ -165,7 +165,8 @@ public class Constants {
                 // Sostituisci i caratteri non validi
                 String enumKey = mode.toUpperCase()
                         .replace(" & ", "_AND_")
-                        .replace(" ", "_");
+                        .replace(" ", "_")
+                        .replace("-", "_TRATTINO_");
                 return BrawlerPin.valueOf(enumKey);
             } catch (IllegalArgumentException e) {
                 // Fallback in caso di errore
@@ -227,9 +228,9 @@ public class Constants {
         FAST_FORWARD(R.drawable.shelly_gadget_01),
         CLAY_PIGEONS(R.drawable.shelly_gadget_02),
         SPEEDLOADER(R.drawable.colt_gadget_01),
-        SILVER_BULLET(R.drawable.colette_gadget_02),
-        TBONE_INJECTOR(R.drawable.bull_gadget_01),      //todo:controllo
-        STOMPERS(R.drawable.bull_gadget_02),
+        SILVER_BULLET(R.drawable.colt_gadget_02),
+        T_TRATTINO_BONE_INJECTOR(R.drawable.bull_gadget_01),
+        STOMPER(R.drawable.bull_gadget_02),
         ROCKET_LACES(R.drawable.brock_gadget_01),
         ROCKET_FUEL(R.drawable.brock_gadget_02),
         MULTIBALL_LAUNCHER(R.drawable.rico_gadget_01),
@@ -241,7 +242,7 @@ public class Constants {
         BEAR_PAWS(R.drawable.nita_gadget_01),
         FAUX_FUR(R.drawable.nita_gadget_02),
         FIDGET_SPINNER(R.drawable.dynamike_gadget_01),
-        SATCHEL_CHARGERS(R.drawable.dynamike_gadget_02),
+        SATCHEL_CHARGER(R.drawable.dynamike_gadget_02),
         SUPLEX_SUPPLEMENT(R.drawable.elprimo_gadget_01),
         ASTEROID_BELT(R.drawable.elprimo_gadget_02),
         COMBO_SPINNER(R.drawable.mortis_gadget_01),
@@ -260,13 +261,13 @@ public class Constants {
         SUPPORT_FROM_BEYOND(R.drawable.tara_gadget_02),
         RECOILING_ROTATOR(R.drawable.darryl_gadget_01),
         TAR_BARREL(R.drawable.darryl_gadget_02),
-        POCKET_DETONATOR(R.drawable.penny_gadget_01),
-        CAPTAINS_COMPASS(R.drawable.penny_gadget_02),   //TODO:CONTROLLO
+        SALTY_BARREL(R.drawable.penny_gadget_01),
+        TRUSTY_SPYGLASS(R.drawable.penny_gadget_02),
         ACTIVE_NOISE_CANCELLING(R.drawable.frank_gadget_01),
         IRRESISTIBLE_ATTRACTION(R.drawable.frank_gadget_02),
         LAMP_BLOWOUT(R.drawable.gene_gadget_01),
         VENGEFUL_SPIRITS(R.drawable.gene_gadget_02),
-        BACKUP_MINE(R.drawable.tick_gadget_01),
+        MINE_MANIA(R.drawable.tick_gadget_01),
         LAST_HURRAH(R.drawable.tick_gadget_02),
         CLONE_PROJECTOR(R.drawable.leon_gadget_01),
         LOLLIPOP_DROP(R.drawable.leon_gadget_02),
@@ -288,17 +289,17 @@ public class Constants {
         SNEAKY_SNEAKERS(R.drawable.max_gadget_02),
         PNEUMATIC_BOOSTER(R.drawable.jacky_gadget_01),
         REBUILD(R.drawable.jacky_gadget_02),
-        WARP_BLAST(R.drawable.nani_gadget_01),
+        WARPIN_ASTERISCO__TIME(R.drawable.nani_gadget_01),
         RETURN_TO_SENDER(R.drawable.nani_gadget_02),
         GARDEN_MULCHER(R.drawable.sprout_gadget_01),
         TRANSPLANT(R.drawable.sprout_gadget_02),
         POWER_SURGE(R.drawable.surge_gadget_01),
         POWER_SHIELD(R.drawable.surge_gadget_02),
-        NAAH(R.drawable.colette_gadget_01),
-        GOTCHA(R.drawable.colette_gadget_02),
+        NA_TRATTINO_AH_ESCLAMATIVO(R.drawable.colette_gadget_01),
+        GOTCHA_ESCLAMATIVO(R.drawable.colette_gadget_02),
         SHOT_IN_THE_ARM(R.drawable.byron_gadget_01),
         BOOSTER_SHOTS(R.drawable.byron_gadget_02),
-        LETS_FLY(R.drawable.edgar_gadget_01),
+        LET_ASTERISCO_S_FLY(R.drawable.edgar_gadget_01),
         HARDCORE(R.drawable.edgar_gadget_02),
         SPEED_ZONE(R.drawable.stu_gadget_01),
         BREAKTHROUGH(R.drawable.stu_gadget_02),
@@ -307,7 +308,7 @@ public class Constants {
         WATCHTOWER(R.drawable.grom_gadget_01),
         RADIO_CHECK(R.drawable.grom_gadget_02),
         RESERVE_BUOY(R.drawable.buzz_gadget_01),
-        XRAY_SHADES(R.drawable.buzz_gadget_02),
+        X_TRATTINO_RAY_TRATTINO_SHADES(R.drawable.buzz_gadget_02),
         PIGGY_BANK(R.drawable.griff_gadget_01),
         COIN_SHOWER(R.drawable.griff_gadget_02),
         CHILL_PILL(R.drawable.ash_gadget_01),
@@ -319,9 +320,9 @@ public class Constants {
         SPICY_DICE(R.drawable.chester_gadget_01),
         CANDY_BEANS(R.drawable.chester_gadget_02),
         OUT_OF_LINE(R.drawable.rt_gadget_01),
-        HACKSAW(R.drawable.rt_gadget_02),
-        DISENGAGE(R.drawable.maisie_gadget_01),
-        FINISH_THEM_ALL(R.drawable.maisie_gadget_02),
+        HACKSAW_ESCLAMATIVO(R.drawable.rt_gadget_02),
+        DISENGAGE_ESCLAMATIVO(R.drawable.maisie_gadget_01),
+        FINISH_THEM_ESCLAMATIVO(R.drawable.maisie_gadget_02),
         REPLANTING(R.drawable.cordelius_gadget_01),
         POISON_MUSHROOM(R.drawable.cordelius_gadget_02),
         OVERCOOKED(R.drawable.pearl_gadget_01),
@@ -330,30 +331,28 @@ public class Constants {
         LAST_STAND(R.drawable.draco_gadget_02),
         REGULATEUR(R.drawable.gadget_base),
         ALL_EYEZ_ON_ME(R.drawable.gadget_base),
-        /*MANSIONS_OF_MEEPLE(R.drawable.meeple_gadget_01),
-        RAGEQUIT(R.drawable.meeple_gadget_02),
+        MANSIONS_OF_MEEPLE(R.drawable.meeple_gadget_01),
+        RAGEQUIT(R.drawable.gadget_base),
         VODOO_CHILERO(R.drawable.juju_gadget_01),
-        ELEMENTALIST(R.drawable.juju_gadget_02),
+        ELEMENTALIST(R.drawable.gadget_base),
         LONGARMS(R.drawable.shade_gadget_01),
         JUMP_SCARE(R.drawable.shade_gadget_02),
-        SHADE(R.drawable.shade_pin),
-        DASHI_DASHI(R.drawable.kenji_gadget_01),
+        DASHI_DASH(R.drawable.kenji_gadget_01),
         HOSOMAKI_HEALING(R.drawable.kenji_gadget_02),
         DODGY_DIGGING(R.drawable.moe_gadget_01),
         RAT_RACE(R.drawable.moe_gadget_02),
         SNAPPY_SHOOTING(R.drawable.clancy_gadget_01),
         TACTICAL_RETREAT(R.drawable.clancy_gadget_02),
-        FRIENDSHIP_IS_GREAT(R.drawable.berry_gadget_01),
+        FRIENDSHIP_IS_GREAT(R.drawable.gadget_base),
         HEALTHY_ADDITIVES(R.drawable.berry_gadget_02),
-        BERRY(R.drawable.berry_pin),
         VANISH(R.drawable.lily_gadget_01),
         REPOT(R.drawable.lily_gadget_02),
         STINGING_FLIGHT(R.drawable.angelo_gadget_01),
         MASTER_FLETCHER(R.drawable.angelo_gadget_02),
         PERFECT_PITCH(R.drawable.melodie_gadget_01),
         INTERLUDER(R.drawable.melodie_gadget_02),
-        ORDER_SWAP(R.drawable.larry_and_lawrie_gadget_01),  //todo: controllo
-        ORDER_FALL_BACK(R.drawable.larry_and_lawrie_gadget_02),
+        ORDER_POINT_SWAP(R.drawable.larry_and_lawrie_gadget_01),
+        ORDER_POINT_FALL_BACK(R.drawable.larry_and_lawrie_gadget_02),
         CARDBOARD_BOX(R.drawable.kit_gadget_01),
         CHEESBURGER(R.drawable.kit_gadget_02),
         CLIPPING_SCREAM(R.drawable.mico_gadget_01),
@@ -394,11 +393,31 @@ public class Constants {
         PORTER_REINFORCEMENTS(R.drawable.mrp_gadget_02),
         ICE_BLOCK(R.drawable.lou_gadget_01),
         CRYO_SYRUP(R.drawable.lou_gadget_02);
-*/
-        private final int iconPlayerId;
 
-        GadgetPin(int iconPlayerId) {
-            this.iconPlayerId = iconPlayerId;
+        private final int iconGadgetId;
+
+        GadgetPin(int iconGadgetId) {
+            this.iconGadgetId = iconGadgetId;
+        }
+
+        public int getIconGadgetId() {
+            return iconGadgetId;
+        }
+        public static GadgetPin fromGadgetPinString(String mode) {
+            try {
+                // Sostituisci i caratteri non validi
+                String enumKey = mode.toUpperCase()
+                        .replace(": ", "_POINT_")
+                        .replace(" ", "_")
+                        .replace("-", "_TRATTINO_")
+                        .replace("!", "_ESCLAMATIVO")
+                        .replace("'", "_ASTERISCO_")
+                        .replace(" ", "_");
+                return GadgetPin.valueOf(enumKey);
+            } catch (IllegalArgumentException e) {
+                // Fallback in caso di errore
+                return GadgetPin.FRIENDSHIP_IS_GREAT; // Valore predefinito
+            }
         }
     }
     
