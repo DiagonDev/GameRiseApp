@@ -261,12 +261,12 @@
             android:src="@drawable/coin" />
 
         <TextView
+            android:id="@+id/moneyTextView"
             style="@style/CustomTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:padding="8dp"
-            android:text="1875"
             android:textColor="@color/white"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@+id/guidelineV05"
@@ -289,12 +289,12 @@
             android:src="@drawable/starpoints" />
 
         <TextView
+            android:id="@+id/starPointsTextView"
             style="@style/CustomTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:padding="8dp"
-            android:text="890"
             android:textColor="@color/white"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@+id/guidelineV05"

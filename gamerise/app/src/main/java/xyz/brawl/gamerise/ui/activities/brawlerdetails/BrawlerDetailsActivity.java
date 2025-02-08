@@ -33,10 +33,17 @@ import xyz.brawl.gamerise.util.ServiceLocator;
 public class BrawlerDetailsActivity extends AppCompatActivity {
     BrawlersViewModel brawlersViewModel;
 
+    private TextView name;
+    private ImageView brawlerImg;
+    private ImageView brawlerImgPrev;
+    private ImageView brawlerImgNext;
+
     private TextView powerLevelText;
     private TextView trophiesText;
     private ProgressBar trophiesProgress;
     private ProgressBar powerLevelProgress;
+    private TextView moneyText;
+    private TextView starPointsText;
 
     private TextView gadgetText1;
     private ImageView gadgetImg1;
@@ -48,12 +55,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
     private TextView starPowerText2;
     private ImageView starPowerImg2;
 
-    private LinearLayout starPowerLayout;
-    private TextView nome;
-    private ImageView immagineBrawler;
-    private ImageView immagineBrawlerPrec;
-    private ImageView immagineBrawlerSucc;
-
     private List<BrawlerEntry> brawlers;
     private int countG = 0;
     private int countA = 0;
@@ -63,10 +64,18 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_brawler_details);
+
+        name = findViewById(R.id.textView);
+        brawlerImg = findViewById(R.id.imageView);
+        brawlerImgPrev = findViewById(R.id.previous_brawler_image);
+        brawlerImgNext = findViewById(R.id.next_brawler_image);
+
         powerLevelText = findViewById(R.id.livello_score);
         trophiesText = findViewById(R.id.trofei_score);
         trophiesProgress = findViewById(R.id.trofei_progress);
         powerLevelProgress = findViewById(R.id.livello_progress);
+        moneyText = findViewById(R.id.moneyTextView);
+        starPointsText = findViewById(R.id.starPointsTextView);
 
         gadgetText1 = findViewById(R.id.textViewGadget1);
         gadgetImg1 = findViewById(R.id.imageViewGadget1);
@@ -78,11 +87,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         starPowerText2 = findViewById(R.id.textViewStarPower2);
         starPowerImg2 = findViewById(R.id.imageViewStarPower2);
 
-        starPowerLayout = findViewById(R.id.linearLayoutStarPower);
-        nome = findViewById(R.id.textView);
-        immagineBrawler = findViewById(R.id.imageView);
-        immagineBrawlerPrec = findViewById(R.id.previous_brawler_image);
-        immagineBrawlerSucc = findViewById(R.id.next_brawler_image);
 
         BrawlersRepository brawlersRepository = ServiceLocator.getInstance().getBrawlersRepository(getApplication(),
             getApplication().getResources().getBoolean(R.bool.debug_mode));
@@ -140,19 +144,22 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                         brawlers = (List<BrawlerEntry>) ((Result.Success) result).getData();
                         for (BrawlerEntry brawler : brawlers){
                             if (brawler.getId() == brawlerId){
-                                nome.setText(brawler.getName());
-                                immagineBrawler.setImageResource(brawler.getBrawlerPin());
-                                trophiesProgress.setProgress(brawler.getTrophies());
-                                powerLevelProgress.setProgress(brawler.getPower());
-                                trophiesText.setText(brawler.getTrophies() + "/1000");
-                                powerLevelText.setText(brawler.getPower() + "/11");
-
                                 int currentIndex = brawlers.indexOf(brawler);
                                 BrawlerEntry brawlerPrec = (currentIndex == 0) ? brawlers.get(brawlers.size() - 1) : brawlers.get(currentIndex - 1);
                                 BrawlerEntry brawlerSucc = (currentIndex == brawlers.size() - 1) ? brawlers.get(0) : brawlers.get(currentIndex + 1);
 
-                                immagineBrawlerPrec.setImageResource(brawlerPrec.getBrawlerPin());
-                                immagineBrawlerSucc.setImageResource(brawlerSucc.getBrawlerPin());
+                                name.setText(brawler.getName());
+                                brawlerImg.setImageResource(brawler.getBrawlerPin());
+                                brawlerImgPrev.setImageResource(brawlerPrec.getBrawlerPin());
+                                brawlerImgNext.setImageResource(brawlerSucc.getBrawlerPin());
+
+                                trophiesProgress.setProgress(brawler.getTrophies());
+                                powerLevelProgress.setProgress(brawler.getPower());
+                                trophiesText.setText(brawler.getTrophies() + "/1000");
+                                powerLevelText.setText(brawler.getPower() + "/11");
+                                moneyText.setText(String.valueOf(getMoney(brawler.getPower())));
+                                starPointsText.setText(String.valueOf(getStarPoints(brawler.getPower())));
+
                                 break;
                             }
                         }
@@ -203,6 +210,14 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         LinearLayout nextBrawlerLayout = findViewById(R.id.next_brawler_layout);
         previousBrawlerLayout.setOnClickListener(v -> navigateToPreviousBrawler(brawlerId, tag));
         nextBrawlerLayout.setOnClickListener(v -> navigateToNextBrawler(brawlerId, tag));
+    }
+
+    private int getStarPoints(int power) {
+        return 0;
+    }
+
+    private int getMoney(int power) {
+        return 0;
     }
 
     private void navigateToPreviousBrawler(long currentBrawlerId, String tag) {
