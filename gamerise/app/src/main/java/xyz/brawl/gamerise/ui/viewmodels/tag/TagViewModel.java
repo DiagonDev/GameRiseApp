@@ -17,7 +17,7 @@ public class TagViewModel extends ViewModel{
     public void addTag(Tag tag) {
         //tagLiveData = tagRepository.insertTag(tag);
         tagRepository.insertTag(tag);
-
+        DownloadDataFacade facade = new DownloadDataFacade(getApplication());
         // Salva il tag nel database ed elimina i meno recenti se necessario
         /* ridondate se uso facade
         if (database != null) {
