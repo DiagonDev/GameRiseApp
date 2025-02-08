@@ -23,6 +23,10 @@ public class BrawlersRepository implements BrawlersCallBack {
         this.brawlerLocalDataSource.setBrawlerCallBack(this);
         this.brawlerRemoteDataSource.setBrawlerCallBack(this);
     }
+    public MutableLiveData<Result> insertBrawlers(List<BrawlerEntry> brawlersToInsert, String tagId){
+        brawlerLocalDataSource.insertBrawlers(brawlersToInsert, tagId);
+        return allBrawlerLiveData;
+    }
 
     // qua va la logica
     public MutableLiveData<Result> fetchBrawlers(String tagId, long lastUpdate) {

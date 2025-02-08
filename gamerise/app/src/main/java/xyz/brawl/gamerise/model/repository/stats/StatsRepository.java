@@ -31,7 +31,10 @@ public class StatsRepository implements StatsCallBack {
         return statsLiveData;
     }
 
-
+    public MutableLiveData<Result> insertStats(Stat statsToInsert, String tagId){
+        statsLocalDataSource.insertStats(statsToInsert, tagId);
+        return statsLiveData;
+    }
     @Override
     public void onSuccessFromRemote(Stat stats, long lastUpdate) {
         Result result = new Result.Success(stats);

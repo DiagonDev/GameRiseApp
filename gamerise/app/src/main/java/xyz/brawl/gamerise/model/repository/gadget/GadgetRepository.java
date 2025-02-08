@@ -11,7 +11,7 @@ import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetRemoteDataSource;
 
-public class GadgetRepository implements GadgetCallback{
+public class GadgetRepository implements GadgetCallback {
     private final BaseGadgetLocalDataSource gadgetLocalDataSource;
     private final BaseGadgetRemoteDataSource gadgetRemoteDataSource;
     private final MutableLiveData<Result> allGadgetLiveData;
@@ -22,6 +22,11 @@ public class GadgetRepository implements GadgetCallback{
         this.gadgetRemoteDataSource = gadgetRemoteDataSource;
         this.gadgetLocalDataSource.setGadgetCallback(this);
         this.gadgetRemoteDataSource.setGadgetCallback(this);
+    }
+
+    public MutableLiveData<Result> insertGadgets(List<GadgetEntry> gadgetEntryList, Long brawlerId) {
+        gadgetLocalDataSource.insertGadgets(gadgetEntryList, brawlerId);
+        return allGadgetLiveData;
     }
 
     public MutableLiveData<Result> fetchGadget(Long brawlerId, long lastUpdate, String tagId) {

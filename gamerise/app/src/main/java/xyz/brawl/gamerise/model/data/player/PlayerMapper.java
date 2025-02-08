@@ -7,9 +7,14 @@ import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.util.Constants;
 
 public class PlayerMapper {
+    public static Tag mapToTag(PlayerApiResponse playerApiResponse) {
+        return new Tag(playerApiResponse.name, playerApiResponse.tag);
+    }
+
     public static Stat mapToStat(PlayerApiResponse playerApiResponse) {
         return new Stat.StatBuilder()
                 .tag(playerApiResponse.tag)

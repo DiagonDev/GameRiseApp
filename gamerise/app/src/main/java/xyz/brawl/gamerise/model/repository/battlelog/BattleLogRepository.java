@@ -20,7 +20,7 @@ public class BattleLogRepository implements BattleLogCallback {
     private final MutableLiveData<Result> allBattleLogLiveData;
     private final BaseBattleLocalDataSource battleLocalDataSource;
     private final BaseBattleRemoteDataSource battleRemoteDataSource;
-    //TODO: aggiongere il REMOTE
+
     public BattleLogRepository(BaseBattleLocalDataSource battleLocalDataSource, BaseBattleRemoteDataSource battleRemoteDataSource) {
         allBattleLogLiveData = new MutableLiveData<>();
         this.battleLocalDataSource = battleLocalDataSource;

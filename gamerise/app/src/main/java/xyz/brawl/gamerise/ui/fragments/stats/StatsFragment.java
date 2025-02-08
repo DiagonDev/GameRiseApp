@@ -94,7 +94,7 @@ public class StatsFragment extends Fragment  {
             noInternetView.setVisibility(View.VISIBLE);
             lastUpdate = System.currentTimeMillis() + "";
         }
-        statsViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+        statsViewModel.getStats(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
                         Stat stat= (Stat) ((Result.Success) result).getData();

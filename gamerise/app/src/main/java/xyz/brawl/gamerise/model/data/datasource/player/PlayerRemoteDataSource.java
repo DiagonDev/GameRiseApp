@@ -19,15 +19,14 @@ public class PlayerRemoteDataSource extends BasePlayerRemoteDataSource {
     }
 
     @Override
-    public void getPlayerName(String tagId) {
+    public void getPlayer(String tagId) {
         tagId = "#" + tagId;
         apiService.getPlayer(tagId).enqueue(new Callback<PlayerApiResponse>() {
             @Override
             public void onResponse(Call<PlayerApiResponse> call, Response<PlayerApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String playerName = response.body().name;
                     // Passa il risultato e il tempo di aggiornamento al callback
-                    playerCallBack.onSuccessFromRemote(playerName, response.raw().receivedResponseAtMillis());
+                    playerCallBack.onSuccessFromRemote(response.body(), response.raw().receivedResponseAtMillis());
                 } else {
                     // Errore nel codice HTTP o risposta vuota
                     String errorMessage = "Errore: Risposta non valida (Codice: " + response.code() + ")";

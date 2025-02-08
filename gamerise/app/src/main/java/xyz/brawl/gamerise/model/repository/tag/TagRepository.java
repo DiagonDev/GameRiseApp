@@ -24,8 +24,6 @@ public class TagRepository implements TagCallback {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
             //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
-            //articleRemoteDataSource.getArticles(country);
-            //get(apiService.getBattlelog(tagId));
         } else {
             tagLocalDataSource.getTag();
         }
