@@ -179,9 +179,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                             if(gadget.getBrawlerId() == brawlerId){
                                 if (countG == 0) {
                                     gadgetText1.setText(gadget.getName());
+                                    gadgetImg1.setImageResource(gadget.getGadgetPin());
                                     countG++;
                                 } else if (countG == 1){
                                     gadgetText2.setText(gadget.getName());
+                                    gadgetImg2.setImageResource(gadget.getGadgetPin());
                                     countG = 0;
                                 }
                             }
@@ -199,9 +201,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                             if(starPower.getBrawlerId() == brawlerId){
                                 if (countA == 0) {
                                     starPowerText1.setText(starPower.getName());
+                                    starPowerImg1.setImageResource(starPower.getStarPowerPin());
                                     countA++;
                                 } else if (countA == 1){
                                     starPowerText2.setText(starPower.getName());
+                                    starPowerImg2.setImageResource(starPower.getStarPowerPin());
                                     countA = 0;
                                 }
                             }

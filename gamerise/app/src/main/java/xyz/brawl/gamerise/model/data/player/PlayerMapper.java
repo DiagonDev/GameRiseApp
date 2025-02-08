@@ -45,6 +45,7 @@ public class PlayerMapper {
             if (brawler.getGadgetEntries() != null) {
                 for (GadgetEntry gadget : brawler.getGadgetEntries()) {
                     gadget.setBrawlerId(brawler.getId()); // Imposta l'ID del brawler di riferimento
+                    gadget.setGadgetPin(Constants.GadgetPin.fromGadgetPinString(gadget.getName()).getIconGadgetId());
                     gadgetList.add(gadget);
                 }
             }
@@ -60,6 +61,7 @@ public class PlayerMapper {
             if (brawler.getStarPowersEntries() != null) {
                 for (StarPowerEntry starPower : brawler.getStarPowersEntries()) {
                     starPower.setBrawlerId(brawler.getId()); // Imposta l'ID del brawler di riferimento
+                    starPower.setStarPowerPin(Constants.StarPowerPin.fromStarPowerPinString(starPower.getName()).getIconStarPowerId());
                     starPowerList.add(starPower);
                 }
             }
@@ -67,4 +69,6 @@ public class PlayerMapper {
 
         return starPowerList;
     }
+
+
 }

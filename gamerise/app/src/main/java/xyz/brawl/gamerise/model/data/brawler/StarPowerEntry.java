@@ -26,6 +26,7 @@ public class StarPowerEntry {
     private String name;
 
     private long brawlerId;
+    private int starPowerPin;
 
     public long getId() {
         return id;
@@ -49,5 +50,13 @@ public class StarPowerEntry {
 
     public void setBrawlerId(long brawlerId) {
         this.brawlerId = brawlerId;
+    }
+
+    public int getStarPowerPin() {
+        return starPowerPin;
+    }
+
+    public void setStarPowerPin(int starPowerPin) {
+        this.starPowerPin = starPowerPin;
     }
 }
