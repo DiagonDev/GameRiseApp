@@ -1,12 +1,10 @@
 package xyz.brawl.gamerise.ui.activities.brawlerdetails;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -35,9 +33,10 @@ import xyz.brawl.gamerise.util.ServiceLocator;
 public class BrawlerDetailsActivity extends AppCompatActivity {
     BrawlersViewModel brawlersViewModel;
 
-    private TextView livelloScore;
-    private TextView trofeiScore;
-    private ProgressBar trofeiProgress;
+    private TextView powerLevelText;
+    private TextView trophiesText;
+    private ProgressBar trophiesProgress;
+    private ProgressBar powerLevelProgress;
 
     private TextView gadgetText1;
     private ImageView gadgetImg1;
@@ -64,9 +63,10 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_brawler_details);
-        livelloScore = findViewById(R.id.livello_score);
-        trofeiScore = findViewById(R.id.trofei_score);
-        trofeiProgress = findViewById(R.id.trofei_progress);
+        powerLevelText = findViewById(R.id.livello_score);
+        trophiesText = findViewById(R.id.trofei_score);
+        trophiesProgress = findViewById(R.id.trofei_progress);
+        powerLevelProgress = findViewById(R.id.livello_progress);
 
         gadgetText1 = findViewById(R.id.textViewGadget1);
         gadgetImg1 = findViewById(R.id.imageViewGadget1);
@@ -120,6 +120,8 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         gadgetText2.setText("");
         starPowerText1.setText("");
         starPowerText2.setText("");
+        trophiesText.setText("");
+        powerLevelText.setText("");
         gadgetImg1.setImageResource(0);
         gadgetImg2.setImageResource(0);
         starPowerImg1.setImageResource(0);
@@ -140,6 +142,10 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                             if (brawler.getId() == brawlerId){
                                 nome.setText(brawler.getName());
                                 immagineBrawler.setImageResource(brawler.getBrawlerPin());
+                                trophiesProgress.setProgress(brawler.getTrophies());
+                                powerLevelProgress.setProgress(brawler.getPower());
+                                trophiesText.setText(brawler.getTrophies() + "/1000");
+                                powerLevelText.setText(brawler.getPower() + "/11");
 
                                 int currentIndex = brawlers.indexOf(brawler);
                                 BrawlerEntry brawlerPrec = (currentIndex == 0) ? brawlers.get(brawlers.size() - 1) : brawlers.get(currentIndex - 1);

@@ -30,8 +30,7 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
         indices = {@androidx.room.Index(value = "tagId")}
 )
 public class BrawlerEntry {
-
-    @PrimaryKey
+        @PrimaryKey
     @SerializedName("id")
     private long id;
 
@@ -39,8 +38,12 @@ public class BrawlerEntry {
     private String name;
     public String tagId;
     private int brawlerPin;
-    private int power;
+    @SerializedName("power")
+    private int power;      //LIVELLO
+    @SerializedName("rank")
     private int rank;
+    @SerializedName("trophies")
+    public int trophies;
 
 
     @Ignore     // Non viene inserito nel database, ma viene comunque gestito da Retrofit
@@ -120,5 +123,13 @@ public class BrawlerEntry {
 
     public void setTagId(String tagId) {
         this.tagId = tagId;
+    }
+
+    public int getTrophies() {
+        return trophies;
+    }
+
+    public void setTrophies(int trophies) {
+        this.trophies = trophies;
     }
 }
