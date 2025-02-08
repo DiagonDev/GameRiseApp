@@ -59,6 +59,9 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
     private int countG = 0;
     private int countA = 0;
 
+    private static final int[] POINTS_COST = {20, 30, 50, 80, 130, 210, 340, 550, 890, 1440};
+    private static final int[] MONEY_COST  = {20, 35, 75, 140, 290, 480, 800, 1250, 1875, 2800};
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,11 +216,25 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
     }
 
     private int getStarPoints(int power) {
-        return 0;
+        int totalPoints = 0;
+        if (power == 11) {
+            return 0;
+        }
+        for (int i = power - 1; i < POINTS_COST.length; i++) {
+            totalPoints += POINTS_COST[i];
+        }
+        return totalPoints;
     }
 
     private int getMoney(int power) {
-        return 0;
+        int totalMoney = 0;
+        if (power == 11) {
+            return 0;
+        }
+        for (int i = power - 1; i < POINTS_COST.length; i++) {
+            totalMoney += MONEY_COST[i];
+        }
+        return totalMoney;
     }
 
     private void navigateToPreviousBrawler(long currentBrawlerId, String tag) {

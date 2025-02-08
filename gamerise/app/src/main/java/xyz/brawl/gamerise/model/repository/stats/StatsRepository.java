@@ -5,27 +5,25 @@ import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
 import androidx.lifecycle.MutableLiveData;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsRemoteDataSource;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 
-public class StatsRepository implements StatsCallBack{
+public class StatsRepository implements StatsCallBack {
+    private final MutableLiveData<Result> statsLiveData;
     private final BaseStatsLocalDataSource statsLocalDataSource;
     private final BaseStatsRemoteDataSource statsRemoteDataSource;
-    private final MutableLiveData<Result> statsLiveData;
 
     public StatsRepository(BaseStatsLocalDataSource statsLocalDataSource, BaseStatsRemoteDataSource statsRemoteDataSource) {
         statsLiveData = new MutableLiveData<>();
-        this.statsLocalDataSource = statsLocalDataSource;
         this.statsRemoteDataSource = statsRemoteDataSource;
+        this.statsLocalDataSource = statsLocalDataSource;
         this.statsLocalDataSource.setStatsCallback(this);
-        this.statsRemoteDataSource.setStatsCallBack(this);
+        this.statsRemoteDataSource.setStatsCallback(this);
     }
     public MutableLiveData<Result> fetchStats(String tagId, long lastUpdate) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
-            //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
             statsRemoteDataSource.getStats(tagId);
         } else {
             statsLocalDataSource.getStats(tagId);
