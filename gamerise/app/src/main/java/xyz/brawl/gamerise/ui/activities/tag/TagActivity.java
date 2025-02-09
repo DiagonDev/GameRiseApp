@@ -83,7 +83,7 @@ public class TagActivity extends AppCompatActivity{
         });
 
         Button googleButton = findViewById(R.id.btnGoogleCustom);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        googleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: leo metti qui la logica del bottone google
