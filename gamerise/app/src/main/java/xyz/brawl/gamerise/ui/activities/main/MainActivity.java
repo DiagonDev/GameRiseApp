@@ -40,25 +40,34 @@ public class MainActivity extends AppCompatActivity {
         NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
 
         navigationBarView.setOnItemSelectedListener(item -> {
+            navigationBarView.getMenu().findItem(R.id.item_1).setIcon(R.drawable.baseline_check_box_outline_blank_24);
+            navigationBarView.getMenu().findItem(R.id.item_2).setIcon(R.drawable.baseline_check_box_outline_blank_24);
+            navigationBarView.getMenu().findItem(R.id.item_3).setIcon(R.drawable.baseline_check_box_outline_blank_24);
+            navigationBarView.getMenu().findItem(R.id.item_4).setIcon(R.drawable.baseline_check_box_outline_blank_24);
+
             if (item.getItemId() == R.id.item_1) {
+                item.setIcon(R.drawable.baseline_check_box_24);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container_view, new BattleLogFragment())
                         .commit();
                 return true;
             } else if (item.getItemId() == R.id.item_2) {
+                item.setIcon(R.drawable.baseline_check_box_24);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container_view, new BrawlersFragment())
                         .commit();
                 return true;
             } else if (item.getItemId() == R.id.item_3) {
+                item.setIcon(R.drawable.baseline_check_box_24);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container_view, new RankedFragment())
                         .commit();
                 return true;
             } else if (item.getItemId() == R.id.item_4) {
+                item.setIcon(R.drawable.baseline_check_box_24);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container_view, new StatsFragment())
