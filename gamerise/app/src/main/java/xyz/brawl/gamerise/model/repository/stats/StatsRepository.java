@@ -34,8 +34,7 @@ public class StatsRepository implements StatsCallBack {
 
     @Override
     public void onSuccessFromRemote(Stat stats, long lastUpdate) {
-        Result result = new Result.Success(stats);
-        statsLiveData.postValue(result);
+        statsLocalDataSource.insertStats(stats);
     }
 
     @Override
@@ -49,7 +48,6 @@ public class StatsRepository implements StatsCallBack {
         Result result = new Result.Success(stats);
         statsLiveData.postValue(result);
     }
-
 
     @Override
     public void onFailureFromLocal(Exception exception) {

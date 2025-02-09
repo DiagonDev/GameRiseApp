@@ -74,7 +74,6 @@ public class BattleLogRepository implements BattleLogCallback {
         allBattleLogLiveData.postValue(resultError);
     }
 
-    //TODO: da completare
     @Override
     public void onSuccessFromLocal(List<Battle> battles) {
         Result result = new Result.Success(battles);
