@@ -153,9 +153,24 @@ public class StatsFragment extends Fragment  {
                     }
                 });
 
-        String title = "Maps WinsXGames";
-        Map<String, Integer> battleCount = new HashMap<>();
-        addScatterChart(title, battleCount);
+        battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+                result -> {
+                    if (result.isSuccess()) {
+                        List<Battle> battleList= (List<Battle>) ((Result.Success) result).getData();
+                        battles.clear();
+                        battles.addAll(battleList);
+                        Map<String, Integer> battleCount = new HashMap<>();
+                        for (Battle battle : battles) {
+                            if(Integer.parseInt(battle.trophies)>0){
+                                battleCount.put(battle.subTitle, battleCount.getOrDefault(battle.subTitle, 0) + 1);
+                            }
+                        }
+                        addScatterChart("Maps WinsXGames", battleCount);
+                    } else {
+                        String errorMessage = ((Result.Error) result).getMessage();
+                        Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
 
         return view;
     }
@@ -170,21 +185,15 @@ public class StatsFragment extends Fragment  {
         ScatterChart scatterChart = chartView.findViewById(R.id.scatterChart);
         List<Entry> entries = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        int x = 1;
 
-        if (title.equals("Game Modes Win")) {
+        int x = 0;
+
+        if (title.equals("Game Modes Win") || title.equals("Maps WinsXGames")) {
             for (Map.Entry<String, Integer> entry : battleCount.entrySet()) {
                 entries.add(new Entry(x, entry.getValue())); // Aggiunge il valore al grafico
                 labels.add(entry.getKey()); // Salva il nome della battaglia
                 x++;
             }
-        } else {
-            entries.add(new Entry(1, 2));
-            entries.add(new Entry(2, 3));
-            entries.add(new Entry(3, 1));
-            labels.add("Mappa 1");
-            labels.add("Mappa 2");
-            labels.add("Mappa 3");
         }
 
         ScatterDataSet dataSet = new ScatterDataSet(entries, "");
@@ -194,10 +203,6 @@ public class StatsFragment extends Fragment  {
         dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getPointLabel(Entry entry) {
-                int index = (int) entry.getX() - 1;
-                if (index >= 0 && index < labels.size()) {
-                    return labels.get(index); // Mostra il nome della battaglia
-                }
                 return "";
             }
         });
@@ -214,8 +219,8 @@ public class StatsFragment extends Fragment  {
         scatterChart.getAxisLeft().setGranularityEnabled(true);
 
         // Imposta le etichette personalizzate sull'asse X
-        //scatterChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        //scatterChart.getXAxis().setLabelRotationAngle(-30f); // Ruota le etichette per visibilità
+        scatterChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+        scatterChart.getXAxis().setLabelRotationAngle(-30f); // Ruota le etichette per visibilità
 
         ScatterData scatterData = new ScatterData(dataSet);
         scatterChart.setData(scatterData);
