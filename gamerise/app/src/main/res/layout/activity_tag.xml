@@ -124,10 +124,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/checkbox_button"
                 app:layout_constraintTop_toBottomOf="@+id/middle_layout" />
+
+
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnGoogleCustom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Accedi con Google"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/salvati_textView"
+        app:layout_constraintStart_toStartOf="@id/ve_gl_0.15"
+        app:layout_constraintEnd_toEndOf="@id/ve_gl_0.85"/>
 
 
     <TextView
