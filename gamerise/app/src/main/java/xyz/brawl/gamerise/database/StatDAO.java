@@ -2,6 +2,7 @@ package xyz.brawl.gamerise.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import xyz.brawl.gamerise.model.data.stat.Stat;
@@ -11,7 +12,7 @@ public interface StatDAO {
     @Query("SELECT * FROM Stat WHERE tag = :tagName")
     Stat getStat(String tagName);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertStat(Stat stat);
 
    @Query("DELETE FROM Stat WHERE tag = :tagName")

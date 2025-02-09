@@ -35,9 +35,8 @@ public class GadgetRepository implements GadgetCallback{
     }
 
     @Override
-    public void onSuccessFromRemote(Object gadgetList, long lastUpdate) {
-        Result result = new Result.Success(gadgetList);
-        allGadgetLiveData.postValue(result);
+    public void onSuccessFromRemote(List<GadgetEntry> gadgetList, long lastUpdate) {
+        gadgetLocalDataSource.insertGadgets(gadgetList);
     }
 
     @Override
