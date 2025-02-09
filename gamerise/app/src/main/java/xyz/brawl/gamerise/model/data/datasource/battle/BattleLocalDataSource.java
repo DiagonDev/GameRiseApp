@@ -7,6 +7,7 @@ import xyz.brawl.gamerise.database.BattleDAO;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.TagDAO;
 import xyz.brawl.gamerise.model.data.battle.Battle;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 
 /**
@@ -16,6 +17,7 @@ import xyz.brawl.gamerise.model.data.tag.Tag;
 public class BattleLocalDataSource extends BaseBattleLocalDataSource{
     private final BattleDAO battleDAO;
     private final TagDAO tagDao;
+    private final GameAccountSingleton gameAccountSingleton = GameAccountSingleton.getInstance();
 
     public BattleLocalDataSource(GameRiseDatabase gameRiseDatabase) {
         this.battleDAO = gameRiseDatabase.battleDAO();
@@ -33,7 +35,8 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
         //TODO: potrebbe esserci qualche errore su "battleDAO.insertAll(toInsertOrUpdate);"
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             Tag tag = tagDao.getTag();
-            if(tag != null) {
+            String tagAccount = gameAccountSingleton.getUserTag();
+            if(tag.getTag().equals(tagAccount)) {
                 for(Battle battle : battleList) {
                     battle.setTagId(tag.getTag());
                 }

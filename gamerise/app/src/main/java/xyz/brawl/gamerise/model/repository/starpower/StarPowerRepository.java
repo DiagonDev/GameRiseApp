@@ -35,9 +35,8 @@ public class StarPowerRepository implements StarPowerCallback {
     }
 
     @Override
-    public void onSuccessFromRemote(Object starPowerList, long lastUpdate) {
-        Result result = new Result.Success(starPowerList);
-        allStarPowerLiveData.postValue(result);
+    public void onSuccessFromRemote(List<StarPowerEntry> starPowerList, long lastUpdate) {
+        starPowerLocalDataSource.insertStarPower(starPowerList);
     }
 
     @Override
