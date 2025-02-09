@@ -21,7 +21,7 @@ public class TagLocalDataSource extends BaseTagLocalDataSource{
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             Tag tag = tagDAO.getTag();
             if (tag != null) {
-                deleteTag(tag);
+                tagDAO.delete(tag);
             }
             tagDAO.insert(tagToInsert);
             tagCallback.onSuccessFromLocal(tagDAO.getTag());

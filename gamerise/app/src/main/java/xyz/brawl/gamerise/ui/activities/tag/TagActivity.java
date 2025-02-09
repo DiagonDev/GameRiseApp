@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;
+import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
@@ -35,6 +37,7 @@ public class TagActivity extends AppCompatActivity{
     private EditText insertTag;
     private ImageButton checkboxButton;
     private Button googleButton;
+    private FrameLayout noInternetView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,14 @@ public class TagActivity extends AppCompatActivity{
         tagViewModel = new ViewModelProvider(
                 this,
                 new TagViewModelFactory(tagRepository)).get(TagViewModel.class);
+
+        String lastUpdate = "0";
+        noInternetView = findViewById(R.id.no_internet_view);
+        if(!NetworkUtil.isInternetAvailable(this)){
+            noInternetView.setVisibility(View.VISIBLE);
+
+            lastUpdate = System.currentTimeMillis() + "";
+        }
 
         insertTag = findViewById(R.id.insertTag);
         insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
@@ -144,7 +155,7 @@ public class TagActivity extends AppCompatActivity{
         if (tagViewModel.isTagValid(inputTag)) {
             if (checked) {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
-                tagViewModel.addTag(newTag); // Salva il tag sia nella memoria che nel database
+                tagViewModel.addTag(newTag);// Salva il tag sia nella memoria che nel database2
             }
             insertTag.setText(""); // Resetta il campo di testo
             Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();

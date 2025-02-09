@@ -65,8 +65,7 @@ public class BattleLogRepository implements BattleLogCallback {
 
     @Override
     public void onSuccessFromRemote(List<Battle> battles, long lastUpdate) {
-        Result result = new Result.Success(battles);
-        allBattleLogLiveData.postValue(result);
+        battleLocalDataSource.insertBattles(battles);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class BattleLogRepository implements BattleLogCallback {
     //TODO: da completare
     @Override
     public void onSuccessFromLocal(List<Battle> battles) {
-        Result result = new Result.Success(new BattleLogApiResponse(mapToBattleLogEntries(battles)));
+        Result result = new Result.Success(battles);
         allBattleLogLiveData.postValue(result);
     }
 

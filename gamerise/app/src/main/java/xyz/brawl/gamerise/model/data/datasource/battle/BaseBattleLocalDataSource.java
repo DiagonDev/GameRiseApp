@@ -14,5 +14,5 @@ public abstract class BaseBattleLocalDataSource {
 
     public abstract void getBattles(String tagId);
 
-    public abstract void insertBattles(List<Battle> battleList, String tagId);
+    public abstract void insertBattles(List<Battle> battleList);
 }
