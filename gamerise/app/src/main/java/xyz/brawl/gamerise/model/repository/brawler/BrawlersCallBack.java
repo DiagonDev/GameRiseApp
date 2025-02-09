@@ -8,6 +8,6 @@ public interface BrawlersCallBack {
     void onSuccessFromLocal(List<BrawlerEntry> brawler);
     void onFailureFromLocal(Exception exception);
 
-    void onSuccessFromRemote(Object brawler, long lastUpdate);
+    void onSuccessFromRemote(List<BrawlerEntry> brawler, long lastUpdate);
     void onFailureFromRemote(Exception exception);
 }
