@@ -23,7 +23,9 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
@@ -56,6 +58,9 @@ public class StatsFragment extends Fragment  {
     private TextView vittorie3vs3;
     private ClubEntry c;
     private FrameLayout noInternetView;
+    private BattleLogViewModel battleLogViewModel;
+    private List<Battle> battles;
+    private Stat stats;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,17 @@ public class StatsFragment extends Fragment  {
                 requireActivity(),
                 new StatsViewModelFactory(statsRepository)).get(StatsViewModel.class);
 
-        Stat stats=new Stat();
+        stats=new Stat();
+
+        BattleLogRepository battleLogRepository =
+                ServiceLocator.getInstance().getBattleLogRepository(requireActivity().getApplication(),
+                        requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode));
+
+        battleLogViewModel = new ViewModelProvider(
+                requireActivity(),
+                new BattleLogViewModelFactory(battleLogRepository)).get(BattleLogViewModel.class);
+
+        battles = new ArrayList<>();
         //Qui collegare il viewModel e il repository -------------------------------
     }
     @Override
@@ -94,7 +109,7 @@ public class StatsFragment extends Fragment  {
             noInternetView.setVisibility(View.VISIBLE);
             lastUpdate = System.currentTimeMillis() + "";
         }
-        statsViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+        statsViewModel.getStats(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
                         Stat stat= (Stat) ((Result.Success) result).getData();
@@ -115,15 +130,33 @@ public class StatsFragment extends Fragment  {
 
         //TODO: spostare codice nel viewModel
         chartContainer = view.findViewById(R.id.chart_container);
+        battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+                result -> {
+                    if (result.isSuccess()) {
+                        List<Battle> battleList= (List<Battle>) ((Result.Success) result).getData();
+                        battles.clear();
+                        battles.addAll(battleList);
+                        Map<String, Integer> battleCount = new HashMap<>();
+                        for (Battle battle : battles) {
+                            if(Integer.parseInt(battle.trophies)>0){
+                                battleCount.put(battle.title, battleCount.getOrDefault(battle.title, 0) + 1);
+                            }
+                        }
+                        addScatterChart("Game Modes Win", battleCount);
+                    } else {
+                        String errorMessage = ((Result.Error) result).getMessage();
+                        Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
         String title = "Maps WinsXGames";
-        for (int i = 0; i < 3; i++) {
-            addScatterChart(title);
-        }
+        Map<String, Integer> battleCount = new HashMap<>();
+        addScatterChart(title, battleCount);
 
         return view;
     }
 
-    private void addScatterChart(String title) {
+    private void addScatterChart(String title, Map<String, Integer> battleCount) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View chartView = inflater.inflate(R.layout.layout_chart, chartContainer, false);
 
@@ -131,12 +164,22 @@ public class StatsFragment extends Fragment  {
         charTitle.setText(title);
         // Recupera il grafico a dispersione
         ScatterChart scatterChart = chartView.findViewById(R.id.scatterChart);
-
-        // Crea i dati per il grafico
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 2)); // Punto (x = 1, y = 2)
-        entries.add(new Entry(2, 3)); // Punto (x = 2, y = 3)
-        entries.add(new Entry(3, 1)); // Punto (x = 3, y = 1)
+        int x=1;
+        if(title.equals("Game Modes Win")){
+            for (Map.Entry<String, Integer> entry : battleCount.entrySet()) {
+                entries.add(new Entry(x, entry.getValue()));
+                x++; // Incremento X per ogni tipo di battaglia
+            }
+        }else{// Crea i dati per il grafico
+
+            entries.add(new Entry(1, 2)); // Punto (x = 1, y = 2)
+            entries.add(new Entry(2, 3)); // Punto (x = 2, y = 3)
+            entries.add(new Entry(3, 1)); // Punto (x = 3, y = 1)//
+        }
+        // Crea i dati per il grafico
+
+
 
         ScatterDataSet dataSet = new ScatterDataSet(entries, "");
         dataSet.setColor(R.color.black); // Colore dei punti
@@ -145,7 +188,7 @@ public class StatsFragment extends Fragment  {
         dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getPointLabel(Entry entry) {
-                return "Mappa1";
+                return "Mappa"+entry.getX();
             }
         });
 
