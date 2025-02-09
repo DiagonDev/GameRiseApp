@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.ui.fragments.stats;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -164,59 +166,63 @@ public class StatsFragment extends Fragment  {
 
         TextView charTitle = chartView.findViewById(R.id.chart_title);
         charTitle.setText(title);
-        // Recupera il grafico a dispersione
+
         ScatterChart scatterChart = chartView.findViewById(R.id.scatterChart);
         List<Entry> entries = new ArrayList<>();
-        int x=1;
-        if(title.equals("Game Modes Win")){
+        List<String> labels = new ArrayList<>();
+        int x = 1;
+
+        if (title.equals("Game Modes Win")) {
             for (Map.Entry<String, Integer> entry : battleCount.entrySet()) {
-                entries.add(new Entry(x, entry.getValue()));
-                x++; // Incremento X per ogni tipo di battaglia
+                entries.add(new Entry(x, entry.getValue())); // Aggiunge il valore al grafico
+                labels.add(entry.getKey()); // Salva il nome della battaglia
+                x++;
             }
-        }else{// Crea i dati per il grafico
-
-            entries.add(new Entry(1, 2)); // Punto (x = 1, y = 2)
-            entries.add(new Entry(2, 3)); // Punto (x = 2, y = 3)
-            entries.add(new Entry(3, 1)); // Punto (x = 3, y = 1)//
+        } else {
+            entries.add(new Entry(1, 2));
+            entries.add(new Entry(2, 3));
+            entries.add(new Entry(3, 1));
+            labels.add("Mappa 1");
+            labels.add("Mappa 2");
+            labels.add("Mappa 3");
         }
-        // Crea i dati per il grafico
-
-
 
         ScatterDataSet dataSet = new ScatterDataSet(entries, "");
-        dataSet.setColor(R.color.black); // Colore dei punti
-        dataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE); // Forma dei punti
+        dataSet.setColor(R.color.black);
+        dataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
         dataSet.setValueTextSize(10);
         dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getPointLabel(Entry entry) {
-                return "Mappa"+entry.getX();
+                int index = (int) entry.getX() - 1;
+                if (index >= 0 && index < labels.size()) {
+                    return labels.get(index); // Mostra il nome della battaglia
+                }
+                return "";
             }
         });
 
-        // Personalizzazioni
-        //TODO: implementare la description (es. stats ultime n partite)
         scatterChart.setMinimumHeight(500);
-        scatterChart.getDescription().setEnabled(false); // Rimuove la descrizione del grafico
-        scatterChart.getLegend().setEnabled(false); // Nasconde la legenda
-        scatterChart.getAxisRight().setEnabled(false); // Rimuove l'asse destro
-        scatterChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // Posiziona l'asse X in basso
-        scatterChart.getAxisLeft().setDrawLabels(true); // Mostra solo l'asse sinistro
-        scatterChart.getXAxis().setGranularity(1f); // Passo di 1
+        scatterChart.getDescription().setEnabled(false);
+        scatterChart.getLegend().setEnabled(false);
+        scatterChart.getAxisRight().setEnabled(false);
+        scatterChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        scatterChart.getAxisLeft().setDrawLabels(true);
+        scatterChart.getXAxis().setGranularity(1f);
         scatterChart.getXAxis().setGranularityEnabled(true);
-
-        scatterChart.getAxisLeft().setGranularity(1f); // Passo di 1
+        scatterChart.getAxisLeft().setGranularity(1f);
         scatterChart.getAxisLeft().setGranularityEnabled(true);
 
+        // Imposta le etichette personalizzate sull'asse X
+        //scatterChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+        //scatterChart.getXAxis().setLabelRotationAngle(-30f); // Ruota le etichette per visibilità
+
         ScatterData scatterData = new ScatterData(dataSet);
-
-        // Imposta i dati sul grafico
         scatterChart.setData(scatterData);
-
-        // Aggiorna il grafico
         scatterChart.invalidate();
         chartContainer.addView(chartView);
     }
+
 
 
 }
