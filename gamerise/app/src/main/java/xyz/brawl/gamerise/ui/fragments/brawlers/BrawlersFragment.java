@@ -69,9 +69,11 @@ public class BrawlersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         String lastUpdate = "0";
+
         //Era già qua, ma non so se sia corretta o meno
         //brawlersViewModel = new ViewModelProvider(this).get(BrawlersViewModel.class);
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
+        noInternetView = view.findViewById(R.id.no_internet_view);
 
         String tag = GameAccountSingleton.getInstance().getUserTag();
         if (tag == null || tag.isEmpty()) {

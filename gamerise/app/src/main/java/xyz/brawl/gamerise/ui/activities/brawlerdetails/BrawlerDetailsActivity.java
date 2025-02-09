@@ -1,6 +1,8 @@
 package xyz.brawl.gamerise.ui.activities.brawlerdetails;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,6 +29,7 @@ import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
+import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
 
@@ -59,6 +62,8 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
     private int countG = 0;
     private int countA = 0;
 
+    private FrameLayout noInternetView;
+
     private static final int[] POINTS_COST = {20, 30, 50, 80, 130, 210, 340, 550, 890, 1440};
     private static final int[] MONEY_COST  = {20, 35, 75, 140, 290, 480, 800, 1250, 1875, 2800};
 
@@ -90,6 +95,8 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         starPowerText2 = findViewById(R.id.textViewStarPower2);
         starPowerImg2 = findViewById(R.id.imageViewStarPower2);
 
+        noInternetView = findViewById(R.id.no_internet_view);
+        String lastUpdate = "0";
 
         BrawlersRepository brawlersRepository = ServiceLocator.getInstance().getBrawlersRepository(getApplication(),
             getApplication().getResources().getBoolean(R.bool.debug_mode));
@@ -118,7 +125,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         });
 
         //Toast.makeText(this, "BrawlerId: " + brawlerId, Toast.LENGTH_SHORT).show();
+        if(!NetworkUtil.isInternetAvailable(this)){
+            noInternetView.setVisibility(View.VISIBLE);
 
+            lastUpdate = System.currentTimeMillis() + "";
+        }
     }
 
     private void updateUI(long brawlerId, String tag) {

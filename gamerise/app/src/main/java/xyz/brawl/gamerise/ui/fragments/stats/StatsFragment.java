@@ -87,10 +87,12 @@ public class StatsFragment extends Fragment  {
         battles = new ArrayList<>();
         //Qui collegare il viewModel e il repository -------------------------------
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
+        noInternetView = view.findViewById(R.id.no_internet_view);
         trofei=view.findViewById(R.id.valoreTrofei);
         livello=view.findViewById(R.id.valoreLivello);
         club=view.findViewById(R.id.valoreClub);
