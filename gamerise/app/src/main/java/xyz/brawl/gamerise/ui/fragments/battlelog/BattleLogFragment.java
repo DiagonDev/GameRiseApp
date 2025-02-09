@@ -61,6 +61,7 @@ public class BattleLogFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_battle_log, container, false);
+        noInternetView = view.findViewById(R.id.no_internet_view);
         //Provvisorio
         recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
