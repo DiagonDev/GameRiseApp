@@ -24,8 +24,8 @@ public class StarPowerRepository implements StarPowerCallback {
         this.starPowerRemoteDataSource.setStarPowerCallback(this);
     }
 
-    public MutableLiveData<Result> insertStarPowers(List<StarPowerEntry> starPowerEntryList, Long brawlerId) {
-        starPowerLocalDataSource.insertStarPowers(starPowerEntryList, brawlerId);
+    public MutableLiveData<Result> insertStarPowers(List<StarPowerEntry> starPowerEntryList) {
+        starPowerLocalDataSource.insertStarPowers(starPowerEntryList);
         return allStarPowerLiveData;
     }
     public MutableLiveData<Result> fetchStarPower(Long brawlerId, long lastUpdate, String tagId) {

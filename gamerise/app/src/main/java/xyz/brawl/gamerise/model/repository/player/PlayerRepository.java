@@ -63,8 +63,8 @@ public class PlayerRepository implements PlayerCallBack {
             tagRepository.insertTag(PlayerMapper.mapToTag(playerApiResponse));
             brawlersRepository.insertBrawlers(PlayerMapper.mapToBrawlers(playerApiResponse), tagId);
             statsRepository.insertStats(PlayerMapper.mapToStat(playerApiResponse), tagId);
-            starPowerRepository.insertStarPowers(PlayerMapper.mapToStarPowers(playerApiResponse), tagId);
-            gadgetRepository.insertGadgets(PlayerMapper.mapToGadgets(playerApiResponse), tagId);
+            starPowerRepository.insertStarPowers(PlayerMapper.mapToStarPowers(playerApiResponse));
+            gadgetRepository.insertGadgets(PlayerMapper.mapToGadgets(playerApiResponse));
             // Notifica il LiveData che i dati sono stati aggiornati
             playerLiveData.postValue(new Result.Success(playerApiResponse));
         }
@@ -72,6 +72,7 @@ public class PlayerRepository implements PlayerCallBack {
 
     @Override
     public void onFailureFromRemote(Exception exception) {
-
+        Result.Error result = new Result.Error(exception.getMessage());
+        playerLiveData.postValue(result);
     }
 }

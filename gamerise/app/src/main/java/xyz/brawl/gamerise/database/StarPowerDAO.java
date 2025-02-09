@@ -2,6 +2,7 @@ package xyz.brawl.gamerise.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -13,6 +14,6 @@ public interface StarPowerDAO {
     @Query("SELECT * FROM StarPowerEntry WHERE brawlerId = :brawlerId")
     List<StarPowerEntry> getAll(Long brawlerId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(List<StarPowerEntry> starPowerEntry);
 }

@@ -14,5 +14,5 @@ public abstract class BaseStarPowerLocalDataSource {
 
     public abstract void getStarPower(Long brawlerId);
 
-    public abstract void insertStarPowers(List<StarPowerEntry> starPowerEntryList, Long brawlerId);
+    public abstract void insertStarPowers(List<StarPowerEntry> starPowerEntryList);
 }

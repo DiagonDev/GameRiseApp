@@ -24,8 +24,8 @@ public class GadgetRepository implements GadgetCallback {
         this.gadgetRemoteDataSource.setGadgetCallback(this);
     }
 
-    public MutableLiveData<Result> insertGadgets(List<GadgetEntry> gadgetEntryList, Long brawlerId) {
-        gadgetLocalDataSource.insertGadgets(gadgetEntryList, brawlerId);
+    public MutableLiveData<Result> insertGadgets(List<GadgetEntry> gadgetEntryList) {
+        gadgetLocalDataSource.insertGadgets(gadgetEntryList);
         return allGadgetLiveData;
     }
 

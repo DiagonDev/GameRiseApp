@@ -20,20 +20,10 @@ public class StarPowerLocalDataSource extends  BaseStarPowerLocalDataSource{
     }
 
     @Override
-    public void insertStarPowers(List<StarPowerEntry> starPowerEntryList, Long brawlerId) {
+    public void insertStarPowers(List<StarPowerEntry> starPowerEntryList) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            List<StarPowerEntry> allStarPower = starPowerDAO.getAll(brawlerId);
-            List<StarPowerEntry> toInsertOrUpdate = new ArrayList<>();
-            if(allStarPower != null){
-                for(StarPowerEntry newStarPower : starPowerEntryList){
-                    if(!allStarPower.contains(newStarPower))
-                        toInsertOrUpdate.add(newStarPower);
-                }
-                if (!toInsertOrUpdate.isEmpty()) {
-                    starPowerDAO.insertAll(toInsertOrUpdate);
-                }
-                starPowerCallback.onSuccessFromLocal(starPowerDAO.getAll(brawlerId));
-            } else starPowerDAO.insertAll(starPowerEntryList);
+            starPowerDAO.insertAll(starPowerEntryList);
+            starPowerCallback.onSuccessFromLocal(starPowerEntryList);
         });
     }
 }
