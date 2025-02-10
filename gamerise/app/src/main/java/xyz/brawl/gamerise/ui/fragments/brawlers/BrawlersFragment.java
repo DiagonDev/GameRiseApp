@@ -39,6 +39,7 @@ public class BrawlersFragment extends Fragment {
     private List<BrawlerEntry> brawlersList;
     private RecyclerView recyclerView;
     private FrameLayout noInternetView;
+
     public static BrawlersFragment newInstance() {
         return new BrawlersFragment();
     }
@@ -68,7 +69,6 @@ public class BrawlersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        long lastUpdate = 0;
 
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
         noInternetView = view.findViewById(R.id.no_internet_view);
@@ -78,23 +78,21 @@ public class BrawlersFragment extends Fragment {
             Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
             return view; // Se non c'è nessun tag, esci
         }
-
-        if(!NetworkUtil.isInternetAvailable(this.getContext())){
+        boolean connected = true;
+        if (!NetworkUtil.isInternetAvailable(this.getContext())) {
             noInternetView.setVisibility(View.VISIBLE);
-
-            lastUpdate = System.currentTimeMillis();
-        }else
-            lastUpdate = GameAccountSingleton.getInstance().getBrawlerLastUpdate();
+            connected = false;
+        }
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
         Log.d("BrawlersFragment", "Stato GridView: " + gridView.getVisibility());
 
         BrawlerAdapter adapter = new BrawlerAdapter(view.getContext(), R.layout.layout_grid_brawlers, new ArrayList<>());
-        
+
         gridView.setAdapter(adapter);
 
 
-        brawlersViewModel.getBrawlers(tag, lastUpdate).observe(getViewLifecycleOwner(),
+        brawlersViewModel.getBrawlers(tag, connected).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
                         List<BrawlerEntry> newBrawlers = (List<BrawlerEntry>) ((Result.Success) result).getData();

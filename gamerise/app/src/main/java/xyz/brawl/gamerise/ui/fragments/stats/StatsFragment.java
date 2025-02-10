@@ -48,7 +48,7 @@ import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ResponseCallback;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
-public class StatsFragment extends Fragment  {
+public class StatsFragment extends Fragment {
     public static final String TAG = "StatsFragment";
     private StatsViewModel statsViewModel;
     public LinearLayout chartContainer;
@@ -76,7 +76,7 @@ public class StatsFragment extends Fragment  {
                 requireActivity(),
                 new StatsViewModelFactory(statsRepository)).get(StatsViewModel.class);
 
-        stats=new Stat();
+        stats = new Stat();
 
         BattleLogRepository battleLogRepository =
                 ServiceLocator.getInstance().getBattleLogRepository(requireActivity().getApplication(),
@@ -95,13 +95,13 @@ public class StatsFragment extends Fragment  {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
         noInternetView = view.findViewById(R.id.no_internet_view);
-        trofei=view.findViewById(R.id.valoreTrofei);
-        livello=view.findViewById(R.id.valoreLivello);
-        club=view.findViewById(R.id.valoreClub);
-        vittorieSolo=view.findViewById(R.id.valoreVittorieSolo);
-        vittorieDuo=view.findViewById(R.id.valoreVittorieDuo);
-        vittorie3vs3=view.findViewById(R.id.valoreVittorie3vs3);
-        String lastUpdate = "0";
+        trofei = view.findViewById(R.id.valoreTrofei);
+        livello = view.findViewById(R.id.valoreLivello);
+        club = view.findViewById(R.id.valoreClub);
+        vittorieSolo = view.findViewById(R.id.valoreVittorieSolo);
+        vittorieDuo = view.findViewById(R.id.valoreVittorieDuo);
+        vittorie3vs3 = view.findViewById(R.id.valoreVittorie3vs3);
+        boolean connected = true;
 
         String tag = GameAccountSingleton.getInstance().getUserTag();
         if (tag == null || tag.isEmpty()) {
@@ -109,21 +109,21 @@ public class StatsFragment extends Fragment  {
             return view; // Se non c'è nessun tag, esci
         }
 
-        if(!NetworkUtil.isInternetAvailable(this.getContext())){
+        if (!NetworkUtil.isInternetAvailable(this.getContext())) {
             noInternetView.setVisibility(View.VISIBLE);
-            lastUpdate = System.currentTimeMillis() + "";
+            connected = false;
         }
-        statsViewModel.getStats(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+        statsViewModel.getStats(tag, connected).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
-                        Stat stat= (Stat) ((Result.Success) result).getData();
-                        trofei.setText(""+stat.trophies);
-                        livello.setText(""+stat.expLevel);
-                        c=stat.club;
-                        club.setText(""+c.getName());
-                        vittorieSolo.setText(""+stat.soloVictories);
-                        vittorieDuo.setText(""+stat.duoVictories);
-                        vittorie3vs3.setText(""+stat._3vs3Victories);
+                        Stat stat = (Stat) ((Result.Success) result).getData();
+                        trofei.setText("" + stat.trophies);
+                        livello.setText("" + stat.expLevel);
+                        c = stat.club;
+                        club.setText("" + c.getName());
+                        vittorieSolo.setText("" + stat.soloVictories);
+                        vittorieDuo.setText("" + stat.duoVictories);
+                        vittorie3vs3.setText("" + stat._3vs3Victories);
 
                     } else {
                         String errorMessage = ((Result.Error) result).getMessage();
@@ -134,15 +134,15 @@ public class StatsFragment extends Fragment  {
 
         //TODO: spostare codice nel viewModel
         chartContainer = view.findViewById(R.id.chart_container);
-        battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+        battleLogViewModel.getBattles(tag, connected).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
-                        List<Battle> battleList= (List<Battle>) ((Result.Success) result).getData();
+                        List<Battle> battleList = (List<Battle>) ((Result.Success) result).getData();
                         battles.clear();
                         battles.addAll(battleList);
                         Map<String, Integer> battleCount = new HashMap<>();
                         for (Battle battle : battles) {
-                            if(Integer.parseInt(battle.trophies)>0){
+                            if (Integer.parseInt(battle.trophies) > 0) {
                                 battleCount.put(battle.title, battleCount.getOrDefault(battle.title, 0) + 1);
                             }
                         }
@@ -153,15 +153,15 @@ public class StatsFragment extends Fragment  {
                     }
                 });
 
-        battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+        battleLogViewModel.getBattles(tag, connected).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
-                        List<Battle> battleList= (List<Battle>) ((Result.Success) result).getData();
+                        List<Battle> battleList = (List<Battle>) ((Result.Success) result).getData();
                         battles.clear();
                         battles.addAll(battleList);
                         Map<String, Integer> battleCount = new HashMap<>();
                         for (Battle battle : battles) {
-                            if(Integer.parseInt(battle.trophies)>0){
+                            if (Integer.parseInt(battle.trophies) > 0) {
                                 battleCount.put(battle.subTitle, battleCount.getOrDefault(battle.subTitle, 0) + 1);
                             }
                         }
@@ -227,7 +227,6 @@ public class StatsFragment extends Fragment  {
         scatterChart.invalidate();
         chartContainer.addView(chartView);
     }
-
 
 
 }

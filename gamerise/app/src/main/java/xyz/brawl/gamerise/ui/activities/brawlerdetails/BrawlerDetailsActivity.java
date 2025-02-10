@@ -95,14 +95,12 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         starPowerText2 = findViewById(R.id.textViewStarPower2);
         starPowerImg2 = findViewById(R.id.imageViewStarPower2);
 
-        long lastUpdate = 0;
+        boolean connected = true;
         noInternetView = findViewById(R.id.no_internet_view);
         if(!NetworkUtil.isInternetAvailable(this)){
             noInternetView.setVisibility(View.VISIBLE);
-
-            lastUpdate = System.currentTimeMillis();
-        }else
-            lastUpdate = GameAccountSingleton.getInstance().getBrawlerLastUpdate();
+            connected = false;
+        }
 
 
         BrawlersRepository brawlersRepository = ServiceLocator.getInstance().getBrawlersRepository(getApplication(),
@@ -121,7 +119,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         long brawlerId = getIntent().getLongExtra("brawlerId", -1);
         String tag = GameAccountSingleton.getInstance().getUserTag();
 
-        updateUI(brawlerId, tag, lastUpdate);
+        updateUI(brawlerId, tag, connected);
         EdgeToEdge.enable(this);
 
 
@@ -133,7 +131,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(long brawlerId, String tag, long lastUpdate) {
+    private void updateUI(long brawlerId, String tag, boolean connected) {
 
         gadgetText1.setText("");
         gadgetText2.setText("");
@@ -149,11 +147,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         countA = 0;
 
         // RIMUOVE I VECCHI OBSERVER PRIMA DI AGGIUNGERE NUOVI
-        brawlersViewModel.getGadgets(brawlerId, lastUpdate, tag).removeObservers(this);
-        brawlersViewModel.getStarPower(brawlerId, lastUpdate, tag).removeObservers(this);
+        brawlersViewModel.getGadgets(brawlerId, connected, tag).removeObservers(this);
+        brawlersViewModel.getStarPower(brawlerId, connected, tag).removeObservers(this);
 
         // CARICA NUOVO BRAWLER
-        brawlersViewModel.getBrawlers(tag, lastUpdate)
+        brawlersViewModel.getBrawlers(tag, connected)
                 .observe(this, result -> {
                     if (result.isSuccess()) {
                         brawlers = (List<BrawlerEntry>) ((Result.Success) result).getData();
@@ -182,7 +180,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                 });
 
         // CARICA NUOVI GADGETS
-        brawlersViewModel.getGadgets(brawlerId, lastUpdate, tag)
+        brawlersViewModel.getGadgets(brawlerId, connected, tag)
                 .observe(this, result -> {
                     if (result.isSuccess()) {
                         List<GadgetEntry> gadgets = (List<GadgetEntry>) ((Result.Success) result).getData();
@@ -204,7 +202,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                 });
 
         // CARICA NUOVI STAR POWER
-        brawlersViewModel.getStarPower(brawlerId, lastUpdate, tag)
+        brawlersViewModel.getStarPower(brawlerId, connected, tag)
                 .observe(this, result -> {
                     if (result.isSuccess()) {
                         List<StarPowerEntry> starPowers = (List<StarPowerEntry>) ((Result.Success) result).getData();
@@ -227,8 +225,8 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
 
         LinearLayout previousBrawlerLayout = findViewById(R.id.previous_brawler_layout);
         LinearLayout nextBrawlerLayout = findViewById(R.id.next_brawler_layout);
-        previousBrawlerLayout.setOnClickListener(v -> navigateToPreviousBrawler(brawlerId, tag, lastUpdate));
-        nextBrawlerLayout.setOnClickListener(v -> navigateToNextBrawler(brawlerId, tag, lastUpdate));
+        previousBrawlerLayout.setOnClickListener(v -> navigateToPreviousBrawler(brawlerId, tag, connected));
+        nextBrawlerLayout.setOnClickListener(v -> navigateToNextBrawler(brawlerId, tag, connected));
     }
 
     private int getStarPoints(int power) {
@@ -253,7 +251,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         return totalMoney;
     }
 
-    private void navigateToPreviousBrawler(long currentBrawlerId, String tag, long lastUpdate) {
+    private void navigateToPreviousBrawler(long currentBrawlerId, String tag, long connected) {
         int currentIndex = -1;
         for (int i = 0; i < brawlers.size(); i++) {
             if (brawlers.get(i).getId() == currentBrawlerId) {
@@ -264,10 +262,10 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         if (currentIndex == -1) return;
 
         BrawlerEntry brawlerPrec = (currentIndex == 0) ? brawlers.get(brawlers.size() - 1) : brawlers.get(currentIndex - 1);
-        updateUI(brawlerPrec.getId(), tag, lastUpdate);
+        updateUI(brawlerPrec.getId(), tag, connected);
     }
 
-    private void navigateToNextBrawler(long currentBrawlerId, String tag, long lastUpdate) {
+    private void navigateToNextBrawler(long currentBrawlerId, String tag, boolean connected) {
         int currentIndex = -1;
         for (int i = 0; i < brawlers.size(); i++) {
             if (brawlers.get(i).getId() == currentBrawlerId) {
@@ -278,6 +276,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         if (currentIndex == -1) return;
 
         BrawlerEntry brawlerSucc = (currentIndex == brawlers.size() - 1) ? brawlers.get(0) : brawlers.get(currentIndex + 1);
-        updateUI(brawlerSucc.getId(), tag, lastUpdate);
+        updateUI(brawlerSucc.getId(), tag, connected);
     }
 }
