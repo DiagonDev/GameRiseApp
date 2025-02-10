@@ -24,16 +24,6 @@
             android:layout_gravity="center"
             android:layout_marginStart="30dp"
             android:layout_weight="0.75"
-            android:text="nomeGiocatore"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tagTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="30dp"
             android:text="#tag"
             android:textColor="@color/black"
             android:textStyle="bold" />

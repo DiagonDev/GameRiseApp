@@ -3,6 +3,9 @@ package xyz.brawl.gamerise.ui.activities.tag;
 import static xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel.TAG;
 
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -37,8 +41,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.data.user.User;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.repository.user.UserRepository;
@@ -63,32 +69,43 @@ public class TagActivity extends AppCompatActivity {
     private TagViewModel tagViewModel;
     private EditText insertTag;
     private ImageButton checkboxButton;
+    private Button googleButton;
+    private TextView savedTagTextView;
     private FrameLayout noInternetView;
+    private ImageButton searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
-
         setContentView(R.layout.activity_tag);
+
+        insertTag = findViewById(R.id.insertTag);
+        savedTagTextView = findViewById(R.id.savedTagTextView);
+        noInternetView = findViewById(R.id.no_internet_view);
+        searchButton = findViewById(R.id.searchButton);
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         TagRepository tagRepository =
                 ServiceLocator.getInstance().getTagRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
+        PlayerRepository playerRepository =
+                ServiceLocator.getInstance().getPlayerRepository(getApplication(),
+                        getApplication().getResources().getBoolean(R.bool.debug_mode));
+
 
         UserRepository userRepository =
                 ServiceLocator.getInstance().getUserRepository(getApplication());
 
         tagViewModel = new ViewModelProvider(
                 this,
-                new TagViewModelFactory(tagRepository, userRepository)).get(TagViewModel.class);
+                new TagViewModelFactory(tagRepository, userRepository, playerRepository)).get(TagViewModel.class);
 
         oneTapClient = Identity.getSignInClient(this);
         signInRequest = BeginSignInRequest.builder()
@@ -112,30 +129,54 @@ public class TagActivity extends AppCompatActivity {
             noInternetView.setVisibility(View.VISIBLE);
         }
 
-        insertTag = findViewById(R.id.insertTag);
-        insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (handlerInvioTag()) {
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    return true;
+        tagViewModel.getSavedTag().observe(this, result -> {
+            if (result.isSuccess()) {
+                Tag savedTag = (Tag) ((Result.Success) result).getData();
+                if (savedTag != null)
+                    savedTagTextView.setText(savedTag.getTag());
+            }
+        });
+
+        savedTagTextView.setOnClickListener(view -> {
+            if (handlerInvioTagSalvato()) {
+                Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        insertTag.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String upperCaseText = s.toString().toUpperCase();
+                if (!s.toString().equals(upperCaseText)) {
+                    insertTag.setText(upperCaseText);
+                    insertTag.setSelection(upperCaseText.length()); // Mantieni il cursore alla fine
                 }
-                return false;
+            }
+        });
+
+        insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || (keyEvent != null && keyEvent.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == android.view.KeyEvent.ACTION_DOWN)) {
+                searchButton.performClick();
+                return true;
             }
             return false;
         });
 
 
-        ImageButton searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (handlerInvioTag()) {
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+        searchButton.setOnClickListener(view -> {
+            if (handlerInvioTag()) {
+                Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
+
 
         Button googleLogInButton = findViewById(R.id.btnGoogleCustom);
         Button googleLogOutButton = findViewById(R.id.btnLogoutGoogleCustom);
@@ -251,7 +292,11 @@ public class TagActivity extends AppCompatActivity {
 
     private boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
+        if(inputTag.startsWith("#")){
+            inputTag = inputTag.substring(1);
+        }
         GameAccountSingleton.getInstance().setUserTag(inputTag);
+        GameAccountSingleton.getInstance().setChecked(checked);
         if (tagViewModel.isTagValid(inputTag)) {
             if (checked) {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
@@ -264,6 +309,13 @@ public class TagActivity extends AppCompatActivity {
             Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    public boolean handlerInvioTagSalvato() {
+        String inputTag = savedTagTextView.getText().toString().trim();
+        GameAccountSingleton.getInstance().setUserTag(inputTag);
+        GameAccountSingleton.getInstance().setChecked(true);
+        return true;
     }
 
     private void dimmiDoveEQuando() {

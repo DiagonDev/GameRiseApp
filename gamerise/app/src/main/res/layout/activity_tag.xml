@@ -71,7 +71,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.3"
                 android:background="@null"
-                android:src="@drawable/search_button_icon"/>
+                android:src="@drawable/search_button_icon"
+                app:tint="@color/black" />
 
             <!-- TO-DO
                  devo ancora capire quale versione sia meglio
@@ -170,14 +171,23 @@
         app:layout_constraintEnd_toEndOf="@id/ve_gl_0.85"
         app:layout_constraintStart_toStartOf="@id/ve_gl_0.15" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <TextView
+        android:id="@+id/savedTagTextView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/ve_gl_0.85"
+        android:layout_height="50dp"
+        android:background="@drawable/gold_gradient_shape"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/salvati_textView"
         app:layout_constraintStart_toStartOf="@id/ve_gl_0.15"
-        app:layout_constraintTop_toBottomOf="@id/salvati_textView" />
+        app:layout_constraintEnd_toEndOf="@id/ve_gl_0.85" />
+
 
     <!-- guideline -->
     <androidx.constraintlayout.widget.Guideline
@@ -224,9 +234,13 @@
 
     <FrameLayout
         android:id="@+id/no_internet_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/logoApp"
+        app:layout_constraintBottom_toTopOf="@id/middle_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -234,7 +248,8 @@
             android:text="Nessuna connessione a Internet"
             android:textSize="18sp"
             android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_dark"
+            android:padding="8dp"
             android:layout_gravity="center"/>
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

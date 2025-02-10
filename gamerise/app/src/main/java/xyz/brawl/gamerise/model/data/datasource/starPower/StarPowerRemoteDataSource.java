@@ -29,7 +29,7 @@ public class StarPowerRemoteDataSource extends BaseStarPowerRemoteDataSource{
                 if (response.isSuccessful() && response.body() != null) {
                     List<StarPowerEntry> starPowerEntryList = PlayerMapper.mapToStarPowers(response.body());
                     // Passa il risultato e il tempo di aggiornamento al callback
-                    starPowerCallback.onSuccessFromRemote(starPowerEntryList, response.raw().receivedResponseAtMillis());
+                    starPowerCallback.onSuccessFromRemote(starPowerEntryList);
                 } else {
                     // Errore nel codice HTTP o risposta vuota
                     String errorMessage = "Errore: Risposta non valida (Codice: " + response.code() + ")";

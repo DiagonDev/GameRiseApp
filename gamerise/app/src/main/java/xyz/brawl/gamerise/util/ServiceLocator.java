@@ -20,6 +20,8 @@ import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.GadgetRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.player.BasePlayerRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.player.PlayerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.StarPowerLocalDataSource;
@@ -37,6 +39,7 @@ import xyz.brawl.gamerise.model.data.datasource.user.UserFirebaseDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
+import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
@@ -47,15 +50,17 @@ public class ServiceLocator {
 
     private static volatile ServiceLocator INSTANCE = null;
 
-    private ServiceLocator() {}
+    private ServiceLocator() {
+    }
 
     /**
      * Returns an instance of ServiceLocator class.
+     *
      * @return An instance of ServiceLocator.
      */
     public static ServiceLocator getInstance() {
         if (INSTANCE == null) {
-            synchronized(ServiceLocator.class) {
+            synchronized (ServiceLocator.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new ServiceLocator();
                 }
@@ -75,6 +80,7 @@ public class ServiceLocator {
 
     /**
      * Returns an instance of NewsApiService class using Retrofit.
+     *
      * @return an instance of NewsApiService.
      */
     //TODO: leo
@@ -97,6 +103,7 @@ public class ServiceLocator {
 
     /**
      * Returns an instance of NewsRoomDatabase class to manage Room database.
+     *
      * @param application Param for accessing the global application state.
      * @return An instance of NewsRoomDatabase.
      */
@@ -106,8 +113,9 @@ public class ServiceLocator {
 
     /**
      * Returns an instance of INewsRepositoryWithLiveData.
+     *
      * @param application Param for accessing the global application state.
-     * @param debugMode Param to establish if the application is run in debug mode.
+     * @param debugMode   Param to establish if the application is run in debug mode.
      * @return An instance of INewsRepositoryWithLiveData.
      */
     public BattleLogRepository getBattleLogRepository(Application application, boolean debugMode) {
@@ -178,6 +186,19 @@ public class ServiceLocator {
         gadgetLocalDataSource = new GadgetLocalDataSource(getDatabase(application));
         gadgetRemoteDataSource = new GadgetRemoteDataSource(getApiService());
         return new GadgetRepository(gadgetLocalDataSource, gadgetRemoteDataSource);
+    }
+
+    public PlayerRepository getPlayerRepository(Application application, boolean debugMode) {
+        BasePlayerRemoteDataSource playerRemoteDataSource;
+        playerRemoteDataSource = new PlayerRemoteDataSource(getApiService());
+        TagRepository tagRepository = getTagRepository(application, debugMode);
+        BrawlersRepository brawlersRepository = getBrawlersRepository(application, debugMode);
+        StatsRepository statsRepository = getStatsRepository(application, debugMode);
+        StarPowerRepository starPowerRepository = getStarPowerRepository(application, debugMode);
+        GadgetRepository gadgetRepository = getGadgetRepository(application, debugMode);
+
+        return new PlayerRepository(playerRemoteDataSource, tagRepository, brawlersRepository,
+                statsRepository, starPowerRepository, gadgetRepository);
     }
 
     public UserRepository getUserRepository(Application application) {
