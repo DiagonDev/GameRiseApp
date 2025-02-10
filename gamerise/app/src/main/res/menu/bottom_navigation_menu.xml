@@ -14,11 +14,6 @@
         android:id="@+id/item_3"
         android:enabled="true"
         android:icon="@drawable/baseline_check_box_outline_blank_24"
-        android:title="@string/ranked"/>
-    <item
-        android:id="@+id/item_4"
-        android:enabled="true"
-        android:icon="@drawable/baseline_check_box_outline_blank_24"
         android:title="@string/stats"/>
 
 

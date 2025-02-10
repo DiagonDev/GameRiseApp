@@ -16,7 +16,6 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.ui.activities.tag.TagActivity;
 import xyz.brawl.gamerise.ui.fragments.battlelog.BattleLogFragment;
 import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
-import xyz.brawl.gamerise.ui.fragments.ranked.RankedFragment;
 import xyz.brawl.gamerise.ui.fragments.stats.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
             navigationBarView.getMenu().findItem(R.id.item_1).setIcon(R.drawable.baseline_check_box_outline_blank_24);
             navigationBarView.getMenu().findItem(R.id.item_2).setIcon(R.drawable.baseline_check_box_outline_blank_24);
             navigationBarView.getMenu().findItem(R.id.item_3).setIcon(R.drawable.baseline_check_box_outline_blank_24);
-            navigationBarView.getMenu().findItem(R.id.item_4).setIcon(R.drawable.baseline_check_box_outline_blank_24);
 
             if (item.getItemId() == R.id.item_1) {
                 item.setIcon(R.drawable.baseline_check_box_24);
@@ -60,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 return true;
             } else if (item.getItemId() == R.id.item_3) {
-                item.setIcon(R.drawable.baseline_check_box_24);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container_view, new RankedFragment())
-                        .commit();
-                return true;
-            } else if (item.getItemId() == R.id.item_4) {
                 item.setIcon(R.drawable.baseline_check_box_24);
                 getSupportFragmentManager()
                         .beginTransaction()
