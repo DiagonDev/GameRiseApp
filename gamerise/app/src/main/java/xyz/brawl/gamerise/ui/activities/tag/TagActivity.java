@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
@@ -30,7 +31,7 @@ import xyz.brawl.gamerise.util.ServiceLocator;
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
 /// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
 /// il colore da applicare. Non è un problema bloccante e si risolve appena popoliamo il recycler
-public class TagActivity extends AppCompatActivity{
+public class TagActivity extends AppCompatActivity {
 
     private boolean checked = false;
     private TagViewModel tagViewModel;
@@ -55,14 +56,17 @@ public class TagActivity extends AppCompatActivity{
         TagRepository tagRepository =
                 ServiceLocator.getInstance().getTagRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
+        PlayerRepository playerRepository =
+                ServiceLocator.getInstance().getPlayerRepository(getApplication(),
+                        getApplication().getResources().getBoolean(R.bool.debug_mode));
 
         tagViewModel = new ViewModelProvider(
                 this,
-                new TagViewModelFactory(tagRepository)).get(TagViewModel.class);
+                new TagViewModelFactory(tagRepository, playerRepository)).get(TagViewModel.class);
 
         String lastUpdate = "0";
         noInternetView = findViewById(R.id.no_internet_view);
-        if(!NetworkUtil.isInternetAvailable(this)){
+        if (!NetworkUtil.isInternetAvailable(this)) {
             noInternetView.setVisibility(View.VISIBLE);
 
             lastUpdate = System.currentTimeMillis() + "";

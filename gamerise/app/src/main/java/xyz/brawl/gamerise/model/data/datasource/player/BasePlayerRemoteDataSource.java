@@ -8,5 +8,5 @@ public abstract class BasePlayerRemoteDataSource {
         this.playerCallBack = playerCallBack;
     }
 
-    public abstract void getPlayerName(String tagId);
+    public abstract void getPlayer(String tagId);
 }
