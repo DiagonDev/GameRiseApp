@@ -31,20 +31,25 @@ import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
+
 public class BattleLogFragment extends Fragment {
 
     private BattleLogViewModel battleLogViewModel;
     private List<Battle> battles;
     private RecyclerView recyclerView;
+
     public static BattleLogFragment newInstance() {
         return new BattleLogFragment();
     }
+
     private GameRiseDatabase database;
     private FrameLayout noInternetView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         BattleLogRepository battleLogRepository =
                 ServiceLocator.getInstance().getBattleLogRepository(requireActivity().getApplication(),
@@ -66,43 +71,32 @@ public class BattleLogFragment extends Fragment {
         recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
-        String lastUpdate = "0";
+
         String tag = GameAccountSingleton.getInstance().getUserTag();
         if (tag == null || tag.isEmpty()) {
             Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
             return view; // Se non c'è nessun tag, esci
         }
-
-        if(!NetworkUtil.isInternetAvailable(this.getContext())){
+        boolean connected = true;
+        if (!NetworkUtil.isInternetAvailable(this.getContext())) {
             noInternetView.setVisibility(View.VISIBLE);
+            connected = false;
 
-            lastUpdate = System.currentTimeMillis() + "";
         }
-        //TODO: implementare il codice per mostrare le battaglie
-        /*
-         * Debug mode è una variabile che sta nella local.properties
-         * guardare build.gradle:
-         * resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
-         * se sto in debug mode prendo sempre dal file .json locale
-         */
-        /* Deprecated: Riutilizzare da altre parti
-        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
-            battleLogRepository = new BattleLogMockRepository(this.getContext());
-        } else battleLogRepository = new BattleLogRepository(this.getContext());
-        */
+
 
         //TODO: controllare se funziona
-        battleLogViewModel.getBattles(tag, Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
-            result -> {
-                if (result.isSuccess()) {
-                    List<Battle> newBattles = (List<Battle>) ((Result.Success) result).getData();
-                    recyclerView.setVisibility(View.VISIBLE);
-                    ((BattleAdapter) recyclerView.getAdapter()).updateData(newBattles);
-                } else {
-                    String errorMessage = ((Result.Error) result).getMessage();
-                    Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
-                }
-            });
+        battleLogViewModel.getBattles(tag, lastUpdate).observe(getViewLifecycleOwner(),
+                result -> {
+                    if (result.isSuccess()) {
+                        List<Battle> newBattles = (List<Battle>) ((Result.Success) result).getData();
+                        recyclerView.setVisibility(View.VISIBLE);
+                        ((BattleAdapter) recyclerView.getAdapter()).updateData(newBattles);
+                    } else {
+                        String errorMessage = ((Result.Error) result).getMessage();
+                        Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
         return view;
     }
 }

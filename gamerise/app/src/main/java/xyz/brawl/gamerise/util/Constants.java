@@ -638,5 +638,4 @@ public class Constants {
     public static String StormyPlains = "Stormy Plains";
 
     public static final int DATABASE_VERSION = 12;
-    public static final int FRESH_TIMEOUT = 1000 * 60;
 }

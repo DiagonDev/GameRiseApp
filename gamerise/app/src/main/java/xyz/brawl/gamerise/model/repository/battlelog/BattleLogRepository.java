@@ -20,7 +20,7 @@ public class BattleLogRepository implements BattleLogCallback {
     private final MutableLiveData<Result> allBattleLogLiveData;
     private final BaseBattleLocalDataSource battleLocalDataSource;
     private final BaseBattleRemoteDataSource battleRemoteDataSource;
-    //TODO: aggiongere il REMOTE
+
     public BattleLogRepository(BaseBattleLocalDataSource battleLocalDataSource, BaseBattleRemoteDataSource battleRemoteDataSource) {
         allBattleLogLiveData = new MutableLiveData<>();
         this.battleLocalDataSource = battleLocalDataSource;
@@ -29,39 +29,14 @@ public class BattleLogRepository implements BattleLogCallback {
         this.battleRemoteDataSource.setBattleLogCallback(this);
     }
 
-    /**
-     * playerTag tag del giocatore, per ora impostato su teo
-     * @return null provvisorio
-     */
-
-    public MutableLiveData<Result> fetchBattleLog(String tagId, long lastUpdate) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdate > FRESH_TIMEOUT) {
-            //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
+    public MutableLiveData<Result> fetchBattleLog(String tagId, boolean connected) {
+        if (connected) {
             battleRemoteDataSource.getBattleLog(tagId);
         } else {
             battleLocalDataSource.getBattles(tagId);
         }
         return allBattleLogLiveData;
     }
-
-
-    /// Questo metodo serve per permettere ai repository di gestire le risposte API in maniera differente
-    /*@Override
-    protected <T> void handleApiResponse(Response<T> response) {
-        if (response.body() instanceof BattleLogApiResponse) {
-            BattleLogApiResponse blar = (BattleLogApiResponse) response.body();
-            responseCallback.onSuccess(blar.getBattleResponseList(), response.raw().receivedResponseAtMillis());
-            *//* TODO: implementare la cosa
-            List<Battle> battles = BattleMapper.mapToBattles(blar.getBattleResponseList());
-            responseCallback.onSuccess(battles, response.raw().receivedResponseAtMillis());*//*
-        }
-    }
-
-    @Override
-    protected void handleApiFailure(Throwable t) {
-
-    }*/
 
     @Override
     public void onSuccessFromRemote(List<Battle> battles, long lastUpdate) {
