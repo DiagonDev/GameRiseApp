@@ -94,10 +94,24 @@ public class TagActivity extends AppCompatActivity{
         });
 
         Button googleButton = findViewById(R.id.btnGoogleCustom);
+        Button googleLogOutButton = findViewById(R.id.btnLogoutGoogleCustom);
         googleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: leo metti qui la logica del bottone google
+                googleLogOutButton.setVisibility(View.VISIBLE);
+                googleLogOutButton.setClickable(true);
+                googleButton.setVisibility(View.GONE);
+                googleButton.setClickable(false);
+            }
+        });
+
+        googleLogOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                googleLogOutButton.setVisibility(View.GONE);
+                googleLogOutButton.setClickable(false);
+                googleButton.setVisibility(View.VISIBLE);
+                googleButton.setClickable(true);
             }
         });
 
