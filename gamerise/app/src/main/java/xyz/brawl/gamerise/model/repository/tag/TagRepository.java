@@ -1,9 +1,6 @@
 package xyz.brawl.gamerise.model.repository.tag;
 
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-
 import androidx.lifecycle.MutableLiveData;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.tag.Tag;
@@ -18,18 +15,6 @@ public class TagRepository implements TagCallback {
         allTagLiveData = new MutableLiveData<>();
         this.tagLocalDataSource = tagLocalDataSource;
         this.tagLocalDataSource.setBattleLogCallback(this);
-    }
-
-    public MutableLiveData<Result> fetchTag(long lastUpdate) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdate > FRESH_TIMEOUT) {
-            //Leo devi aggiungere qui i tuo metodo per recuperare i dati dal API
-            //articleRemoteDataSource.getArticles(country);
-            //get(apiService.getBattlelog(tagId));
-        } else {
-            tagLocalDataSource.getTag();
-        }
-        return allTagLiveData;
     }
 
     public MutableLiveData<Result> insertTag(Tag tagToInsert){

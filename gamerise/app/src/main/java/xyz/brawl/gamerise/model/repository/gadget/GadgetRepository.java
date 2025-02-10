@@ -1,7 +1,5 @@
 package xyz.brawl.gamerise.model.repository.gadget;
 
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
@@ -11,6 +9,7 @@ import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetRemoteDataSource;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 
 public class GadgetRepository implements GadgetCallback{
     private final BaseGadgetLocalDataSource gadgetLocalDataSource;
@@ -25,9 +24,8 @@ public class GadgetRepository implements GadgetCallback{
         this.gadgetRemoteDataSource.setGadgetCallback(this);
     }
 
-    public MutableLiveData<Result> fetchGadget(Long brawlerId, long lastUpdate, String tagId) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdate > FRESH_TIMEOUT) {
+    public MutableLiveData<Result> fetchGadget(Long brawlerId, boolean connected, String tagId) {
+        if (connected && !GameAccountSingleton.getInstance().isChecked()) {
             gadgetRemoteDataSource.getGadgetList(tagId);
         } else {
             gadgetLocalDataSource.getGadgets(brawlerId);
@@ -41,7 +39,7 @@ public class GadgetRepository implements GadgetCallback{
     }
 
     @Override
-    public void onSuccessFromRemote(List<GadgetEntry> gadgetList, long lastUpdate) {
+    public void onSuccessFromRemote(List<GadgetEntry> gadgetList) {
         gadgetLocalDataSource.insertGadgets(gadgetList);
     }
 

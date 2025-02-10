@@ -14,14 +14,14 @@ public class BattleLogViewModel extends ViewModel {
         this.battleLogRepository = battleLogRepository;
     }
 
-    public MutableLiveData<Result> getBattles(String tag, long lastUpdate) {
+    public MutableLiveData<Result> getBattles(String tag, boolean connected) {
         if (battlesLiveData == null) {
-            fetchBattleLog(tag, lastUpdate);
+            fetchBattleLog(tag, connected);
         }
         return battlesLiveData;
     }
 
-    private void fetchBattleLog(String tag, long lastUpdate) {
-        battlesLiveData = battleLogRepository.fetchBattleLog(tag, lastUpdate);
+    private void fetchBattleLog(String tag, boolean connected) {
+        battlesLiveData = battleLogRepository.fetchBattleLog(tag, connected);
     }
 }

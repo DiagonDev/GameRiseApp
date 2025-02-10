@@ -251,7 +251,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         return totalMoney;
     }
 
-    private void navigateToPreviousBrawler(long currentBrawlerId, String tag, long connected) {
+    private void navigateToPreviousBrawler(long currentBrawlerId, String tag, boolean connected) {
         int currentIndex = -1;
         for (int i = 0; i < brawlers.size(); i++) {
             if (brawlers.get(i).getId() == currentBrawlerId) {

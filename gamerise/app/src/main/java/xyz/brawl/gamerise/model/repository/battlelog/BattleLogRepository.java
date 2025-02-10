@@ -1,22 +1,14 @@
 package xyz.brawl.gamerise.model.repository.battlelog;
 
-import static xyz.brawl.gamerise.model.data.battle.BattleMapper.mapToBattleLogEntries;
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.battle.Battle;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleRemoteDataSource;
 
 
 public class BattleLogRepository implements BattleLogCallback {
-
-    //private static final String TAG = BattleLogRepository.class.getSimpleName();
     private final MutableLiveData<Result> allBattleLogLiveData;
     private final BaseBattleLocalDataSource battleLocalDataSource;
     private final BaseBattleRemoteDataSource battleRemoteDataSource;

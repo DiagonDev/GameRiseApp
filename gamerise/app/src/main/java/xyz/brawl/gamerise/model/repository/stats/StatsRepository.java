@@ -1,15 +1,10 @@
 package xyz.brawl.gamerise.model.repository.stats;
 
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-
 import androidx.lifecycle.MutableLiveData;
-
-import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsRemoteDataSource;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public class StatsRepository implements StatsCallBack {
@@ -24,9 +19,8 @@ public class StatsRepository implements StatsCallBack {
         this.statsLocalDataSource.setStatsCallback(this);
         this.statsRemoteDataSource.setStatsCallback(this);
     }
-    public MutableLiveData<Result> fetchStats(String tagId, long lastUpdate) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdate > FRESH_TIMEOUT) {
+    public MutableLiveData<Result> fetchStats(String tagId, boolean connected) {
+        if (connected && !GameAccountSingleton.getInstance().isChecked()) {
             statsRemoteDataSource.getStats(tagId);
         } else {
             statsLocalDataSource.getStats(tagId);

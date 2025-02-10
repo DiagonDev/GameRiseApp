@@ -14,14 +14,14 @@ public class StatsViewModel extends ViewModel {
         this.statsRepository = statsRepository;
     }
 
-    public MutableLiveData<Result> getStats(String tag, long lastUpdate) {
+    public MutableLiveData<Result> getStats(String tag, boolean connected) {
         if (statsLiveData == null) {
-            fetchStats(tag, lastUpdate);
+            fetchStats(tag, connected);
         }
         return statsLiveData;
     }
 
-    private void fetchStats(String tag, long lastUpdate) {
-        statsLiveData = statsRepository.fetchStats(tag, lastUpdate);
+    private void fetchStats(String tag, boolean connected) {
+        statsLiveData = statsRepository.fetchStats(tag, connected);
     }
 }

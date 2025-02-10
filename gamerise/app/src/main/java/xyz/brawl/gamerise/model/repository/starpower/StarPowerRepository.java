@@ -1,15 +1,12 @@
 package xyz.brawl.gamerise.model.repository.starpower;
 
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public class StarPowerRepository implements StarPowerCallback {
@@ -25,9 +22,8 @@ public class StarPowerRepository implements StarPowerCallback {
         this.starPowerRemoteDataSource.setStarPowerCallback(this);
     }
 
-    public MutableLiveData<Result> fetchStarPower(Long brawlerId, long lastUpdate, String tagId) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdate > FRESH_TIMEOUT) {
+    public MutableLiveData<Result> fetchStarPower(Long brawlerId, boolean connected, String tagId) {
+        if (connected && !GameAccountSingleton.getInstance().isChecked()) {
            starPowerRemoteDataSource.getStarPowerList(tagId);
         } else {
             starPowerLocalDataSource.getStarPower(brawlerId);
@@ -41,7 +37,7 @@ public class StarPowerRepository implements StarPowerCallback {
     }
 
     @Override
-    public void onSuccessFromRemote(List<StarPowerEntry> starPowerList, long lastUpdate) {
+    public void onSuccessFromRemote(List<StarPowerEntry> starPowerList) {
         starPowerLocalDataSource.insertStarPower(starPowerList);
     }
 

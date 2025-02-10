@@ -156,6 +156,7 @@ public class TagActivity extends AppCompatActivity {
     public boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
         GameAccountSingleton.getInstance().setUserTag(inputTag);
+        GameAccountSingleton.getInstance().setChecked(checked);
         if (tagViewModel.isTagValid(inputTag)) {
             if (checked) {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
