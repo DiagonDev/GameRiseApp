@@ -30,4 +30,10 @@ public class JSONParserUtils {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         return new Gson().fromJson(reader, PlayerApiResponse.class);
     }
+    public <T> T parseJSONFileWithGSon(String filename, Class<T> clazz) throws IOException {
+        InputStream inputStream = application.getAssets().open(filename);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        return new Gson().fromJson(bufferedReader, clazz);
+    }
 }
