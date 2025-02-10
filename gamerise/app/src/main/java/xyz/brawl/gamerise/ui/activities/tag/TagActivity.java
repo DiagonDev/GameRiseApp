@@ -150,23 +150,17 @@ public class TagActivity extends AppCompatActivity {
         });
 
         googleLogInButton.setOnClickListener(v -> oneTapClient.beginSignIn(signInRequest)
-                .addOnSuccessListener(this, new OnSuccessListener<BeginSignInResult>() {
-                    @Override
-                    public void onSuccess(BeginSignInResult result) {
-                        Log.d(TAG, "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)");
-                        IntentSenderRequest intentSenderRequest =
-                                new IntentSenderRequest.Builder(result.getPendingIntent()).build();
-                        activityResultLauncher.launch(intentSenderRequest);
-                    }
+                .addOnSuccessListener(this, result -> {
+                    Log.d(TAG, "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)");
+                    IntentSenderRequest intentSenderRequest =
+                            new IntentSenderRequest.Builder(result.getPendingIntent()).build();
+                    activityResultLauncher.launch(intentSenderRequest);
                 })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // No saved credentials found. Launch the One Tap sign-up flow, or
-                        // do nothing and continue presenting the signed-out UI.
-                        Log.d(TAG, e.getLocalizedMessage());
-                        Snackbar.make(findViewById(android.R.id.content), "Errore dal bottone", Snackbar.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(this, e -> {
+                    // No saved credentials found. Launch the One Tap sign-up flow, or
+                    // do nothing and continue presenting the signed-out UI.
+                    Log.d(TAG, e.getLocalizedMessage());
+                    Snackbar.make(findViewById(android.R.id.content), e.toString(), Snackbar.LENGTH_SHORT).show();
                 }));
 
 
@@ -223,7 +217,7 @@ public class TagActivity extends AppCompatActivity {
                     }
                 } catch (ApiException e) {
                     Snackbar.make(findViewById(android.R.id.content),
-                            "Errore di autenticazione",
+                            e.toString(),
                             Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -277,7 +271,6 @@ public class TagActivity extends AppCompatActivity {
             Intent intent = new Intent(TagActivity.this, MainActivity.class);
             startActivity(intent);
         }
-
     }
 
 }
