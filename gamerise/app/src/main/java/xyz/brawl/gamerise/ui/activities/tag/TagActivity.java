@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
@@ -38,6 +40,7 @@ public class TagActivity extends AppCompatActivity {
     private EditText insertTag;
     private ImageButton checkboxButton;
     private Button googleButton;
+    private TextView savedTagTextView;
     private FrameLayout noInternetView;
 
     @Override
@@ -45,14 +48,18 @@ public class TagActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
-
         setContentView(R.layout.activity_tag);
+
+        insertTag = findViewById(R.id.insertTag);
+        savedTagTextView = findViewById(R.id.savedTagTextView);
+        noInternetView = findViewById(R.id.no_internet_view);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         TagRepository tagRepository =
                 ServiceLocator.getInstance().getTagRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
@@ -60,19 +67,33 @@ public class TagActivity extends AppCompatActivity {
                 ServiceLocator.getInstance().getPlayerRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
 
+
         tagViewModel = new ViewModelProvider(
                 this,
                 new TagViewModelFactory(tagRepository, playerRepository)).get(TagViewModel.class);
 
         String lastUpdate = "0";
-        noInternetView = findViewById(R.id.no_internet_view);
-        if (!NetworkUtil.isInternetAvailable(this)) {
+        if(!NetworkUtil.isInternetAvailable(this)){
             noInternetView.setVisibility(View.VISIBLE);
 
             lastUpdate = System.currentTimeMillis() + "";
         }
 
-        insertTag = findViewById(R.id.insertTag);
+        tagViewModel.getSavedTag().observe(this, result -> {
+            if (result.isSuccess()) {
+                Tag savedTag = (Tag) ((Result.Success) result).getData();
+                if (savedTag != null)
+                    savedTagTextView.setText(savedTag.getTag());
+            }
+        });
+
+        savedTagTextView.setOnClickListener(view -> {
+            if (handlerInvioTagSalvato()) {
+                Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (handlerInvioTag()) {
@@ -169,5 +190,13 @@ public class TagActivity extends AppCompatActivity {
             Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    public boolean handlerInvioTagSalvato() {
+        String inputTag = savedTagTextView.getText().toString().trim();
+        GameAccountSingleton.getInstance().setUserTag(inputTag);
+        GameAccountSingleton.getInstance().setChecked(checked);
+        Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
+        return true;
     }
 }

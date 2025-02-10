@@ -17,6 +17,11 @@ public class TagRepository implements TagCallback {
         this.tagLocalDataSource.setBattleLogCallback(this);
     }
 
+    public MutableLiveData<Result> fetchTag() {
+        tagLocalDataSource.getTag();
+        return allTagLiveData;
+    }
+
     public MutableLiveData<Result> insertTag(Tag tagToInsert){
         tagLocalDataSource.insertTag(tagToInsert);
         return allTagLiveData;

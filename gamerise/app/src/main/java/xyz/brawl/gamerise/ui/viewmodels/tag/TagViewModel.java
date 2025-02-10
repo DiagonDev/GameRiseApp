@@ -1,13 +1,16 @@
 package xyz.brawl.gamerise.ui.viewmodels.tag;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 
-public class TagViewModel extends ViewModel {
-    //private MutableLiveData<Result> tagLiveData;
+public class TagViewModel extends ViewModel{
+    private MutableLiveData<Result> tagLiveData;
     private final TagRepository tagRepository;
     private final PlayerRepository playerRepository;
 
@@ -22,6 +25,12 @@ public class TagViewModel extends ViewModel {
         playerRepository.fetchPlayer(tag.getTag());
         //
     }
+
+    public MutableLiveData<Result> getSavedTag() {
+        tagLiveData = tagRepository.fetchTag();
+        return tagLiveData;
+    }
+
 
     public boolean isTagValid(String input) {
         // Controlla sintassi
