@@ -1,15 +1,12 @@
 package xyz.brawl.gamerise.model.repository.brawler;
 
-import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
-
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersRemoteDataSource;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 
 public class BrawlersRepository implements BrawlersCallBack {
     private final MutableLiveData<Result> allBrawlerLiveData;
@@ -25,13 +22,17 @@ public class BrawlersRepository implements BrawlersCallBack {
     }
 
     // qua va la logica
-    public MutableLiveData<Result> fetchBrawlers(String tagId, long lastUpdate) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdate > FRESH_TIMEOUT) {
+    public MutableLiveData<Result> fetchBrawlers(String tagId, boolean connected) {
+        if (connected && !GameAccountSingleton.getInstance().isChecked()){
             brawlerRemoteDataSource.getBrawlerList(tagId);
         } else {
             brawlerLocalDataSource.getBrawlers(tagId);
         }
+        return allBrawlerLiveData;
+    }
+
+    public MutableLiveData<Result> insertBrawlers(List<BrawlerEntry> brawlersToInsert){
+        brawlerLocalDataSource.insertBrawlers(brawlersToInsert);
         return allBrawlerLiveData;
     }
 
@@ -49,7 +50,12 @@ public class BrawlersRepository implements BrawlersCallBack {
 
     @Override
     public void onSuccessFromRemote(List<BrawlerEntry> brawler, long lastUpdate) {
-        brawlerLocalDataSource.insertBrawlers(brawler);
+        if(GameAccountSingleton.getInstance().isChecked())
+            brawlerLocalDataSource.insertBrawlers(brawler);
+        else{
+            Result result = new Result.Success(brawler);
+            allBrawlerLiveData.postValue(result);
+        }
     }
 
     @Override

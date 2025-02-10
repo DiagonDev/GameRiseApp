@@ -1,5 +1,7 @@
 package xyz.brawl.gamerise.model.data.datasource.brawler;
 
+import android.util.Log;
+
 import java.util.List;
 
 import xyz.brawl.gamerise.database.BrawlerDAO;

@@ -29,7 +29,7 @@ public class GadgetRemoteDataSource extends BaseGadgetRemoteDataSource{
                 if (response.isSuccessful() && response.body() != null) {
                     List<GadgetEntry> gadgetEntryList = PlayerMapper.mapToGadgets(response.body());
                     // Passa il risultato e il tempo di aggiornamento al callback
-                    gadgetCallback.onSuccessFromRemote(gadgetEntryList, response.raw().receivedResponseAtMillis());
+                    gadgetCallback.onSuccessFromRemote(gadgetEntryList);
                 } else {
                     // Errore nel codice HTTP o risposta vuota
                     String errorMessage = "Errore: Risposta non valida (Codice: " + response.code() + ")";

@@ -20,17 +20,17 @@ public class BrawlersViewModel extends ViewModel {
         this.gadgetRepository = gadgetRepository;
     }
 
-    public MutableLiveData<Result> getBrawlers(String tag, long lastUpdate) {
+    public MutableLiveData<Result> getBrawlers(String tag, boolean connected) {
         if(brawlersLiveData == null){
-            brawlersLiveData = brawlersRepository.fetchBrawlers(tag, lastUpdate);
+            brawlersLiveData = brawlersRepository.fetchBrawlers(tag,connected);
         }
         return brawlersLiveData;
     }
-    public MutableLiveData<Result> getStarPower(Long brawlerId, long lastUpdate, String tagId) {
-        return starPowerRepository.fetchStarPower(brawlerId, lastUpdate, tagId);
+    public MutableLiveData<Result> getStarPower(Long brawlerId, boolean connected, String tagId) {
+        return starPowerRepository.fetchStarPower(brawlerId, connected, tagId);
     }
 
-    public MutableLiveData<Result> getGadgets(Long brawlerId, long lastUpdate, String tagId) {
-        return gadgetRepository.fetchGadget(brawlerId, lastUpdate, tagId);
+    public MutableLiveData<Result> getGadgets(Long brawlerId, boolean connected, String tagId) {
+        return gadgetRepository.fetchGadget(brawlerId, connected, tagId);
     }
 }

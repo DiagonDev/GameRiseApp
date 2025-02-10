@@ -28,23 +28,22 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
     public BrawlerAdapter(Context context, int layout, List<BrawlerEntry> brawlers) {
         super(context, layout, brawlers);
         this.layout = layout;
-        this.brawlers = new ArrayList<>(brawlers); // Usa una copia per evitare problemi di riferimenti
+        this.brawlers = new ArrayList<>(brawlers);
     }
 
     @Override
     public int getCount() {
-        Log.d("BrawlerAdapter", "getCount() chiamato, numero elementi: " + brawlers.size());
         return brawlers.size();
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Log.d("BrawlerAdapter", "getView() chiamato per posizione: " + position);
+
 
         ViewHolder viewHolder;
 
-        // Se convertView è null, creiamo una nuova view
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
             viewHolder = new ViewHolder();
@@ -52,18 +51,18 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
             viewHolder.brawlerNameTextView = convertView.findViewById(R.id.brawler_name_textView);
             convertView.setTag(viewHolder);
         } else {
-            // Riutilizza la View esistente
+
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // Ottieni il brawler alla posizione corrente
+
         BrawlerEntry brawler = brawlers.get(position);
 
-        // Imposta i dati nella View
+
         viewHolder.brawlerPinImageView.setImageResource(brawler.getBrawlerPin());
         viewHolder.brawlerNameTextView.setText(brawler.getName());
 
-        // Click per aprire i dettagli del brawler
+
         convertView.setOnClickListener(view -> {
             Intent i = new Intent(getContext(), BrawlerDetailsActivity.class);
             i.putExtra("brawlerId", brawler.getId());
@@ -73,16 +72,15 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
         return convertView;
     }
 
-    // ViewHolder: Ottimizza il caricamento delle View
     private static class ViewHolder {
         ImageView brawlerPinImageView;
         TextView brawlerNameTextView;
     }
 
-    // Metodo per aggiornare la lista dei brawlers dinamicamente
+
     public void updateData(List<BrawlerEntry> newBrawlers) {
         brawlers.clear();
         brawlers.addAll(newBrawlers);
-        notifyDataSetChanged(); // Notifica l'Adapter che i dati sono cambiati
+        notifyDataSetChanged();
     }
 }

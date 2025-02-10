@@ -631,12 +631,11 @@ public class Constants {
 
     public static int iconRanked = R.drawable.ranked_icon;
     public static int iconStandard = R.drawable.standard_icon;
-
+    public static long FRESH_TIME = 1000 * 60;
     public static String tagLeo = "#VQCV92Q9";
     public static String tagTeo = "#989VGUU0";
     public static String knockout = "KNOCKOUT";
     public static String StormyPlains = "Stormy Plains";
 
     public static final int DATABASE_VERSION = 12;
-    public static final int FRESH_TIMEOUT = 1000 * 60;
 }

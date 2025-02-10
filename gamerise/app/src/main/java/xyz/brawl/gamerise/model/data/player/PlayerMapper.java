@@ -7,9 +7,15 @@ import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.data.tag.Tag;
 import xyz.brawl.gamerise.util.Constants;
 
 public class PlayerMapper {
+
+    public static Tag mapToTag(PlayerApiResponse playerApiResponse) {
+        return new Tag(playerApiResponse.name, playerApiResponse.tag.substring(1));
+    }
+
     public static Stat mapToStat(PlayerApiResponse playerApiResponse) {
         return new Stat.StatBuilder()
                 .tag(playerApiResponse.tag)
@@ -32,7 +38,7 @@ public class PlayerMapper {
         }
         return brawlersList;
     }
-    
+
     public static List<GadgetEntry> mapToGadgets(PlayerApiResponse playerApiResponse) {
         List<GadgetEntry> gadgetList = new ArrayList<>();
 
