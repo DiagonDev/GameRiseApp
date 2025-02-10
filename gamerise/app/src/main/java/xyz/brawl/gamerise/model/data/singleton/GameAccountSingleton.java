@@ -5,6 +5,8 @@ public class GameAccountSingleton {
 
     private String UserTag;
     private boolean checked;
+    private long lastUpdate;
+
     private GameAccountSingleton() {
     }
 
@@ -29,5 +31,13 @@ public class GameAccountSingleton {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public long getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(long lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

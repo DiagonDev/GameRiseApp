@@ -84,9 +84,7 @@ public class BattleLogFragment extends Fragment {
 
         }
 
-
-        //TODO: controllare se funziona
-        battleLogViewModel.getBattles(tag, connected).observe(getViewLifecycleOwner(),
+        battleLogViewModel.getBattles(tag, connected, GameAccountSingleton.getInstance().getLastUpdate()).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
                         List<Battle> newBattles = (List<Battle>) ((Result.Success) result).getData();

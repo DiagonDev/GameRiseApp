@@ -132,9 +132,8 @@ public class StatsFragment extends Fragment {
                 });
 
 
-        //TODO: spostare codice nel viewModel
         chartContainer = view.findViewById(R.id.chart_container);
-        battleLogViewModel.getBattles(tag, connected).observe(getViewLifecycleOwner(),
+        battleLogViewModel.getBattles(tag, connected, GameAccountSingleton.getInstance().getLastUpdate()).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
                         List<Battle> battleList = (List<Battle>) ((Result.Success) result).getData();
@@ -153,7 +152,7 @@ public class StatsFragment extends Fragment {
                     }
                 });
 
-        battleLogViewModel.getBattles(tag, connected).observe(getViewLifecycleOwner(),
+        battleLogViewModel.getBattles(tag, connected, GameAccountSingleton.getInstance().getLastUpdate()).observe(getViewLifecycleOwner(),
                 result -> {
                     if (result.isSuccess()) {
                         List<Battle> battleList = (List<Battle>) ((Result.Success) result).getData();

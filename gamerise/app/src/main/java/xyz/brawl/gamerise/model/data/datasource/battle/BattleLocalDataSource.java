@@ -30,9 +30,7 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
     }
 
     @Override
-    //al posto della lista, potrebbe arrivarci una battaglia alla volta
     public void insertBattles(List<Battle> battleList) {
-        //TODO: potrebbe esserci qualche errore su "battleDAO.insertAll(toInsertOrUpdate);"
         GameRiseDatabase.databaseWriteExecutor.execute(() -> {
             Tag tag = tagDao.getTag();
             String tagAccount = gameAccountSingleton.getUserTag();
@@ -42,6 +40,7 @@ public class BattleLocalDataSource extends BaseBattleLocalDataSource{
                 }
                 battleDAO.insertAll(battleList);
             }
+            GameAccountSingleton.getInstance().setLastUpdate(System.currentTimeMillis());
             battleLogCallback.onSuccessFromLocal(battleList);
         });
     }
