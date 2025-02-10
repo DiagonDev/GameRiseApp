@@ -18,7 +18,9 @@ public class TagViewModel extends ViewModel {
 
 
     public void addTag(Tag tag) {
-        //tagRepository.insertTag(tag);
+        tagRepository.insertTag(tag);
+        playerRepository.fetchPlayer(tag.getTag());
+        //
     }
 
     public boolean isTagValid(String input) {

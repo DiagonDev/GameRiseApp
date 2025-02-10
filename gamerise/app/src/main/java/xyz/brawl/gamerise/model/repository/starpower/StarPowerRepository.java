@@ -10,6 +10,7 @@ import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
+import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public class StarPowerRepository implements StarPowerCallback {
     private final BaseStarPowerLocalDataSource starPowerLocalDataSource;
@@ -31,6 +32,11 @@ public class StarPowerRepository implements StarPowerCallback {
         } else {
             starPowerLocalDataSource.getStarPower(brawlerId);
         }
+        return allStarPowerLiveData;
+    }
+
+    public MutableLiveData<Result> insertStarPowers(List<StarPowerEntry> starPowerToInsert){
+        starPowerLocalDataSource.insertStarPower(starPowerToInsert);
         return allStarPowerLiveData;
     }
 

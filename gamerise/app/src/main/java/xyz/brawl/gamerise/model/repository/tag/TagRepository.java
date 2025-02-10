@@ -42,6 +42,7 @@ public class TagRepository implements TagCallback {
         return allTagLiveData;
     }
 
+
     @Override
     public void onSuccessFromRemote(Tag tag, long lastUpdate) {
     }

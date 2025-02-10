@@ -7,7 +7,7 @@
     <string name="inserisci_tag">Inserisci Tag</string>
 
     <!-- activity_main -->
-    <string name="nome_giocatore">Nome Giocatore</string>
+    <string name="cambia_tag">Cambia Tag</string>
 
     <!-- bottom_navigation_menu -->
     <string name="battleLog">BattleLog</string>

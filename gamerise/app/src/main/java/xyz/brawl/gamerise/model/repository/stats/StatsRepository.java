@@ -4,7 +4,10 @@ import static xyz.brawl.gamerise.util.Constants.FRESH_TIMEOUT;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
+
 import xyz.brawl.gamerise.model.Result;
+import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsRemoteDataSource;
 import xyz.brawl.gamerise.model.data.stat.Stat;
@@ -28,6 +31,11 @@ public class StatsRepository implements StatsCallBack {
         } else {
             statsLocalDataSource.getStats(tagId);
         }
+        return statsLiveData;
+    }
+
+    public MutableLiveData<Result> insertStats(Stat statsToInsert){
+        statsLocalDataSource.insertStats(statsToInsert);
         return statsLiveData;
     }
 

@@ -13,7 +13,7 @@ import xyz.brawl.gamerise.util.Constants;
 public class PlayerMapper {
 
     public static Tag mapToTag(PlayerApiResponse playerApiResponse) {
-        return new Tag(playerApiResponse.name, playerApiResponse.tag);
+        return new Tag(playerApiResponse.name, playerApiResponse.tag.substring(1));
     }
 
     public static Stat mapToStat(PlayerApiResponse playerApiResponse) {

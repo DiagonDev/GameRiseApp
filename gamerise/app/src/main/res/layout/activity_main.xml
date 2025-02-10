@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/nome_giocatore"
+            android:text="@string/cambia_tag"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textColor="@color/white"
             android:textSize="30sp"

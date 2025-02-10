@@ -50,9 +50,8 @@ public class PlayerRepository implements PlayerCallBack {
         //  Quando l'API restituisce una risposta con successo, salvo i dati nei repository locali
         if (playerApiResponse != null) {
             // Salva i dati nelle repository specifiche
-            tagRepository.insertTag(PlayerMapper.mapToTag(playerApiResponse));
-            brawlersRepository.insertBrawlers(PlayerMapper.mapToBrawlers(playerApiResponse), tagId);
-            statsRepository.insertStats(PlayerMapper.mapToStat(playerApiResponse), tagId);
+            brawlersRepository.insertBrawlers(PlayerMapper.mapToBrawlers(playerApiResponse));
+            statsRepository.insertStats(PlayerMapper.mapToStat(playerApiResponse));
             starPowerRepository.insertStarPowers(PlayerMapper.mapToStarPowers(playerApiResponse));
             gadgetRepository.insertGadgets(PlayerMapper.mapToGadgets(playerApiResponse));
             // Notifica il LiveData che i dati sono stati aggiornati
