@@ -24,6 +24,7 @@ retrofitVersion = "(insert latest version)"
 roomCommon = "2.6.1"
 roomCompiler = "2.6.1"
 roomRuntime = "2.6.1"
+playServicesBase = "18.5.0"
 
 
 [libraries]
@@ -53,6 +54,7 @@ retrofit-vinsertlatestversion = { module = "com.squareup.retrofit2:retrofit", ve
 retrofit2-converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
 room-runtime = { module = "androidx.room:room-runtime" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+play-services-base = { group = "com.google.android.gms", name = "play-services-base", version.ref = "playServicesBase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
