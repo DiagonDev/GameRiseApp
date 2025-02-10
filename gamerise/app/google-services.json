@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "724946336066",
+    "firebase_url": "https://gamerise-4-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gamerise-4",
+    "storage_bucket": "gamerise-4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724946336066:android:612f5ab5d05a7e764470db",
+        "android_client_info": {
+          "package_name": "xyz.brawl.gamerise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724946336066-pu9tul5p11umshitgejavqvqou7fjdti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.brawl.gamerise",
+            "certificate_hash": "bb915eab3e477819a4d523ff976770b2bd9052b2"
+          }
+        },
+        {
+          "client_id": "724946336066-rbakinljoedd76vfr9orkshdrlb4ieb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDibkVZwmPOhFyLLLXeH9FJi1B20cVw1JM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724946336066-rbakinljoedd76vfr9orkshdrlb4ieb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

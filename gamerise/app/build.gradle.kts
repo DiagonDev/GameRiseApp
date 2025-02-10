@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.application)
     id("org.sonarqube") version "5.1.0.4882"
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -74,4 +75,11 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
 
     implementation(libs.logging.interceptor)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.database)
+
+
 }

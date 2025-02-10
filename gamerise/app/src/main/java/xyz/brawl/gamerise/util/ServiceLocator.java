@@ -30,12 +30,17 @@ import xyz.brawl.gamerise.model.data.datasource.stats.StatsLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.stats.StatsRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
+import xyz.brawl.gamerise.model.data.datasource.user.BaseUserAuthenticationRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.user.BaseUserDataRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.user.UserAuthenticationFirebaseDataSource;
+import xyz.brawl.gamerise.model.data.datasource.user.UserFirebaseDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.model.repository.stats.StatsRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
+import xyz.brawl.gamerise.model.repository.user.UserRepository;
 import xyz.brawl.gamerise.model.service.ApiService;
 
 public class ServiceLocator {
@@ -173,5 +178,15 @@ public class ServiceLocator {
         gadgetLocalDataSource = new GadgetLocalDataSource(getDatabase(application));
         gadgetRemoteDataSource = new GadgetRemoteDataSource(getApiService());
         return new GadgetRepository(gadgetLocalDataSource, gadgetRemoteDataSource);
+    }
+
+    public UserRepository getUserRepository(Application application) {
+        BaseUserAuthenticationRemoteDataSource userRemoteAuthenticationDataSource =
+                new UserAuthenticationFirebaseDataSource();
+
+        BaseUserDataRemoteDataSource userDataRemoteDataSource =
+                new UserFirebaseDataSource();
+        return new UserRepository(userRemoteAuthenticationDataSource,
+                userDataRemoteDataSource);
     }
 }
