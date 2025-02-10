@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "724946336066",
+    "firebase_url": "https://gamerise-4-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "gamerise-4",
     "storage_bucket": "gamerise-4.firebasestorage.app"
   },

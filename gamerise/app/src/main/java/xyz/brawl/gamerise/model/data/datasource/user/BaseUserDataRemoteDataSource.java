@@ -1,7 +1,5 @@
 package xyz.brawl.gamerise.model.data.datasource.user;
 
-import java.util.Set;
-
 import xyz.brawl.gamerise.model.data.user.User;
 import xyz.brawl.gamerise.model.repository.user.UserCallBack;
 

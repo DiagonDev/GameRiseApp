@@ -2,8 +2,6 @@ package xyz.brawl.gamerise.model.repository.user;
 
 import androidx.lifecycle.MutableLiveData;
 
-
-import java.util.List;
 import java.util.Set;
 
 import xyz.brawl.gamerise.model.Result;
@@ -12,12 +10,7 @@ import xyz.brawl.gamerise.model.data.datasource.user.BaseUserDataRemoteDataSourc
 import xyz.brawl.gamerise.model.data.user.User;
 
 
-/**
- * Repository class to get the user information.
- */
 public class UserRepository implements UserCallBack {
-
-    private static final String TAG = UserRepository.class.getSimpleName();
 
     private final BaseUserAuthenticationRemoteDataSource userRemoteDataSource;
     private final BaseUserDataRemoteDataSource userDataRemoteDataSource;
@@ -34,15 +27,6 @@ public class UserRepository implements UserCallBack {
         this.userFavoriteNewsMutableLiveData = new MutableLiveData<>();
         this.userRemoteDataSource.setUserResponseCallback(this);
         this.userDataRemoteDataSource.setUserResponseCallback(this);
-    }
-
-    public MutableLiveData<Result> getUser(String email, String password, boolean isUserRegistered) {
-        if (isUserRegistered) {
-            signIn(email, password);
-        } else {
-            signUp(email, password);
-        }
-        return userMutableLiveData;
     }
 
     public MutableLiveData<Result> getGoogleUser(String idToken) {
@@ -84,17 +68,13 @@ public class UserRepository implements UserCallBack {
     }
 
     public void onSuccessFromRemoteDatabase(User user) {
-        Result.UserSuccess result = new Result.UserSuccess(user);
+        Result.Success result = new Result.Success(user);
         userMutableLiveData.postValue(result);
-    }
-
-    public void onSuccessFromRemoteDatabase(prendi tag) {
-
     }
 
     @Override
     public void onSuccessFromGettingUserPreferences() {
-        userPreferencesMutableLiveData.postValue(new Result.UserSuccess(null));
+        userPreferencesMutableLiveData.postValue(new Result.Success(null));
     }
 
     @Override
