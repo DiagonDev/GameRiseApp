@@ -1,5 +1,8 @@
 package xyz.brawl.gamerise.ui.activities.tag;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +45,7 @@ public class TagActivity extends AppCompatActivity {
     private Button googleButton;
     private TextView savedTagTextView;
     private FrameLayout noInternetView;
+    private ImageButton searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class TagActivity extends AppCompatActivity {
         insertTag = findViewById(R.id.insertTag);
         savedTagTextView = findViewById(R.id.savedTagTextView);
         noInternetView = findViewById(R.id.no_internet_view);
+        searchButton = findViewById(R.id.searchButton);
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -94,29 +100,39 @@ public class TagActivity extends AppCompatActivity {
             }
         });
 
-        insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (handlerInvioTag()) {
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    return true;
+        insertTag.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String upperCaseText = s.toString().toUpperCase();
+                if (!s.toString().equals(upperCaseText)) {
+                    insertTag.setText(upperCaseText);
+                    insertTag.setSelection(upperCaseText.length()); // Mantieni il cursore alla fine
                 }
-                return false;
+            }
+        });
+
+        insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || (keyEvent != null && keyEvent.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == android.view.KeyEvent.ACTION_DOWN)) {
+                searchButton.performClick();
+                return true;
             }
             return false;
         });
 
 
-        ImageButton searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (handlerInvioTag()) {
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+        searchButton.setOnClickListener(view -> {
+            if (handlerInvioTag()) {
+                Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
+
 
         Button googleButton = findViewById(R.id.btnGoogleCustom);
         googleButton.setOnClickListener(new View.OnClickListener() {
@@ -140,29 +156,6 @@ public class TagActivity extends AppCompatActivity {
                 }
             }
         });
-
-        /// La visualizzazione della lista dei tag potrebbe dare problemi
-        /*RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TagAdapter tagAdapter = new TagAdapter(new ArrayList<>());
-        recyclerView.setAdapter(tagAdapter);*/
-
-        // Osserva i cambiamenti nei tag
-        /*tagViewModel.getTags().observe(this, updatedTags -> {
-            if (updatedTags != null && tagAdapter != null) {
-                tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
-            }
-        });*/
-
-        // Carica i primi 3 tag dal database
-        /*tagViewModel.loadRecentTags();*/
-
-
-        /////////////////////////////////////
-        //TODO: da controllare
-        /*BrawlerRepository br = new BrawlerRepository(this.getApplication(), this);
-        br.fetchBrawlerList();
-        br.fetchBrawler(16000000);*/
     }
 
     /**
@@ -176,6 +169,9 @@ public class TagActivity extends AppCompatActivity {
 
     public boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
+        if(inputTag.startsWith("#")){
+            inputTag = inputTag.substring(1);
+        }
         GameAccountSingleton.getInstance().setUserTag(inputTag);
         GameAccountSingleton.getInstance().setChecked(checked);
         if (tagViewModel.isTagValid(inputTag)) {
