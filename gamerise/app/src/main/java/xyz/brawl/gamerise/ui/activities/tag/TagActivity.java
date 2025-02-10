@@ -17,6 +17,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
@@ -30,7 +33,7 @@ import xyz.brawl.gamerise.util.ServiceLocator;
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
 /// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
 /// il colore da applicare. Non è un problema bloccante e si risolve appena popoliamo il recycler
-public class TagActivity extends AppCompatActivity{
+public class TagActivity extends AppCompatActivity {
 
     private boolean checked = false;
     private TagViewModel tagViewModel;
@@ -116,6 +119,11 @@ public class TagActivity extends AppCompatActivity{
             }
         });
 
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        mAuth.
         /// La visualizzazione della lista dei tag potrebbe dare problemi
         /*RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -128,17 +136,8 @@ public class TagActivity extends AppCompatActivity{
                 tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
             }
         });*/
-
-        // Carica i primi 3 tag dal database
-        /*tagViewModel.loadRecentTags();*/
-
-
-        /////////////////////////////////////
-        //TODO: da controllare
-        /*BrawlerRepository br = new BrawlerRepository(this.getApplication(), this);
-        br.fetchBrawlerList();
-        br.fetchBrawler(16000000);*/
     }
+
 
     /**
      * Gestisce l'invio del tag tramite il ViewModel.
