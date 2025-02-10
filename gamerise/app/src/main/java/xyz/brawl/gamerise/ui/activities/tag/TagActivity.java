@@ -195,8 +195,7 @@ public class TagActivity extends AppCompatActivity {
     public boolean handlerInvioTagSalvato() {
         String inputTag = savedTagTextView.getText().toString().trim();
         GameAccountSingleton.getInstance().setUserTag(inputTag);
-        GameAccountSingleton.getInstance().setChecked(checked);
-        Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
+        GameAccountSingleton.getInstance().setChecked(true);
         return true;
     }
 }

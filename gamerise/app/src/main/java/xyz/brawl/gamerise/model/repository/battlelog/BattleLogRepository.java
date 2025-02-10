@@ -6,6 +6,7 @@ import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.battle.Battle;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.battle.BaseBattleRemoteDataSource;
+import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 
 
 public class BattleLogRepository implements BattleLogCallback {
@@ -32,7 +33,12 @@ public class BattleLogRepository implements BattleLogCallback {
 
     @Override
     public void onSuccessFromRemote(List<Battle> battles, long lastUpdate) {
-        battleLocalDataSource.insertBattles(battles);
+        if(GameAccountSingleton.getInstance().isChecked())
+            battleLocalDataSource.insertBattles(battles);
+        else{
+            Result result = new Result.Success(battles);
+            allBattleLogLiveData.postValue(result);
+        }
     }
 
     @Override

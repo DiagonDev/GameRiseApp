@@ -38,7 +38,12 @@ public class StarPowerRepository implements StarPowerCallback {
 
     @Override
     public void onSuccessFromRemote(List<StarPowerEntry> starPowerList) {
-        starPowerLocalDataSource.insertStarPower(starPowerList);
+        if(GameAccountSingleton.getInstance().isChecked())
+            starPowerLocalDataSource.insertStarPower(starPowerList);
+        else{
+            Result result = new Result.Success(starPowerList);
+            allStarPowerLiveData.postValue(result);
+        }
     }
 
     @Override

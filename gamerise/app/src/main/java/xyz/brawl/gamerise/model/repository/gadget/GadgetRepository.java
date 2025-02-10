@@ -40,7 +40,12 @@ public class GadgetRepository implements GadgetCallback{
 
     @Override
     public void onSuccessFromRemote(List<GadgetEntry> gadgetList) {
-        gadgetLocalDataSource.insertGadgets(gadgetList);
+        if(GameAccountSingleton.getInstance().isChecked())
+            gadgetLocalDataSource.insertGadgets(gadgetList);
+        else{
+            Result result = new Result.Success(gadgetList);
+            allGadgetLiveData.postValue(result);
+        }
     }
 
     @Override

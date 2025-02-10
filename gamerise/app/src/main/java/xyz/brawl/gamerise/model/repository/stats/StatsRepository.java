@@ -36,7 +36,12 @@ public class StatsRepository implements StatsCallBack {
 
     @Override
     public void onSuccessFromRemote(Stat stats, long lastUpdate) {
-        statsLocalDataSource.insertStats(stats);
+        if(GameAccountSingleton.getInstance().isChecked())
+            statsLocalDataSource.insertStats(stats);
+        else{
+            Result result = new Result.Success(stats);
+            statsLiveData.postValue(result);
+        }
     }
 
     @Override

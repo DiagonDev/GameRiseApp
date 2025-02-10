@@ -50,7 +50,12 @@ public class BrawlersRepository implements BrawlersCallBack {
 
     @Override
     public void onSuccessFromRemote(List<BrawlerEntry> brawler, long lastUpdate) {
-        brawlerLocalDataSource.insertBrawlers(brawler);
+        if(GameAccountSingleton.getInstance().isChecked())
+            brawlerLocalDataSource.insertBrawlers(brawler);
+        else{
+            Result result = new Result.Success(brawler);
+            allBrawlerLiveData.postValue(result);
+        }
     }
 
     @Override
