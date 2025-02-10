@@ -1,11 +1,8 @@
 package xyz.brawl.gamerise.model.data.datasource.stats;
 
-import android.util.Log;
-
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.StatDAO;
 import xyz.brawl.gamerise.database.TagDAO;
-import xyz.brawl.gamerise.model.data.player.ClubEntry;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.stat.Stat;
 import xyz.brawl.gamerise.model.data.tag.Tag;

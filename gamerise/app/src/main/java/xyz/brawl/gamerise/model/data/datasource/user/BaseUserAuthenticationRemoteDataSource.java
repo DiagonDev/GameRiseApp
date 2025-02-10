@@ -13,5 +13,5 @@ public abstract class BaseUserAuthenticationRemoteDataSource {
     }
     public abstract User getLoggedUser();
     public abstract void logout();
-    public abstract void signInWithGoogle(String idToken);
+    public abstract void signInWithGoogle(String sessionId);
 }

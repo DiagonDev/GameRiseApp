@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.model.repository.tag;
 
 import androidx.lifecycle.MutableLiveData;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.tag.Tag;

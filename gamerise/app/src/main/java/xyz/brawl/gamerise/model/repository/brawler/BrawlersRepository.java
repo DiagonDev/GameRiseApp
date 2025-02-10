@@ -1,7 +1,9 @@
 package xyz.brawl.gamerise.model.repository.brawler;
 
 import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.datasource.brawler.BaseBrawlersLocalDataSource;

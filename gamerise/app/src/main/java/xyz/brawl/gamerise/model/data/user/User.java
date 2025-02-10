@@ -8,11 +8,11 @@ import com.google.firebase.database.Exclude;
 
 public class User implements Parcelable {
     private String name;
-    private String idToken;
+    private String sessionId;
 
-    public User(String name, String idToken) {
+    public User(String name, String sessionId) {
         this.name = name;
-        this.idToken = idToken;
+        this.sessionId = sessionId;
     }
 
     public String getName() {
@@ -24,19 +24,19 @@ public class User implements Parcelable {
     }
 
     @Exclude
-    public String getIdToken() {
-        return idToken;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setIdToken(String idToken) {
-        this.idToken = idToken;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", idToken='" + idToken + '\'' +
+                ", sessionId='" + sessionId + '\'' +
                 '}';
     }
 
@@ -48,17 +48,17 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
-        dest.writeString(this.idToken);
+        dest.writeString(this.sessionId);
     }
 
     public void readFromParcel(Parcel source) {
         this.name = source.readString();
-        this.idToken = source.readString();
+        this.sessionId = source.readString();
     }
 
     protected User(Parcel in) {
         this.name = in.readString();
-        this.idToken = in.readString();
+        this.sessionId = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

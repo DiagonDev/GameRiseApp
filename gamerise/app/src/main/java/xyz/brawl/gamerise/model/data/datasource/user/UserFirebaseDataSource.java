@@ -3,6 +3,7 @@ package xyz.brawl.gamerise.model.data.datasource.user;
 
 import static xyz.brawl.gamerise.util.Constants.FIREBASE_REALTIME_DATABASE;
 import static xyz.brawl.gamerise.util.Constants.FIREBASE_USERS_COLLECTION;
+import static xyz.brawl.gamerise.util.Constants.FIREBASE_USER_TAG;
 
 import android.util.Log;
 
@@ -15,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import xyz.brawl.gamerise.model.data.user.User;
 
@@ -34,7 +37,7 @@ public class UserFirebaseDataSource extends BaseUserDataRemoteDataSource {
 
     @Override
     public void saveUserData(User user) {
-        databaseReference.child(FIREBASE_USERS_COLLECTION).child(user.getIdToken()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(FIREBASE_USERS_COLLECTION).child(user.getSessionId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -42,7 +45,7 @@ public class UserFirebaseDataSource extends BaseUserDataRemoteDataSource {
                     userResponseCallback.onSuccessFromRemoteDatabase(user);
                 } else {
                     Log.d(TAG, "User not present in Firebase Realtime Database");
-                    databaseReference.child(FIREBASE_USERS_COLLECTION).child(user.getIdToken()).setValue(user)
+                    databaseReference.child(FIREBASE_USERS_COLLECTION).child(user.getSessionId()).setValue(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -66,12 +69,13 @@ public class UserFirebaseDataSource extends BaseUserDataRemoteDataSource {
     }
 
     @Override
-    public void getUserPreferences(String idToken) {
+    public void getUserTag(String sessionId) {
 
     }
 
     @Override
-    public void saveUserPreferences(String idToken) {
-
+    public void saveUserTag(String tag, String sessionId) {
+        databaseReference.child(FIREBASE_USERS_COLLECTION).child(sessionId).
+                child(FIREBASE_USER_TAG).setValue(tag);
     }
 }

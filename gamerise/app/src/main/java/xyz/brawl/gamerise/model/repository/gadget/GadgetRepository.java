@@ -6,7 +6,6 @@ import java.util.List;
 
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
-import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.gadget.BaseGadgetRemoteDataSource;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;

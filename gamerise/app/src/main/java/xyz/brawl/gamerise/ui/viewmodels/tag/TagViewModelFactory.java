@@ -13,7 +13,7 @@ public class TagViewModelFactory implements ViewModelProvider.Factory {
     private final PlayerRepository playerRepository;
     private final UserRepository userRepository;
 
-    public TagViewModelFactory(TagRepository tagRepository, UserRepository userRepository) {
+    public TagViewModelFactory(TagRepository tagRepository, UserRepository userRepository, PlayerRepository playerRepository) {
         this.tagRepository = tagRepository;
         this.playerRepository = playerRepository;
         this.userRepository = userRepository;
@@ -21,6 +21,6 @@ public class TagViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new TagViewModel(tagRepository, userRepository);
+        return (T) new TagViewModel(tagRepository, userRepository, playerRepository);
     }
 }

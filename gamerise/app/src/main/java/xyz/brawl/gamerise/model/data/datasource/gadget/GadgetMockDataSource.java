@@ -25,7 +25,7 @@ public class GadgetMockDataSource extends BaseGadgetRemoteDataSource {
 
             if (response != null) {
                 List<GadgetEntry> gadgetEntryList = PlayerMapper.mapToGadgets(response);
-                gadgetCallback.onSuccessFromRemote(gadgetEntryList, System.currentTimeMillis());
+                gadgetCallback.onSuccessFromRemote(gadgetEntryList);
             } else {
                 gadgetCallback.onFailureFromRemote(new Exception("Errore: Risposta mock non valida"));
                 Log.e("GadgetMockDataSource", "Errore: Risposta mock non valida");

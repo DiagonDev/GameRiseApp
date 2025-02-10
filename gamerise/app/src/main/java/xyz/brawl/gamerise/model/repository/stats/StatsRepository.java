@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.model.repository.stats;
 
 import androidx.lifecycle.MutableLiveData;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.stats.BaseStatsRemoteDataSource;

@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
@@ -55,10 +54,10 @@ public class UserAuthenticationFirebaseDataSource extends BaseUserAuthentication
     }
 
     @Override
-    public void signInWithGoogle(String idToken) {
-        if (idToken !=  null) {
+    public void signInWithGoogle(String sessionId) {
+        if (sessionId !=  null) {
             // Got an ID token from Google. Use it to authenticate with Firebase.
-            AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(idToken, null);
+            AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(sessionId, null);
             firebaseAuth.signInWithCredential(firebaseCredential).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information

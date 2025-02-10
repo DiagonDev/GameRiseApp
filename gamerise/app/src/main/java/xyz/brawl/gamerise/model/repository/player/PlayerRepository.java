@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.player.BasePlayerRemoteDataSource;
-
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
 import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;

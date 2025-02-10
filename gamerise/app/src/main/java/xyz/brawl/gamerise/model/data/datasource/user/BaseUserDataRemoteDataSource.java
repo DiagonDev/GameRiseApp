@@ -12,8 +12,8 @@ public abstract class BaseUserDataRemoteDataSource {
 
         public abstract void saveUserData(User user);
 
-        public abstract void getUserPreferences(String idToken);
+        public abstract void getUserTag(String sessionId);
 
-        public abstract void saveUserPreferences(String idToken);
+        public abstract void saveUserTag(String tag, String sessionId);
     }
 

@@ -3,11 +3,10 @@ package xyz.brawl.gamerise.ui.activities.tag;
 import static xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel.TAG;
 
 import android.app.Activity;
-import android.text.Editable;
-import android.text.TextWatcher;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,30 +21,25 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.BeginSignInResult;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.data.user.User;
+import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.repository.user.UserRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
@@ -53,7 +47,6 @@ import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
-import xyz.brawl.gamerise.model.Result;
 
 /// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
 /// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
@@ -68,11 +61,9 @@ public class TagActivity extends AppCompatActivity {
     private boolean checked = false;
     private TagViewModel tagViewModel;
     private EditText insertTag;
-    private ImageButton checkboxButton;
-    private Button googleButton;
     private TextView savedTagTextView;
-    private FrameLayout noInternetView;
     private ImageButton searchButton;
+    private ImageButton checkboxButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +74,6 @@ public class TagActivity extends AppCompatActivity {
 
         insertTag = findViewById(R.id.insertTag);
         savedTagTextView = findViewById(R.id.savedTagTextView);
-        noInternetView = findViewById(R.id.no_internet_view);
         searchButton = findViewById(R.id.searchButton);
 
 
@@ -98,8 +88,6 @@ public class TagActivity extends AppCompatActivity {
         PlayerRepository playerRepository =
                 ServiceLocator.getInstance().getPlayerRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
-
-
         UserRepository userRepository =
                 ServiceLocator.getInstance().getUserRepository(getApplication());
 
@@ -114,17 +102,43 @@ public class TagActivity extends AppCompatActivity {
                         .build())
                 .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                         .setSupported(true)
-                        // Your server's client ID, not your Android client ID.
-                        .setServerClientId(getString(R.string.default_web_client_id))
-                        // Only show accounts previously used to sign in.
-                        .setFilterByAuthorizedAccounts(false)
+                        .setServerClientId(getString(R.string.default_web_client_id)) // server id
+                        .setFilterByAuthorizedAccounts(false) // solo gli account già sul telefono
                         .build())
-                // Automatically sign in when exactly one credential is retrieved.
-                .setAutoSelectEnabled(true)
+                .setAutoSelectEnabled(true) // auto login se c'è solo un account
                 .build();
 
+        Button googleLogInButton = findViewById(R.id.btnGoogleCustom);
+        Button googleLogOutButton = findViewById(R.id.btnLogoutGoogleCustom);
+        googleLogInButton.setOnClickListener(view -> {
+            googleLogOutButton.setVisibility(View.VISIBLE);
+            googleLogOutButton.setClickable(true);
+            googleLogInButton.setVisibility(View.GONE);
+            googleLogInButton.setClickable(false);
+        });
 
-        noInternetView = findViewById(R.id.no_internet_view);
+        googleLogInButton.setOnClickListener(v -> oneTapClient.beginSignIn(signInRequest)
+                .addOnSuccessListener(this, result -> {
+                    Log.d(TAG, "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)");
+                    IntentSenderRequest intentSenderRequest =
+                            new IntentSenderRequest.Builder(result.getPendingIntent()).build();
+                    activityResultLauncher.launch(intentSenderRequest);
+                })
+                .addOnFailureListener(this, e -> {
+                    // No saved credentials found. Launch the One Tap sign-up flow, or
+                    // do nothing and continue presenting the signed-out UI.
+                    Log.d(TAG, e.getLocalizedMessage());
+                    Snackbar.make(findViewById(android.R.id.content), e.toString(), Snackbar.LENGTH_SHORT).show();
+                }));
+
+        googleLogOutButton.setOnClickListener(view -> {
+            googleLogOutButton.setVisibility(View.GONE);
+            googleLogOutButton.setClickable(false);
+            googleLogInButton.setVisibility(View.VISIBLE);
+            googleLogInButton.setClickable(true);
+        });
+
+        FrameLayout noInternetView = findViewById(R.id.no_internet_view);
         if(!NetworkUtil.isInternetAvailable(this)){
             noInternetView.setVisibility(View.VISIBLE);
         }
@@ -156,7 +170,7 @@ public class TagActivity extends AppCompatActivity {
                 String upperCaseText = s.toString().toUpperCase();
                 if (!s.toString().equals(upperCaseText)) {
                     insertTag.setText(upperCaseText);
-                    insertTag.setSelection(upperCaseText.length()); // Mantieni il cursore alla fine
+                    insertTag.setSelection(upperCaseText.length());
                 }
             }
         });
@@ -177,56 +191,15 @@ public class TagActivity extends AppCompatActivity {
             }
         });
 
-
-        Button googleLogInButton = findViewById(R.id.btnGoogleCustom);
-        Button googleLogOutButton = findViewById(R.id.btnLogoutGoogleCustom);
-        googleLogInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                googleLogOutButton.setVisibility(View.VISIBLE);
-                googleLogOutButton.setClickable(true);
-                googleLogInButton.setVisibility(View.GONE);
-                googleLogInButton.setClickable(false);
-            }
-        });
-
-        googleLogInButton.setOnClickListener(v -> oneTapClient.beginSignIn(signInRequest)
-                .addOnSuccessListener(this, result -> {
-                    Log.d(TAG, "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)");
-                    IntentSenderRequest intentSenderRequest =
-                            new IntentSenderRequest.Builder(result.getPendingIntent()).build();
-                    activityResultLauncher.launch(intentSenderRequest);
-                })
-                .addOnFailureListener(this, e -> {
-                    // No saved credentials found. Launch the One Tap sign-up flow, or
-                    // do nothing and continue presenting the signed-out UI.
-                    Log.d(TAG, e.getLocalizedMessage());
-                    Snackbar.make(findViewById(android.R.id.content), e.toString(), Snackbar.LENGTH_SHORT).show();
-                }));
-
-
-        googleLogOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                googleLogOutButton.setVisibility(View.GONE);
-                googleLogOutButton.setClickable(false);
-                googleLogInButton.setVisibility(View.VISIBLE);
-                googleLogInButton.setClickable(true);
-            }
-        });
-
         //test animation checkbox
         checkboxButton = findViewById(R.id.checkbox_button);
-        checkboxButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!checked) {
-                    checkboxButton.setImageResource(R.drawable.baseline_check_box_24);
-                    checked = true;
-                } else {
-                    checkboxButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
-                    checked = false;
-                }
+        checkboxButton.setOnClickListener(view -> {
+            if (!checked) {
+                checkboxButton.setImageResource(R.drawable.baseline_check_box_24);
+                checked = true;
+            } else {
+                checkboxButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
+                checked = false;
             }
         });
 
@@ -237,18 +210,15 @@ public class TagActivity extends AppCompatActivity {
                 Log.d(TAG, "result.getResultCode() == Activity.RESULT_OK");
                 try {
                     SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
-                    String idToken = credential.getGoogleIdToken();
-                    if (idToken !=  null) {
-                        // Got an ID token from Google. Use it to authenticate with Firebase.
-                        tagViewModel.getGoogleUserMutableLiveData(idToken).observe(this, authenticationResult -> {
+                    String sessionId = credential.getGoogleIdToken();
+                    if (sessionId !=  null) {
+                        tagViewModel.getGoogleUserMutableLiveData(sessionId).observe(this, authenticationResult -> {
                             if (authenticationResult.isSuccess()) {
                                 User user = (User) ((Result.Success) authenticationResult).getData();
                                 //saveLoginData(user.getEmail(), null, user.getIdToken());
                                 Log.i(TAG, "Logged as: " + user.getName());
-                                tagViewModel.setAuthenticationError(false);
-                                dimmiDoveEQuando();
+                                postLogin(user);
                             } else {
-                                tagViewModel.setAuthenticationError(true);
                                 Snackbar.make(findViewById(android.R.id.content),
                                         "",
                                         Snackbar.LENGTH_SHORT).show();
@@ -263,32 +233,7 @@ public class TagActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-        /// La visualizzazione della lista dei tag potrebbe dare problemi
-        /*RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TagAdapter tagAdapter = new TagAdapter(new ArrayList<>());
-        recyclerView.setAdapter(tagAdapter);*/
-
-        // Osserva i cambiamenti nei tag
-        /*tagViewModel.getTags().observe(this, updatedTags -> {
-            if (updatedTags != null && tagAdapter != null) {
-                tagAdapter.updateTags(updatedTags); // Aggiungi o aggiorna i tag
-            }
-        });*/
     }
-
-
-    /**
-     * Gestisce l'invio del tag tramite il ViewModel.
-     * Richiede al tagViewModel di aggiornare la lista di tag se il tag è valido.
-     * Richiede al tagViewModel di effettuare la Query all'API se il tag non è presente nel database.
-     * Richiede al tagViewModel
-     *
-     * @return true se il tag è valido, false altrimenti.
-     */
 
     private boolean handlerInvioTag() {
         String inputTag = insertTag.getText().toString().trim();
@@ -318,7 +263,20 @@ public class TagActivity extends AppCompatActivity {
         return true;
     }
 
-    private void dimmiDoveEQuando() {
+    private void postLogin(User user) {
+        tagViewModel.getUserTag(user.getSessionId()).observe(this, result -> {
+            if (result != null && result.isSuccess()) {
+
+                Log.d("UserTag", "Success: " + ((Result.Success) result).getData());
+            } else {
+                // If result is not successful, handle failure
+                Log.d("UserTag", "Failure: " + ((Result.Error) result).getMessage());
+            }
+        });
+
+        Log.d(TAG, "postLogin: " + "boh qualcosa ho fatto");
+
+
         if (handlerInvioTag()) {
             Intent intent = new Intent(TagActivity.this, MainActivity.class);
             startActivity(intent);

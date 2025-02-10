@@ -1,7 +1,5 @@
 package xyz.brawl.gamerise.ui.viewmodels.tag;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -15,25 +13,15 @@ public class TagViewModel extends ViewModel {
     public static final String TAG = TagViewModel.class.getSimpleName();
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
-    private MutableLiveData<Result> userMutableLiveData;
-    private MutableLiveData<Result> userPreferencesMutableLiveData;
-    private boolean authenticationError;
     private final PlayerRepository playerRepository;
+    private MutableLiveData<Result> userMutableLiveData;
+    private MutableLiveData<Result> userTagMutableLiveData;
+    private MutableLiveData<Result> tagLiveData;
 
     public TagViewModel(TagRepository tagRepository, UserRepository userRepository, PlayerRepository playerRepository) {
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.playerRepository = playerRepository;
-        authenticationError = false;
-    }
-
-
-    public void addTag(Tag tag) {
-    public MutableLiveData<Result> getGoogleUserMutableLiveData(String token) {
-        if (userMutableLiveData == null) {
-            getUserData(token);
-        }
-        return userMutableLiveData;
     }
 
     private void getUserData(String token) {
@@ -43,25 +31,24 @@ public class TagViewModel extends ViewModel {
     public void insertTag(Tag tag) {
         tagRepository.insertTag(tag);
         playerRepository.fetchPlayer(tag.getTag());
-        //
     }
 
     public MutableLiveData<Result> getSavedTag() {
         tagLiveData = tagRepository.fetchTag();
         return tagLiveData;
-
     }
 
-    public void setAuthenticationError(boolean authenticationError) {
-        this.authenticationError = authenticationError;
-    }
-
-
-    public MutableLiveData<Result> getUserPreferences(String idToken) {
-        if (idToken != null) {
-            userPreferencesMutableLiveData = userRepository.getUserPreferences(idToken);
+    public MutableLiveData<Result> getGoogleUserMutableLiveData(String token) {
+        if (userMutableLiveData == null) {
+            getUserData(token);
         }
-        return userPreferencesMutableLiveData;
+        return userMutableLiveData;
+    }
+    public MutableLiveData<Result> getUserTag(String sessionId) {
+        if (sessionId != null && !sessionId.isEmpty()) {
+            userTagMutableLiveData = userRepository.getUserTag(sessionId);
+        }
+        return userTagMutableLiveData;
     }
     public boolean isTagValid(String input) {
         return input != null && isTag(input);

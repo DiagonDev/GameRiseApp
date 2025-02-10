@@ -2,8 +2,6 @@ package xyz.brawl.gamerise.model.repository.user;
 
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.Set;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.user.BaseUserAuthenticationRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.user.BaseUserDataRemoteDataSource;
@@ -29,13 +27,13 @@ public class UserRepository implements UserCallBack {
         this.userDataRemoteDataSource.setUserResponseCallback(this);
     }
 
-    public MutableLiveData<Result> getGoogleUser(String idToken) {
-        signInWithGoogle(idToken);
+    public MutableLiveData<Result> getGoogleUser(String sessionId) {
+        signInWithGoogle(sessionId);
         return userMutableLiveData;
     }
 
-    public MutableLiveData<Result> getUserPreferences(String idToken) {
-        userDataRemoteDataSource.getUserPreferences(idToken);
+    public MutableLiveData<Result> getUserTag(String sessionId) {
+        userDataRemoteDataSource.getUserTag(sessionId);
         return userPreferencesMutableLiveData;
     }
 
@@ -52,8 +50,8 @@ public class UserRepository implements UserCallBack {
         userRemoteDataSource.signInWithGoogle(token);
     }
 
-    public void saveUserPreferences(String favoriteCountry, Set<String> favoriteTopics, String idToken) {
-        userDataRemoteDataSource.saveUserPreferences(idToken);
+    public void saveUserTag(String tag, String sessionId) {
+        userDataRemoteDataSource.saveUserTag(tag, sessionId);
     }
 
     public void onSuccessFromAuthentication(User user) {

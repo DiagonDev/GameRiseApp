@@ -1,6 +1,5 @@
 package xyz.brawl.gamerise.model.data.datasource.battle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.database.BattleDAO;

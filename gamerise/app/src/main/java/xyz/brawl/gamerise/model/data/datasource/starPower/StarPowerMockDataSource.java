@@ -25,7 +25,7 @@ public class StarPowerMockDataSource extends BaseStarPowerRemoteDataSource {
 
             if (response != null) {
                 List<StarPowerEntry> starPowerEntryList = PlayerMapper.mapToStarPowers(response);
-                starPowerCallback.onSuccessFromRemote(starPowerEntryList, System.currentTimeMillis());
+                starPowerCallback.onSuccessFromRemote(starPowerEntryList);
             } else {
                 starPowerCallback.onFailureFromRemote(new Exception("Errore: Risposta mock non valida"));
                 Log.e("StarPowerMockDataSource", "Errore: Risposta mock non valida");

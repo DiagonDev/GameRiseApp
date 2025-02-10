@@ -2,14 +2,10 @@ package xyz.brawl.gamerise.model.data.datasource.player;
 
 import android.util.Log;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
-import xyz.brawl.gamerise.model.data.player.PlayerMapper;
 import xyz.brawl.gamerise.model.service.ApiService;
 
 public class PlayerRemoteDataSource extends BasePlayerRemoteDataSource {

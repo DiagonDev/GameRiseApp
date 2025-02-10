@@ -1,13 +1,10 @@
 package xyz.brawl.gamerise.model.data.datasource.gadget;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.database.GadgetDAO;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.TagDAO;
-import xyz.brawl.gamerise.model.data.battle.Battle;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;

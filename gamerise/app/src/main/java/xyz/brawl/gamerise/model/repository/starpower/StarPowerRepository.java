@@ -1,13 +1,14 @@
 package xyz.brawl.gamerise.model.repository.starpower;
 
 import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.starPower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.data.stat.Stat;
 
 public class StarPowerRepository implements StarPowerCallback {
     private final BaseStarPowerLocalDataSource starPowerLocalDataSource;
