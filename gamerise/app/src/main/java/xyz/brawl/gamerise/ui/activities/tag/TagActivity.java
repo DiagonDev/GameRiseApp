@@ -286,18 +286,19 @@ public class TagActivity extends AppCompatActivity {
         if (tag.startsWith("#")) tag = tag.substring(1);
 
         Log.d(TAG, "Tag inserito: " + tag + " isvalid:" + tagViewModel.isTagValid(tag));
+        // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
+        Log.d("salva", "GAS: " + GameAccountSingleton.getInstance().getUserTag() + " tag: " + tag + " shouldSave: " + shouldSave);
+
+        if (GameAccountSingleton.getInstance().getUserTag() != null &&
+                !GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
+                tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
+
         GameAccountSingleton.getInstance().setUserTag(tag);
         GameAccountSingleton.getInstance().setChecked(shouldSave);
 
-        // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
-        if (!GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
-            tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
-
-        if (tagViewModel.isTagValid(tag)) {
+        if (tagViewModel.isTagValid(tag))
             Toast.makeText(TagActivity.this, "Tag aggiunto! " + GameAccountSingleton.getInstance().getUserTag(), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
-        }
+        else Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
 
         return tagViewModel.isTagValid(tag);
     }
