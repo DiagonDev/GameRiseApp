@@ -33,7 +33,7 @@ import xyz.brawl.gamerise.model.data.datasource.stats.StatsRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.tag.TagLocalDataSource;
 import xyz.brawl.gamerise.model.data.datasource.user.BaseUserAuthenticationRemoteDataSource;
-import xyz.brawl.gamerise.model.data.datasource.user.BaseUserDataRemoteDataSource;
+import xyz.brawl.gamerise.model.data.datasource.user.BaseUserTagRemoteDataSource;
 import xyz.brawl.gamerise.model.data.datasource.user.UserAuthenticationFirebaseDataSource;
 import xyz.brawl.gamerise.model.data.datasource.user.UserFirebaseDataSource;
 import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
@@ -201,13 +201,13 @@ public class ServiceLocator {
                 statsRepository, starPowerRepository, gadgetRepository);
     }
 
-    public UserRepository getUserRepository(Application application) {
+    public UserRepository getUserRepository() {
         BaseUserAuthenticationRemoteDataSource userRemoteAuthenticationDataSource =
                 new UserAuthenticationFirebaseDataSource();
 
-        BaseUserDataRemoteDataSource userDataRemoteDataSource =
+        BaseUserTagRemoteDataSource userTagRemoteDataSource =
                 new UserFirebaseDataSource();
         return new UserRepository(userRemoteAuthenticationDataSource,
-                userDataRemoteDataSource);
+                userTagRemoteDataSource);
     }
 }

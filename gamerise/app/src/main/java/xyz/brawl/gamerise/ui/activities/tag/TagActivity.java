@@ -38,7 +38,7 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
 import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.model.data.user.User;
+import xyz.brawl.gamerise.model.data.user.GoogleUser;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.repository.user.UserRepository;
@@ -89,7 +89,7 @@ public class TagActivity extends AppCompatActivity {
                 ServiceLocator.getInstance().getPlayerRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
         UserRepository userRepository =
-                ServiceLocator.getInstance().getUserRepository(getApplication());
+                ServiceLocator.getInstance().getUserRepository();
 
         tagViewModel = new ViewModelProvider(
                 this,
@@ -143,7 +143,7 @@ public class TagActivity extends AppCompatActivity {
             noInternetView.setVisibility(View.VISIBLE);
         }
 
-        tagViewModel.getSavedTag().observe(this, result -> {
+        tagViewModel.fetchTag().observe(this, result -> {
             if (result.isSuccess()) {
                 Tag savedTag = (Tag) ((Result.Success) result).getData();
                 if (savedTag != null)
@@ -152,7 +152,8 @@ public class TagActivity extends AppCompatActivity {
         });
 
         savedTagTextView.setOnClickListener(view -> {
-            if (handlerInvioTagSalvato()) {
+            String savedTag = savedTagTextView.getText().toString().trim();
+            if (settamiStoTag(savedTag, true)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -185,7 +186,8 @@ public class TagActivity extends AppCompatActivity {
 
 
         searchButton.setOnClickListener(view -> {
-            if (handlerInvioTag()) {
+            String inputTag = insertTag.getText().toString().trim();
+            if (settamiStoTag(inputTag, checked)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -207,17 +209,15 @@ public class TagActivity extends AppCompatActivity {
 
         activityResultLauncher = registerForActivityResult(startIntentSenderForResult, activityResult -> {
             if (activityResult.getResultCode() == Activity.RESULT_OK) {
-                Log.d(TAG, "result.getResultCode() == Activity.RESULT_OK");
                 try {
                     SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
                     String sessionId = credential.getGoogleIdToken();
                     if (sessionId !=  null) {
                         tagViewModel.getGoogleUserMutableLiveData(sessionId).observe(this, authenticationResult -> {
                             if (authenticationResult.isSuccess()) {
-                                User user = (User) ((Result.Success) authenticationResult).getData();
-                                //saveLoginData(user.getEmail(), null, user.getIdToken());
-                                Log.i(TAG, "Logged as: " + user.getName());
-                                postLogin(user);
+                                GoogleUser googleUser = (GoogleUser) ((Result.Success) authenticationResult).getData();
+                                Log.i(TAG, "Logged as: " + googleUser.getName());
+                                postGoogleLogin(googleUser);
                             } else {
                                 Snackbar.make(findViewById(android.R.id.content),
                                         "",
@@ -235,19 +235,67 @@ public class TagActivity extends AppCompatActivity {
         });
     }
 
-    private boolean handlerInvioTag() {
-        String inputTag = insertTag.getText().toString().trim();
-        if(inputTag.startsWith("#")){
-            inputTag = inputTag.substring(1);
+    private void postGoogleLogin(GoogleUser googleUser) {
+        String tempTag = insertTag.getText().toString();
+
+        try {
+            tagViewModel.getFirebaseTag_TagVM(googleUser.getSessionId()).observe(this, result -> {
+                if (result != null && result.isSuccess() && result instanceof Result.Success) {
+
+                    String tagFirebase = (String) ((Result.Success) result).getData();
+
+                    // caso 0: ho una tag su Firebase: uso quella
+                    if (tagFirebase != null && !tagFirebase.equals("null")) {
+                        Tag newTag = new Tag("Nuovo Giocatore", tagFirebase);
+                        tagViewModel.insertTag(newTag);// Salva il tag sia nella memoria che nel database2
+                        GameAccountSingleton.getInstance().setUserTag(newTag.getTag());
+                        GameAccountSingleton.getInstance().setChecked(checked);
+                        Log.d(TAG, "ho settato " + newTag.getTag());
+                    }
+
+                    // caso 1: tagFirebase == null && insertTag esiste
+                    if ((tagFirebase == null || tagFirebase.equals("null")) && (insertTag != null && !tempTag.isEmpty())) {
+                        Log.d(TAG, "provo a salvare la tag " + tempTag + "su Firebase per " + googleUser.getName());
+                        tagViewModel.saveTagOnFirebase(tempTag, googleUser.getSessionId());
+                    }
+
+
+                    // caso 2: tagFirebase == null && tag esiste nel DB
+                    if (tagFirebase == null || tagFirebase.equals("null")) {
+                        tagViewModel.fetchTag().observe(this, localTag -> {
+                            if (localTag.isSuccess()) {
+                                Tag castedTag = (Tag) ((Result.Success) localTag).getData();
+                                if (castedTag != null)
+                                    tagViewModel.saveTagOnFirebase(castedTag.getTag(), googleUser.getSessionId());
+                            }
+                        });
+                    }
+
+
+                } else if (result instanceof Result.Error) {
+                    String errorMessage = ((Result.Error) result).getMessage();
+                    Log.d("UserTag", "Failure: " + errorMessage);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        GameAccountSingleton.getInstance().setUserTag(inputTag);
-        GameAccountSingleton.getInstance().setChecked(checked);
-        if (tagViewModel.isTagValid(inputTag)) {
+
+        Intent intent = new Intent(TagActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private boolean settamiStoTag(String tag, boolean shouldSave) {
+        if(tag.startsWith("#")) tag = tag.substring(1);
+
+        GameAccountSingleton.getInstance().setUserTag(tag);
+        GameAccountSingleton.getInstance().setChecked(shouldSave);
+
+        if (tagViewModel.isTagValid(tag)) {
             if (checked) {
-                Tag newTag = new Tag("Nuovo Giocatore", inputTag);
-                tagViewModel.insertTag(newTag);// Salva il tag sia nella memoria che nel database2
+                Tag newTag = new Tag("Nuovo Giocatore", tag);
+                tagViewModel.insertTag(newTag);
             }
-            insertTag.setText(""); // Resetta il campo di testo
             Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
             return true;
         } else {
@@ -255,32 +303,4 @@ public class TagActivity extends AppCompatActivity {
             return false;
         }
     }
-
-    public boolean handlerInvioTagSalvato() {
-        String inputTag = savedTagTextView.getText().toString().trim();
-        GameAccountSingleton.getInstance().setUserTag(inputTag);
-        GameAccountSingleton.getInstance().setChecked(true);
-        return true;
-    }
-
-    private void postLogin(User user) {
-        tagViewModel.getUserTag(user.getSessionId()).observe(this, result -> {
-            if (result != null && result.isSuccess()) {
-
-                Log.d("UserTag", "Success: " + ((Result.Success) result).getData());
-            } else {
-                // If result is not successful, handle failure
-                Log.d("UserTag", "Failure: " + ((Result.Error) result).getMessage());
-            }
-        });
-
-        Log.d(TAG, "postLogin: " + "boh qualcosa ho fatto");
-
-
-        if (handlerInvioTag()) {
-            Intent intent = new Intent(TagActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-    }
-
 }

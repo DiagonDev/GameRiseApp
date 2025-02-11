@@ -6,13 +6,18 @@ import android.os.Parcelable;
 
 import com.google.firebase.database.Exclude;
 
-public class User implements Parcelable {
+public class GoogleUser implements Parcelable {
     private String name;
     private String sessionId;
 
-    public User(String name, String sessionId) {
+    public GoogleUser(String name, String sessionId) {
         this.name = name;
         this.sessionId = sessionId;
+    }
+
+    protected GoogleUser(Parcel in) {
+        this.name = in.readString();
+        this.sessionId = in.readString();
     }
 
     public String getName() {
@@ -26,10 +31,6 @@ public class User implements Parcelable {
     @Exclude
     public String getSessionId() {
         return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
     }
 
     @Override
@@ -51,25 +52,15 @@ public class User implements Parcelable {
         dest.writeString(this.sessionId);
     }
 
-    public void readFromParcel(Parcel source) {
-        this.name = source.readString();
-        this.sessionId = source.readString();
-    }
-
-    protected User(Parcel in) {
-        this.name = in.readString();
-        this.sessionId = in.readString();
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
+    public static final Creator<GoogleUser> CREATOR = new Creator<GoogleUser>() {
         @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
+        public GoogleUser createFromParcel(Parcel source) {
+            return new GoogleUser(source);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public GoogleUser[] newArray(int size) {
+            return new GoogleUser[size];
         }
     };
 }

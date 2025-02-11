@@ -23,16 +23,9 @@ public class TagRepository implements TagCallback {
         return allTagLiveData;
     }
 
-    public MutableLiveData<Result> insertTag(Tag tagToInsert){
+    public void insertTag(Tag tagToInsert){
         tagLocalDataSource.insertTag(tagToInsert);
-        return allTagLiveData;
     }
-
-    public MutableLiveData<Result> deleteTag(Tag tagToDelete){
-        tagLocalDataSource.deleteTag(tagToDelete);
-        return allTagLiveData;
-    }
-
 
     @Override
     public void onSuccessFromRemote(Tag tag, long lastUpdate) {

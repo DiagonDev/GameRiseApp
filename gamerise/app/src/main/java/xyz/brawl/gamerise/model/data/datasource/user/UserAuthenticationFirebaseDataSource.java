@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import xyz.brawl.gamerise.model.data.user.User;
+import xyz.brawl.gamerise.model.data.user.GoogleUser;
 
 /**
  * Class that manages the user authentication using Firebase Authentication.
@@ -28,12 +28,12 @@ public class UserAuthenticationFirebaseDataSource extends BaseUserAuthentication
     }
 
     @Override
-    public User getLoggedUser() {
+    public GoogleUser getLoggedUser() {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser == null) {
             return null;
         } else {
-            return new User(firebaseUser.getDisplayName(), firebaseUser.getUid());
+            return new GoogleUser(firebaseUser.getDisplayName(), firebaseUser.getUid());
         }
     }
 
@@ -65,7 +65,7 @@ public class UserAuthenticationFirebaseDataSource extends BaseUserAuthentication
                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                     if (firebaseUser != null) {
                         userResponseCallback.onSuccessFromAuthentication(
-                                new User(firebaseUser.getDisplayName(),
+                                new GoogleUser(firebaseUser.getDisplayName(),
                                         firebaseUser.getUid()
                                 )
                         );

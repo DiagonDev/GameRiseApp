@@ -9,22 +9,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
-import xyz.brawl.gamerise.model.data.user.User;
+import xyz.brawl.gamerise.model.data.user.GoogleUser;
 
 /**
  * Class that gets the user information using Firebase Realtime Database.
  */
-public class UserFirebaseDataSource extends BaseUserDataRemoteDataSource {
+public class UserFirebaseDataSource extends BaseUserTagRemoteDataSource {
 
     private static final String TAG = UserFirebaseDataSource.class.getSimpleName();
 
@@ -36,28 +32,18 @@ public class UserFirebaseDataSource extends BaseUserDataRemoteDataSource {
     }
 
     @Override
-    public void saveUserData(User user) {
-        databaseReference.child(FIREBASE_USERS_COLLECTION).child(user.getSessionId()).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void saveUserDataOnFirebaseDB(GoogleUser googleUser) {
+        databaseReference.child(FIREBASE_USERS_COLLECTION).child(googleUser.getSessionId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Log.d(TAG, "User already present in Firebase Realtime Database");
-                    userResponseCallback.onSuccessFromRemoteDatabase(user);
+                    userResponseCallback.onSuccessFromRemoteDatabase(googleUser);
                 } else {
                     Log.d(TAG, "User not present in Firebase Realtime Database");
-                    databaseReference.child(FIREBASE_USERS_COLLECTION).child(user.getSessionId()).setValue(user)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    userResponseCallback.onSuccessFromRemoteDatabase(user);
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    userResponseCallback.onFailureFromRemoteDatabase(e.getLocalizedMessage());
-                                }
-                            });
+                    databaseReference.child(FIREBASE_USERS_COLLECTION).child(googleUser.getSessionId()).setValue(googleUser)
+                            .addOnSuccessListener(avoid -> userResponseCallback.onSuccessFromRemoteDatabase(googleUser))
+                            .addOnFailureListener(e -> userResponseCallback.onFailureFromRemoteDatabase(e.getLocalizedMessage()));
                 }
             }
 
@@ -70,7 +56,15 @@ public class UserFirebaseDataSource extends BaseUserDataRemoteDataSource {
 
     @Override
     public void getUserTag(String sessionId) {
+        databaseReference.child(FIREBASE_USERS_COLLECTION).child(sessionId).
+                child(FIREBASE_USER_TAG).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String tag = task.getResult().getValue(String.class);
 
+                        userResponseCallback.onSuccessFromRemoteDatabase(tag);
+                        Log.d(TAG, "Tag salvata su Firebase: " + tag);
+                    }
+                });
     }
 
     @Override

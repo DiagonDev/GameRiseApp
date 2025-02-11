@@ -2,13 +2,9 @@ package xyz.brawl.gamerise.model.data.singleton;
 
 public class GameAccountSingleton {
     private static GameAccountSingleton instance;
-
     private String UserTag;
     private boolean checked;
     private long lastUpdate;
-
-    private GameAccountSingleton() {
-    }
 
     public static GameAccountSingleton getInstance() {
         if (instance == null) {

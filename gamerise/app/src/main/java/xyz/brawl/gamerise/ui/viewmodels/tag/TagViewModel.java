@@ -33,9 +33,13 @@ public class TagViewModel extends ViewModel {
         playerRepository.fetchPlayer(tag.getTag());
     }
 
-    public MutableLiveData<Result> getSavedTag() {
+    public MutableLiveData<Result> fetchTag() {
         tagLiveData = tagRepository.fetchTag();
         return tagLiveData;
+    }
+
+    public void saveTagOnFirebase(String tag, String sessionId) {
+        userRepository.saveUserTag(tag, sessionId);
     }
 
     public MutableLiveData<Result> getGoogleUserMutableLiveData(String token) {
@@ -44,12 +48,12 @@ public class TagViewModel extends ViewModel {
         }
         return userMutableLiveData;
     }
-    public MutableLiveData<Result> getUserTag(String sessionId) {
-        if (sessionId != null && !sessionId.isEmpty()) {
-            userTagMutableLiveData = userRepository.getUserTag(sessionId);
-        }
+    public MutableLiveData<Result> getFirebaseTag_TagVM(String sessionId) {
+        if (sessionId != null && !sessionId.isEmpty())
+            userTagMutableLiveData = userRepository.getUserTag$UserRepository(sessionId);
         return userTagMutableLiveData;
     }
+
     public boolean isTagValid(String input) {
         return input != null && isTag(input);
     }

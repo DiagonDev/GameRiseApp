@@ -4,81 +4,82 @@ import androidx.lifecycle.MutableLiveData;
 
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.datasource.user.BaseUserAuthenticationRemoteDataSource;
-import xyz.brawl.gamerise.model.data.datasource.user.BaseUserDataRemoteDataSource;
-import xyz.brawl.gamerise.model.data.user.User;
+import xyz.brawl.gamerise.model.data.datasource.user.BaseUserTagRemoteDataSource;
+import xyz.brawl.gamerise.model.data.user.GoogleUser;
 
 
 public class UserRepository implements UserCallBack {
 
     private final BaseUserAuthenticationRemoteDataSource userRemoteDataSource;
-    private final BaseUserDataRemoteDataSource userDataRemoteDataSource;
-    private final MutableLiveData<Result> userMutableLiveData;
-    private final MutableLiveData<Result> userFavoriteNewsMutableLiveData;
-    private final MutableLiveData<Result> userPreferencesMutableLiveData;
+    private final BaseUserTagRemoteDataSource userDataRemoteDataSource;
+    private final MutableLiveData<Result> userAuthLiveData;
+    private final MutableLiveData<Result> userTagLiveData = new MutableLiveData<>();
+
+
 
     public UserRepository(BaseUserAuthenticationRemoteDataSource userRemoteDataSource,
-                          BaseUserDataRemoteDataSource userDataRemoteDataSource) {
+                          BaseUserTagRemoteDataSource userDataRemoteDataSource) {
         this.userRemoteDataSource = userRemoteDataSource;
         this.userDataRemoteDataSource = userDataRemoteDataSource;
-        this.userMutableLiveData = new MutableLiveData<>();
-        this.userPreferencesMutableLiveData = new MutableLiveData<>();
-        this.userFavoriteNewsMutableLiveData = new MutableLiveData<>();
+        this.userAuthLiveData = new MutableLiveData<>();
         this.userRemoteDataSource.setUserResponseCallback(this);
         this.userDataRemoteDataSource.setUserResponseCallback(this);
     }
 
-    public MutableLiveData<Result> getGoogleUser(String sessionId) {
-        signInWithGoogle(sessionId);
-        return userMutableLiveData;
+    public MutableLiveData<Result> getGoogleUser(String token) {
+        signInWithGoogle(token);
+        return userAuthLiveData;
     }
 
-    public MutableLiveData<Result> getUserTag(String sessionId) {
+    public MutableLiveData<Result> getUserTag$UserRepository(String sessionId) {
         userDataRemoteDataSource.getUserTag(sessionId);
-        return userPreferencesMutableLiveData;
+        return userTagLiveData;
     }
 
-    public User getLoggedUser() {
+
+    public GoogleUser getLoggedUser() {
         return userRemoteDataSource.getLoggedUser();
     }
 
     public MutableLiveData<Result> logout() {
         userRemoteDataSource.logout();
-        return userMutableLiveData;
+        return userAuthLiveData;
     }
 
-    public void signInWithGoogle(String token) {
-        userRemoteDataSource.signInWithGoogle(token);
+    public void signInWithGoogle(String sessionId) {
+        userRemoteDataSource.signInWithGoogle(sessionId);
     }
 
     public void saveUserTag(String tag, String sessionId) {
         userDataRemoteDataSource.saveUserTag(tag, sessionId);
     }
 
-    public void onSuccessFromAuthentication(User user) {
-        if (user != null) {
-            userDataRemoteDataSource.saveUserData(user);
+    public void onSuccessFromAuthentication(GoogleUser googleUser) {
+        if (googleUser != null) {
+            userDataRemoteDataSource.saveUserDataOnFirebaseDB(googleUser);
         }
     }
 
     public void onFailureFromAuthentication(String message) {
         Result.Error result = new Result.Error(message);
-        userMutableLiveData.postValue(result);
-    }
-
-    public void onSuccessFromRemoteDatabase(User user) {
-        Result.Success result = new Result.Success(user);
-        userMutableLiveData.postValue(result);
+        userAuthLiveData.postValue(result);
     }
 
     @Override
-    public void onSuccessFromGettingUserPreferences() {
-        userPreferencesMutableLiveData.postValue(new Result.Success(null));
+    public void onSuccessFromRemoteDatabase(GoogleUser googleUser) {
+        userAuthLiveData.postValue(new Result.Success(googleUser));
     }
 
     @Override
-    public void onFailureFromRemoteDatabase(String message) {
-        Result.Error result = new Result.Error(message);
-        userMutableLiveData.postValue(result);
+    public void onSuccessFromRemoteDatabase(String tag) {
+        userTagLiveData.postValue(new Result.Success(tag));
+    }
+
+
+    @Override
+    public void onFailureFromRemoteDatabase(String error) {
+        Result.Error result = new Result.Error(error);
+        userAuthLiveData.postValue(result);
     }
 
     @Override
