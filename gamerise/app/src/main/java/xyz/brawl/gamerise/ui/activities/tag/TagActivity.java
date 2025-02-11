@@ -246,11 +246,8 @@ public class TagActivity extends AppCompatActivity {
 
                     // caso 0: ho una tag su Firebase: uso quella
                     if (tagFirebase != null && !tagFirebase.equals("null")) {
-                        Tag newTag = new Tag("Nuovo Giocatore", tagFirebase);
-                        tagViewModel.insertTag(newTag);// Salva il tag sia nella memoria che nel database2
-                        GameAccountSingleton.getInstance().setUserTag(newTag.getTag());
-                        GameAccountSingleton.getInstance().setChecked(checked);
-                        Log.d(TAG, "ho settato " + newTag.getTag());
+                        settamiStoTag(tagFirebase, true);
+                        Log.d(TAG, "ho settato " + tagFirebase);
                     }
 
                     // caso 1: tagFirebase == null && insertTag esiste
@@ -286,21 +283,22 @@ public class TagActivity extends AppCompatActivity {
     }
 
     private boolean settamiStoTag(String tag, boolean shouldSave) {
-        if(tag.startsWith("#")) tag = tag.substring(1);
+        if (tag.startsWith("#")) tag = tag.substring(1);
 
+        Log.d(TAG, "Tag inserito: " + tag + " isvalid:" + tagViewModel.isTagValid(tag));
         GameAccountSingleton.getInstance().setUserTag(tag);
         GameAccountSingleton.getInstance().setChecked(shouldSave);
 
+        // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
+        if (!GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
+            tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
+
         if (tagViewModel.isTagValid(tag)) {
-            if (checked) {
-                Tag newTag = new Tag("Nuovo Giocatore", tag);
-                tagViewModel.insertTag(newTag);
-            }
-            Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
-            return true;
+            Toast.makeText(TagActivity.this, "Tag aggiunto! " + GameAccountSingleton.getInstance().getUserTag(), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
-            return false;
         }
+
+        return tagViewModel.isTagValid(tag);
     }
 }
