@@ -63,6 +63,7 @@ public class TagActivity extends AppCompatActivity {
     private TextView savedTagTextView;
     private ImageButton searchButton;
     private ImageButton checkboxButton;
+    private Button googleLogInButton, googleLogOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +76,15 @@ public class TagActivity extends AppCompatActivity {
         savedTagTextView = findViewById(R.id.savedTagTextView);
         searchButton = findViewById(R.id.searchButton);
 
+        googleLogInButton = findViewById(R.id.btnGoogleCustom);
+        googleLogOutButton = findViewById(R.id.btnLogoutGoogleCustom);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         TagRepository tagRepository =
                 ServiceLocator.getInstance().getTagRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));
@@ -94,65 +98,34 @@ public class TagActivity extends AppCompatActivity {
                 this,
                 new TagViewModelFactory(tagRepository, userRepository, playerRepository)).get(TagViewModel.class);
 
-        oneTapClient = Identity.getSignInClient(this);
-        signInRequest = BeginSignInRequest.builder()
-                .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
-                        .setSupported(true)
-                        .build())
-                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        .setServerClientId(getString(R.string.default_web_client_id)) // server id
-                        .setFilterByAuthorizedAccounts(false) // solo gli account già sul telefono
-                        .build())
-                .setAutoSelectEnabled(true) // auto login se c'è solo un account
-                .build();
-
-        Button googleLogInButton = findViewById(R.id.btnGoogleCustom);
-        Button googleLogOutButton = findViewById(R.id.btnLogoutGoogleCustom);
-        googleLogInButton.setOnClickListener(view -> {
+        // controllo se c'è già un utente loggato con google
+        if (tagViewModel.getLoggedGoogleUser() != null) {
+            Log.d(TAG, "Already logged in as: " + tagViewModel.getLoggedGoogleUser().getName());
             googleLogOutButton.setVisibility(View.VISIBLE);
             googleLogOutButton.setClickable(true);
             googleLogInButton.setVisibility(View.GONE);
             googleLogInButton.setClickable(false);
-        });
-
-        googleLogInButton.setOnClickListener(v -> oneTapClient.beginSignIn(signInRequest)
-                .addOnSuccessListener(this, result -> {
-                    Log.d(TAG, "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)");
-                    IntentSenderRequest intentSenderRequest =
-                            new IntentSenderRequest.Builder(result.getPendingIntent()).build();
-                    activityResultLauncher.launch(intentSenderRequest);
-                })
-                .addOnFailureListener(this, e -> {
-                    // No saved credentials found. Launch the One Tap sign-up flow, or
-                    // do nothing and continue presenting the signed-out UI.
-                    Log.d(TAG, e.getLocalizedMessage());
-                    Snackbar.make(findViewById(android.R.id.content), e.toString(), Snackbar.LENGTH_SHORT).show();
-                }));
-
-        googleLogOutButton.setOnClickListener(view -> {
-            googleLogOutButton.setVisibility(View.GONE);
-            googleLogOutButton.setClickable(false);
-            googleLogInButton.setVisibility(View.VISIBLE);
-            googleLogInButton.setClickable(true);
-        });
+        }
 
         FrameLayout noInternetView = findViewById(R.id.no_internet_view);
-        if(!NetworkUtil.isInternetAvailable(this)){
+        if (!NetworkUtil.isInternetAvailable(this))
             noInternetView.setVisibility(View.VISIBLE);
-        }
 
         tagViewModel.fetchTag().observe(this, result -> {
             if (result.isSuccess()) {
                 Tag savedTag = (Tag) ((Result.Success) result).getData();
-                if (savedTag != null)
+                if (savedTag != null) {
                     savedTagTextView.setText(savedTag.getTag());
+                    // quando salvo una tag in locale, se l'utente è loggato con google, la salvo anche su firebase
+                    if (tagViewModel.getLoggedGoogleUser() != null)
+                        tagViewModel.saveTagOnFirebase(savedTag.getTag(), tagViewModel.getLoggedGoogleUser().getSessionId());
+                }
             }
         });
 
         savedTagTextView.setOnClickListener(view -> {
             String savedTag = savedTagTextView.getText().toString().trim();
-            if (settamiStoTag(savedTag, true)) {
+            if (setupTag(savedTag, true)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -187,7 +160,7 @@ public class TagActivity extends AppCompatActivity {
 
         searchButton.setOnClickListener(view -> {
             String inputTag = insertTag.getText().toString().trim();
-            if (settamiStoTag(inputTag, checked)) {
+            if (setupTag(inputTag, checked)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -204,8 +177,45 @@ public class TagActivity extends AppCompatActivity {
             }
         });
 
-        startIntentSenderForResult = new ActivityResultContracts.StartIntentSenderForResult();
+        setupGoogleButtons();
+    }
 
+    private boolean setupTag(String tag, boolean shouldSave) {
+        if (tag.startsWith("#")) tag = tag.substring(1);
+
+        Log.d(TAG, "Tag inserito: " + tag + " isvalid:" + tagViewModel.isTagValid(tag));
+        // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
+        Log.d("salva", "GAS: " + GameAccountSingleton.getInstance().getUserTag() + " tag: " + tag + " shouldSave: " + shouldSave);
+
+        //       if (GameAccountSingleton.getInstance().getUserTag() != null &&
+        //                !GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
+        if (shouldSave)
+                tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
+
+        GameAccountSingleton.getInstance().setUserTag(tag);
+        GameAccountSingleton.getInstance().setChecked(shouldSave);
+
+        if (tagViewModel.isTagValid(tag))
+            Toast.makeText(TagActivity.this, "Tag aggiunto! " + GameAccountSingleton.getInstance().getUserTag(), Toast.LENGTH_LONG).show();
+        else Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
+
+        return tagViewModel.isTagValid(tag);
+    }
+
+    private void setupGoogleButtons() {
+        oneTapClient = Identity.getSignInClient(this);
+        startIntentSenderForResult = new ActivityResultContracts.StartIntentSenderForResult();
+        signInRequest = BeginSignInRequest.builder()
+                .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
+                        .setSupported(true)
+                        .build())
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        .setServerClientId(getString(R.string.default_web_client_id)) // server id
+                        .setFilterByAuthorizedAccounts(false) // solo gli account già sul telefono
+                        .build())
+                .setAutoSelectEnabled(true) // auto login se c'è solo un account
+                .build();
         activityResultLauncher = registerForActivityResult(startIntentSenderForResult, activityResult -> {
             if (activityResult.getResultCode() == Activity.RESULT_OK) {
                 try {
@@ -216,7 +226,11 @@ public class TagActivity extends AppCompatActivity {
                             if (authenticationResult.isSuccess()) {
                                 GoogleUser googleUser = (GoogleUser) ((Result.Success) authenticationResult).getData();
                                 Log.i(TAG, "Logged as: " + googleUser.getName());
-                                postGoogleLogin(googleUser);
+                                googleLogOutButton.setVisibility(View.VISIBLE);
+                                googleLogOutButton.setClickable(true);
+                                googleLogInButton.setVisibility(View.GONE);
+                                googleLogInButton.setClickable(false);
+                                handleFirebaseTag(googleUser);
                             } else {
                                 Snackbar.make(findViewById(android.R.id.content),
                                         "",
@@ -232,9 +246,38 @@ public class TagActivity extends AppCompatActivity {
                 }
             }
         });
+
+        googleLogInButton.setOnClickListener(view -> {
+            googleLogOutButton.setVisibility(View.VISIBLE);
+            googleLogOutButton.setClickable(true);
+            googleLogInButton.setVisibility(View.GONE);
+            googleLogInButton.setClickable(false);
+            oneTapClient.beginSignIn(signInRequest)
+                    .addOnSuccessListener(this, result -> {
+                        Log.d(TAG, "onSuccess from oneTapClient.beginSignIn(BeginSignInRequest)");
+                        IntentSenderRequest intentSenderRequest =
+                                new IntentSenderRequest.Builder(result.getPendingIntent()).build();
+                        activityResultLauncher.launch(intentSenderRequest);
+                    })
+                    .addOnFailureListener(this, e -> {
+                        // No saved credentials found. Launch the One Tap sign-up flow, or
+                        // do nothing and continue presenting the signed-out UI.
+                        Log.d(TAG, e.getLocalizedMessage());
+                        Snackbar.make(findViewById(android.R.id.content), e.toString(), Snackbar.LENGTH_SHORT).show();
+                    });
+        });
+        googleLogOutButton.setOnClickListener(view -> {
+            googleLogOutButton.setVisibility(View.GONE);
+            googleLogOutButton.setClickable(false);
+            googleLogInButton.setVisibility(View.VISIBLE);
+            googleLogInButton.setClickable(true);
+            tagViewModel.logoutGoogleUser();
+        });
     }
 
-    private void postGoogleLogin(GoogleUser googleUser) {
+
+    // called when user logs in with google to get his tag from firebase
+    private void handleFirebaseTag(GoogleUser googleUser) {
         String tempTag = insertTag.getText().toString();
 
         try {
@@ -245,7 +288,7 @@ public class TagActivity extends AppCompatActivity {
 
                     // caso 0: ho una tag su Firebase: uso quella
                     if (tagFirebase != null && !tagFirebase.equals("null")) {
-                        settamiStoTag(tagFirebase, true);
+                        setupTag(tagFirebase, true);
                         Log.d(TAG, "ho settato " + tagFirebase);
                     }
 
@@ -277,27 +320,5 @@ public class TagActivity extends AppCompatActivity {
 
         Intent intent = new Intent(TagActivity.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    private boolean settamiStoTag(String tag, boolean shouldSave) {
-        if (tag.startsWith("#")) tag = tag.substring(1);
-
-        Log.d(TAG, "Tag inserito: " + tag + " isvalid:" + tagViewModel.isTagValid(tag));
-        // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
-        Log.d("salva", "GAS: " + GameAccountSingleton.getInstance().getUserTag() + " tag: " + tag + " shouldSave: " + shouldSave);
-
-        //       if (GameAccountSingleton.getInstance().getUserTag() != null &&
-        //                !GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
-        if (shouldSave)
-                tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
-
-        GameAccountSingleton.getInstance().setUserTag(tag);
-        GameAccountSingleton.getInstance().setChecked(shouldSave);
-
-        if (tagViewModel.isTagValid(tag))
-            Toast.makeText(TagActivity.this, "Tag aggiunto! " + GameAccountSingleton.getInstance().getUserTag(), Toast.LENGTH_LONG).show();
-        else Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
-
-        return tagViewModel.isTagValid(tag);
     }
 }

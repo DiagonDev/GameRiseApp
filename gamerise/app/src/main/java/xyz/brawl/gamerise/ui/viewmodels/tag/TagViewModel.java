@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.model.data.user.GoogleUser;
 import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.model.repository.tag.TagRepository;
 import xyz.brawl.gamerise.model.repository.user.UserRepository;
@@ -24,10 +25,6 @@ public class TagViewModel extends ViewModel {
         this.playerRepository = playerRepository;
     }
 
-    private void getUserData(String token) {
-        userMutableLiveData = userRepository.getGoogleUser(token);
-    }
-
     public void insertTag(Tag tag) {
         tagRepository.insertTag(tag);
         playerRepository.fetchPlayer(tag.getTag());
@@ -38,16 +35,29 @@ public class TagViewModel extends ViewModel {
         return tagLiveData;
     }
 
-    public void saveTagOnFirebase(String tag, String sessionId) {
-        userRepository.saveUserTag(tag, sessionId);
+    public GoogleUser getLoggedGoogleUser() {
+        return userRepository.getLoggedUser();
+    }
+
+    public void logoutGoogleUser() {
+        if (userMutableLiveData == null) {
+            userMutableLiveData = userRepository.logout();
+        } else {
+            userRepository.logout();
+        }
     }
 
     public MutableLiveData<Result> getGoogleUserMutableLiveData(String token) {
         if (userMutableLiveData == null) {
-            getUserData(token);
+            userMutableLiveData = userRepository.getGoogleUser(token);
         }
         return userMutableLiveData;
     }
+
+    public void saveTagOnFirebase(String tag, String sessionId) {
+        userRepository.saveUserTag(tag, sessionId);
+    }
+
     public MutableLiveData<Result> getFirebaseTag_TagVM(String sessionId) {
         if (sessionId != null && !sessionId.isEmpty())
             userTagMutableLiveData = userRepository.getUserTag$UserRepository(sessionId);
