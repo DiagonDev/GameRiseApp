@@ -57,7 +57,6 @@ public class TagActivity extends AppCompatActivity {
     private ActivityResultContracts.StartIntentSenderForResult startIntentSenderForResult;
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
-
     private boolean checked = false;
     private TagViewModel tagViewModel;
     private EditText insertTag;
@@ -177,13 +176,14 @@ public class TagActivity extends AppCompatActivity {
         });
 
         insertTag.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE || (keyEvent != null && keyEvent.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == android.view.KeyEvent.ACTION_DOWN)) {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    (keyEvent != null && keyEvent.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER &&
+                            keyEvent.getAction() == android.view.KeyEvent.ACTION_DOWN)) {
                 searchButton.performClick();
                 return true;
             }
             return false;
         });
-
 
         searchButton.setOnClickListener(view -> {
             String inputTag = insertTag.getText().toString().trim();
@@ -193,7 +193,6 @@ public class TagActivity extends AppCompatActivity {
             }
         });
 
-        //test animation checkbox
         checkboxButton = findViewById(R.id.checkbox_button);
         checkboxButton.setOnClickListener(view -> {
             if (!checked) {
@@ -256,7 +255,6 @@ public class TagActivity extends AppCompatActivity {
                         tagViewModel.saveTagOnFirebase(tempTag, googleUser.getSessionId());
                     }
 
-
                     // caso 2: tagFirebase == null && tag esiste nel DB
                     if (tagFirebase == null || tagFirebase.equals("null")) {
                         tagViewModel.fetchTag().observe(this, localTag -> {
@@ -267,7 +265,6 @@ public class TagActivity extends AppCompatActivity {
                             }
                         });
                     }
-
 
                 } else if (result instanceof Result.Error) {
                     String errorMessage = ((Result.Error) result).getMessage();
@@ -289,8 +286,9 @@ public class TagActivity extends AppCompatActivity {
         // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
         Log.d("salva", "GAS: " + GameAccountSingleton.getInstance().getUserTag() + " tag: " + tag + " shouldSave: " + shouldSave);
 
-        if (GameAccountSingleton.getInstance().getUserTag() != null &&
-                !GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
+        //       if (GameAccountSingleton.getInstance().getUserTag() != null &&
+        //                !GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
+        if (shouldSave)
                 tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
 
         GameAccountSingleton.getInstance().setUserTag(tag);
