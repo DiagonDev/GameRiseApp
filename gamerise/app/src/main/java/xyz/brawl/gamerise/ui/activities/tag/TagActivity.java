@@ -125,7 +125,7 @@ public class TagActivity extends AppCompatActivity {
 
         savedTagTextView.setOnClickListener(view -> {
             String savedTag = savedTagTextView.getText().toString().trim();
-            if (setupTag(savedTag, true)) {
+            if (handlerInvioTag(savedTag, false)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -160,7 +160,7 @@ public class TagActivity extends AppCompatActivity {
 
         searchButton.setOnClickListener(view -> {
             String inputTag = insertTag.getText().toString().trim();
-            if (setupTag(inputTag, checked)) {
+            if (handlerInvioTag(inputTag, checked)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -180,26 +180,33 @@ public class TagActivity extends AppCompatActivity {
         setupGoogleButtons();
     }
 
-    private boolean setupTag(String tag, boolean shouldSave) {
-        if (tag.startsWith("#")) tag = tag.substring(1);
+    public boolean handlerInvioTag(String inputTag, boolean isNewTag) {
+        // Trim and process the input tag
+        inputTag = inputTag.trim();
+        if (inputTag.startsWith("#")) {
+            inputTag = inputTag.substring(1);
+        }
 
-        Log.d(TAG, "Tag inserito: " + tag + " isvalid:" + tagViewModel.isTagValid(tag));
-        // se il tag che dovrei salvare è uguale a quello già salvato, non faccio niente invece
-        Log.d("salva", "GAS: " + GameAccountSingleton.getInstance().getUserTag() + " tag: " + tag + " shouldSave: " + shouldSave);
+        GameAccountSingleton.getInstance().setUserTag(inputTag);
+        GameAccountSingleton.getInstance().setChecked(true); // Assuming checked is true for both cases
 
-        //       if (GameAccountSingleton.getInstance().getUserTag() != null &&
-        //                !GameAccountSingleton.getInstance().getUserTag().equals(tag) && shouldSave)
-        if (shouldSave)
-                tagViewModel.insertTag(new Tag("Nuovo Giocatore", tag));
-
-        GameAccountSingleton.getInstance().setUserTag(tag);
-        GameAccountSingleton.getInstance().setChecked(shouldSave);
-
-        if (tagViewModel.isTagValid(tag))
-            Toast.makeText(TagActivity.this, "Tag aggiunto! " + GameAccountSingleton.getInstance().getUserTag(), Toast.LENGTH_LONG).show();
-        else Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
-
-        return tagViewModel.isTagValid(tag);
+        // If it's a new tag, validate and add it
+        if (isNewTag) {
+            if (tagViewModel.isTagValid(inputTag)) {
+                Tag newTag = new Tag("Nuovo Giocatore", inputTag);
+                tagViewModel.insertTag(newTag); // Save tag to memory and database
+                insertTag.setText(""); // Reset input field
+                Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
+                return true;
+            } else {
+                Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } else {
+            // For saved tag case
+            Toast.makeText(TagActivity.this, "Tag salvato!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
     }
 
     private void setupGoogleButtons() {
@@ -288,7 +295,7 @@ public class TagActivity extends AppCompatActivity {
 
                     // caso 0: ho una tag su Firebase: uso quella
                     if (tagFirebase != null && !tagFirebase.equals("null")) {
-                        setupTag(tagFirebase, true);
+                        handlerInvioTag(tagFirebase, true);
                         Log.d(TAG, "ho settato " + tagFirebase);
                     }
 

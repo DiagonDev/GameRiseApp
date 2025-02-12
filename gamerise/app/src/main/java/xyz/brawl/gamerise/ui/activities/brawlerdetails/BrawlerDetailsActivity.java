@@ -35,32 +35,11 @@ import xyz.brawl.gamerise.util.ServiceLocator;
 
 public class BrawlerDetailsActivity extends AppCompatActivity {
     BrawlersViewModel brawlersViewModel;
-
-    private TextView name;
-    private ImageView brawlerImg;
-    private ImageView brawlerImgPrev;
-    private ImageView brawlerImgNext;
-
-    private TextView powerLevelText;
-    private TextView trophiesText;
-    private ProgressBar trophiesProgress;
-    private ProgressBar powerLevelProgress;
-    private TextView moneyText;
-    private TextView starPointsText;
-
-    private TextView gadgetText1;
-    private ImageView gadgetImg1;
-    private TextView gadgetText2;
-    private ImageView gadgetImg2;
-
-    private TextView starPowerText1;
-    private ImageView starPowerImg1;
-    private TextView starPowerText2;
-    private ImageView starPowerImg2;
-
+    private ImageView brawlerImg, brawlerImgPrev, brawlerImgNext, gadgetImg1,  gadgetImg2, starPowerImg1, starPowerImg2;
+    private TextView brawlerName, powerLevelText, trophiesText, moneyText, starPointsText, gadgetText1,  gadgetText2, starPowerText1, starPowerText2;
+    private ProgressBar trophiesProgress,  powerLevelProgress;
     private List<BrawlerEntry> brawlers;
-    private int countG = 0;
-    private int countA = 0;
+    private int countG = 0, countA = 0;
 
     private FrameLayout noInternetView;
 
@@ -73,7 +52,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_brawler_details);
 
-        name = findViewById(R.id.textView);
+        brawlerName = findViewById(R.id.textView);
         brawlerImg = findViewById(R.id.imageView);
         brawlerImgPrev = findViewById(R.id.previous_brawler_image);
         brawlerImgNext = findViewById(R.id.next_brawler_image);
@@ -101,7 +80,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
             noInternetView.setVisibility(View.VISIBLE);
             connected = false;
         }
-
 
         BrawlersRepository brawlersRepository = ServiceLocator.getInstance().getBrawlersRepository(getApplication(),
             getApplication().getResources().getBoolean(R.bool.debug_mode));
@@ -161,7 +139,7 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
                                 BrawlerEntry brawlerPrec = (currentIndex == 0) ? brawlers.get(brawlers.size() - 1) : brawlers.get(currentIndex - 1);
                                 BrawlerEntry brawlerSucc = (currentIndex == brawlers.size() - 1) ? brawlers.get(0) : brawlers.get(currentIndex + 1);
 
-                                name.setText(brawler.getName());
+                                brawlerName.setText(brawler.getName());
                                 brawlerImg.setImageResource(brawler.getBrawlerPin());
                                 brawlerImgPrev.setImageResource(brawlerPrec.getBrawlerPin());
                                 brawlerImgNext.setImageResource(brawlerSucc.getBrawlerPin());
