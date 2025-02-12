@@ -202,10 +202,7 @@ public class ServiceLocator {
         playerRemoteDataSource = new PlayerRemoteDataSource(getApiService());
 
         StatsRepository statsRepository = getStatsRepository(application, debugMode);
-        StarPowerRepository starPowerRepository = getStarPowerRepository(application, debugMode);
-        GadgetRepository gadgetRepository = getGadgetRepository(application, debugMode);
-        BrawlersRepository brawlersRepository = getBrawlersRepository(application, debugMode);
-        return new PlayerRepository(playerRemoteDataSource, statsRepository, playerLocalDataSource, starPowerRepository, gadgetRepository, brawlersRepository);
+        return new PlayerRepository(playerRemoteDataSource, statsRepository, playerLocalDataSource);
     }
 
     public UserRepository getUserRepository() {

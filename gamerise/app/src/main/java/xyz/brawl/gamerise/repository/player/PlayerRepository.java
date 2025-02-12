@@ -26,22 +26,16 @@ public class PlayerRepository implements PlayerCallBack {
     private final BasePlayerRemoteDataSource playerRemoteDataSource;
     private final BasePlayerLocalDataSource playerLocalDataSource;
     private final StatsRepository statsRepository;
-    private final StarPowerRepository starPowerRepository;
-    private final GadgetRepository gadgetRepository;
-    private final BrawlersRepository brawlersRepository;
 
     public PlayerRepository(
             BasePlayerRemoteDataSource playerRemoteDataSource,
             StatsRepository statsRepository,
-            BasePlayerLocalDataSource playerLocalDataSource, StarPowerRepository starPowerRepository, GadgetRepository gadgetRepository, BrawlersRepository brawlersRepository) {
+            BasePlayerLocalDataSource playerLocalDataSource) {
         playerLiveData = new MutableLiveData<>();
         this.playerRemoteDataSource = playerRemoteDataSource;
         this.playerRemoteDataSource.setPlayerCallBack(this);
         this.playerLocalDataSource = playerLocalDataSource;
         this.statsRepository = statsRepository;
-        this.starPowerRepository = starPowerRepository;
-        this.gadgetRepository = gadgetRepository;
-        this.brawlersRepository = brawlersRepository;
     }
 
     public MutableLiveData<Result> fetchPlayer(String tagId, boolean connected) {
