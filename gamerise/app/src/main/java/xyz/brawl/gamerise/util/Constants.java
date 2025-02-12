@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogEntry;
-import xyz.brawl.gamerise.model.data.battle.api.PlayerEntry;
-import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
+import xyz.brawl.gamerise.model.battle.BattleLogEntry;
+import xyz.brawl.gamerise.model.battle.PlayerEntry;
 
 public class Constants {
 
@@ -638,7 +637,6 @@ public class Constants {
     public static String StormyPlains = "Stormy Plains";
 
     public static final int DATABASE_VERSION = 12;
-    public static final int FRESH_TIMEOUT = 1000 * 60;
 
     public static final String FIREBASE_REALTIME_DATABASE = "https://gamerise-4-default-rtdb.europe-west1.firebasedatabase.app/";
     public static final String FIREBASE_USERS_COLLECTION = "users";

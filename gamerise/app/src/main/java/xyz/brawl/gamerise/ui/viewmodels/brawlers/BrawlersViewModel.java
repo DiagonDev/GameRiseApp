@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
-import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
-import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
+import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
+import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
 
 public class BrawlersViewModel extends ViewModel {
     private MutableLiveData<Result> brawlersLiveData;

@@ -36,12 +36,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.model.data.user.GoogleUser;
-import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
-import xyz.brawl.gamerise.model.repository.tag.TagRepository;
-import xyz.brawl.gamerise.model.repository.user.UserRepository;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
+import xyz.brawl.gamerise.model.tag.Tag;
+import xyz.brawl.gamerise.model.GoogleUser;
+import xyz.brawl.gamerise.repository.player.PlayerRepository;
+import xyz.brawl.gamerise.repository.tag.TagRepository;
+import xyz.brawl.gamerise.repository.user.UserRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;

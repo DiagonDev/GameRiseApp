@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
-import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
-import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
+import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
+import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
 
 public class BrawlersViewModelFactory implements ViewModelProvider.Factory {
     private final BrawlersRepository brawlerRepository;

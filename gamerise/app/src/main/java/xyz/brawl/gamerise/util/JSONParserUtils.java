@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import xyz.brawl.gamerise.model.data.battle.api.BattleLogApiResponse;
-import xyz.brawl.gamerise.model.data.player.PlayerApiResponse;
+import xyz.brawl.gamerise.model.battle.BattleLogApiResponse;
+import xyz.brawl.gamerise.model.player.PlayerApiResponse;
 
 public class JSONParserUtils {
     private final Application application;

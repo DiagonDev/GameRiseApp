@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "724946336066-dk718fa7lo6bm7eg4jl6an9fljiv49mg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.brawl.gamerise",
+            "certificate_hash": "357ece5c2435d8c13b911bc3f3c71ff574c4ebfd"
+          }
+        },
+        {
           "client_id": "724946336066-pu9tul5p11umshitgejavqvqou7fjdti.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

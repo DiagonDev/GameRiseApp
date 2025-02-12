@@ -22,12 +22,12 @@ import java.util.List;
 
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.data.singleton.GameAccountSingleton;
-import xyz.brawl.gamerise.model.repository.brawler.BrawlersRepository;
-import xyz.brawl.gamerise.model.repository.gadget.GadgetRepository;
-import xyz.brawl.gamerise.model.repository.starpower.StarPowerRepository;
-import xyz.brawl.gamerise.ui.fragments.brawlers.adapter.BrawlerAdapter;
+import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
+import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
+import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
+import xyz.brawl.gamerise.adapters.brawler.BrawlerAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
 import xyz.brawl.gamerise.util.NetworkUtil;

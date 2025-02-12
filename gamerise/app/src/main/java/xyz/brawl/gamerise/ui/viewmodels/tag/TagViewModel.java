@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.data.tag.Tag;
-import xyz.brawl.gamerise.model.data.user.GoogleUser;
-import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
-import xyz.brawl.gamerise.model.repository.tag.TagRepository;
-import xyz.brawl.gamerise.model.repository.user.UserRepository;
+import xyz.brawl.gamerise.model.tag.Tag;
+import xyz.brawl.gamerise.model.GoogleUser;
+import xyz.brawl.gamerise.repository.player.PlayerRepository;
+import xyz.brawl.gamerise.repository.tag.TagRepository;
+import xyz.brawl.gamerise.repository.user.UserRepository;
 
 public class TagViewModel extends ViewModel {
     public static final String TAG = TagViewModel.class.getSimpleName();

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.model.repository.battlelog.BattleLogRepository;
+import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
 
 public class BattleLogViewModel extends ViewModel {
     private MutableLiveData<Result> battlesLiveData;

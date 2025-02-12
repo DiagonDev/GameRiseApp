@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import xyz.brawl.gamerise.model.data.stat.Stat;
+import xyz.brawl.gamerise.model.stat.Stat;
 
 @Dao
 public interface StatDAO {

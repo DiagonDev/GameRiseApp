@@ -9,12 +9,12 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import xyz.brawl.gamerise.model.data.battle.Battle;
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
-import xyz.brawl.gamerise.model.data.brawler.StarPowerEntry;
-import xyz.brawl.gamerise.model.data.stat.Stat;
-import xyz.brawl.gamerise.model.data.tag.Tag;
+import xyz.brawl.gamerise.model.battle.Battle;
+import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.model.brawler.GadgetEntry;
+import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
+import xyz.brawl.gamerise.model.stat.Stat;
+import xyz.brawl.gamerise.model.tag.Tag;
 import xyz.brawl.gamerise.util.Constants;
 
 @Database(entities = {Stat.class, Tag.class, Battle.class, BrawlerEntry.class, StarPowerEntry.class, GadgetEntry.class}

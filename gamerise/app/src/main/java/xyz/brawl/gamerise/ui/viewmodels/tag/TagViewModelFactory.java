@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import xyz.brawl.gamerise.model.repository.player.PlayerRepository;
-import xyz.brawl.gamerise.model.repository.tag.TagRepository;
-import xyz.brawl.gamerise.model.repository.user.UserRepository;
+import xyz.brawl.gamerise.repository.player.PlayerRepository;
+import xyz.brawl.gamerise.repository.tag.TagRepository;
+import xyz.brawl.gamerise.repository.user.UserRepository;
 
 public class TagViewModelFactory implements ViewModelProvider.Factory {
     private final TagRepository tagRepository;

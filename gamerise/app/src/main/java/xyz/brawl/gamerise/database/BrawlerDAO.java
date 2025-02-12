@@ -7,7 +7,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.brawler.BrawlerEntry;
+import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 
 @Dao
 public interface BrawlerDAO {

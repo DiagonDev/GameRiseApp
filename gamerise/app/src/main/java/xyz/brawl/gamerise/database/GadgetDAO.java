@@ -7,7 +7,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import xyz.brawl.gamerise.model.data.brawler.GadgetEntry;
+import xyz.brawl.gamerise.model.brawler.GadgetEntry;
 
 @Dao
 public interface GadgetDAO {
