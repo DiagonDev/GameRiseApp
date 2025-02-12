@@ -124,6 +124,7 @@ public class TagActivity extends AppCompatActivity {
         });
 
         savedTagTextView.setOnClickListener(view -> {
+            GameAccountSingleton.getInstance().setLastUpdate(0);
             String savedTag = savedTagTextView.getText().toString().trim();
             if (handlerInvioTag(savedTag, false)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
@@ -159,6 +160,7 @@ public class TagActivity extends AppCompatActivity {
         });
 
         searchButton.setOnClickListener(view -> {
+            GameAccountSingleton.getInstance().setLastUpdate(0);
             String inputTag = insertTag.getText().toString().trim();
             if (handlerInvioTag(inputTag, checked)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);

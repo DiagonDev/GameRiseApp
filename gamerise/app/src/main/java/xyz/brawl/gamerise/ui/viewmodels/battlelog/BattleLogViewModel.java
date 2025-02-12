@@ -15,13 +15,13 @@ public class BattleLogViewModel extends ViewModel {
     }
 
     public MutableLiveData<Result> getBattles(String tag, boolean connected, long lastUpdate) {
-        if (battlesLiveData == null) {
-            fetchBattleLog(tag, connected, lastUpdate);
-        }
+        System.out.println("fetchBattleLog" );
+        fetchBattleLog(tag, connected, lastUpdate);
         return battlesLiveData;
     }
 
     private void fetchBattleLog(String tag, boolean connected, long lastUpdate) {
+
         battlesLiveData = battleLogRepository.fetchBattleLog(tag, connected, lastUpdate);
     }
 }

@@ -32,11 +32,11 @@ public class BattleLogRepository implements BattleLogCallback {
         long currentTime = System.currentTimeMillis();
         Log.d("TEST", "Current time: "+currentTime);
         Log.d("TEST", "SingletonTime: "+ lastUpdate);
-        if (connected && (currentTime - lastUpdate) > FRESH_TIME)
+        if (connected && (currentTime - lastUpdate) > FRESH_TIME) {
             battleRemoteDataSource.getBattleLog(tagId);
-        else
+        }else {
             battleLocalDataSource.getBattles(tagId);
-
+        }
         return allBattleLogLiveData;
     }
 
