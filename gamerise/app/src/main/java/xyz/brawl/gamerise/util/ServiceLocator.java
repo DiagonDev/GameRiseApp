@@ -22,7 +22,9 @@ import xyz.brawl.gamerise.source.gadget.BaseGadgetLocalDataSource;
 import xyz.brawl.gamerise.source.gadget.BaseGadgetRemoteDataSource;
 import xyz.brawl.gamerise.source.gadget.GadgetLocalDataSource;
 import xyz.brawl.gamerise.source.gadget.GadgetRemoteDataSource;
+import xyz.brawl.gamerise.source.player.BasePlayerLocalDataSource;
 import xyz.brawl.gamerise.source.player.BasePlayerRemoteDataSource;
+import xyz.brawl.gamerise.source.player.PlayerLocalDataSource;
 import xyz.brawl.gamerise.source.player.PlayerRemoteDataSource;
 import xyz.brawl.gamerise.source.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.source.starPower.BaseStarPowerRemoteDataSource;
@@ -195,15 +197,15 @@ public class ServiceLocator {
 
     public PlayerRepository getPlayerRepository(Application application, boolean debugMode) {
         BasePlayerRemoteDataSource playerRemoteDataSource;
+        BasePlayerLocalDataSource playerLocalDataSource;
+        playerLocalDataSource = new PlayerLocalDataSource(getDatabase(application));
         playerRemoteDataSource = new PlayerRemoteDataSource(getApiService());
-        TagRepository tagRepository = getTagRepository(application, debugMode);
-        BrawlersRepository brawlersRepository = getBrawlersRepository(application, debugMode);
+
         StatsRepository statsRepository = getStatsRepository(application, debugMode);
         StarPowerRepository starPowerRepository = getStarPowerRepository(application, debugMode);
         GadgetRepository gadgetRepository = getGadgetRepository(application, debugMode);
-
-        return new PlayerRepository(playerRemoteDataSource, tagRepository, brawlersRepository,
-                statsRepository, starPowerRepository, gadgetRepository);
+        BrawlersRepository brawlersRepository = getBrawlersRepository(application, debugMode);
+        return new PlayerRepository(playerRemoteDataSource, statsRepository, playerLocalDataSource, starPowerRepository, gadgetRepository, brawlersRepository);
     }
 
     public UserRepository getUserRepository() {

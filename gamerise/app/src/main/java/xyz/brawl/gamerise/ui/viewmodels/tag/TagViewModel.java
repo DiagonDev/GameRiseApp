@@ -25,9 +25,9 @@ public class TagViewModel extends ViewModel {
         this.playerRepository = playerRepository;
     }
 
-    public void insertTag(Tag tag) {
+    public void insertTag(Tag tag, boolean connected) {
         tagRepository.insertTag(tag);
-        playerRepository.fetchPlayer(tag.getTag());
+        playerRepository.fetchPlayer(tag.getTag(), connected);
     }
 
     public MutableLiveData<Result> fetchTag() {

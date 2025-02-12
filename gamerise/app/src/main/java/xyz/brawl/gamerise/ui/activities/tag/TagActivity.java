@@ -64,6 +64,7 @@ public class TagActivity extends AppCompatActivity {
     private ImageButton searchButton;
     private ImageButton checkboxButton;
     private Button googleLogInButton, googleLogOutButton;
+    private boolean connected = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +109,14 @@ public class TagActivity extends AppCompatActivity {
         }
 
         FrameLayout noInternetView = findViewById(R.id.no_internet_view);
-        if (!NetworkUtil.isInternetAvailable(this))
+        if (!NetworkUtil.isInternetAvailable(this)){
             noInternetView.setVisibility(View.VISIBLE);
+            connected = false;
+            searchButton.setClickable(false);
+            searchButton.setVisibility(View.GONE);
+            googleLogOutButton.setClickable(false);
+            googleLogInButton.setVisibility(View.GONE);
+        }
 
         tagViewModel.fetchTag().observe(this, result -> {
             if (result.isSuccess()) {
@@ -177,6 +184,7 @@ public class TagActivity extends AppCompatActivity {
                 checkboxButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
                 checked = false;
             }
+            GameAccountSingleton.getInstance().setChecked(checked); // Assuming checked is true for both cases
         });
 
         setupGoogleButtons();
@@ -190,13 +198,13 @@ public class TagActivity extends AppCompatActivity {
         }
 
         GameAccountSingleton.getInstance().setUserTag(inputTag);
-        GameAccountSingleton.getInstance().setChecked(true); // Assuming checked is true for both cases
+
 
         // If it's a new tag, validate and add it
         if (isNewTag) {
             if (tagViewModel.isTagValid(inputTag)) {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
-                tagViewModel.insertTag(newTag); // Save tag to memory and database
+                tagViewModel.insertTag(newTag, connected); // Save tag to memory and database
                 insertTag.setText(""); // Reset input field
                 Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
                 return true;

@@ -27,6 +27,7 @@ public abstract class GameRiseDatabase extends RoomDatabase {
     public abstract TagDAO tagDAO();
     public abstract StarPowerDAO starPowerDAO();
     public abstract GadgetDAO gadgetDAO();
+    public abstract PlayerTransactionDao playerTransactionDao();
 
     private static volatile GameRiseDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
