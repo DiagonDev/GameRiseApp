@@ -88,6 +88,7 @@ public class StatsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
         noInternetView = view.findViewById(R.id.no_internet_view);
         trofei = view.findViewById(R.id.valoreTrofei);
@@ -134,37 +135,28 @@ public class StatsFragment extends Fragment {
                         List<Battle> battleList = (List<Battle>) ((Result.Success) result).getData();
                         battles.clear();
                         battles.addAll(battleList);
+                        chartContainer.removeAllViews();
                         Map<String, Integer> battleCount = new HashMap<>();
+                        Map<String, Integer> battleCount2 = new HashMap<>();
                         for (Battle battle : battles) {
                             if (Integer.parseInt(battle.trophies) > 0) {
                                 battleCount.put(battle.title, battleCount.getOrDefault(battle.title, 0) + 1);
                             }
+                            if (Integer.parseInt(battle.trophies) > 0) {
+                                battleCount2.put(battle.subTitle, battleCount2.getOrDefault(battle.subTitle, 0) + 1);
+                            }
                         }
+
                         addScatterChart("Game Modes Win", battleCount);
+                        addScatterChart("Maps WinsXGames", battleCount2);
+
                     } else {
                         String errorMessage = ((Result.Error) result).getMessage();
                         Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
                     }
                 });
 
-        battleLogViewModel.getBattles(tag, connected, GameAccountSingleton.getInstance().getLastUpdate()).observe(getViewLifecycleOwner(),
-                result -> {
-                    if (result.isSuccess()) {
-                        List<Battle> battleList = (List<Battle>) ((Result.Success) result).getData();
-                        battles.clear();
-                        battles.addAll(battleList);
-                        Map<String, Integer> battleCount = new HashMap<>();
-                        for (Battle battle : battles) {
-                            if (Integer.parseInt(battle.trophies) > 0) {
-                                battleCount.put(battle.subTitle, battleCount.getOrDefault(battle.subTitle, 0) + 1);
-                            }
-                        }
-                        addScatterChart("Maps WinsXGames", battleCount);
-                    } else {
-                        String errorMessage = ((Result.Error) result).getMessage();
-                        Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
-                    }
-                });
+
 
         return view;
     }

@@ -15,8 +15,8 @@ public class BattleLogViewModel extends ViewModel {
     }
 
     public MutableLiveData<Result> getBattles(String tag, boolean connected, long lastUpdate) {
-        System.out.println("fetchBattleLog" );
         fetchBattleLog(tag, connected, lastUpdate);
+
         return battlesLiveData;
     }
 
