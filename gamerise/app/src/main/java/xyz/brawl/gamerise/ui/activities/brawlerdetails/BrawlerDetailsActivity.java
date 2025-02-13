@@ -22,9 +22,14 @@ import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
+<<<<<<< Updated upstream
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
+=======
+import xyz.brawl.gamerise.viewmodels.brawlers.BrawlersViewModel;
+import xyz.brawl.gamerise.viewmodels.brawlers.BrawlersViewModelFactory;
+>>>>>>> Stashed changes
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
