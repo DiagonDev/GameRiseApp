@@ -118,7 +118,7 @@ public class Constants {
         DRACO(R.drawable.draco_pin),
         OLLIE(R.drawable.ollie_pin),
         MEEPLE(R.drawable.meeple_pin),
-        BUZZ_LIGHTYEAR(R.drawable.sandy_pin), //ignoreremo
+        BUZZ_LIGHTYEAR(R.drawable.buzz_lightyear_pin), //ignoreremo
         JUJU(R.drawable.juju_pin),
         SHADE(R.drawable.shade_pin),
         KENJI(R.drawable.kenji_pin),
@@ -146,6 +146,7 @@ public class Constants {
         EVE(R.drawable.eve_pin),
         FANG(R.drawable.fang_pin),
         SPIKE(R.drawable.spike_pin),
+        RUFFS(R.drawable.ruffs_pin),
         GALE(R.drawable.gale_pin),
         MR_P(R.drawable.mrp_pin),
         LOU(R.drawable.lou_pin),
@@ -172,7 +173,7 @@ public class Constants {
                 return BrawlerPin.valueOf(enumKey);
             } catch (IllegalArgumentException e) {
                 // Fallback in caso di errore
-                return BrawlerPin.LOU; // Valore predefinito
+                return BrawlerPin.SHELLY; // Valore predefinito
             }
         }
 
@@ -182,7 +183,7 @@ public class Constants {
                     return brawlerPin;
                 }
             }
-            return BrawlerPin.LOU; // Valore predefinito in caso di errore
+            return BrawlerPin.SHELLY; // Valore predefinito in caso di errore
         }
 
         public String getBrawlerPinString() {
