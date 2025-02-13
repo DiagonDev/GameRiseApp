@@ -1,6 +1,7 @@
 package xyz.brawl.gamerise.repository.brawler;
 
 import java.util.List;
+
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 
 public interface BrawlersCallBack {

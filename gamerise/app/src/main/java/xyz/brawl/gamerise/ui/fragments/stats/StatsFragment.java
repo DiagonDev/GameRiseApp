@@ -32,7 +32,6 @@ import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.battle.Battle;
 import xyz.brawl.gamerise.model.player.ClubEntry;
-import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.model.stat.Stat;
 import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.repository.stats.StatsRepository;
@@ -40,6 +39,7 @@ import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModelFactory;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 

@@ -13,6 +13,4 @@ public abstract class BaseTagLocalDataSource {
     public abstract void getTag();
 
     public abstract void insertTag(Tag tag);
-
-    public abstract void deleteTag(Tag tag);
 }

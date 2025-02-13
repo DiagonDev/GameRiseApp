@@ -1,11 +1,12 @@
 package xyz.brawl.gamerise.ui.activities.tag;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import android.app.AlertDialog;
 
 public class NoInternetDialogFragment extends DialogFragment {
     @NonNull

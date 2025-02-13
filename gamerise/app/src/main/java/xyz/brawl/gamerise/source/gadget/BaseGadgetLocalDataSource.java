@@ -1,8 +1,5 @@
 package xyz.brawl.gamerise.source.gadget;
 
-import java.util.List;
-
-import xyz.brawl.gamerise.model.brawler.GadgetEntry;
 import xyz.brawl.gamerise.repository.gadget.GadgetCallback;
 
 public abstract class BaseGadgetLocalDataSource {

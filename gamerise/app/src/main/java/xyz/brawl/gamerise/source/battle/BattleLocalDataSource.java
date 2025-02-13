@@ -6,8 +6,8 @@ import xyz.brawl.gamerise.database.BattleDAO;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.TagDAO;
 import xyz.brawl.gamerise.model.battle.Battle;
-import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.model.tag.Tag;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
 
 /**
  * This class represents the local data source for the Battle entity.

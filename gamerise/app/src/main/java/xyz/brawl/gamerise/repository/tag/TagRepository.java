@@ -1,9 +1,10 @@
 package xyz.brawl.gamerise.repository.tag;
 
 import androidx.lifecycle.MutableLiveData;
+
 import xyz.brawl.gamerise.model.Result;
-import xyz.brawl.gamerise.source.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.model.tag.Tag;
+import xyz.brawl.gamerise.source.tag.BaseTagLocalDataSource;
 
 public class TagRepository implements TagCallback {
 

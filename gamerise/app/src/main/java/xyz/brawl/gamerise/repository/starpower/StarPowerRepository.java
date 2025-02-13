@@ -1,7 +1,9 @@
 package xyz.brawl.gamerise.repository.starpower;
 
 import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.source.starPower.BaseStarPowerLocalDataSource;

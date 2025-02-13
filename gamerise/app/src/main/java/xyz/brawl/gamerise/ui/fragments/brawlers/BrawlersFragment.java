@@ -1,13 +1,11 @@
 package xyz.brawl.gamerise.ui.fragments.brawlers;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+import xyz.brawl.gamerise.adapters.brawler.BrawlerAdapter;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
-import xyz.brawl.gamerise.adapters.brawler.BrawlerAdapter;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 

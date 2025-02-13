@@ -45,8 +45,6 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleViewHolder> {
         // Imposta le immagini delle icone usando gli ID delle risorse
         holder.gameMode.setImageResource(battle.iconMod);
         holder.iconRanked.setImageResource(battle.iconRanked);
-        //holder.iconBackGroundBot.setBackgroundResource(battle.iconBackGroundBot);
-        //holder.iconBackgroundTop.setBackgroundResource(battle.iconBackgroundTop);
         holder.iconBackGroundBot.setBackgroundResource(R.color.orange);
         holder.iconBackgroundTop.setBackgroundResource(R.color.green_start);
 

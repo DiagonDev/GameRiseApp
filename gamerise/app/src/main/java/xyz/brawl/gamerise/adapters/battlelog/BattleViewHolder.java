@@ -1,19 +1,14 @@
 package xyz.brawl.gamerise.adapters.battlelog;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import xyz.brawl.gamerise.R;
-import xyz.brawl.gamerise.ui.activities.tag.TagActivity;
 
 
 public class BattleViewHolder extends RecyclerView.ViewHolder {
@@ -40,11 +35,5 @@ public class BattleViewHolder extends RecyclerView.ViewHolder {
         player1 = itemView.findViewById(R.id.player1_image);
         player2 = itemView.findViewById(R.id.player2_image);
         player3 = itemView.findViewById(R.id.player3_image);
-        //Provvisorio
-        itemView.setOnClickListener(view -> {
-            Toast.makeText(itemView.getContext(), "SI PUO' FARE", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(itemView.getContext(), TagActivity.class);
-            startActivity(itemView.getContext(), i, null);
-        });
     }
 }

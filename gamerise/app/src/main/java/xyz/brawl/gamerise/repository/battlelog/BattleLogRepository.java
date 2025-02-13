@@ -1,8 +1,11 @@
 package xyz.brawl.gamerise.repository.battlelog;
 
 import static xyz.brawl.gamerise.util.Constants.FRESH_TIME;
+
 import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.battle.Battle;
 import xyz.brawl.gamerise.source.battle.BaseBattleLocalDataSource;

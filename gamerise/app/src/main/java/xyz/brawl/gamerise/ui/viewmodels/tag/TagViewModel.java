@@ -3,9 +3,9 @@ package xyz.brawl.gamerise.ui.viewmodels.tag;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import xyz.brawl.gamerise.model.GoogleUser;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.tag.Tag;
-import xyz.brawl.gamerise.model.GoogleUser;
 import xyz.brawl.gamerise.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.repository.tag.TagRepository;
 import xyz.brawl.gamerise.repository.user.UserRepository;

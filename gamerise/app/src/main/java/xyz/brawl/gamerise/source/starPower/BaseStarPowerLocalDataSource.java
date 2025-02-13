@@ -1,8 +1,5 @@
 package xyz.brawl.gamerise.source.starPower;
 
-import java.util.List;
-
-import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.repository.starpower.StarPowerCallback;
 
 public abstract class BaseStarPowerLocalDataSource {

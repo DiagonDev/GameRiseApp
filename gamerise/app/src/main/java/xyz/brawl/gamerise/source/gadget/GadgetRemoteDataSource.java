@@ -11,8 +11,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.brawl.gamerise.model.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.player.PlayerApiResponse;
-import xyz.brawl.gamerise.util.mappers.PlayerMapper;
 import xyz.brawl.gamerise.service.ApiService;
+import xyz.brawl.gamerise.util.mappers.PlayerMapper;
 
 public class GadgetRemoteDataSource extends BaseGadgetRemoteDataSource{
     private final ApiService apiService;

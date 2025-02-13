@@ -38,11 +38,7 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-
         ViewHolder viewHolder;
-
-
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
             viewHolder = new ViewHolder();
@@ -50,24 +46,17 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
             viewHolder.brawlerNameTextView = convertView.findViewById(R.id.brawler_name_textView);
             convertView.setTag(viewHolder);
         } else {
-
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-
         BrawlerEntry brawler = brawlers.get(position);
-
-
         viewHolder.brawlerPinImageView.setImageResource(brawler.getBrawlerPin());
         viewHolder.brawlerNameTextView.setText(brawler.getName());
-
 
         convertView.setOnClickListener(view -> {
             Intent i = new Intent(getContext(), BrawlerDetailsActivity.class);
             i.putExtra("brawlerId", brawler.getId());
             getContext().startActivity(i);
         });
-
         return convertView;
     }
 
@@ -75,7 +64,6 @@ public class BrawlerAdapter extends ArrayAdapter<BrawlerEntry> {
         ImageView brawlerPinImageView;
         TextView brawlerNameTextView;
     }
-
 
     public void updateData(List<BrawlerEntry> newBrawlers) {
         brawlers.clear();

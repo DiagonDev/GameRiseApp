@@ -1,13 +1,9 @@
 package xyz.brawl.gamerise.source.brawler;
 
-import java.util.List;
-
 import xyz.brawl.gamerise.database.BrawlerDAO;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.TagDAO;
-import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
-import xyz.brawl.gamerise.model.tag.Tag;
 
 
 public class BrawlersLocalDataSource extends BaseBrawlersLocalDataSource {

@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.List;
 
 import xyz.brawl.gamerise.model.battle.Battle;
-import xyz.brawl.gamerise.util.mappers.BattleMapper;
 import xyz.brawl.gamerise.model.battle.BattleLogApiResponse;
 import xyz.brawl.gamerise.util.JSONParserUtils;
+import xyz.brawl.gamerise.util.mappers.BattleMapper;
 
 public class BattleMockDataSource extends BaseBattleRemoteDataSource {
     private final JSONParserUtils jsonParserUtil;

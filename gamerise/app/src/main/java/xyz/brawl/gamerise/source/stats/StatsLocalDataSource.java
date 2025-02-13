@@ -3,9 +3,9 @@ package xyz.brawl.gamerise.source.stats;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.StatDAO;
 import xyz.brawl.gamerise.database.TagDAO;
-import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.model.stat.Stat;
 import xyz.brawl.gamerise.model.tag.Tag;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
 
 public class StatsLocalDataSource extends BaseStatsLocalDataSource {
     private final StatDAO statDAO;
@@ -23,7 +23,6 @@ public class StatsLocalDataSource extends BaseStatsLocalDataSource {
             statsCallBack.onSuccessFromLocal(statDAO.getStat(tagId));
         });
     }
-
 
     @Override
     public void insertStats(Stat stats) {

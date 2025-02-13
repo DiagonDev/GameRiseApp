@@ -3,10 +3,10 @@ package xyz.brawl.gamerise.repository.stats;
 import androidx.lifecycle.MutableLiveData;
 
 import xyz.brawl.gamerise.model.Result;
+import xyz.brawl.gamerise.model.stat.Stat;
 import xyz.brawl.gamerise.source.stats.BaseStatsLocalDataSource;
 import xyz.brawl.gamerise.source.stats.BaseStatsRemoteDataSource;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
-import xyz.brawl.gamerise.model.stat.Stat;
 
 public class StatsRepository implements StatsCallBack {
     private final MutableLiveData<Result> statsLiveData;

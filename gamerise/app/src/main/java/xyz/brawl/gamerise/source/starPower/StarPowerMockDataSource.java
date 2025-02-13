@@ -7,8 +7,8 @@ import java.util.List;
 
 import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.model.player.PlayerApiResponse;
-import xyz.brawl.gamerise.util.mappers.PlayerMapper;
 import xyz.brawl.gamerise.util.JSONParserUtils;
+import xyz.brawl.gamerise.util.mappers.PlayerMapper;
 
 public class StarPowerMockDataSource extends BaseStarPowerRemoteDataSource {
     private final JSONParserUtils jsonParserUtil;

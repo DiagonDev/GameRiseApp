@@ -32,7 +32,6 @@ public class PlayerLocalDataSource extends BasePlayerLocalDataSource {
                 }
                 playerTransactionDao.insertPlayerData(brawlers, starPowers, gadgets);
             }
-            //playerCallBack.onSuccessFromLocal(brawlers, starPowers, gadgets);
         });
 
     }

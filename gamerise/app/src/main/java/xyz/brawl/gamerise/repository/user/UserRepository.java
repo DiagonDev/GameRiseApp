@@ -1,10 +1,11 @@
 package xyz.brawl.gamerise.repository.user;
 
 import androidx.lifecycle.MutableLiveData;
+
+import xyz.brawl.gamerise.model.GoogleUser;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.source.user.BaseUserAuthenticationRemoteDataSource;
 import xyz.brawl.gamerise.source.user.BaseUserTagRemoteDataSource;
-import xyz.brawl.gamerise.model.GoogleUser;
 
 public class UserRepository implements UserCallBack {
 

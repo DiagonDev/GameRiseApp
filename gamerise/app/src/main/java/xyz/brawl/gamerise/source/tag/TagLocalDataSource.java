@@ -27,15 +27,4 @@ public class TagLocalDataSource extends BaseTagLocalDataSource{
             tagCallback.onSuccessFromLocal(tagDAO.getTag());
         });
     }
-
-    @Override
-    public void deleteTag(Tag tagToDelete) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            Tag tag = tagDAO.getTag();
-            if (tag != null) {
-                tagDAO.delete(tagToDelete);
-                tagCallback.onSuccessFromLocal(tagDAO.getTag());
-            } else tagCallback.onFailureFromLocal(new Exception("Database vuoto"));
-        });
-    }
 }

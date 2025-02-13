@@ -10,6 +10,15 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.brawl.gamerise.database.GameRiseDatabase;
+import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
+import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
+import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
+import xyz.brawl.gamerise.repository.player.PlayerRepository;
+import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
+import xyz.brawl.gamerise.repository.stats.StatsRepository;
+import xyz.brawl.gamerise.repository.tag.TagRepository;
+import xyz.brawl.gamerise.repository.user.UserRepository;
+import xyz.brawl.gamerise.service.ApiService;
 import xyz.brawl.gamerise.source.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.source.battle.BaseBattleRemoteDataSource;
 import xyz.brawl.gamerise.source.battle.BattleLocalDataSource;
@@ -40,15 +49,6 @@ import xyz.brawl.gamerise.source.user.BaseUserAuthenticationRemoteDataSource;
 import xyz.brawl.gamerise.source.user.BaseUserTagRemoteDataSource;
 import xyz.brawl.gamerise.source.user.UserAuthenticationFirebaseDataSource;
 import xyz.brawl.gamerise.source.user.UserFirebaseDataSource;
-import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
-import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
-import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
-import xyz.brawl.gamerise.repository.player.PlayerRepository;
-import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
-import xyz.brawl.gamerise.repository.stats.StatsRepository;
-import xyz.brawl.gamerise.repository.tag.TagRepository;
-import xyz.brawl.gamerise.repository.user.UserRepository;
-import xyz.brawl.gamerise.service.ApiService;
 
 public class ServiceLocator {
 

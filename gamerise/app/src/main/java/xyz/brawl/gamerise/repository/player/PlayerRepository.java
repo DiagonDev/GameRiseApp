@@ -1,17 +1,19 @@
 package xyz.brawl.gamerise.repository.player;
 
 import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
+import java.util.concurrent.Executors;
+
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.brawler.GadgetEntry;
 import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
+import xyz.brawl.gamerise.model.player.PlayerApiResponse;
+import xyz.brawl.gamerise.repository.stats.StatsRepository;
 import xyz.brawl.gamerise.source.player.BasePlayerLocalDataSource;
 import xyz.brawl.gamerise.source.player.BasePlayerRemoteDataSource;
-import xyz.brawl.gamerise.model.player.PlayerApiResponse;
 import xyz.brawl.gamerise.util.mappers.PlayerMapper;
-import xyz.brawl.gamerise.repository.stats.StatsRepository;
-import java.util.concurrent.Executors;
 
 public class PlayerRepository implements PlayerCallBack {
     private final MutableLiveData<Result> playerLiveData;
@@ -55,12 +57,6 @@ public class PlayerRepository implements PlayerCallBack {
     @Override
     public void onFailureFromRemote(Exception exception) {
         Result.Error result = new Result.Error(exception.getMessage());
-        playerLiveData.postValue(result);
-    }
-
-    @Override
-    public void onSuccessFromLocal(List<BrawlerEntry> brawler, List<StarPowerEntry> starPower, List<GadgetEntry> gadget) {
-        Result result = new Result.Success(brawler);
         playerLiveData.postValue(result);
     }
 }

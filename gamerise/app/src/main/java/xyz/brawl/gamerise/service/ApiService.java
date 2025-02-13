@@ -5,7 +5,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import xyz.brawl.gamerise.model.battle.BattleLogApiResponse;
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
-import xyz.brawl.gamerise.model.brawler.BrawlerListResponse;
 import xyz.brawl.gamerise.model.player.PlayerApiResponse;
 
 public interface ApiService {
@@ -16,6 +15,7 @@ public interface ApiService {
     @GET("players/{tag}/battlelog")
     Call<BattleLogApiResponse> getBattlelog(@Path("tag") String playerTag);
 
+    //Endpoint non utilizzati
     @GET("rankings/{countryCode}/clubs")
     Call<String> getClubsLeaderboard(@Path("countryCode") String countryCode);
 
@@ -32,7 +32,7 @@ public interface ApiService {
     Call<String> getClub(@Path("clubTag") String clubTag);
 
     @GET("brawlers")
-    Call<BrawlerListResponse> getBrawlerList();
+    Call<String> getBrawlerList();
 
     @GET("brawlers/{brawlerId}")
     Call<BrawlerEntry> getBrawler(@Path("brawlerId") int brawlerId);

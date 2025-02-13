@@ -5,8 +5,8 @@ import android.util.Log;
 import java.io.IOException;
 
 import xyz.brawl.gamerise.model.player.PlayerApiResponse;
-import xyz.brawl.gamerise.util.mappers.PlayerMapper;
 import xyz.brawl.gamerise.util.JSONParserUtils;
+import xyz.brawl.gamerise.util.mappers.PlayerMapper;
 
 public class StatsMockDataSource extends BaseStatsRemoteDataSource {
 

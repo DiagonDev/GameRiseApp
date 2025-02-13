@@ -10,9 +10,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.brawl.gamerise.model.battle.Battle;
-import xyz.brawl.gamerise.util.mappers.BattleMapper;
 import xyz.brawl.gamerise.model.battle.BattleLogApiResponse;
 import xyz.brawl.gamerise.service.ApiService;
+import xyz.brawl.gamerise.util.mappers.BattleMapper;
 
 public class BattleRemoteDataSource extends BaseBattleRemoteDataSource {
     private final ApiService apiService;
