@@ -642,8 +642,6 @@ public class Constants {
     public static long FRESH_TIME = 1000 * 60;
     public static String tagLeo = "#VQCV92Q9";
     public static String tagTeo = "#989VGUU0";
-    public static String knockout = "KNOCKOUT";
-    public static String StormyPlains = "Stormy Plains";
 
     public static final int DATABASE_VERSION = 12;
 

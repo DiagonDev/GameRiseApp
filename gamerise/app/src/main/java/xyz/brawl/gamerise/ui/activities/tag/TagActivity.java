@@ -3,6 +3,7 @@ package xyz.brawl.gamerise.ui.activities.tag;
 import static xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel.TAG;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -48,9 +49,7 @@ import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
-/// Se guardate il logCat vedrete generarsi un warnining al crearsi di questa classe
-/// è dovuto al fatto che non avendo item nel recycler view, l'inflate non riesce a trovare
-/// il colore da applicare. Non è un problema bloccante e si risolve appena popoliamo il recycler
+
 public class TagActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<IntentSenderRequest> activityResultLauncher;
@@ -108,15 +107,15 @@ public class TagActivity extends AppCompatActivity {
             googleLogInButton.setClickable(false);
         }
 
-        FrameLayout noInternetView = findViewById(R.id.no_internet_view);
-        if (!NetworkUtil.isInternetAvailable(this)){
-            noInternetView.setVisibility(View.VISIBLE);
+        if (!NetworkUtil.isInternetAvailable(this)) {
+            new NoInternetDialogFragment().show(getSupportFragmentManager(), "NoInternetDialog");
             connected = false;
             searchButton.setClickable(false);
             searchButton.setVisibility(View.GONE);
             googleLogOutButton.setClickable(false);
             googleLogInButton.setVisibility(View.GONE);
         }
+
 
         tagViewModel.fetchTag().observe(this, result -> {
             if (result.isSuccess()) {
@@ -142,10 +141,12 @@ public class TagActivity extends AppCompatActivity {
 
         insertTag.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -192,7 +193,6 @@ public class TagActivity extends AppCompatActivity {
     }
 
     public boolean handlerInvioTag(String inputTag, boolean isNewTag) {
-        // Trim and process the input tag
         inputTag = inputTag.trim();
         if (inputTag.startsWith("#")) {
             inputTag = inputTag.substring(1);
@@ -204,8 +204,8 @@ public class TagActivity extends AppCompatActivity {
         if (isNewTag) {
             if (tagViewModel.isTagValid(inputTag)) {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
-                tagViewModel.insertTag(newTag, connected); // Save tag to memory and database
-                insertTag.setText(""); // Reset input field
+                tagViewModel.insertTag(newTag, connected);
+                insertTag.setText("");
                 Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
                 return true;
             } else {
@@ -213,8 +213,6 @@ public class TagActivity extends AppCompatActivity {
                 return false;
             }
         } else {
-            // For saved tag case
-            Toast.makeText(TagActivity.this, "Tag salvato!", Toast.LENGTH_SHORT).show();
             return true;
         }
     }
@@ -238,7 +236,7 @@ public class TagActivity extends AppCompatActivity {
                 try {
                     SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
                     String sessionId = credential.getGoogleIdToken();
-                    if (sessionId !=  null) {
+                    if (sessionId != null) {
                         tagViewModel.getGoogleUserMutableLiveData(sessionId).observe(this, authenticationResult -> {
                             if (authenticationResult.isSuccess()) {
                                 GoogleUser googleUser = (GoogleUser) ((Result.Success) authenticationResult).getData();
