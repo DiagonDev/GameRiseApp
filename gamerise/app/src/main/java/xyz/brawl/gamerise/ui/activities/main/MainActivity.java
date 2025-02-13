@@ -3,15 +3,12 @@ package xyz.brawl.gamerise.ui.activities.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.google.android.material.navigation.NavigationBarView;
-
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.ui.activities.tag.TagActivity;
 import xyz.brawl.gamerise.ui.fragments.battlelog.BattleLogFragment;

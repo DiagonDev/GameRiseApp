@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
@@ -26,14 +25,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.material.snackbar.Snackbar;
-
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.GoogleUser;
 import xyz.brawl.gamerise.model.Result;
@@ -47,7 +44,6 @@ import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
-
 
 public class TagActivity extends AppCompatActivity {
 
@@ -289,7 +285,6 @@ public class TagActivity extends AppCompatActivity {
             tagViewModel.logoutGoogleUser();
         });
     }
-
 
     // called when user logs in with google to get his tag from firebase
     private void handleFirebaseTag(GoogleUser googleUser) {

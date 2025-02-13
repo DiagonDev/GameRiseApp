@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.R;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
@@ -31,7 +28,6 @@ import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
-
 public class BrawlerDetailsActivity extends AppCompatActivity {
     BrawlersViewModel brawlersViewModel;
     private ImageView brawlerImg, brawlerImgPrev, brawlerImgNext, gadgetImg1,  gadgetImg2, starPowerImg1, starPowerImg2;
@@ -39,9 +35,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
     private ProgressBar trophiesProgress,  powerLevelProgress;
     private List<BrawlerEntry> brawlers;
     private int countG = 0, countA = 0;
-
-    private FrameLayout noInternetView;
-
     private static final int[] POINTS_COST = {20, 30, 50, 80, 130, 210, 340, 550, 890, 1440};
     private static final int[] MONEY_COST  = {20, 35, 75, 140, 290, 480, 800, 1250, 1875, 2800};
 
@@ -74,7 +67,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         starPowerImg2 = findViewById(R.id.imageViewStarPower2);
 
         boolean connected = true;
-        noInternetView = findViewById(R.id.no_internet_view);
         if(!NetworkUtil.isInternetAvailable(this)){
             connected = false;
         }
@@ -98,13 +90,11 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         updateUI(brawlerId, tag, connected);
         EdgeToEdge.enable(this);
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.brawlerDetailsActivity), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
     }
 
     private void updateUI(long brawlerId, String tag, boolean connected) {
