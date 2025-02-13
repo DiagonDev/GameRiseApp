@@ -9,17 +9,24 @@ public abstract class Result {
     public static final class Success extends Result {
         private final Object o;
         public Success(Object o) {
-            this.o = o;}
+            this.o = o;
+        }
         public Object getData() {
-            return o;}
+            return o;
+        }
     }
 
     // Errore con messaggio generico
     public static final class Error extends Result {
         private final String message;
+
         public Error(String message) {
-            this.message = message;}
+            this.message = message;
+        }
+
         public String getMessage() {
-            return message;}}
+            return message;
+        }
+    }
 }
 

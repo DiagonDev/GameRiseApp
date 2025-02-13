@@ -3,7 +3,6 @@ package xyz.brawl.gamerise.ui.activities.tag;
 import static xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel.TAG;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +20,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -117,7 +116,7 @@ public class TagActivity extends AppCompatActivity {
             googleLogInButton.setClickable(false);
             googleLogInButton.setVisibility(View.GONE);
         }
-        
+
         tagViewModel.fetchTag().observe(this, result -> {
             if (result.isSuccess()) {
                 Tag savedTag = (Tag) ((Result.Success) result).getData();
@@ -294,51 +293,49 @@ public class TagActivity extends AppCompatActivity {
 
     // called when user logs in with google to get his tag from firebase
     private void handleFirebaseTag(GoogleUser googleUser) {
-        String tempTag = insertTag.getText().toString();
+        boolean isGoogleUserLoggedIn = tagViewModel.getLoggedGoogleUser() != null;
+        if (isGoogleUserLoggedIn)
+            try {
+                tagViewModel.getFirebaseTag_TagVM(googleUser.getSessionId()).observe(this, result -> {
+                    if (result != null && result.isSuccess() && result instanceof Result.Success) {
+                        String tagFirebase = (String) ((Result.Success) result).getData();
 
-        try {
-            tagViewModel.getFirebaseTag_TagVM(googleUser.getSessionId()).observe(this, result -> {
-                if (result != null && result.isSuccess() && result instanceof Result.Success) {
+                        // caso 0: ho una tag su Firebase: uso quella
+                        if (tagFirebase != null && !tagFirebase.equals("null")) {
+                            GameAccountSingleton.getInstance().setLastUpdate(0);
+                            GameAccountSingleton.getInstance().setChecked(true);
+                            handlerInvioTag(tagFirebase, true);
+                            Log.d(TAG, "ho settato " + tagFirebase);
+                            Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
 
-                    String tagFirebase = (String) ((Result.Success) result).getData();
+                        // caso 2: tagFirebase == null && tag esiste nel DB
+                        else if (tagFirebase == null || tagViewModel.fetchTag().getValue() != null) {
+                            GameAccountSingleton.getInstance().setLastUpdate(0);
+                            GameAccountSingleton.getInstance().setChecked(true);
+                            tagViewModel.fetchTag().observe(this, localTag -> {
+                                if (localTag.isSuccess()) {
+                                    Tag castedTag = (Tag) ((Result.Success) localTag).getData();
+                                    if (castedTag != null)
+                                        tagViewModel.saveTagOnFirebase(castedTag.getTag(), googleUser.getSessionId());
 
-                    // caso 0: ho una tag su Firebase: uso quella
-                    if (tagFirebase != null && !tagFirebase.equals("null")) {
-                        GameAccountSingleton.getInstance().setLastUpdate(0);
-                        GameAccountSingleton.getInstance().setChecked(true);
-                        handlerInvioTag(tagFirebase, true);
-                        Log.d(TAG, "ho settato " + tagFirebase);
+                                    new AlertDialog.Builder(this)
+                                            .setTitle("Tag Saved")
+                                            .setMessage("La tag salvata sul telefono è stata salvata anche su Firebase")
+                                            .setPositiveButton("OK", (dialog, which) -> dialog.dismiss()) // Dismiss when "OK" is pressed
+                                            .show();
+                                }
+                            });
+                        }
+
+                    } else if (result instanceof Result.Error) {
+                        String errorMessage = ((Result.Error) result).getMessage();
+                        Log.d("UserTag", "Failure: " + errorMessage);
                     }
-
-                    // caso 1: tagFirebase == null && insertTag esiste
-                    if ((tagFirebase == null || tagFirebase.equals("null")) && (insertTag != null && !tempTag.isEmpty())) {
-                        Log.d(TAG, "provo a salvare la tag " + tempTag + "su Firebase per " + googleUser.getName());
-                        tagViewModel.saveTagOnFirebase(tempTag, googleUser.getSessionId());
-                    }
-
-                    // caso 2: tagFirebase == null && tag esiste nel DB
-                    if (tagFirebase == null || tagFirebase.equals("null")) {
-                        GameAccountSingleton.getInstance().setLastUpdate(0);
-                        GameAccountSingleton.getInstance().setChecked(true);
-                        tagViewModel.fetchTag().observe(this, localTag -> {
-                            if (localTag.isSuccess()) {
-                                Tag castedTag = (Tag) ((Result.Success) localTag).getData();
-                                if (castedTag != null)
-                                    tagViewModel.saveTagOnFirebase(castedTag.getTag(), googleUser.getSessionId());
-                            }
-                        });
-                    }
-
-                } else if (result instanceof Result.Error) {
-                    String errorMessage = ((Result.Error) result).getMessage();
-                    Log.d("UserTag", "Failure: " + errorMessage);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Intent intent = new Intent(TagActivity.this, MainActivity.class);
-        startActivity(intent);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 }
