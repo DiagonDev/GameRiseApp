@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,8 +23,8 @@ import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
 import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
 import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
-import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModel;
-import xyz.brawl.gamerise.ui.viewmodels.brawlers.BrawlersViewModelFactory;
+import xyz.brawl.gamerise.viewmodels.brawlers.BrawlersViewModel;
+import xyz.brawl.gamerise.viewmodels.brawlers.BrawlersViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;

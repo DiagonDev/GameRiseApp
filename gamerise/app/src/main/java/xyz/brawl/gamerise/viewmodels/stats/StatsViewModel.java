@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.viewmodels.stats;
+package xyz.brawl.gamerise.viewmodels.stats;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

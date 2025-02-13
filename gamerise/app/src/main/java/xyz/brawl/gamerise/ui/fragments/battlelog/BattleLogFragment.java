@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +22,8 @@ import xyz.brawl.gamerise.adapters.battlelog.BattleAdapter;
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.battle.Battle;
 import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
-import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
-import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
+import xyz.brawl.gamerise.viewmodels.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
