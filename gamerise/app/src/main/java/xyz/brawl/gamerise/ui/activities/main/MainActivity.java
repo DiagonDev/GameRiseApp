@@ -17,6 +17,7 @@ import xyz.brawl.gamerise.ui.activities.tag.TagActivity;
 import xyz.brawl.gamerise.ui.fragments.battlelog.BattleLogFragment;
 import xyz.brawl.gamerise.ui.fragments.brawlers.BrawlersFragment;
 import xyz.brawl.gamerise.ui.fragments.stats.StatsFragment;
+import xyz.brawl.gamerise.util.GameAccountSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button nomeGiocatoreButton = findViewById(R.id.nome_giocatore_button);
         nomeGiocatoreButton.setOnClickListener(v -> {
+            GameAccountSingleton.getInstance().setChecked(false);
             Intent i = new Intent(this, TagActivity.class);
             startActivity(i);
         });
