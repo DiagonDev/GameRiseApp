@@ -77,7 +77,6 @@ public class BrawlerDetailsActivity extends AppCompatActivity {
         boolean connected = true;
         noInternetView = findViewById(R.id.no_internet_view);
         if(!NetworkUtil.isInternetAvailable(this)){
-            noInternetView.setVisibility(View.VISIBLE);
             connected = false;
         }
 

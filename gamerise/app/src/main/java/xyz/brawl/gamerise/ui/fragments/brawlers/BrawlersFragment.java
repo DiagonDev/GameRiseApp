@@ -74,18 +74,10 @@ public class BrawlersFragment extends Fragment {
         noInternetView = view.findViewById(R.id.no_internet_view);
 
         String tag = GameAccountSingleton.getInstance().getUserTag();
-        if (tag == null || tag.isEmpty()) {
-            Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
-            return view; // Se non c'è nessun tag, esci
-        }
-        boolean connected = true;
-        if (!NetworkUtil.isInternetAvailable(this.getContext())) {
-            noInternetView.setVisibility(View.VISIBLE);
-            connected = false;
-        }
+
+        boolean connected = NetworkUtil.isInternetAvailable(this.getContext());
 
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
-        Log.d("BrawlersFragment", "Stato GridView: " + gridView.getVisibility());
 
         BrawlerAdapter adapter = new BrawlerAdapter(view.getContext(), R.layout.layout_grid_brawlers, new ArrayList<>());
 

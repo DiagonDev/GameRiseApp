@@ -106,7 +106,6 @@ public class StatsFragment extends Fragment {
         }
 
         if (!NetworkUtil.isInternetAvailable(this.getContext())) {
-            noInternetView.setVisibility(View.VISIBLE);
             connected = false;
         }
         statsViewModel.getStats(tag, connected).observe(getViewLifecycleOwner(),

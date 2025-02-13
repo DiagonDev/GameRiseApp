@@ -65,13 +65,9 @@ public class BattleLogFragment extends Fragment {
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
 
         String tag = GameAccountSingleton.getInstance().getUserTag();
-        if (tag == null || tag.isEmpty()) {
-            Toast.makeText(requireContext(), "Nessun tag trovato! Inseriscilo in TagActivity.", Toast.LENGTH_SHORT).show();
-            return view; // Se non c'è nessun tag, esci
-        }
+
         boolean connected = true;
         if (!NetworkUtil.isInternetAvailable(this.getContext())) {
-            noInternetView.setVisibility(View.VISIBLE);
             connected = false;
 
         }
