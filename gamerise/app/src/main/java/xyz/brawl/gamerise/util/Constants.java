@@ -25,6 +25,7 @@ public class Constants {
         BRAWLBALL5V5(R.drawable.game_mode_brawlball),
         GEMGRAB5V5(R.drawable.game_mode_gemgrab),
         KNOCKOUT5V5(R.drawable.game_mode_knockout),
+        KNOCKOUT2V2(R.drawable.game_mode_knockout),
         TRIOSHOWDOWN(R.drawable.game_mode_showdown_trio),
         SOULCOLLOCTOR(R.drawable.game_mode_soul_collector),
         RANKEDGEMGRAB(R.drawable.game_mode_gemgrab),
