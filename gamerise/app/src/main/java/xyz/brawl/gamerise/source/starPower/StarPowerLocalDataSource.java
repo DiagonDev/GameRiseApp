@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 package xyz.brawl.gamerise.source.starPower;
+=======
+package xyz.brawl.gamerise.source.starpower;
+>>>>>>> Stashed changes
 
 import xyz.brawl.gamerise.database.GameRiseDatabase;
 import xyz.brawl.gamerise.database.StarPowerDAO;

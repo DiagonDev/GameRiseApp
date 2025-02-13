@@ -6,8 +6,8 @@ import java.util.List;
 
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
-import xyz.brawl.gamerise.source.starPower.BaseStarPowerLocalDataSource;
-import xyz.brawl.gamerise.source.starPower.BaseStarPowerRemoteDataSource;
+import xyz.brawl.gamerise.source.starpower.BaseStarPowerLocalDataSource;
+import xyz.brawl.gamerise.source.starpower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
 
 public class StarPowerRepository implements StarPowerCallback {

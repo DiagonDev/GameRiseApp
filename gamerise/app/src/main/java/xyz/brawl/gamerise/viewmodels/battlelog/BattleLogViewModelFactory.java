@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.ui.viewmodels.battlelog;
+package xyz.brawl.gamerise.viewmodels.battlelog;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;

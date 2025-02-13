@@ -1,4 +1,4 @@
-package xyz.brawl.gamerise.source.starPower;
+package xyz.brawl.gamerise.source.starpower;
 
 import android.util.Log;
 

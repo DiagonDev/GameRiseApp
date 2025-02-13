@@ -1,6 +1,6 @@
 package xyz.brawl.gamerise.ui.activities.tag;
 
-import static xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel.TAG;
+import static xyz.brawl.gamerise.viewmodels.tag.TagViewModel.TAG;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,9 +38,14 @@ import xyz.brawl.gamerise.repository.player.PlayerRepository;
 import xyz.brawl.gamerise.repository.tag.TagRepository;
 import xyz.brawl.gamerise.repository.user.UserRepository;
 import xyz.brawl.gamerise.ui.activities.main.MainActivity;
+<<<<<<< Updated upstream
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.tag.TagViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
+=======
+import xyz.brawl.gamerise.viewmodels.tag.TagViewModel;
+import xyz.brawl.gamerise.viewmodels.tag.TagViewModelFactory;
+>>>>>>> Stashed changes
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 

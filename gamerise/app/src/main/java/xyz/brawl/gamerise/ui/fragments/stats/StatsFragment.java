@@ -34,11 +34,18 @@ import xyz.brawl.gamerise.model.player.ClubEntry;
 import xyz.brawl.gamerise.model.stat.Stat;
 import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
 import xyz.brawl.gamerise.repository.stats.StatsRepository;
+<<<<<<< Updated upstream
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.stats.StatsViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
+=======
+import xyz.brawl.gamerise.viewmodels.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.viewmodels.battlelog.BattleLogViewModelFactory;
+import xyz.brawl.gamerise.viewmodels.stats.StatsViewModel;
+import xyz.brawl.gamerise.viewmodels.stats.StatsViewModelFactory;
+>>>>>>> Stashed changes
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 

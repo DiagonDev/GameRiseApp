@@ -19,13 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.brawl.gamerise.R;
+<<<<<<< Updated upstream
 import xyz.brawl.gamerise.adapters.battlelog.BattleAdapter;
+=======
+>>>>>>> Stashed changes
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.battle.Battle;
 import xyz.brawl.gamerise.repository.battlelog.BattleLogRepository;
+<<<<<<< Updated upstream
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModel;
 import xyz.brawl.gamerise.ui.viewmodels.battlelog.BattleLogViewModelFactory;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
+=======
+import xyz.brawl.gamerise.adapters.battlelog.BattleAdapter;
+import xyz.brawl.gamerise.viewmodels.battlelog.BattleLogViewModel;
+import xyz.brawl.gamerise.viewmodels.battlelog.BattleLogViewModelFactory;
+>>>>>>> Stashed changes
 import xyz.brawl.gamerise.util.NetworkUtil;
 import xyz.brawl.gamerise.util.ServiceLocator;
 
