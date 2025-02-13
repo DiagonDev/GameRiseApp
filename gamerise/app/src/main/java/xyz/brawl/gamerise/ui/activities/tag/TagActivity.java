@@ -131,7 +131,7 @@ public class TagActivity extends AppCompatActivity {
         });
 
         savedTagTextView.setOnClickListener(view -> {
-            GameAccountSingleton.getInstance().setLastUpdate(0);
+
             String savedTag = savedTagTextView.getText().toString().trim();
             if (handlerInvioTag(savedTag, false)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
@@ -305,6 +305,7 @@ public class TagActivity extends AppCompatActivity {
 
                     // caso 0: ho una tag su Firebase: uso quella
                     if (tagFirebase != null && !tagFirebase.equals("null")) {
+                        GameAccountSingleton.getInstance().setLastUpdate(0);
                         handlerInvioTag(tagFirebase, true);
                         Log.d(TAG, "ho settato " + tagFirebase);
                     }
@@ -317,6 +318,7 @@ public class TagActivity extends AppCompatActivity {
 
                     // caso 2: tagFirebase == null && tag esiste nel DB
                     if (tagFirebase == null || tagFirebase.equals("null")) {
+                        GameAccountSingleton.getInstance().setLastUpdate(0);
                         tagViewModel.fetchTag().observe(this, localTag -> {
                             if (localTag.isSuccess()) {
                                 Tag castedTag = (Tag) ((Result.Success) localTag).getData();
