@@ -26,7 +26,8 @@ public class TagViewModel extends ViewModel {
     }
 
     public void insertTag(Tag tag, boolean connected) {
-        tagRepository.insertTag(tag);
+        if(connected)
+            tagRepository.insertTag(tag);
         playerRepository.fetchPlayer(tag.getTag(), connected);
     }
 

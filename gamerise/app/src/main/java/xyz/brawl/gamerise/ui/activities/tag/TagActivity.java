@@ -113,10 +113,11 @@ public class TagActivity extends AppCompatActivity {
             searchButton.setClickable(false);
             searchButton.setVisibility(View.GONE);
             googleLogOutButton.setClickable(false);
+            googleLogOutButton.setVisibility(View.GONE);
+            googleLogInButton.setClickable(false);
             googleLogInButton.setVisibility(View.GONE);
         }
-
-
+        
         tagViewModel.fetchTag().observe(this, result -> {
             if (result.isSuccess()) {
                 Tag savedTag = (Tag) ((Result.Success) result).getData();
@@ -304,6 +305,7 @@ public class TagActivity extends AppCompatActivity {
                     // caso 0: ho una tag su Firebase: uso quella
                     if (tagFirebase != null && !tagFirebase.equals("null")) {
                         GameAccountSingleton.getInstance().setLastUpdate(0);
+                        GameAccountSingleton.getInstance().setChecked(true);
                         handlerInvioTag(tagFirebase, true);
                         Log.d(TAG, "ho settato " + tagFirebase);
                     }
@@ -317,6 +319,7 @@ public class TagActivity extends AppCompatActivity {
                     // caso 2: tagFirebase == null && tag esiste nel DB
                     if (tagFirebase == null || tagFirebase.equals("null")) {
                         GameAccountSingleton.getInstance().setLastUpdate(0);
+                        GameAccountSingleton.getInstance().setChecked(true);
                         tagViewModel.fetchTag().observe(this, localTag -> {
                             if (localTag.isSuccess()) {
                                 Tag castedTag = (Tag) ((Result.Success) localTag).getData();
