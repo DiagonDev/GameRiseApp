@@ -201,7 +201,6 @@ public class TagActivity extends AppCompatActivity {
                 Tag newTag = new Tag("Nuovo Giocatore", inputTag);
                 tagViewModel.insertTag(newTag, connected);
                 insertTag.setText("");
-                Toast.makeText(TagActivity.this, "Tag aggiunto!", Toast.LENGTH_SHORT).show();
                 return true;
             } else {
                 Toast.makeText(TagActivity.this, "Tag non valido!", Toast.LENGTH_SHORT).show();

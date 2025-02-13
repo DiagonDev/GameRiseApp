@@ -624,7 +624,7 @@ public class Constants {
 
     public static int iconRanked = R.drawable.ranked_icon;
     public static int iconStandard = R.drawable.standard_icon;
-    public static long FRESH_TIME = 1000 * 60;
+    public static long FRESH_TIME = 1000 * 60 * 5;
 
     //tag per testare
     public static String tagFra = "#2YQVQUG0VY";
