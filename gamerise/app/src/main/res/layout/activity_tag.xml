@@ -20,7 +20,7 @@
 
     <ImageView
         android:id="@+id/logoApp"
-        android:layout_width="300dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:src="@drawable/brawl_stars_logo"
         app:layout_constraintBottom_toBottomOf="@+id/ho_gl_0.25"
