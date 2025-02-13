@@ -1,9 +1,7 @@
 package xyz.brawl.gamerise.repository.brawler;
 
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.source.brawler.BaseBrawlersLocalDataSource;
@@ -23,7 +21,6 @@ public class BrawlersRepository implements BrawlersCallBack {
         this.brawlerRemoteDataSource.setBrawlerCallBack(this);
     }
 
-    // qua va la logica
     public MutableLiveData<Result> fetchBrawlers(String tagId, boolean connected) {
         if (connected && !GameAccountSingleton.getInstance().isChecked()){
             brawlerRemoteDataSource.getBrawlerList(tagId);

@@ -1,9 +1,7 @@
 package xyz.brawl.gamerise.repository.player;
 
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.brawler.BrawlerEntry;
 import xyz.brawl.gamerise.model.brawler.GadgetEntry;
@@ -11,15 +9,9 @@ import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
 import xyz.brawl.gamerise.source.player.BasePlayerLocalDataSource;
 import xyz.brawl.gamerise.source.player.BasePlayerRemoteDataSource;
 import xyz.brawl.gamerise.model.player.PlayerApiResponse;
-import xyz.brawl.gamerise.source.player.PlayerLocalDataSource;
 import xyz.brawl.gamerise.util.mappers.PlayerMapper;
-import xyz.brawl.gamerise.repository.brawler.BrawlersRepository;
-import xyz.brawl.gamerise.repository.gadget.GadgetRepository;
-import xyz.brawl.gamerise.repository.starpower.StarPowerRepository;
 import xyz.brawl.gamerise.repository.stats.StatsRepository;
-import xyz.brawl.gamerise.repository.tag.TagRepository;
 import java.util.concurrent.Executors;
-
 
 public class PlayerRepository implements PlayerCallBack {
     private final MutableLiveData<Result> playerLiveData;

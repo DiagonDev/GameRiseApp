@@ -1,19 +1,13 @@
 package xyz.brawl.gamerise.repository.battlelog;
 
 import static xyz.brawl.gamerise.util.Constants.FRESH_TIME;
-
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import xyz.brawl.gamerise.model.Result;
 import xyz.brawl.gamerise.model.battle.Battle;
 import xyz.brawl.gamerise.source.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.source.battle.BaseBattleRemoteDataSource;
 import xyz.brawl.gamerise.util.GameAccountSingleton;
-
 
 public class BattleLogRepository implements BattleLogCallback {
     private final MutableLiveData<Result> allBattleLogLiveData;

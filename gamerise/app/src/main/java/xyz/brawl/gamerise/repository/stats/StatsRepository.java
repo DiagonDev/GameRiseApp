@@ -34,7 +34,6 @@ public class StatsRepository implements StatsCallBack {
         return statsLiveData;
     }
 
-
     @Override
     public void onSuccessFromRemote(Stat stats, long lastUpdate) {
         if(GameAccountSingleton.getInstance().isChecked())
