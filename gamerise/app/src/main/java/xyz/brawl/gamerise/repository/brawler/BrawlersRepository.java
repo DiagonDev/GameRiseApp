@@ -33,11 +33,6 @@ public class BrawlersRepository implements BrawlersCallBack {
         return allBrawlerLiveData;
     }
 
-    public MutableLiveData<Result> insertBrawlers(List<BrawlerEntry> brawlersToInsert){
-        brawlerLocalDataSource.insertBrawlers(brawlersToInsert);
-        return allBrawlerLiveData;
-    }
-
     @Override
     public void onSuccessFromLocal(List<BrawlerEntry> brawler) {
         Result result = new Result.Success(brawler);
@@ -52,12 +47,8 @@ public class BrawlersRepository implements BrawlersCallBack {
 
     @Override
     public void onSuccessFromRemote(List<BrawlerEntry> brawler, long lastUpdate) {
-        if(GameAccountSingleton.getInstance().isChecked())
-            brawlerLocalDataSource.insertBrawlers(brawler);
-        else{
-            Result result = new Result.Success(brawler);
-            allBrawlerLiveData.postValue(result);
-        }
+        Result result = new Result.Success(brawler);
+        allBrawlerLiveData.postValue(result);
     }
 
     @Override

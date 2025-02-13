@@ -37,19 +37,12 @@ public class BattleLogFragment extends Fragment {
     private BattleLogViewModel battleLogViewModel;
     private List<Battle> battles;
     private RecyclerView recyclerView;
-
-    public static BattleLogFragment newInstance() {
-        return new BattleLogFragment();
-    }
-
-    private GameRiseDatabase database;
     private FrameLayout noInternetView;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         BattleLogRepository battleLogRepository =
                 ServiceLocator.getInstance().getBattleLogRepository(requireActivity().getApplication(),
@@ -67,7 +60,6 @@ public class BattleLogFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_battle_log, container, false);
         noInternetView = view.findViewById(R.id.no_internet_view);
-        //Provvisorio
         recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));

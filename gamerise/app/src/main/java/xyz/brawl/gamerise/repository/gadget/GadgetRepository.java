@@ -32,19 +32,10 @@ public class GadgetRepository implements GadgetCallback{
         return allGadgetLiveData;
     }
 
-    public MutableLiveData<Result> insertGadgets(List<GadgetEntry> gadgetToInsert){
-        gadgetLocalDataSource.insertGadgets(gadgetToInsert);
-        return allGadgetLiveData;
-    }
-
     @Override
     public void onSuccessFromRemote(List<GadgetEntry> gadgetList) {
-        if(GameAccountSingleton.getInstance().isChecked())
-            gadgetLocalDataSource.insertGadgets(gadgetList);
-        else{
-            Result result = new Result.Success(gadgetList);
-            allGadgetLiveData.postValue(result);
-        }
+        Result result = new Result.Success(gadgetList);
+        allGadgetLiveData.postValue(result);
     }
 
     @Override

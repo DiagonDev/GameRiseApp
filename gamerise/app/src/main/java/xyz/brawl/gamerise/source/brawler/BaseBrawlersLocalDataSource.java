@@ -10,5 +10,4 @@ public abstract class BaseBrawlersLocalDataSource {
         this.brawlersCallBack = brawlersCallBack;
     }
     public abstract void getBrawlers(String tagId);
-    public abstract void insertBrawlers(List<BrawlerEntry> brawlerList);
 }

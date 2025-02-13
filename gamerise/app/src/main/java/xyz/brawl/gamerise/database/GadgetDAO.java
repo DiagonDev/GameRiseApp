@@ -13,7 +13,4 @@ import xyz.brawl.gamerise.model.brawler.GadgetEntry;
 public interface GadgetDAO {
     @Query("SELECT * FROM GadgetEntry WHERE brawlerId = :brawlerId")
     List<GadgetEntry> getAll(Long brawlerId);
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertAll(List<GadgetEntry> gadgetEntries);
 }

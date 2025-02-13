@@ -13,7 +13,4 @@ import xyz.brawl.gamerise.model.brawler.StarPowerEntry;
 public interface StarPowerDAO {
     @Query("SELECT * FROM StarPowerEntry WHERE brawlerId = :brawlerId")
     List<StarPowerEntry> getAll(Long brawlerId);
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertAll(List<StarPowerEntry> starPowerEntry);
 }

@@ -23,16 +23,4 @@ public class StarPowerLocalDataSource extends  BaseStarPowerLocalDataSource{
     public void getStarPower(Long brawlerId) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> starPowerCallback.onSuccessFromLocal(starPowerDAO.getAll(brawlerId)));
     }
-
-    @Override
-    public void insertStarPower(List<StarPowerEntry> starPowerEntryList) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            Tag tag = tagDao.getTag();
-            String tagAccount = gameAccountSingleton.getUserTag();
-            if(tag.getTag().equals(tagAccount)) {
-                starPowerDAO.insertAll(starPowerEntryList);
-            }
-            starPowerCallback.onSuccessFromLocal(starPowerEntryList);
-        });
-    }
 }

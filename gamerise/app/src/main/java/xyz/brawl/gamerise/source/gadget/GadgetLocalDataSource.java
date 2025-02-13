@@ -22,16 +22,4 @@ public class GadgetLocalDataSource  extends BaseGadgetLocalDataSource{
     public void getGadgets(Long brawlerId) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> gadgetCallback.onSuccessFromLocal(gadgetDAO.getAll(brawlerId)));
     }
-
-    @Override
-    public void insertGadgets(List<GadgetEntry> gadgetEntryList) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            Tag tag = tagDao.getTag();
-            String tagAccount = gameAccountSingleton.getUserTag();
-            if(tag.getTag().equals(tagAccount)) {
-                gadgetDAO.insertAll(gadgetEntryList);
-            }
-            gadgetCallback.onSuccessFromLocal(gadgetEntryList);
-        });
-    }
 }

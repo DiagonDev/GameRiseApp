@@ -32,19 +32,10 @@ public class StarPowerRepository implements StarPowerCallback {
         return allStarPowerLiveData;
     }
 
-    public MutableLiveData<Result> insertStarPowers(List<StarPowerEntry> starPowerToInsert){
-        starPowerLocalDataSource.insertStarPower(starPowerToInsert);
-        return allStarPowerLiveData;
-    }
-
     @Override
     public void onSuccessFromRemote(List<StarPowerEntry> starPowerList) {
-        if(GameAccountSingleton.getInstance().isChecked())
-            starPowerLocalDataSource.insertStarPower(starPowerList);
-        else{
-            Result result = new Result.Success(starPowerList);
-            allStarPowerLiveData.postValue(result);
-        }
+        Result result = new Result.Success(starPowerList);
+        allStarPowerLiveData.postValue(result);
     }
 
     @Override

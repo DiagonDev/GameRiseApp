@@ -13,7 +13,4 @@ public abstract class BaseGadgetLocalDataSource {
     }
 
     public abstract void getGadgets(Long brawlerId);
-
-    public abstract void insertGadgets(List<GadgetEntry> gadgetEntryList);
-
 }

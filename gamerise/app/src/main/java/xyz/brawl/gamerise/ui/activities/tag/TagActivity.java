@@ -131,9 +131,10 @@ public class TagActivity extends AppCompatActivity {
         });
 
         savedTagTextView.setOnClickListener(view -> {
-
+            GameAccountSingleton.getInstance().setLastUpdate(0);
+            GameAccountSingleton.getInstance().setChecked(true);
             String savedTag = savedTagTextView.getText().toString().trim();
-            if (handlerInvioTag(savedTag, false)) {
+            if (handlerInvioTag(savedTag, true)) {
                 Intent intent = new Intent(TagActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -198,7 +199,6 @@ public class TagActivity extends AppCompatActivity {
         }
 
         GameAccountSingleton.getInstance().setUserTag(inputTag);
-
 
         // If it's a new tag, validate and add it
         if (isNewTag) {

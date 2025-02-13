@@ -23,19 +23,4 @@ public class BrawlersLocalDataSource extends BaseBrawlersLocalDataSource {
     public void getBrawlers(String tagId) {
         GameRiseDatabase.databaseWriteExecutor.execute(() -> brawlersCallBack.onSuccessFromLocal(brawlerDAO.getAll(tagId)));
     }
-
-    @Override
-    public void insertBrawlers(List<BrawlerEntry> brawlerList) {
-        GameRiseDatabase.databaseWriteExecutor.execute(() -> {
-            Tag tag = tagDao.getTag();
-            String tagAccount = gameAccountSingleton.getUserTag();
-            if(tag.getTag().equals(tagAccount)) {
-                for(BrawlerEntry brawler : brawlerList) {
-                    brawler.setTagId(tag.getTag());
-                }
-                brawlerDAO.insertAll(brawlerList);
-            }
-            brawlersCallBack.onSuccessFromLocal(brawlerList);
-        });
-    }
 }
