@@ -35,8 +35,6 @@ public class BattleLogFragment extends Fragment {
     private BattleLogViewModel battleLogViewModel;
     private List<Battle> battles;
     private RecyclerView recyclerView;
-    private FrameLayout noInternetView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,18 +55,13 @@ public class BattleLogFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_battle_log, container, false);
-        noInternetView = view.findViewById(R.id.no_internet_view);
         recyclerView = view.findViewById(R.id.battle_log_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new BattleAdapter(battles, this.getContext()));
 
         String tag = GameAccountSingleton.getInstance().getUserTag();
 
-        boolean connected = true;
-        if (!NetworkUtil.isInternetAvailable(this.getContext())) {
-            connected = false;
-
-        }
+        boolean connected = NetworkUtil.isInternetAvailable(this.getContext());
 
         battleLogViewModel.getBattles(tag, connected, GameAccountSingleton.getInstance().getLastUpdate()).observe(getViewLifecycleOwner(),
                 result -> {

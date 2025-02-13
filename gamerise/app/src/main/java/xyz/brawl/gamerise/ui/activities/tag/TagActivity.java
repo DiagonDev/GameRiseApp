@@ -81,8 +81,7 @@ public class TagActivity extends AppCompatActivity {
         });
 
         TagRepository tagRepository =
-                ServiceLocator.getInstance().getTagRepository(getApplication(),
-                        getApplication().getResources().getBoolean(R.bool.debug_mode));
+                ServiceLocator.getInstance().getTagRepository(getApplication());
         PlayerRepository playerRepository =
                 ServiceLocator.getInstance().getPlayerRepository(getApplication(),
                         getApplication().getResources().getBoolean(R.bool.debug_mode));

@@ -34,13 +34,6 @@ import xyz.brawl.gamerise.util.ServiceLocator;
 public class BrawlersFragment extends Fragment {
 
     private BrawlersViewModel brawlersViewModel;
-    private List<BrawlerEntry> brawlersList;
-    private RecyclerView recyclerView;
-    private FrameLayout noInternetView;
-
-    public static BrawlersFragment newInstance() {
-        return new BrawlersFragment();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +53,6 @@ public class BrawlersFragment extends Fragment {
         brawlersViewModel = new ViewModelProvider(
                 requireActivity(),
                 new BrawlersViewModelFactory(brawlersRepository, starPowerRepository, gadgetRepository)).get(BrawlersViewModel.class);
-
-        brawlersList = new ArrayList<>();
     }
 
     @Override
@@ -69,18 +60,11 @@ public class BrawlersFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_brawlers, container, false);
-        noInternetView = view.findViewById(R.id.no_internet_view);
-
         String tag = GameAccountSingleton.getInstance().getUserTag();
-
         boolean connected = NetworkUtil.isInternetAvailable(this.getContext());
-
         GridView gridView = view.findViewById(R.id.brawlers_gridview);
-
         BrawlerAdapter adapter = new BrawlerAdapter(view.getContext(), R.layout.layout_grid_brawlers, new ArrayList<>());
-
         gridView.setAdapter(adapter);
-
 
         brawlersViewModel.getBrawlers(tag, connected).observe(getViewLifecycleOwner(),
                 result -> {

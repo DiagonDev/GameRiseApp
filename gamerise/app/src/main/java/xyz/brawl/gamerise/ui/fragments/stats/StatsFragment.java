@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,11 +52,9 @@ public class StatsFragment extends Fragment {
     private TextView vittorieSolo;
     private TextView vittorieDuo;
     private TextView vittorie3vs3;
-    private ClubEntry c;
-    private FrameLayout noInternetView;
+    private ClubEntry clubEntry;
     private BattleLogViewModel battleLogViewModel;
     private List<Battle> battles;
-    private Stat stats;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +68,6 @@ public class StatsFragment extends Fragment {
                 requireActivity(),
                 new StatsViewModelFactory(statsRepository)).get(StatsViewModel.class);
 
-        stats = new Stat();
-
         BattleLogRepository battleLogRepository =
                 ServiceLocator.getInstance().getBattleLogRepository(requireActivity().getApplication(),
                         requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode));
@@ -82,15 +77,12 @@ public class StatsFragment extends Fragment {
                 new BattleLogViewModelFactory(battleLogRepository)).get(BattleLogViewModel.class);
 
         battles = new ArrayList<>();
-        //Qui collegare il viewModel e il repository -------------------------------
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
-        noInternetView = view.findViewById(R.id.no_internet_view);
         trofei = view.findViewById(R.id.valoreTrofei);
         livello = view.findViewById(R.id.valoreLivello);
         club = view.findViewById(R.id.valoreClub);
@@ -114,18 +106,16 @@ public class StatsFragment extends Fragment {
                         Stat stat = (Stat) ((Result.Success) result).getData();
                         trofei.setText("" + stat.trophies);
                         livello.setText("" + stat.expLevel);
-                        c = stat.club;
-                        club.setText("" + c.getName());
+                        clubEntry = stat.club;
+                        club.setText("" + clubEntry.getName());
                         vittorieSolo.setText("" + stat.soloVictories);
                         vittorieDuo.setText("" + stat.duoVictories);
                         vittorie3vs3.setText("" + stat._3vs3Victories);
-
                     } else {
                         String errorMessage = ((Result.Error) result).getMessage();
                         Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
                     }
                 });
-
 
         chartContainer = view.findViewById(R.id.chart_container);
         battleLogViewModel.getBattles(tag, connected, GameAccountSingleton.getInstance().getLastUpdate()).observe(getViewLifecycleOwner(),
@@ -145,7 +135,6 @@ public class StatsFragment extends Fragment {
                                 battleCount2.put(battle.subTitle, battleCount2.getOrDefault(battle.subTitle, 0) + 1);
                             }
                         }
-
                         addScatterChart("Game Modes Win", battleCount);
                         addScatterChart("Maps WinsXGames", battleCount2);
 
@@ -154,9 +143,6 @@ public class StatsFragment extends Fragment {
                         Snackbar.make(view, errorMessage, Snackbar.LENGTH_SHORT).show();
                     }
                 });
-
-
-
         return view;
     }
 
@@ -212,6 +198,4 @@ public class StatsFragment extends Fragment {
         scatterChart.invalidate();
         chartContainer.addView(chartView);
     }
-
-
 }

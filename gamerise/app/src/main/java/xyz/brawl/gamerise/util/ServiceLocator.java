@@ -22,14 +22,17 @@ import xyz.brawl.gamerise.service.ApiService;
 import xyz.brawl.gamerise.source.battle.BaseBattleLocalDataSource;
 import xyz.brawl.gamerise.source.battle.BaseBattleRemoteDataSource;
 import xyz.brawl.gamerise.source.battle.BattleLocalDataSource;
+import xyz.brawl.gamerise.source.battle.BattleMockDataSource;
 import xyz.brawl.gamerise.source.battle.BattleRemoteDataSource;
 import xyz.brawl.gamerise.source.brawler.BaseBrawlersLocalDataSource;
 import xyz.brawl.gamerise.source.brawler.BaseBrawlersRemoteDataSource;
 import xyz.brawl.gamerise.source.brawler.BrawlerRemoteDataSource;
 import xyz.brawl.gamerise.source.brawler.BrawlersLocalDataSource;
+import xyz.brawl.gamerise.source.brawler.BrawlersMockDataSource;
 import xyz.brawl.gamerise.source.gadget.BaseGadgetLocalDataSource;
 import xyz.brawl.gamerise.source.gadget.BaseGadgetRemoteDataSource;
 import xyz.brawl.gamerise.source.gadget.GadgetLocalDataSource;
+import xyz.brawl.gamerise.source.gadget.GadgetMockDataSource;
 import xyz.brawl.gamerise.source.gadget.GadgetRemoteDataSource;
 import xyz.brawl.gamerise.source.player.BasePlayerLocalDataSource;
 import xyz.brawl.gamerise.source.player.BasePlayerRemoteDataSource;
@@ -38,10 +41,12 @@ import xyz.brawl.gamerise.source.player.PlayerRemoteDataSource;
 import xyz.brawl.gamerise.source.starPower.BaseStarPowerLocalDataSource;
 import xyz.brawl.gamerise.source.starPower.BaseStarPowerRemoteDataSource;
 import xyz.brawl.gamerise.source.starPower.StarPowerLocalDataSource;
+import xyz.brawl.gamerise.source.starPower.StarPowerMockDataSource;
 import xyz.brawl.gamerise.source.starPower.StarPowerRemoteDataSource;
 import xyz.brawl.gamerise.source.stats.BaseStatsLocalDataSource;
 import xyz.brawl.gamerise.source.stats.BaseStatsRemoteDataSource;
 import xyz.brawl.gamerise.source.stats.StatsLocalDataSource;
+import xyz.brawl.gamerise.source.stats.StatsMockDataSource;
 import xyz.brawl.gamerise.source.stats.StatsRemoteDataSource;
 import xyz.brawl.gamerise.source.tag.BaseTagLocalDataSource;
 import xyz.brawl.gamerise.source.tag.TagLocalDataSource;
@@ -73,21 +78,11 @@ public class ServiceLocator {
         return INSTANCE;
     }
 
-    OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(chain -> {
-                Request request = chain.request().newBuilder()
-                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-                        .build();
-                return chain.proceed(request);
-            })
-            .build();
-
     /**
      * Returns an instance of NewsApiService class using Retrofit.
      *
      * @return an instance of NewsApiService.
      */
-    //TODO: leo
     public ApiService getApiService() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -129,15 +124,14 @@ public class ServiceLocator {
         BaseBattleRemoteDataSource battleRemoteDataSource;
         BaseBattleLocalDataSource battleLocalDataSource;
 
-        //TODO: leo
-        /*if (debugMode) {
+        if (debugMode) {
             JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
-            newsRemoteDataSource =
-                    new ArticleMockDataSource(jsonParserUtil);
+            battleRemoteDataSource =
+                    new BattleMockDataSource(jsonParserUtil);
         } else {
-            newsRemoteDataSource =
-                    new ArticleRemoteDataSource(application.getString(R.string.news_api_key));
-        }*/
+            battleRemoteDataSource
+                    = new BattleRemoteDataSource(getApiService());
+        }
 
         battleLocalDataSource = new BattleLocalDataSource(getDatabase(application));
         battleRemoteDataSource = new BattleRemoteDataSource(getApiService());
@@ -148,32 +142,36 @@ public class ServiceLocator {
         BaseStatsRemoteDataSource statsRemoteDataSource;
         BaseStatsLocalDataSource statsLocalDataSource;
 
-        //TODO: leo
-        /*if (debugMode) {
+        if (debugMode) {
             JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
-            newsRemoteDataSource =
-                    new ArticleMockDataSource(jsonParserUtil);
+            statsRemoteDataSource =
+                    new StatsMockDataSource(jsonParserUtil);
         } else {
-            newsRemoteDataSource =
-                    new ArticleRemoteDataSource(application.getString(R.string.news_api_key));
-        }*/
-
+            statsRemoteDataSource =
+                    new StatsRemoteDataSource(getApiService());
+        }
         statsLocalDataSource = new StatsLocalDataSource(getDatabase(application));
-        statsRemoteDataSource = new StatsRemoteDataSource(getApiService());
         return new StatsRepository(statsLocalDataSource, statsRemoteDataSource);
     }
 
     public BrawlersRepository getBrawlersRepository(Application application, boolean debugMode) {
         BaseBrawlersLocalDataSource brawlersLocalDataSource;
         BaseBrawlersRemoteDataSource brawlerRemoteDataSource;
-        brawlerRemoteDataSource = new BrawlerRemoteDataSource(getApiService());
+
+        if (debugMode) {
+            JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
+            brawlerRemoteDataSource =
+                    new BrawlersMockDataSource(jsonParserUtil);
+        } else {
+            brawlerRemoteDataSource =
+                    new BrawlerRemoteDataSource(getApiService());
+        }
         brawlersLocalDataSource = new BrawlersLocalDataSource(getDatabase(application));
         return new BrawlersRepository(brawlersLocalDataSource, brawlerRemoteDataSource);
     }
 
-    public TagRepository getTagRepository(Application application, boolean debugMode) {
+    public TagRepository getTagRepository(Application application) {
         BaseTagLocalDataSource tagLocalDataSource;
-        //TODO: leo
         tagLocalDataSource = new TagLocalDataSource(getDatabase(application));
 
         return new TagRepository(tagLocalDataSource);
@@ -182,16 +180,30 @@ public class ServiceLocator {
     public StarPowerRepository getStarPowerRepository(Application application, boolean debugMode) {
         BaseStarPowerLocalDataSource starPowerLocalDataSource;
         BaseStarPowerRemoteDataSource starPowerRemoteDataSource;
+        if (debugMode) {
+            JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
+            starPowerRemoteDataSource =
+                    new StarPowerMockDataSource(jsonParserUtil);
+        } else {
+            starPowerRemoteDataSource =
+                    new StarPowerRemoteDataSource(getApiService());
+        }
         starPowerLocalDataSource = new StarPowerLocalDataSource(getDatabase(application));
-        starPowerRemoteDataSource = new StarPowerRemoteDataSource(getApiService());
         return new StarPowerRepository(starPowerLocalDataSource, starPowerRemoteDataSource);
     }
 
     public GadgetRepository getGadgetRepository(Application application, boolean debugMode) {
         BaseGadgetLocalDataSource gadgetLocalDataSource;
         BaseGadgetRemoteDataSource gadgetRemoteDataSource;
+        if (debugMode) {
+            JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
+            gadgetRemoteDataSource =
+                    new GadgetMockDataSource(jsonParserUtil);
+        } else {
+            gadgetRemoteDataSource =
+                    new GadgetRemoteDataSource(getApiService());
+        }
         gadgetLocalDataSource = new GadgetLocalDataSource(getDatabase(application));
-        gadgetRemoteDataSource = new GadgetRemoteDataSource(getApiService());
         return new GadgetRepository(gadgetLocalDataSource, gadgetRemoteDataSource);
     }
 
