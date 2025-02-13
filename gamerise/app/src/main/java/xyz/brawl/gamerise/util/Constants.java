@@ -211,7 +211,12 @@ public class Constants {
             playerEntryList = battleLogEntry.getBattle().getPlayers();
             for (PlayerEntry playerEntry: playerEntryList) {
                 if(playerEntry.getTag().equals("#" + GameAccountSingleton.getInstance().getUserTag())){
-                    playersBrawler[0] = playerEntry.getBrawler().getName();
+                    // try catch per eventi speciali che hanno un formato json diverso
+                    try {
+                        playersBrawler[0] = playerEntry.getBrawler().getName();
+                    } catch (NullPointerException e) {
+                        playersBrawler[0] = "SANDY";
+                    }
                     return playersBrawler;
                 }
             }
