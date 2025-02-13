@@ -1,5 +1,7 @@
 package xyz.brawl.gamerise.util;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,11 +171,12 @@ public class Constants {
                         .replace(" & ", "_AND_")
                         .replace(" ", "_")
                         .replace("8", "OTTO")
+                        .replace(".", "")
                         .replace("-", "_TRATTINO_");
                 return BrawlerPin.valueOf(enumKey);
             } catch (IllegalArgumentException e) {
                 // Fallback in caso di errore
-                return BrawlerPin.SHELLY; // Valore predefinito
+                return BrawlerPin.SHELLY; // Valore predefinito (Shelly sarebbe il brawler "di default")
             }
         }
 
