@@ -177,21 +177,8 @@ public class Constants {
                 return BrawlerPin.SHELLY; // Valore predefinito (Shelly sarebbe il brawler "di default")
             }
         }
-
-        public static BrawlerPin fromIconPlayerId(int iconId) {
-            for (BrawlerPin brawlerPin : BrawlerPin.values()) {
-                if (brawlerPin.getIconPlayerId() == iconId) {
-                    return brawlerPin;
-                }
-            }
-            return BrawlerPin.SHELLY; // Valore predefinito in caso di errore
-        }
-
-        public String getBrawlerPinString() {
-            return this.name().toLowerCase().replace("_", " ");
-        }
-
     }
+
     //Questo metodo ritorna la lista di players del team del giocatore (tag)
     public static List<PlayerEntry> getTeamMembers(List<List<PlayerEntry>> teams) {
         for (List<PlayerEntry> playerEntryList : teams) {
@@ -638,7 +625,9 @@ public class Constants {
     public static int iconRanked = R.drawable.ranked_icon;
     public static int iconStandard = R.drawable.standard_icon;
     public static long FRESH_TIME = 1000 * 60;
-    public static String tagLeo = "#VQCV92Q9";
+
+    //tag per testare
+    public static String tagFra = "#2YQVQUG0VY";
     public static String tagTeo = "#989VGUU0";
 
     public static final int DATABASE_VERSION = 12;
