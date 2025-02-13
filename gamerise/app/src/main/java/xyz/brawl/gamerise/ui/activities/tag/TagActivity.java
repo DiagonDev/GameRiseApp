@@ -19,7 +19,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -299,7 +298,6 @@ public class TagActivity extends AppCompatActivity {
                             GameAccountSingleton.getInstance().setLastUpdate(0);
                             GameAccountSingleton.getInstance().setChecked(true);
                             handlerInvioTag(tagFirebase, true);
-                            Log.d(TAG, "ho settato " + tagFirebase);
                             Intent intent = new Intent(TagActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
@@ -314,11 +312,7 @@ public class TagActivity extends AppCompatActivity {
                                     if (castedTag != null)
                                         tagViewModel.saveTagOnFirebase(castedTag.getTag(), googleUser.getSessionId());
 
-                                    new AlertDialog.Builder(this)
-                                            .setTitle("Tag Saved")
-                                            .setMessage("La tag salvata sul telefono è stata salvata anche su Firebase")
-                                            .setPositiveButton("OK", (dialog, which) -> dialog.dismiss()) // Dismiss when "OK" is pressed
-                                            .show();
+                                    Toast.makeText(TagActivity.this, "Tag salvato su Google!", Toast.LENGTH_LONG).show();
                                 }
                             });
                         }
