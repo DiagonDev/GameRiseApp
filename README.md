@@ -1,6 +1,10 @@
-# Componenti del gruppo "6 Discalculici":
-- Alessandro Messa 903321
-- Luca Teruzzi 894437
-- Leonardo Paschetto 894467
-- Francesca Tentori 899835
-- Matteo Ronchi 899659
+# GameRise 
+Progetto universitario per il corso di Programmazione di Dispositivi Mobili.
+App android offline-first con architettura MVVM e API REST.
+## Descrizione del progetto
+Tracker del gioco per mobile *"Brawl Stars"*, per la documentazione fare riferimento alla cartella "Documentazione":
+```
+├── Documentazione Gamerise.pdf
+├── Presentazione Gamerise.pdf
+```
+
