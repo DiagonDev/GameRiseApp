@@ -26,6 +26,8 @@ Progetto realizzato in collaborazione con:
 * [Alessandro Messa](https://github.com/DiagonDev)
 * [Francesca Tentori](https://github.com/FrancescaTentori03)
 * [Matteo Ronchi](https://github.com/MatteoRonchiDev)
+* [Leonardo Paschetto](https://github.com/leapbtw)
+* [Luca Teruzzi](https://github.com/LucaTeruUNIMIB)
 
 ---
 
