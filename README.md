@@ -1,43 +1,42 @@
 # GameRise 
-Progetto universitario per il corso di Programmazione di Dispositivi Mobili.
-L'applicazione è sviluppata seguendo le linee guida ufficiali Android per la **Modern Android Development (MAD)**:
-* **Architettura:** MVVM (Model-View-ViewModel) con separazione delle responsabilità tra UI, business logic e data layer.
-* **Linguaggio/Framework:** JAVA + xml.
-* **Gestione Dati & Offline-First:**
-  * **Room Database / SQLite:** Per la persistenza locale e la sincronizzazione offline dei dati.
-  * **Retrofit / OkHttp:** Per l'integrazione e il consumo delle API REST di Brawl Stars.
-  * **Repository Pattern:** Per gestire la sorgente dati unica (locale vs remota).
-* **UI Components:** Jetpack Components (LiveData, ViewModel, Navigation Component, RecyclerView, ecc.).
+University project for the Mobile Device Programming course.
+The application is developed following the official Android guidelines for **Modern Android Development (MAD)**:
+* **Architecture:** MVVM (Model-View-ViewModel) with separation of concerns between UI, business logic and data layer.
+* **Language/Framework:** JAVA + xml.
+* **Data Management & Offline-First:**
+  * **Room Database / SQLite:** For local persistence and offline data synchronization.
+  * **Retrofit / OkHttp:** For integrating and consuming the Brawl Stars REST APIs.
+  * **Repository Pattern:** To manage the single source of truth (local vs remote).
+* **UI Components:** Jetpack Components (LiveData, ViewModel, Navigation Component, RecyclerView, etc.).
 
 ---
 
-## Funzionalità Principali
+## Main Features
 
-* **Statistiche Giocatore:** Ricerca e visualizzazione delle statistiche dettagliate di un profilo (trofei, vittorie, brawler sbloccati).
-* **Brawler Database:** Consultazione delle schede tecniche di ciascun personaggio (abilità, gadget, star power).
-* **Eventi e Mappe in corso:** Visualizzazione delle rotazioni degli eventi attivi e futuri.
-* **Supporto Offline:** Consultazione e caching dei dati precedentemente scaricati anche senza connessione internet.
+* **Player Statistics:** Search and view detailed statistics for a profile (trophies, victories, unlocked brawlers).
+* **Brawler Database:** Browse the technical sheet of each character (abilities, gadgets, star powers).
+* **Current Events and Maps:** View the rotations of active and upcoming events.
+* **Offline Support:** Browse and cache previously downloaded data, even without an internet connection.
 
 ---
 
-## Team di Sviluppo
+## Development Team
 
-Progetto realizzato in collaborazione con:
+Project developed in collaboration with:
 * [Alessandro Messa](https://github.com/DiagonDev)
-* [Francesca Tentori](https://github.com/FrancescaTentori03)
+* [Francesca Tentori](https://github.com/tentorifrancescaDev)
 * [Matteo Ronchi](https://github.com/MatteoRonchiDev)
 * [Leonardo Paschetto](https://github.com/leapbtw)
 * [Luca Teruzzi](https://github.com/LucaTeruUNIMIB)
 
 ---
 
-## Struttura del Repository e Documentazione
+## Repository Structure and Documentation
 
-Per maggiori dettagli sui requisiti, sul design della UI e sulle scelte di progettazione dell'architettura, puoi consultare la documentazione completa all'interno della cartella [`Documentazione/`](./Documentazione/)
-## Descrizione del progetto
-Tracker del gioco per mobile *"Brawl Stars"*, per la documentazione fare riferimento alla cartella "Documentazione":
+For more details on the requirements, the UI design and the architectural design choices, you can consult the full documentation in the [`Documentazione/`](./Documentazione/) folder.
+## Project Description
+Tracker for the mobile game *"Brawl Stars"*. For documentation, refer to the "Documentazione" folder:
 ```
 ├── Documentazione Gamerise.pdf
 ├── Presentazione Gamerise.pdf
 ```
-
